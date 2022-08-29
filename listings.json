@@ -1,0 +1,30 @@
+[
+  {
+    "listing": "/assignments/index.html",
+    "items": [
+      "/assignments/01_find-data.html",
+      "/assignments/04_read-tabular-data-r.html",
+      "/assignments/02_read-data-qgis.html",
+      "/assignments/03_read-data-r.html",
+      "/assignments/georeference-map.html"
+    ]
+  },
+  {
+    "listing": "/examples/index.html",
+    "items": [
+      "/examples/2022-08-20_notes-on-class-and-assignments.html",
+      "/examples/01_read-data-r.html",
+      "/examples/02_read-tabular-data-r.html",
+      "/examples/03_tidy-data-r.html"
+    ]
+  },
+  {
+    "listing": "/resources/index.html",
+    "items": [
+      "/resources/data.html",
+      "/resources/qgis.html",
+      "/resources/r.html",
+      "/resources/r-spatial.html"
+    ]
+  }
+]
