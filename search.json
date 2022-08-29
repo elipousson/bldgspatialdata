@@ -228,7 +228,7 @@
     "href": "index.html",
     "title": "Building Spatial Data",
     "section": "",
-    "text": "::: home ::: {.grid .course-details} ::: {.g-col-12 .g-col-sm-6 .g-col-md-4} ### Instructor\n\n   Eli Pousson\n\n   eli.pousson@umbc.edu\n   elipousson\n   Schedule an appointment :::\n\n\nCourse details\n\n   Wednesdays\n   August 31 – December 7, 2022\n   6:30–8:00 PM\n   Sondheim Hall 001 (Cartography Lab)\n   Discord\n\n\n\nContacting me\nPlease contact me by email and I will get back to you with one to two days.\n\n:::"
+    "text": "Instructor\n\n   Eli Pousson\n eli.pousson@umbc.edu\n elipousson\n Schedule an appointment\n\n\n\nCourse details\n\n Wednesdays\n August 31 – December 7, 2022\n 6:30–8:00 PM\n Sondheim Hall 001 (Cartography Lab)"
   },
   {
     "objectID": "resources/data.html",
@@ -298,7 +298,14 @@
     "href": "resources/qgis.html#customizing-qgis",
     "title": "Using QGIS",
     "section": "Customizing QGIS 🎨",
-    "text": "Customizing QGIS 🎨\nStyle"
+    "text": "Customizing QGIS 🎨"
+  },
+  {
+    "objectID": "resources/qgis.html#additional-resources",
+    "href": "resources/qgis.html#additional-resources",
+    "title": "Using QGIS",
+    "section": "Additional resources",
+    "text": "Additional resources\n\nSession recordings from the FOSS4G and FOSSGIS Conferences"
   },
   {
     "objectID": "resources/r-spatial.html",
