@@ -12,7 +12,7 @@ execute:
 
 website:
   title: "Building Spatial Data"
-  site-url: "https://elipousson.github.io/bldgspatialdata22"
+  site-url: "https://elipousson.github.io/bldgspatialdata"
   description: "Use R and QGIS to understand, modify, and create spatial data about the places we work and live."
 
   # favicon: "/files/icon-512.png"
