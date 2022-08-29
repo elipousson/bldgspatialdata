@@ -18,12 +18,12 @@ website:
   # favicon: "/files/icon-512.png"
 
   twitter-card:
-    image: "/files/img/ges660-logo.png"
+    image: "/files/img/ges600-logo.png"
     card-style: summary_large_image
     creator: "@elipousson"
 
   open-graph:
-    image: "/files/img/ges660-logo.png"
+    image: "/files/img/ges600-logo.png"
     locale: en_US
 
   navbar:
@@ -35,10 +35,10 @@ website:
         href: syllabus.qmd
       - text: "Schedule"
         href: schedule.qmd
-      - text: "Assignments"
-        file: assignments/index.qmd
-      - text: "Examples"
-        file: examples/index.qmd
+      # - text: "Assignments"
+      #   file: assignments/index.qmd
+      # - text: "Examples"
+      #   file: examples/index.qmd
       - text: "Resources"
         file: resources/index.qmd
 
