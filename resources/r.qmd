@@ -1,0 +1,60 @@
+---
+title: "Using R and RStudio Desktop"
+format: html
+editor: visual
+---
+
+## About R 📋
+
+R is a statistical programming language that supports a wide range of data analysis, processing, and visualization activities.
+
+Additional documentation:
+
+-   [R Project Documentation](https://www.r-project.org/other-docs.html)
+
+-   [The R Manuals](https://rstudio.github.io/r-manuals/) (Re-styled by RStudio)
+
+## About RStudio 📋
+
+Most people who work with R use an IDE (or [integrated development environment](https://en.wikipedia.org/wiki/Integrated_development_environment)) to write, execute, and test code. For this course, we recommend using the free, open-source [RStudio Desktop](https://www.rstudio.com/products/rstudio/download/#download) application.
+
+Additional documentation:
+
+- [RStudio IDE Cheatsheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/rstudio-ide.pdf)
+
+### Customizing RStudio 🎨
+
+[Customizing the RStudio IDE](https://support.rstudio.com/hc/en-us/articles/200549016-Customizing-RStudio)
+
+### Alternatives to RStudio 🧰
+
+One popular alternatives include [Visual Studio Code](https://code.visualstudio.com/) (using the [R extension](https://marketplace.visualstudio.com/items?itemName=REditorSupport.r) and [other additions](https://code.visualstudio.com/docs/languages/r)).
+
+Individuals who prefer a command line interface may use [GNU Emacs](https://www.gnu.org/s/emacs/) (using the [ESS plugin](https://ess.r-project.org/)) or [Vim](https://www.vim.org/) (using the [Nvim-R plugin](https://www.vim.org/scripts/script.php?script_id=2628)).
+
+## Introductory resources 🐣
+
+The [RStudio Cheatsheets](https://www.rstudio.com/resources/cheatsheets/) are one-page printable quick reference sheets created by RStudio staff and contributed by volunteers. You may want to print out the following cheatsheets for a convenient reminder on keyboard shortcuts, useful functions, and typical workflows:
+
+-   [sf](https://raw.githubusercontent.com/rstudio/cheatsheets/main/sf.pdf)
+-   [dplyr](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-transformation.pdf)
+-   [tidyr](https://raw.githubusercontent.com/rstudio/cheatsheets/main/tidyr.pdf)
+- [ggplot2](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-visualization.pdf)
+
+[Basics of working with R at the command line and RStudio goodies](https://stat545.com/r-basics.html) (from [STAT 545](https://stat545.com/) by Jenny Bryan and the STAT 545 TAs)
+
+[R for Data Science](https://r4ds.had.co.nz/) (R4DS) by Hadley Wickham and Garrett Grolemund
+
+"This book will teach you how to do data science with R: You'll learn how to get your data into R, get it into the most useful structure, transform it, visualise it and model it. In this book, you will find a practicum of skills for data science."
+
+[D-Lab's R Fundamentals Workshop](https://github.com/dlab-berkeley/R-Fundamentals): "a broad overview of the fundamentals of using R, a programming language geared toward statistical analysis and data science."
+
+## Getting help 🆘
+
+-   [RStudio Community](https://community.rstudio.com/)
+
+## R packages for this course 📦
+
+Unlike plugins for QGIS, packages are effectively required to work with spatial data in R. The following table lists the key packages we use most often during this course.
+
+This list is not comprehensive. Other packages that are relevant for one specific section of the course will be noted elsewhere in the provided course materials and the packages for spatial data analysis are described in more detail on the resource page for [Using R for spatial data](/resources/r-spatial).

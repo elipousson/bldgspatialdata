@@ -1,0 +1,292 @@
+---
+title: "GES660: Building Spatial Datasets"
+knitr:
+  opts_chunk: 
+    echo: false
+    message: false
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+Date 📅
+
+:   August 31 -- December 7, 2022
+
+Time ⏰
+
+:   Wednesdays, 6:00 pm to 8:30 pm
+
+Location 📍
+
+:   Janet & Walter Sondheim Hall 001 (Cartography Lab), University of Maryland,
+    Baltimore County, 1099 Hilltop Road, Baltimore, MD 21250
+
+::: {.callout-note appearance="simple"}
+This syllabus was updated on `r format(Sys.time(), '%B %d, %Y')`.
+:::
+
+## About this course
+
+In this course, students will learn how to find, understand, and work
+with spatial data for research and practice. This course leverages
+open-source tools, online educational resources, and real-world data
+from urban environments to help students build a methodological
+framework for academic and professional work with spatial data now and
+in the future.
+
+The course explores the process of building and maintaining data sets
+about local places and prepares students to navigate critical issues
+including open data licensing, location accuracy, data "cleaning", and
+privacy considerations. Assignments and readings will introduce students
+to the range of practical uses for spatial data in planning, public
+policy, and advocacy around housing, health, transportation, the
+environment, and more.
+
+Students in the course will learn to work with common file formats (e.g.
+GeoJSON, GeoPackage) and web services (e.g. FeatureServer, APIs) and how
+to read, write, document, and share data using GIS applications (QGIS),
+web applications (Mapbox or ArcGIS Online), and programming languages (R
+or Python).
+
+::: {.callout-warning appearance="minimal"}
+This course does not require any prior experience with desktop GIS
+software or R programming. Assignments will require students to use R,
+RStudio, and QGIS during the course. Optional resources on working with
+spatial data using ArcGIS Online or Python will be provided where
+feasible. Students will be required to use GitHub in order to share
+completed assignments and develop their professional portfolios.
+:::
+
+## Schedule
+
+Overall, this course is divided into three sections:
+
+| **Section**                       | **Topics**                                                                                                                                  | **Sessions/Dates**          |
+|--------------|--------------------------------------------|--------------|
+| Getting started with spatial data | Introduction to using R, sf, and QGIS to work with vector, raster, and tabular data                                                         | 1 (Aug. 31) -- 6 (Oct. 5)   |
+| Building and sharing spatial data        | Downloading and manipulating spatial data from Socrata, ArcGIS, OpenStreetMap, and other sources using R and collaborating with others                                    | 7 (Oct. 12) -- 13 (Nov. 16)  |
+| Special topics and final project       | Use local data sources related to housing, transportation, community development, or related topics to work on a collaborative data project | 13 (Nov. 23) -- 15 (Dec. 7)                 |
+
+A more detailed outline of recommended readings is included in the
+course manual.
+
+## Assignments
+
+Details to come.
+
+```{r assignments, eval = FALSE}
+googlesheets4::gs4_auth(email = TRUE)
+
+assignments <-
+  googlesheets4::read_sheet(
+    "https://docs.google.com/spreadsheets/d/11JQaUsOYLYoyTyG7YOdOpKz8FvA5M3qVTsmX-4Ecy9o/edit?usp=sharing"
+    )
+
+assignments <-
+  dplyr::mutate(
+    assignments,
+    Section = dplyr::if_else(is.na(Section), "", Section)
+  )
+
+knitr::kable(
+  assignments
+)
+```
+
+## Evaluation
+
+Details to come.
+
+# **Statements & Policies**
+
+## **Diversity Statement on Respect**
+
+Students in this class are encouraged to speak up and participate during
+class meetings. Because the class will represent a diversity of
+individual beliefs, backgrounds, and experiences, every member of this
+class must show respect for every other member of this class.
+
+*From California State University, Chico's Office of Diversity and
+Inclusion.*
+
+## **Accessibility and Disability Accommodations, Guidance and Resources**
+
+Accommodations for students with disabilities are provided for all
+students with a qualified disability under the Americans with
+Disabilities Act (ADA & ADAAA) and Section 504 of the Rehabilitation Act
+who request and are eligible for accommodations. The Office of Student
+Disability Services (SDS) is the UMBC department designated to
+coordinate accommodations that creates equal access for students when
+barriers to participation exist in University courses, programs, or
+activities.
+
+If you have a documented disability and need to request academic
+accommodations in your courses, please refer to [the SDS
+website](https://sds.umbc.edu/) at [sds.umbc.edu](http://sds.umbc.edu/)
+for registration information and office procedures.
+
+-   SDS email: disAbility\@umbc.edu
+-   SDS phone: 410-455-2459
+
+If you will be using SDS approved accommodations in this class, please
+contact the instructor to discuss implementation of the accommodations.
+During remote instruction requirements due to COVID, communication and
+flexibility will be essential for success.
+
+## **Sexual Assault, Sexual Harassment, and Gender Based Violence and Discrimination**
+
+[UMBC
+Policy](https://oei.umbc.edu/gender-discrimination-sexual-misconduct/)
+and Federal law (Title IX) prohibit discrimination and harassment on the
+basis of sex, sexual orientation, and gender identity in University
+programs and activities. Any student who is impacted by sexual
+harassment, sexual assault, domestic violence, dating violence,
+stalking, sexual exploitation, gender discrimination, pregnancy
+discrimination, gender-based harassment or retaliation should contact
+the [University's Title IX
+Coordinator](https://oei.umbc.edu/title-ix-coordinator/) to make a
+report and/or access support and resources:
+
+-   Morgan Thomas, Acting Director and Title IX Coordinator
+-   410-455-1354 (direct line), morganthomas\@umbc.edu
+
+You can access support and resources even if you do not want to take any
+further action. You will not be forced to file a formal complaint or
+police report. Please be aware that the University may take action on
+its own if essential to protect the safety of the community.
+
+If you are interested in or thinking about making a report, please use
+the [Online Reporting/Referral
+Form](https://umbc-advocate.symplicity.com/titleix_report/index.php/pid364290?).
+Please note that, if you report anonymously,  the University's ability
+to respond will be limited.
+
+::: {.callout-important appearance="minimal"}
+### **Faculty are Responsible Employees with Mandatory Reporting Obligations**
+
+All faculty members are considered Responsible Employees, per [UMBC's
+Policy on Sexual Misconduct, Sexual Harassment, and Gender
+Discrimination.](https://oei.umbc.edu/policy-on-sexual-misconduct-sexual-harassment-and-gender-discrimination/)
+Faculty are therefore required to report any/ all available information
+regarding conduct falling under the Policy and violations of the Policy
+to the Title IX Coordinator, even if a student discloses an experience
+that occurred before attending UMBC and/or an incident that only
+involves people not affiliated with UMBC.  Reports are required
+regardless of the amount of detail provided and even in instances where
+support has already been offered or received.
+
+While faculty members want encourage you to share information related to
+your life experiences through discussion and written work, students
+should understand that faculty are required to report past and present
+sexual assault, domestic and interpersonal violence, stalking, and
+gender discrimination that is shared with them to the Title IX
+Coordinator so that the University can inform students of their [rights,
+resources and support](https://oei.umbc.edu/rights-and-resources/). 
+While you are encouraged to do so, you are not obligated to respond to
+outreach conducted as a result of a report to the Title IX Coordinator.
+
+If you need to speak with someone in confidence, who does not have an
+obligation to report to the Title IX Coordinator, UMBC has a number of
+[Confidential
+Resources](https://oei.umbc.edu/policy-on-sexual-misconduct-sexual-harassment-and-gender-discrimination/#confidential-resources)
+available to support you:
+
+-   [The Counseling Center](https://counseling.umbc.edu/) (Main Campus):
+    410-455-2472 / After-Hours 410-455-3230 \[Monday -- Friday; 8:30
+    a.m. -- 5 p.m.\]
+
+-   [Center for Counseling and
+    Consultation](https://shadygrove.umd.edu/student-services/center-for-counseling-and-consultation)
+    (Shady Grove Campus): 301-738-6273 (Messages checked hourly) [Online
+    Appointment Request Form](https://shadygrove.titaniumhwc.com/)
+
+-   [University Health Services](https://uhs.umbc.edu/): 410-455-2542
+    \[Monday -- Friday 8:30 a.m. -- 5 p.m.\]
+
+-   Pastoral Counseling via [Interfaith
+    Center](https://i3b.umbc.edu/spaces/the-interfaith-center-ifc/):
+    410-455-3657; interfaith\@umbc.edu \[7 days a week; Fall and Spring
+    7 a.m. -- 11 p.m.; Summer and Winter 8 a.m. -- 8 p.m.\]
+
+Other Resources:
+
+-   [Women's Center](https://womenscenter.umbc.edu/) (for students of
+    all genders): 410-455-2714; womenscenter\@umbc.edu. \[Monday --
+    Thursday 10:00am-5:30pm and Friday 10:00am-4pm\]
+
+-   [Shady Grove Student
+    Resources](https://oei.umbc.edu/shady-grove-title-ix-resources/),
+    [Maryland Resources](https://oei.umbc.edu/maryland-resources/),
+    [National Resources](https://oei.umbc.edu/national-resources/).
+:::
+
+::: {.callout-important appearance="minimal"}
+### [**Child Abuse and Neglect**](https://oei.umbc.edu/child-protection/)
+
+Please note that Maryland law and [UMBC
+policy](https://oei.umbc.edu/child-protection/) require that faculty
+report all disclosures or suspicions of child abuse or neglect to the
+Department of Social Services and/or the police even if the person who
+experienced the abuse or neglect is now over 18.
+:::
+
+## **Plagiarism**
+
+Copying or using another's work in written or oral form---partial or
+complete---without giving credit to the other person is a serious
+academic offense and is taken very seriously in this class, by the
+Department and by the University of Maryland, Baltimore County. UMBC
+specifically defines plagiarism as anyone who "knowingly, or by
+carelessness or negligence, representing as one's own in any academic
+exercise the words, ideas, works of art or computer-generated
+information and images of someone else."
+
+Any student who plagiarizes will be referred to the Department Chair and
+will be subject to the policies of the university. In general, the
+consequences of plagiarism include failing an assignment, receiving a
+lower course grade, and even failing a course. Examples of plagiarism
+include:
+
+-   Submit someone else's work as your own.
+-   Buy a paper from a paper-mill, website or other source.
+-   Copy sentences, phrases, paragraphs, or ideas from someone else's
+    work, published or unpublished, without giving the original author
+    credit.
+-   Replace select words from a passage without giving the original
+    author credit.
+-   Copy any type of graphics, tables, graphs, maps, or charts from
+    someone else's work without giving the original author credit.
+-   Piece together phrases, ideas, and sentences from a variety of
+    sources to write an essay.
+-   Build on someone else's idea or phrase without giving the original
+    author credit.
+
+Details about avoiding [plagiarism, examples, and disciplinary
+policies](http://aok.lib.umbc.edu/informationliteracy/plagiarism.php)
+should be reviewed to gain a clear understanding prior to working on an
+assignment or exam.
+
+## **COVID-19 Safety Protocols and Compliance Statement**
+
+UMBC has set clear expectations for masking while on campus that include
+the requirement that you must wear a KN95 face mask or equivalent that
+covers your nose and mouth in all classrooms regardless of your
+vaccination status. Find more information on masks equivalent to KN95s
+at <https://covid19.umbc.edu/masks/>
+
+This is to protect your health and safety as well as the health and
+safety of your classmates, instructor, and the university community.
+Anyone attending class without a KN95 mask or wearing one improperly
+will be asked by the instructor to put on a KN95 mask or fix their mask
+in the appropriate position. Any student that refuses to comply with
+this directive will be asked to leave the classroom immediately and
+failure to do so may result in the instructor requesting the assistance
+of the University Police. Students who refuse to wear KN95 masks may be
+referred to [Student Conduct and Community
+Standards](https://conduct.umbc.edu/) and may face disciplinary action
+for violations of the Code of Student Conduct, specifically, Rule 2:
+Behavior Which Jeopardizes the Health or Safety of Self or Others and
+Rule 16: Failure to Comply with the Request of a University Official.
+UMBC's on-campus safety protocols, including masking requirements, are
+subject to change in response to the evolving situation with COVID-19.

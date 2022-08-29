@@ -1,0 +1,30 @@
+author: Eli Pousson
+
+instructor:
+  name: Eli Pousson
+  email: eli.pousson@umbc.edu
+  url: "https://elipousson.github.io"
+  twitter: elipousson
+  github: elipousson
+  contact_policy: "Please contact me by email and I will get back to you with one to two days."
+  appointment_url: https://calendly.com/ # FIXME: Add an appointment URL if possible.
+
+course:
+  number: "GES 660"
+  semester: "Fall 2022"
+  days: "Wednesdays"
+  time: "6:30–8:00 PM" # FIXME: Update the time when the time is confirmed
+  location: "Janet & Walter Sondheim Hall 001 (Cartography Lab)"
+  dates: "August 31 – December 7, 2022"
+  github: "https://www.github.com/elipousson/bldgspatialdata"
+  url: "https://elipousson.github.io/bldgspatialdata""
+  year: "2022"
+  discord: "https://elipousson.github.io/bldgspatialdata"
+
+university:
+  name: University of Maryland Baltimore County
+  url: "https://umbc.edu/"
+
+department:
+  name: Geography & Environmental Systems
+  url: "https://ges.umbc.edu/"

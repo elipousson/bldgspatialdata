@@ -1,0 +1,113 @@
+---
+title: "Find spatial data"
+format: html
+editor: visual
+license: CC BY
+title-block-categories: true
+category: assignment
+---
+
+::: {.callout-note appearance="simple"}
+**Learn how to...**
+
+-   Frame a search strategy for spatial data based on your research question and anticipated data needs.
+
+-   Perform a search for geospatial data in the BTAA Geoportal using the text, map, and facet searching features of that system.
+
+-   Determine how to access relevant geospatial datasets using the BTAA Geoportal based on the results of your search process.
+:::
+
+::: {.callout-important appearance="minimal" icon="false"}
+This assignment is adapted from the [Finding Geospatial Data](https://docs.google.com/presentation/d/1xL_DnaKo6ECf7qcLVHdXPTVafcFk0wCHB7CLBayRPnA/present#slide=id.g86c86e5ff3_0_881) lesson created by Joshua Sadvari at Ohio State University and shared by the [BTAA Geospatial Information Network](https://sites.google.com/umn.edu/btaa-gdp/tutorials). The original assignment is intended to help Big Ten Academic Alliance (BTAA) geoportal users frame a search strategy and perform a search for geospatial data. The tutorial is divided into two activities designed to teach you how to access relevant geospatial data using the BTAA Geoportal based on their research or assignment objectives.
+:::
+
+![](images/master-pnp-cph-3b20000-3b22000-3b22300-3b22345u.jpg)
+
+The BTAA Geoportal includes the [Government Open Geospatial Data Collection](https://geo.btaa.org/?f%5Bdct_spatial_sm%5D%5B%5D=Maryland&f%5Bpcdm_memberOf_sm%5D%5B%5D=ba5cc745-21c5-4ae9-954b-72dd8db6815a) which contains links to open geospatial datasets, web services, interactive maps, and data portals distributed by a federal, state, county, municipal, or regional public entity. The collection includes data from Maryland iMap, Open Baltimore, the Baltimore County Open Data Portal, and other county-level open data portals.
+
+## **Step 1: Framing your search**
+
+**Write:** Take a few minutes, and write down some notes related to the questions below to frame your search strategy for spatial data.
+
+::: {.callout-tip appearance="simple"}
+The **What**, **Where**, and **When** questions will help you determine the initial scope of your data needs. The **Who** questions will help you brainstorm some potential sources for beginning your search.
+:::
+
+**What** - Ask yourself questions like:
+
+-   What is my research question, and what types of analysis am I planning to carry out?
+
+-   What data will I need to address this question or carry out this analysis?
+
+-   What types of data am I seeking (e.g., vector, raster, tabular)?
+
+**Where** - Ask yourself questions like:
+
+-   What geographic area(s) am I studying?
+
+-   What spatial scale/resolution am I planning to use for my analysis, and is this realistic?
+
+**When** - Ask yourself questions like:
+
+-   What time period(s) am I studying?
+
+-   Is my analysis based on a single point in time, or am I planning to compare data across multiple time periods?
+
+-   What is my desired periodicity for data collection (e.g., monthly, annually, every decade), and is this realistic?
+
+**Who** - Ask yourself questions like:
+
+-   Who is likely to care about this research topic and associated datasets?
+
+-   Who has published on this topic, and what data did they use?
+
+-   What government agencies, educational institutions, non-profits, research centers, commercial entities, or other organizations might collect and distribute these data?
+
+## **Step 2: Searching for data in the BTAA Geoportal**
+
+**Write:** In 1-2 sentences, briefly describe your research question or topic. You are welcome but not required to stick with this question or topic beyond this assignment.
+
+Access the Big Ten Academic Alliance Geoportal at [https://geo.btaa.org](https://geo.btaa.org/).
+
+### Complete a keyword search
+
+-   Based on your articulated research question or topic, start by performing a [text-based search (i.e., keywords)](https://sites.google.com/umn.edu/btaa-gdp/help/how-to-use-the-btaa-geoportal#h.p_23WAhqSUrRrW).
+
+-   **Write:** What search terms did you use?
+
+-   Explore your initial results. If your search returns relevant results, open the [item page](https://sites.google.com/umn.edu/btaa-gdp/help/how-to-use-the-btaa-geoportal#h.p_e8issoLgre31) for a few of those records to examine in more detail.
+
+-   **Reflect and write:** Did your search return relevant results? If so, record the title(s) for the relevant dataset(s).
+
+    -   What did you learn from examining the item page? Describe the ways these data are accessible (e.g., web services, direct download).
+
+    -   If not, what other search terms might return more relevant results?
+
+-   **Observe and write:** Try a second keyword search using these new terms, and explore these new results. Record your new search terms and the title(s) for any relevant dataset(s).
+
+### Complete a map-based search and use facets to filter results
+
+-   Return to the BTAA Geoportal homepage, and perform a [map-based search (using option 1)](https://sites.google.com/umn.edu/btaa-gdp/help/how-to-use-the-btaa-geoportal#h.p_7p2W7hkqsEa2).
+
+-   **Observe and write**: Examine your initial results. If your search returns relevant results, open the item page for a few of those records to examine in more detail. Record the title(s) for the relevant dataset(s).
+
+-   Return to your search results page. Use one or more of the facets available on the left side of the page to [refine your search results](https://sites.google.com/umn.edu/btaa-gdp/help/how-to-use-the-btaa-geoportal#h.p_4hbj0ETHrUBp).
+
+-   **Reflect and write**: What facet(s) did you use to refine your search? Was this approach helpful in narrowing down your results to more relevant datasets? Record the title(s) for any relevant datasets.
+
+-   **Observe and write**: Examine the item page for one of these datasets. Describe the ways these data are accessible (e.g., web services, direct download).
+
+### Planning next steps in your search
+
+To wrap up, briefly describe your next steps.
+
+If you *located* relevant datasets for your project:
+
+-   Are there additional searches that you plan to perform in the BTAA Geoportal to try to find other relevant datasets? What types of searches are you planning?
+-   For datasets you've already located, how will you go about accessing them and evaluating them for use in your project?
+
+If you *did not locate* relevant datasets for your project:
+
+-   Are there other searches that you might try in the BTAA Geoportal to find more relevant results? What types of searches?
+
+-   If the BTAA Geoportal is unlikely to match your data needs for this project, what other options might be available to you? What other sources do you plan to explore next for finding relevant datasets?

@@ -1,0 +1,9 @@
+---
+title: "Resources"
+format: html
+editor: visual
+listing:
+  type: grid
+  contents:
+    - "*.qmd"
+---

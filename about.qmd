@@ -1,0 +1,12 @@
+---
+title: "About"
+date: "07/30/2022"
+---
+
+## About this site
+
+This website was created by [Eli Pousson](https://elipousson.github.io/) for the Fall 2022 course *Building Spatial Datasets* at the University of Maryland Baltimore County, [Department of Geography & Environmental Systems (GES)](https://ges.umbc.edu). This website. The site includes the course syllabus, a schedule of readings, assignments, examples, and resources.
+
+## Credits
+
+This course website is based on the [Program Evaluation for Public Service](https://github.com/andrewheiss/evalf22.classes.andrewheiss.com) course website ([repo](https://github.com/andrewheiss/evalf22.classes.andrewheiss.com)) by Andrew Heiss at Georgia State University (licensed under a [MIT License](https://github.com/andrewheiss/evalf22.classes.andrewheiss.com/blob/main/LICENSE.md)).

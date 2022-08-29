@@ -1,0 +1,23 @@
+---
+title: "Read spatial data and create a map with R and ggplot2"
+abstract: "Learn to read vector spatial data with R and the sf package and create a map to visualize spatial data with the ggplot2 package."
+---
+
+```{r setup}
+library(sf)
+library(ggplot2)
+```
+
+## Read spatial data
+
+:::{.callout-tip collapse=false appearance='default' icon=true}
+Make sure to review the example on [reading data with R](examples/01_read-data-r.html) before completing this assignment.
+:::
+
+Read a local or remote GeoPackage file
+
+Large scale data, 1:10m
+
+## Make a map with ggplot2
+
+Supported file types may vary depending on local installation
