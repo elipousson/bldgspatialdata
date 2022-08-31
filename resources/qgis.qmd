@@ -26,7 +26,7 @@ editor: visual
 Plugins are optional for working with spatial data in QGIS but recommended for ease of use and convenience. Plugins are written and published by individual volunteers, government agencies, and private geospatial consultants. The following table lists a selection of recommended plugins you may want to install.
 
 | **Plugin**                                                                                                                         | **Source**                                                         |
-|------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------|
+|-----------------------------------------------|-------------------------|
 | [QuickMapServices](https://qms.nextgis.com/) by [NextGIS](https://nextgis.com/)                                                    | [repo](https://github.com/nextgis/quickmapservices)                |
 | [QGIS Resource Sharing](https://plugins.qgis.org/plugins/qgis_resource_sharing/) by Akbar Gumbira, Håvard Tveite, and Julien Moura | [repo](https://github.com/QGIS-Contribution/QGIS-ResourceSharing/) |
 | [QGIS OpenLayers Plugin](https://github.com/sourcepole/qgis-openlayers-plugin) by [Sourcepole](https://sourcepole.ch/en/)          | [repo](https://github.com/sourcepole/qgis-openlayers-plugin)       |
@@ -38,4 +38,8 @@ Learn more about [installing QGIS plugins](https://docs.qgis.org/3.4/en/docs/tra
 
 ## **Customizing QGIS 🎨**
 
-Style
+-   
+
+## Additional resources
+
+-   [Session recordings](https://wiki.osgeo.org/wiki/TIB) from the FOSS4G and FOSSGIS Conferences

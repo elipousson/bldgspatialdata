@@ -24,7 +24,7 @@ Each session includes information on:
 
 ## Setup
 
-To participate in this class, you need to have access to a laptop with a few applications installed: R, RStudio, and QGIS. You also need to set up a GitHub account. I've gathered a few resources with step-by-step instructions on how to install these applications along with some introductory material for any students who has no or limited prior experience with a desktop GIS or a programing language like R.
+To participate in this class, you need to have access to a laptop with a few applications installed: R, RStudio, and QGIS. You also need to set up a GitHub account. I've gathered a few resources with step-by-step instructions on how to install these applications along with some introductory material for any students who has no or limited prior experience with a desktop GIS or a programming language like R.
 
 To install QGIS and get an introduction to the interface (if you do not have prior experience with a desktop GIS application), please review:
 
@@ -45,9 +45,10 @@ To set up GitHub account and learn how to connect your account to RStudio, pleas
 
 ### Topics
 
--   What are we doing in this course?
--   How is spatial data structured?
--   How can we take a critical approach to working with data?
+-   Course overview
+-   How is spatial data structured
+-   How can we take a critical approach to working with data
+-   Demonstration on using GitHub to submit weekly log
 
 ### Readings
 
@@ -73,11 +74,6 @@ To set up GitHub account and learn how to connect your account to RStudio, pleas
 -   Reading and writing common spatial data file formats in R and QGIS
 -   Converting tabular data into spatial data
 
-### Examples
-
--   [Read and filter spatial data with R](/examples/01_read-data-r.html)
--   [Read tabular data and convert to spatial data with R](/examples/02_read-tabular-data-r.html)
-
 ### Readings
 
 -   Ch. 2 [A Place for Plant Data](https://direct.mit.edu/books/oa-monograph/4323/chapter/181049/A-PLACE-FOR-PLANT-DATA) in @loukissas2019
@@ -88,7 +84,7 @@ To set up GitHub account and learn how to connect your account to RStudio, pleas
 
 ### Additional references
 
--   Ch. 9 [Making maps with R](https://geocompr.robinlovelace.net/adv-map.html) in @lovelaceGeocomputation2022\
+-   Ch. 9 [Making maps with R](https://geocompr.robinlovelace.net/adv-map.html) in @lovelaceGeocomputation2022
 -   @macwright2015
 -   @nowosad2021
 -   @wickhamGgplot2ElegantGraphics2022
@@ -97,14 +93,11 @@ To set up GitHub account and learn how to connect your account to RStudio, pleas
 
 ### Topics
 
--   Basics of visualizing qualitative and quantitative data
 -   Subsetting or filtering based on attributes
--   Summarizing attribute data
-
-### Examples
-
--   Mapping data by attributes in R
--   Mapping data by attribute in QGIS
+-   Summarizing or aggregating attribute data
+-   Joining tables by attributes
+-   Creating new attributes based on existing attributes
+-   Basics of visualizing attribute data with maps and plots
 
 ### Readings
 
@@ -127,7 +120,6 @@ To set up GitHub account and learn how to connect your account to RStudio, pleas
 
 -   Using geometry operations in exploratory data analysis
 -   Using spatial joins to combine data sets
--   Basic introduction to creating geometry with QGIS, [mapedit](https://github.com/r-spatial/mapedit), or [geojson.io](https://geojson.io)
 
 ### Readings
 
@@ -142,18 +134,20 @@ This session features a guest speaker, **Reina Chano Murray**, Geospatial Data C
 
 ### Assignment due
 
--   Document a data set
+-   Compare spatial and geometry operations in QGIS and R
 
 ### Topics
 
 -   Understanding open licensing
 -   Documentation for data and data analysis workflows
 -   Planning for reproducible spatial data analysis
+-   Explore process for creating data packages for R
 
 ### Readings
 
 -   Ch. 7 [Show Your Work](https://data-feminism.mitpress.mit.edu/pub/0vgzaln4/release/3) in @dignazioDataFeminism2020
 -   @bryan2015
+-   @battista2019
 
 ### Additional references
 
@@ -169,60 +163,75 @@ This session is the same day as the Jewish holiday of Yom Kippur so I plan to ho
 
 ### Assignment due
 
--   Geocode tabular address data with R
+-   Document a public data set
 
 ### Topics
 
--   Changing data from wide and long formats
+-   Explore differences between wide and long data formats
 -   Tidying address data and categorical data
--   Geocoding address data
+-   Explore options for geocoding in QGIS and R
 -   Checking for errors or issues in location data
+-   Review [OpenRefine](https://openrefine.org/) as an alternate tool for tidying data
+-   Discuss critiques of data "cleaning"
 
 ### Readings
 
 -   Ch. 12 [Tidy data](https://r4ds.had.co.nz/tidy-data.html) in @wickhamDataScienceImport2017
+-   @thequar2022
 -   @riederer2020
+
+### Additional references
+
+-   @xu2019
+-   @rawson2016
 
 # Part 2. Building and sharing spatial data
 
-## 7. Getting data from open data portals -- Oct. 12
-
-### Topics
-
--   Getting data from open data portals (ArcGIS and Socrata)
--   Challenges of working with administrative data
-
-### Readings
-
--   Ch. 5 [Market, Place, Interface](https://direct.mit.edu/books/oa-monograph/4323/chapter/181052/MARKET-PLACE-INTERFACE) in @loukissas2019
--   Ch. 8 [Geographic data I/O](https://geocompr.robinlovelace.net/read-write.html) in @lovelaceGeocomputation2022
--   @bouk2022
-
-## 8. Getting data from documents and images -- Oct. 19
+## 7. Getting data from maps, documents, and other media -- Oct. 12
 
 ### Assignment due
 
--   Complete an exploratory analysis of a public data set with R
+-   Tidy tabular address data and geocode with R
 
 ### Topics
 
 -   Georeferencing with QGIS, [Mapwarper](https://mapwarper.net/), or Allmaps
--   Extracting locations from EXIF metadata
+-   Digitizing features with QGIS, mapedit, or other tools
+-   Extracting tables from PDF documents with [Tabulizer](https://www.tabulizer.com/)
+-   Extracting locations from EXIF metadata with [ExifTool](https://exiftool.org/)
 
 ### Readings
 
--   Ch. 6 [Models of Local Practice](https://direct.mit.edu/books/oa-monograph/4323/chapter/181053/MODELS-OF-LOCAL-PRACTICE) in @loukissas2019
+-   Ch. 5 [Market, Place, Interface](https://direct.mit.edu/books/oa-monograph/4323/chapter/181052/MARKET-PLACE-INTERFACE) in @loukissas2019
 -   @hadro2017
+-   @knutzen2013
 
 ### Additional references
 
 -   @medeiros2022
 
-## 9. Getting data from people -- Oct. 26
+## 8. Getting data from open data portals -- Oct. 19
 
 ### Assignment due
 
 -   Georeference a historic map with QGIS
+
+### Topics
+
+-   Getting data from open data portals (ArcGIS and Socrata)
+-   Understanding importance of administrative data
+
+### Readings
+
+-   Ch. 6 [Models of Local Practice](https://direct.mit.edu/books/oa-monograph/4323/chapter/181053/MODELS-OF-LOCAL-PRACTICE) in @loukissas2019
+-   Ch. 8 [Geographic data I/O](https://geocompr.robinlovelace.net/read-write.html) in @lovelaceGeocomputation2022
+-   @bouk2022
+
+## 9. Getting data from people -- Oct. 26
+
+### Assignment due
+
+-   Complete an exploratory analysis of a public dataset
 
 ### Readings
 
@@ -230,13 +239,19 @@ This session is the same day as the Jewish holiday of Yom Kippur so I plan to ho
 -   @voTellingStoriesSocial2021
 -   @shelton2017
 
-## 10. Getting data from sensors, satellites, and other sources -- Oct. 26
+## 10. Getting data from other sources -- Nov. 2
 
-### Assignment due
+### Topics
 
--   Submit draft project proposal
+-   Options for field collection (e.g. QField) and form-based data collection
 
-## 11. Collaborating with local and online communities -- Nov. 2
+-   Working with raster and DEM data
+
+### Readings
+
+-   To be determined
+
+## 11. Collaborating with local and online communities -- Nov. 9
 
 ::: {.callout-note appearance="simple"}
 This session (tentatively) features a guest speaker, Elliott Plack, Technical Project Manager, Whitney Bailey Cox & Magnani, LLC, sharing an introduction to OpenStreetMap, his experience as an OSM admin, and perspective on spatial data as a member of the Maryland Council on Open Data.
@@ -244,49 +259,43 @@ This session (tentatively) features a guest speaker, Elliott Plack, Technical Pr
 
 ### Assignment due
 
--   Make an interactive map with R
+-   Submit a draft project proposal
 
 ### Readings
 
 -   @talen2000
--   @mooney2017
 -   @dunn2007
+-   @kitchin2015
+-   @bentleyWebMediumData2021
 
-## 12. Contributing to OpenStreetMap -- Nov. 9
+## 12. Contributing to OpenStreetMap -- Nov. 16
 
 ::: {.callout-note appearance="simple"}
-This session (tentatively) features a workshop on editing OpenStreetMap led by Elliott Plack. Participation in the workshop is equivalent to a completed assignment. Students who are unable to participate in the workshop can share a record of contributions to OpenStreetMap for equivalent credit.
+This session (tentatively) features a workshop on editing OpenStreetMap led by Elliott Plack.
 :::
 
 ### Readings
 
 -   @boeing2020
+-   @mooney2017
 
-## 13. Sharing data on the web -- Nov. 16
+## 13. Project work session -- Nov. 23
 
-### Topics
+### Assignment due
 
--   Using Mapbox Studio for map design
--   Publishing websites with Quarto
-
-### Readings
-
--   @kitchin2015
--   @bentleyWebMediumData2021
-
-## 14. Project work session -- Nov. 23
+-   Make a map using OpenStreetMap data in QGIS or R
 
 ::: {.callout-important appearance="simple"}
 This session is the day before the Thanksgiving holiday and may conflict with travel for class participants. Instead of a session at the scheduled time, I plan to host a remote session at a different date and time (to be determined). This session will focus on sharing updates and support for the final project. The session will not be recorded but notes will be shared with any students who are unable to participate.
 :::
 
-## 15. Special topics in spatial data -- Nov. 30
+## 14. Special topics in spatial data -- Nov. 30
 
 ::: {.callout-note appearance="simple"}
 There are a wide range of special topics that we could cover in this course but we don't have time to cover them all. This session is a place-holder to dig deeper into a special topic based on the interests of students in the course. Possible topics could include working with spatial network data using [sfnetworks](https://luukvdmeer.github.io/sfnetworks/), working with time series data using the QGIS [temporal controller](https://www.qgistutorials.com/en/docs/3/animating_time_series.html) feature, visualizing elevation data using the [rayshader](https://www.rayshader.com/) package, or something more. We will finalize the topic for this session by the end of the first section of the course in early October.
 :::
 
-## 16. Final project review -- Dec. 7
+## 15. Final project review -- Dec. 7
 
 ::: {.callout-note appearance="simple"}
 This session will be dedicated to students sharing individual and collaborative work completed for the final project. Additional details on the final project will be shared with students prior to the end of the first section of the course in early October.

@@ -26,8 +26,8 @@ Similar introductory information is available in:
 
 ## Read spatial data
 
-:::{.callout-tip collapse=false appearance='default' icon=true}
-Review the sf vignette on [Reading, Writing and Converting Simple Features](https://r-spatial.github.io/sf/articles/sf2.html) for more detailed explanation on how to read spatial data into R. 
+::: {.callout-tip collapse="false" appearance="default" icon="true"}
+Review the sf vignette on [Reading, Writing and Converting Simple Features](https://r-spatial.github.io/sf/articles/sf2.html) for more detailed explanation on how to read spatial data into R.
 :::
 
 Reading spatial data into your local R environment using the sf package is straight forward. For example, you can read a local GeoPackage file to an sf object by setting the dsn (short for data source name) to the file path:
@@ -78,7 +78,7 @@ dt_tbl(list_drivers("raster"))
 
 ## Structure and attributes of sf objects
 
-:::{.callout-tip collapse=false appearance='default' icon=true}
+::: {.callout-tip collapse="false" appearance="default" icon="true"}
 Read the sf vignette on [Simple Features for R](https://r-spatial.github.io/sf/articles/sf1.html) for more detailed explanation of geometry types, dimensions, coordinate reference systems, and more. For more on data frames, read the [R Manual: An Introduction to R on data frames](https://rstudio.github.io/r-manuals/r-intro/Lists-and-data-frames.html#data-frames) or the chapter on [Tibbles from R for Data Science](https://r4ds.had.co.nz/tibbles.html).
 :::
 
@@ -90,7 +90,7 @@ glimpse(populated_places)
 glimpse(countries)
 ```
 
-:::{.callout-tip collapse=false appearance='default' icon=true}
+::: {.callout-tip collapse="false" appearance="default" icon="true"}
 Review the tibble vignette on [Column types](https://r-spatial.github.io/sf/articles/sf1.html) for more detailed explanation of geometry types, dimensions, coordinate reference systems, and more.
 :::
 
@@ -121,7 +121,7 @@ st_geometry_type(populated_places, by_geometry = FALSE)
 
 While GeoPackage and shapefiles only support a single geometry type for each layer, sf objects do support mixed types. To show how this works, we can filter the populated places and country boundaries data to a single country then combine both objects into a single object using `dplyr::bind_rows()`.
 
-:::{.callout-tip collapse=false appearance='default' icon=true}
+::: {.callout-tip collapse="false" appearance="default" icon="true"}
 Review the [Data transformation chapter](https://r-spatial.github.io/sf/articles/sf1.html) from R for Data Science for more on how to use dplyr package to filter and arrange rows, select columns, and add new variables to a data frame.
 :::
 
@@ -155,7 +155,7 @@ any(st_is(usa, type = "MULTIPOLYGON"))
 
 ### Dimension
 
-sf objects must have at least two dimensions: X and Y.  *All* geometries (such as polygons or linestrings) are made up of points so two dimensions are required to locate a point within a coordinate reference system. You may also see people refer to X and Y as easting and northing or longitude and latitude. sf objects can *optionally* include a Z dimension (for altitude) or a M coordinate (for a measure associated with an individual point). The M coordinate is rarely used but can be 
+sf objects must have at least two dimensions: X and Y. *All* geometries (such as polygons or linestrings) are made up of points so two dimensions are required to locate a point within a coordinate reference system. You may also see people refer to X and Y as easting and northing or longitude and latitude. sf objects can *optionally* include a Z dimension (for altitude) or a M coordinate (for a measure associated with an individual point). The M coordinate is rarely used but can be
 
 M coordinate (rarely used), denoting some measure that is associated with the point, rather than with the feature as a whole (in which case it would be a feature attribute) (such as the time of measurement or measurement error of the coordinates)
 
@@ -237,9 +237,10 @@ usa_crs
 
 A crs object also has a method for returning the spatial reference identifier (or SRID). The SRID is a unique identifier for a specific coordinate system, tolerance, and resolution.
 
-:::{.callout-tip collapse=false appearance='default' icon=true}
+::: {.callout-tip collapse="false" appearance="default" icon="true"}
 ## Find coordinate reference systems
-You can explore a database of over 6000 coordinate reference system with the corresponding EPSG and ESRI SRID codes at [EPSG.io](https://epsg.io/). You can also use the [crsuggest](https://github.com/walkerke/crsuggest/) package which uses data from the [EPSG Registry](https://epsg.org/home.html) (a product of the International Association of Oil & Gas Producers). The [Web Mercator projection](https://en.wikipedia.org/wiki/Web_Mercator_projection) or "EPSG:3857" is convenient option that works well for many use cases. 
+
+You can explore a database of over 6000 coordinate reference system with the corresponding EPSG and ESRI SRID codes at [EPSG.io](https://epsg.io/). You can also use the [crsuggest](https://github.com/walkerke/crsuggest/) package which uses data from the [EPSG Registry](https://epsg.org/home.html) (a product of the International Association of Oil & Gas Producers). The [Web Mercator projection](https://en.wikipedia.org/wiki/Web_Mercator_projection) or "EPSG:3857" is convenient option that works well for many use cases.
 :::
 
 ```{r}
@@ -262,8 +263,8 @@ st_is_longlat(usa)
 st_is_longlat(usa_3857)
 ```
 
-:::{.callout-tip collapse=false appearance='default' icon=true}
-Review the sf vignette [Spherical geometry in sf using s2geometry](https://r-spatial.github.io/sf/articles/sf7.html) for a technical explanation of how sf uses the [S2 Geometry Library](https://s2geometry.io/) when manipulating data with a geographic coordinate reference system. 
+::: {.callout-tip collapse="false" appearance="default" icon="true"}
+Review the sf vignette [Spherical geometry in sf using s2geometry](https://r-spatial.github.io/sf/articles/sf7.html) for a technical explanation of how sf uses the [S2 Geometry Library](https://s2geometry.io/) when manipulating data with a geographic coordinate reference system.
 :::
 
 Both ggplot2 and tmap can convert the crs of input objects before mapping. For example, `tm_shape` supports an optional "projection" argument such as "EPSG:3035" (the [Lambert azimuthal equal-area projection](https://en.wikipedia.org/wiki/Lambert_azimuthal_equal-area_projection)):
@@ -290,30 +291,3 @@ ggplot() +
   labs(title = st_crs(populated_places)$srid) +
   theme_minimal()
 ```
-
-When mapping projected boundaries that include Antartica, ggplot2 and tmap both provide an unexpected result:
-
-:::: {.columns}
-::: {.column}
-```{r}
-#| fig.caption: "EPSG:3857 world map with tm_borders"
-tm_shape(countries_3857) +
-  tm_borders()
-```
-:::
-
-::: {.column}
-```{r}
-#| fig.caption: "EPSG:3857 world map with geom_sf"
-ggplot() +
-  geom_sf(data = countries_3857) +
-  theme_minimal()
-```
-:::
-::::
-
-## Filter and subset spatial data
-
-
-
-

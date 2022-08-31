@@ -1,0 +1,14 @@
+{
+  "hash": "c63ece0ea96a9e65dd6dc4823938ca5d",
+  "result": {
+    "markdown": "---\ntitle: \"Read spatial data and create a map with R and ggplot2\"\nabstract: \"Learn to read vector spatial data with R and the sf package and create a map to visualize spatial data with the ggplot2 package.\"\n---\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(sf)\n```\n\n::: {.cell-output .cell-output-stderr}\n```\nLinking to GEOS 3.10.2, GDAL 3.4.2, PROJ 8.2.1; sf_use_s2() is TRUE\n```\n:::\n\n```{.r .cell-code}\nlibrary(ggplot2)\n```\n:::\n\n\n## Read spatial data\n\n:::{.callout-tip collapse=false appearance='default' icon=true}\nMake sure to review the example on [reading data with R](examples/01_read-data-r.html) before completing this assignment.\n:::\n\nRead a local or remote GeoPackage file\n\nLarge scale data, 1:10m\n\n## Make a map with ggplot2\n\nSupported file types may vary depending on local installation\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
