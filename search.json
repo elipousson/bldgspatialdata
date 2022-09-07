@@ -35,11 +35,46 @@
     "text": "Step 2: Searching for data in the BTAA Geoportal\nWrite: In 1-2 sentences, briefly describe your research question or topic. You are welcome but not required to stick with this question or topic beyond this assignment.\nAccess the Big Ten Academic Alliance Geoportal at https://geo.btaa.org.\n\nComplete a keyword search\n\nBased on your articulated research question or topic, start by performing a text-based search (i.e., keywords).\nWrite: What search terms did you use?\nExplore your initial results. If your search returns relevant results, open the item page for a few of those records to examine in more detail.\nReflect and write: Did your search return relevant results? If so, record the title(s) for the relevant dataset(s).\n\nWhat did you learn from examining the item page? Describe the ways these data are accessible (e.g., web services, direct download).\nIf not, what other search terms might return more relevant results?\n\nObserve and write: Try a second keyword search using these new terms, and explore these new results. Record your new search terms and the title(s) for any relevant dataset(s).\n\n\n\nComplete a map-based search and use facets to filter results\n\nReturn to the BTAA Geoportal homepage, and perform a map-based search (using option 1).\nObserve and write: Examine your initial results. If your search returns relevant results, open the item page for a few of those records to examine in more detail. Record the title(s) for the relevant dataset(s).\nReturn to your search results page. Use one or more of the facets available on the left side of the page to refine your search results.\nReflect and write: What facet(s) did you use to refine your search? Was this approach helpful in narrowing down your results to more relevant datasets? Record the title(s) for any relevant datasets.\nObserve and write: Examine the item page for one of these datasets. Describe the ways these data are accessible (e.g., web services, direct download).\n\n\n\nPlanning next steps in your search\nTo wrap up, briefly describe your next steps.\nIf you located relevant datasets for your project:\n\nAre there additional searches that you plan to perform in the BTAA Geoportal to try to find other relevant datasets? What types of searches are you planning?\nFor datasets you’ve already located, how will you go about accessing them and evaluating them for use in your project?\n\nIf you did not locate relevant datasets for your project:\n\nAre there other searches that you might try in the BTAA Geoportal to find more relevant results? What types of searches?\nIf the BTAA Geoportal is unlikely to match your data needs for this project, what other options might be available to you? What other sources do you plan to explore next for finding relevant datasets?"
   },
   {
+    "objectID": "assignments/02_make-map-r.html",
+    "href": "assignments/02_make-map-r.html",
+    "title": "Make a map with R and ggplot2",
+    "section": "",
+    "text": "Learn how to…\n\nOpen and save project files using RStudio\nRead vector data files (e.g. shapefile or GeoJSON) using the sf package\nFilter data by attribute using the dplyr package\nCreate a map with the ggplot2 package using an attribute to define the aesthetics of the map\nLabel and export a map using the ggplot2 package"
+  },
+  {
+    "objectID": "assignments/02_make-map-r.html#step-by-step-instructions",
+    "href": "assignments/02_make-map-r.html#step-by-step-instructions",
+    "title": "Make a map with R and ggplot2",
+    "section": "Step-by-step instructions",
+    "text": "Step-by-step instructions\nComplete all of the following steps using the linked function documentation for reference:\n\nOpen the “02_map-R.RProj” project file (see using RStudio Projects) and open the RMarkdown template found within the project folder.\nRead any additional data using sf::read_sf() or sf::st_read()\nFilter data by attribute using dplyr::filter()\nCreate a plot with ggplot2::ggplot() and a geom with ggplot2::geom_sf()\nSpecify one or more aesthetic attributes using ggplot2::aes()\nAdd an appropriate scale for the attribute using ggplot2::scale_fill_brewer(), ggplot2::scale_color_brewer(), or another ggplot2 scale function\nSet a theme using ggplot2::theme_minimal() or another theme function\nCustomize the map title, caption, and legend using ggplot2::labs()\nExport the map as a PDF file using ggplot2::ggsave()\n\n\n\n\n\n\n\nSubmitting the completed assignment\n\n\n\nAdd the PDF map and a RMarkdown file with a brief description of your process and the map to the assignment folder in your course GitHub repository. If your map uses data that is not included in the Natural Earth Quick Start file, you must include links to sources where the data can be downloaded to allow the project file to be opened for review and feedback. If data files are less than 50 MB, please add the files to the GitHub repository in the same folder as the project file."
+  },
+  {
+    "objectID": "assignments/03_make-map-qgis.html",
+    "href": "assignments/03_make-map-qgis.html",
+    "title": "Read data and make a map with QGIS",
+    "section": "",
+    "text": "Learn how to…\n\nOpen and save project files\nRead vector data files (e.g. shapefile or GeoJSON) using the QGIS Data Source Manager\nExplore the attributes of data using the QGIS Attribute Table\nCustomize the color, fill, or symbols of a layer based on an attribute using the QGIS Style Manager\nCompose, customize, and export a map using the QGIS Print Layout feature\nFor this assignment, you are encouraged to use the Natural Earth Quickstart Kit (a small sample of Natural Earth themes styled in in a QGIS document) as a data source or basemap:"
+  },
+  {
+    "objectID": "assignments/03_make-map-qgis.html#step-by-step-instructions",
+    "href": "assignments/03_make-map-qgis.html#step-by-step-instructions",
+    "title": "Read data and make a map with QGIS",
+    "section": "Step-by-step instructions",
+    "text": "Step-by-step instructions\nComplete all of the following steps using the linked documentation for reference:\n\nOpen the project file Natural_Earth_quick_start_for_QGIS.qgs.\nLoad one or more additional data identified in the Finding data assignment using the Data Source Manager (see Opening Data)\nFilter data from the Natural Earth data or the additional data by attributes using the Attribute Table (see Working with the Attribute Table)\nVisualize a select attribute with a color ramp using the Style Manager (see Style Manager)\nCreate a map using the Print Layout option (see Overview of the Print Layout)\nCustomize the map title, caption, and legend of the Print Layout (see Legend Item)\nExport the map to PDF (see Creating an Output) with the filename 03_map-qgis_layout.pdf.\nSave an renamed project file with the filename 03_map-qgis_project-file.qgs.\nWrite a brief description of your process for filtering and visualizing the data as well as composing the map and save the description as a Markdown file with the filename 03_map-qgis_project-description.md.\n\n\n\n\n\n\n\nSubmitting the completed assignment\n\n\n\nAdd the PDF map, QGS project file, and the Markdown file with your description to the assignment folder in your course GitHub repository. If your maps uses data that is not included in the Natural Earth Quick Start project, you must include links to sources in the Markdown file where the data can be downloaded to allow the project file to be opened for review and feedback. If data files are less than 50 MB, please add the files to the GitHub repository in the same folder as the project file."
+  },
+  {
+    "objectID": "assignments/03_make-map-qgis.html#related-resources",
+    "href": "assignments/03_make-map-qgis.html#related-resources",
+    "title": "Read data and make a map with QGIS",
+    "section": "Related Resources",
+    "text": "Related Resources\n\nMaking a Map (QGIS3) from QGIS Tutorials and Tips\n5.3 Sample Session: Loading raster and vector layers from QGIS Desktop User Guide/Manual (3.22)"
+  },
+  {
     "objectID": "assignments/index.html",
     "href": "assignments/index.html",
     "title": "Assignments",
     "section": "",
-    "text": "Find spatial data\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "Find spatial data\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n \n\n\n\nMake a map with R and ggplot2\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n \n\n\n\nRead data and make a map with QGIS\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "examples/01_read-data-r.html",
@@ -158,14 +193,7 @@
     "href": "resources/qgis.html#recommended-qgis-plugins",
     "title": "Using QGIS",
     "section": "Recommended QGIS plugins 🔌",
-    "text": "Recommended QGIS plugins 🔌\nPlugins are optional for working with spatial data in QGIS but recommended for ease of use and convenience. Plugins are written and published by individual volunteers, government agencies, and private geospatial consultants. The following table lists a selection of recommended plugins you may want to install.\n\n\n\nPlugin\nSource\n\n\n\n\nQuickMapServices by NextGIS\nrepo\n\n\nQGIS Resource Sharing by Akbar Gumbira, Håvard Tveite, and Julien Moura\nrepo\n\n\nQGIS OpenLayers Plugin by Sourcepole\nrepo\n\n\nProcessing R Provider by North Road\nrepo\n\n\n\n\n\n\n\n\n\nTip\n\n\n\nLearn more about installing QGIS plugins or writing your own QGIS Processing plugin (recommended for beginners) or QGIS Python plugin (recommended for advanced users)."
-  },
-  {
-    "objectID": "resources/qgis.html#customizing-qgis",
-    "href": "resources/qgis.html#customizing-qgis",
-    "title": "Using QGIS",
-    "section": "Customizing QGIS 🎨",
-    "text": "Customizing QGIS 🎨"
+    "text": "Recommended QGIS plugins 🔌\nPlugins are optional for working with spatial data in QGIS but recommended for ease of use and convenience. Plugins are written and published by individual volunteers, government agencies, and private GIS consulting firms. The following table lists a selection of recommended plugins you may want to install.\n\n\n\nPlugin\nSource\n\n\n\n\nQuickMapServices by NextGIS\nrepo\n\n\nQGIS Resource Sharing by Akbar Gumbira, Håvard Tveite, and Julien Moura\nrepo\n\n\nqgis2web by Tom Chadwin\nrepo\n\n\nProcessing R Provider by North Road and Jan Caha\nrepo\n\n\n\n\n\n\n\n\n\nTip\n\n\n\nLearn more about installing QGIS plugins or writing your own QGIS Processing plugin (recommended for beginners) or QGIS Python plugin (recommended for advanced users)."
   },
   {
     "objectID": "resources/qgis.html#additional-resources",
