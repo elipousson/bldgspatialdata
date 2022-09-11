@@ -23,7 +23,7 @@ Location 📍
     Maryland, Baltimore County, 1099 Hilltop Road, Baltimore, MD 21250
 
 ::: {.callout-note appearance="simple"}
-This syllabus was updated on `r format(Sys.time(), '%B %d, %Y')`.
+This syllabus was updated on September 10, 2022.
 :::
 
 ## About this course
@@ -62,7 +62,7 @@ completed assignments and develop their professional portfolios.
 Overall, this course is divided into three sections:
 
 | **Section**                       | **Topics**                                                                                                                                  | **Sessions/Dates**          |
-|------------------|-------------------------------------|------------------|
+|--------------|--------------------------------------------|--------------|
 | Getting started with spatial data | Introduction to using R, sf, and QGIS to work with vector, raster, and tabular data.                                                        | 1 (Aug. 31) -- 6 (Oct. 5)   |
 | Building and sharing spatial data | Downloading and manipulating spatial data from Socrata, ArcGIS, OpenStreetMap, and other sources using R.                                   | 7 (Oct. 12) -- 12 (Nov. 16) |
 | Special topics and final project  | Use local data sources related to housing, transportation, community development, or related topics to work on a collaborative data project | 13 (Nov. 23) -- 15 (Dec. 7) |
@@ -124,11 +124,11 @@ exceptional circumstances.
 knitr::kable(
 tibble::tribble(
                                               ~Assignment, ~Session, ~Due.date,
-                           "Complete GitHub Fundamentals",       2L,     "9/7",
-                                      "Find spatial data",       2L,     "9/7",
-             "Read spatial data and make a map with QGIS",       4L,    "9/21",
-    "Read spatial data and make a map with R and ggplot2",       4L,    "9/21",
-  "Compare spatial and geometry operations in QGIS and R",       5L,    "9/28",
+                           "Complete GitHub Fundamentals",       3L,     "9/14",
+                                      "Find spatial data",       3L,     "9/14",
+             "Read spatial data and make a map with QGIS",       5L,    "9/28",
+    "Read spatial data and make a map with R and ggplot2",       5L,    "9/28",
+  "Compare spatial and geometry operations in QGIS and R",       6L,    "10/5",
                              "Document a public data set",       6L,    "10/5",
            "Tidy tabular address data and geocode with R",       7L,   "10/12",
                   "Georeference a historic map with QGIS",       8L,   "10/19",
@@ -267,19 +267,19 @@ Faculty are therefore required to report any/ all available information
 regarding conduct falling under the Policy and violations of the Policy
 to the Title IX Coordinator, even if a student discloses an experience
 that occurred before attending UMBC and/or an incident that only
-involves people not affiliated with UMBC.  Reports are required
+involves people not affiliated with UMBC. Reports are required
 regardless of the amount of detail provided and even in instances where
 support has already been offered or received.
 
-While faculty members want encourage you to share information related to
-your life experiences through discussion and written work, students
-should understand that faculty are required to report past and present
-sexual assault, domestic and interpersonal violence, stalking, and
-gender discrimination that is shared with them to the Title IX
-Coordinator so that the University can inform students of their [rights,
-resources and support](https://oei.umbc.edu/rights-and-resources/). 
-While you are encouraged to do so, you are not obligated to respond to
-outreach conducted as a result of a report to the Title IX Coordinator.
+While faculty members want encourage you to share information related to your
+life experiences through discussion and written work, students should understand
+that faculty are required to report past and present sexual assault, domestic
+and interpersonal violence, stalking, and gender discrimination that is shared
+with them to the Title IX Coordinator so that the University can inform students
+of their [rights, resources and
+support](https://oei.umbc.edu/rights-and-resources/). While you are encouraged
+to do so, you are not obligated to respond to outreach conducted as a result of
+a report to the Title IX Coordinator.
 
 If you need to speak with someone in confidence, who does not have an
 obligation to report to the Title IX Coordinator, UMBC has a number of

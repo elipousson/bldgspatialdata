@@ -8,6 +8,10 @@ footnotes-hover: false
 link-citations: false
 ---
 
+::: {.callout-note appearance="simple"}
+This schedule was updated on September 10, 2022.
+:::
+
 ## How is this schedule organized
 
 Each session includes information on:
@@ -62,11 +66,6 @@ To set up GitHub account and learn how to connect your account to RStudio, pleas
 
 ## 2. Accessing and visualizing spatial data -- Sept. 7
 
-### Assignments due
-
--   [Find spatial data](/assignments/01_find-data.html)
--   Set up a GitHub account
-
 ### Topics
 
 -   Using best practices for file naming and organization
@@ -91,6 +90,11 @@ To set up GitHub account and learn how to connect your account to RStudio, pleas
 
 ## 3. Exploring and transforming attributes -- Sept. 14
 
+### Assignments due
+
+-   [Find spatial data](/assignments/01_find-data.html)
+-   Set up a GitHub account
+
 ### Topics
 
 -   Subsetting or filtering based on attributes
@@ -103,18 +107,13 @@ To set up GitHub account and learn how to connect your account to RStudio, pleas
 
 -   Ch. 3 [Collecting Infrastructures](https://direct.mit.edu/books/oa-monograph/4323/chapter/181050/COLLECTING-INFRASTRUCTURES) in @loukissas2019
 -   Ch. 3 [Attribute data operations](https://geocompr.robinlovelace.net/attr.html) in @lovelaceGeocomputation2022
--   Ch. 5 [Data transformation](https://r4ds.had.co.nz/transform.html) in @wickhamDataScienceImport2017
+-   Ch. 5 [Data transformation](https://r4ds.had.co.nz/transform.html) in @wickhamDataScienceImport2022
 
 ### Additional references
 
 -   Ch. 6 [Efficient data carpentry](https://csgillespie.github.io/efficientR/data-carpentry.html) in @gillespieEfficientProgramming2021
 
 ## 4. Exploring and modifying geometry -- Sept. 21
-
-### Assignments due
-
--   Read spatial data and make a map with QGIS
--   Read spatial data and make a map with R and ggplot2
 
 ### Topics
 
@@ -124,7 +123,7 @@ To set up GitHub account and learn how to connect your account to RStudio, pleas
 ### Readings
 
 -   Ch. 4 [Spatial data operations](https://geocompr.robinlovelace.net/spatial-operations.html) and Ch. 5 [Geometry operations](https://geocompr.robinlovelace.net/geometric-operations.html) in @lovelaceGeocomputation2022
--   Ch. 7 [Exploratory Data Analysis](https://r4ds.had.co.nz/exploratory-data-analysis.html) in @wickhamDataScienceImport2017
+-   Ch. 7 [Exploratory Data Analysis](https://r4ds.had.co.nz/exploratory-data-analysis.html) in @wickhamDataScienceImport2022
 
 ## 5. Documenting data and workflows -- Sept. 28
 
@@ -132,9 +131,10 @@ To set up GitHub account and learn how to connect your account to RStudio, pleas
 This session features a guest speaker, **Reina Chano Murray**, Geospatial Data Curator and Applications Administrator, Johns Hopkins Sheridan Libraries, sharing her perspective on documentation and archiving spatial data.
 :::
 
-### Assignment due
+### Assignments due
 
--   Compare spatial and geometry operations in QGIS and R
+-   Read spatial data and make a map with QGIS
+-   Read spatial data and make a map with R and ggplot2
 
 ### Topics
 
@@ -158,12 +158,13 @@ This session features a guest speaker, **Reina Chano Murray**, Geospatial Data C
 ## 6. Tidying and validating data -- Oct. 5
 
 ::: {.callout-important appearance="simple"}
-This session is the same day as the Jewish holiday of Yom Kippur so I plan to hold class remotely at a different date and time (to be determined). I plan to make the full recording for this session available to students who are unable to attend the remote session.
+This session is the same day as the Jewish holiday of Yom Kippur. Class will take place remotely at a different date and time (to be determined). I plan to make the full recording for this session available to students who are unable to attend the remote session.
 :::
 
 ### Assignment due
 
--   Document a public data set
+-   Compare spatial and geometry operations in QGIS and R
+-   Document a spatial data set
 
 ### Topics
 
@@ -176,7 +177,7 @@ This session is the same day as the Jewish holiday of Yom Kippur so I plan to ho
 
 ### Readings
 
--   Ch. 12 [Tidy data](https://r4ds.had.co.nz/tidy-data.html) in @wickhamDataScienceImport2017
+-   Ch. 12 [Tidy data](https://r4ds.had.co.nz/tidy-data.html) in @wickhamDataScienceImport2022
 -   @thequar2022
 -   @riederer2020
 
