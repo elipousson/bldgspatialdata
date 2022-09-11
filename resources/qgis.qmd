@@ -23,22 +23,18 @@ editor: visual
 
 ## **Recommended QGIS plugins 🔌**
 
-Plugins are optional for working with spatial data in QGIS but recommended for ease of use and convenience. Plugins are written and published by individual volunteers, government agencies, and private geospatial consultants. The following table lists a selection of recommended plugins you may want to install.
+Plugins are optional for working with spatial data in QGIS but recommended for ease of use and convenience. Plugins are written and published by individual volunteers, government agencies, and private GIS consulting firms. The following table lists a selection of recommended plugins you may want to install.
 
-| **Plugin**                                                                                                                         | **Source**                                                         |
-|-----------------------------------------------|-------------------------|
-| [QuickMapServices](https://qms.nextgis.com/) by [NextGIS](https://nextgis.com/)                                                    | [repo](https://github.com/nextgis/quickmapservices)                |
-| [QGIS Resource Sharing](https://plugins.qgis.org/plugins/qgis_resource_sharing/) by Akbar Gumbira, Håvard Tveite, and Julien Moura | [repo](https://github.com/QGIS-Contribution/QGIS-ResourceSharing/) |
-| [QGIS OpenLayers Plugin](https://github.com/sourcepole/qgis-openlayers-plugin) by [Sourcepole](https://sourcepole.ch/en/)          | [repo](https://github.com/sourcepole/qgis-openlayers-plugin)       |
-| [Processing R Provider](https://north-road.github.io/qgis-processing-r/) by [North Road](https://north-road.com/)                  | [repo](https://github.com/north-road/qgis-processing-r)            |
+| **Plugin**                                                                                                                                                             | **Source**                                                         |
+|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------|
+| [QuickMapServices](https://qms.nextgis.com/) by [NextGIS](https://nextgis.com/)                                                                                        | [repo](https://github.com/nextgis/quickmapservices)                |
+| [QGIS Resource Sharing](https://plugins.qgis.org/plugins/qgis_resource_sharing/) by Akbar Gumbira, Håvard Tveite, and Julien Moura                                     | [repo](https://github.com/QGIS-Contribution/QGIS-ResourceSharing/) |
+| [qgis2web](https://github.com/tomchadwin/qgis2web) by [Tom Chadwin](https://tom.chadw.in/)                                                                             | [repo](https://github.com/tomchadwin/qgis2web)                     |
+| [Processing R Provider](https://north-road.github.io/qgis-processing-r/) by [North Road](https://twitter.com/northroadgeo) and [Jan Caha](https://twitter.com/cahik13) | [repo](https://github.com/north-road/qgis-processing-r)            |
 
 ::: callout-tip
 Learn more about [installing QGIS plugins](https://docs.qgis.org/3.4/en/docs/training_manual/qgis_plugins/fetching_plugins.html) or writing your own [QGIS Processing plugin](https://www.qgistutorials.com/en/docs/3/building_a_python_plugin.html) (recommended for beginners) or [QGIS Python plugin](https://www.qgistutorials.com/en/docs/3/processing_python_plugin.html) (recommended for advanced users).
 :::
-
-## **Customizing QGIS 🎨**
-
--   
 
 ## Additional resources
 
