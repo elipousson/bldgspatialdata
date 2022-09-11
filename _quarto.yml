@@ -4,7 +4,6 @@ project:
     - "*.qmd"
   resources:
     - "files/"
-    - "projects/"
 
 # See https://quarto.org/docs/projects/code-execution.html#freeze
 execute:
@@ -20,7 +19,7 @@ website:
   twitter-card:
     image: "/files/img/ges600-logo.png"
     card-style: summary_large_image
-    creator: "@elipousson"
+    creator: "\\@elipousson"
 
   open-graph:
     image: "/files/img/ges600-logo.png"
@@ -48,7 +47,7 @@ website:
       [View the source at {{< fa brands github >}} GitHub]({{< var course.github >}})
 
 bibliography: files/references.bib
-# csl: chicago-author-date.csl
+csl: files/csl/chicago-author-date.csl
 
 format:
   html:
@@ -57,10 +56,9 @@ format:
     toc: true
     df-print: tibble
     code-link: true
-    code-tools: true
     error: true
     highlight-style: a11y
-    citeproc: true
+#    citeproc: true
 
 editor: visual
 
