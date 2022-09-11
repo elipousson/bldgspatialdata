@@ -20,10 +20,6 @@ This example shows how to read spatial data into R using the sf package and expl
 
 You are required to use this same data in completing the introductory assignments on reading and mapping data [with QGIS](/assignments/02_read-data-qgis.html) and [with R](/assignments/03_read-data-r.html) so this example.
 
-Similar introductory information is available in:
-
--   https://r-tmap.github.io/tmap-book/geodata.html
-
 ## Read spatial data
 
 ::: {.callout-tip collapse="false" appearance="default" icon="true"}
@@ -183,7 +179,7 @@ usa_bbox <- st_bbox(usa)
 usa_bbox
 ```
 
-A bounding box is a named numeric vector with a `crs` attribute. You can convert it to a numeric vector using `as.numeric` or get the coordinate reference system with `sf::st_crs`.
+A bounding box is a named numeric vector with a `crs` attribute. You can convert it to a numeric vector using `as.numeric()` or get the coordinate reference system with `sf::st_crs`.
 
 ```{r}
 as.numeric(usa_bbox)
