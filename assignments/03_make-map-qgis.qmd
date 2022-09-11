@@ -1,0 +1,67 @@
+---
+title: "Read data and make a map with QGIS"
+title-block-categories: false
+image: images/about-qgis-screenshot.png
+category: assignment
+---
+
+::: {.callout-note appearance="simple"}
+**Learn how to...**
+
+-   Open and save project files
+
+-   Read vector data files (e.g. shapefile or GeoJSON) using the QGIS Data Source Manager
+
+-   Explore the attributes of data using the QGIS Attribute Table
+
+-   Customize the color, fill, or symbols of a layer based on an attribute using the QGIS Style Manager
+
+-   Compose, customize, and export a map using the QGIS Print Layout feature
+:::
+
+For this assignment, you are encouraged to use the Natural Earth Quickstart Kit (a small sample of Natural Earth themes styled in in a QGIS document) as a data source or basemap:
+
+-   [Download the kit](http://naciscdn.org/naturalearth/packages/Natural_Earth_quick_start.zip) and unzip the file *Natural_Earth_quick_start.zip* file
+
+## Step-by-step instructions
+
+Complete *all* of the following steps using the linked documentation for reference:
+
+1.  Open the project file *Natural_Earth_quick_start_for_QGIS.qgs.*
+
+2.  Load one or more additional data identified in the Finding data assignment using the Data Source Manager (see [Opening Data](https://docs.qgis.org/3.22/en/docs/user_manual/managing_data_source/opening_data.html))
+
+3.  Filter data from the Natural Earth data or the additional data by attributes using the Attribute Table (see [Working with the Attribute Table](https://docs.qgis.org/3.22/en/docs/user_manual/working_with_vector/attribute_table.html#filtering-features))
+
+4.  Visualize a select attribute with a color ramp using the Style Manager (see [Style Manager](https://docs.qgis.org/3.22/en/docs/user_manual/style_library/style_manager.html))
+
+5.  Create a map using the Print Layout option (see [Overview of the Print Layout](https://docs.qgis.org/3.22/en/docs/user_manual/print_composer/overview_composer.html))
+
+6.  Customize the map title, caption, and legend of the Print Layout (see [Legend Item](https://docs.qgis.org/3.22/en/docs/user_manual/print_composer/composer_items/composer_legend.html))
+
+7.  Export the map to PDF (see [Creating an Output](https://docs.qgis.org/3.22/en/docs/user_manual/print_composer/create_output.html?highlight=export)) with the file name `03_map-qgis_layout.pdf`.
+
+8.  Save an renamed project file with the file name `03_map-qgis_project-file.qgs`.
+
+9.  Write a brief description of your process for filtering and visualizing the data as well as composing the map and save the description as a Markdown file with the filename `03_map-qgis_project-description.md`.
+
+## Optional bonus activities
+
+Create one or more additional maps using *any* of the following approaches for an extra bonus points:
+
+-   Join a new data set without spatial data to a mapped data set using attribute data (see [Performing Table Joins (QGIS3)](https://www.qgistutorials.com/en/docs/3/performing_table_joins.html) from QGIS Tutorials and Tips for a walk through on using the "Join attributes by field value" feature in the Processing Toolbox). For example, if you have a table or CSV file with county-level data, your could use the county name or FIPS number to join the data to the "Admin 2 -- Counties" data from Natural Earth (included in the Quick Start data).
+
+-   Draw a new feature and add it to your map. The new feature could be a region based on the boundaries of the existing features on the map (see [Lesson 13](https://www.youtube.com/watch?v=j717idP-O_w&list=PL7HotvlLKHCs9nD1fFUjSOsZrsnctyV2R&index=13) from the QGIS Uncovered video series for an example).
+
+::: {.callout-tip appearance="simple"}
+### Submitting the completed assignment
+
+Add the PDF map, QGS project file, and the Markdown file with your description to the assignment folder in your course GitHub repository. If your maps uses data that is not included in the Natural Earth Quick Start project, you *must* include links to sources in the Markdown file where the data can be downloaded to allow the project file to be opened for review and feedback. If data files are less than 50 MB, please add the files to the GitHub repository in the same folder as the project file.
+:::
+
+## Related Resources
+
+-   [Making a Map (QGIS3)](https://www.qgistutorials.com/en/docs/3/making_a_map.html) from QGIS Tutorials and Tips
+
+-   [5.3 Sample Session: Loading raster and vector layers](https://docs.qgis.org/3.22/en/docs/user_manual/introduction/getting_started.html#sample-session-loading-raster-and-vector-layers) from QGIS Desktop User Guide/Manual (3.22)
+
