@@ -1,0 +1,45 @@
+---
+title: "August 31: Recap & Next Steps"
+date: "2022-08-31"
+categories: [recap]
+---
+
+Thanks to everyone for an exciting first class yesterday evening. I'll try to send out a quick session recap and a review of next steps after each session so, if I miss anything, please let me know or just flag it in the Discord!
+
+### Session 1 recap
+
+-   You are all coming in with interesting and varied experiences with a mix of backgrounds in STATA, SAS, GIS desktop applications, Python, and R with interests including ecology, transit, reproducible data analysis, and disaster response. Please feel free to use your weekly reading responses to connect these interests to our readings and to find related R packages or QGIS methods you can use to expand your work in this area.
+
+-   We reviewed the syllabus on [the course website](https://elipousson.github.io/bldgspatialdata/syllabus.html) including the assignment structure and reading schedule. More details on the upcoming assignments and final project will be coming soon!
+
+-   I expect we will typically meet from 6:00 pm to 8:00 pm. A heads up if you need to miss a session is appreciated but we'll do our best to catch you up if you are unable to attend.
+
+-   I shared an invitation to the course Discord channel and encouraged everyone to use Discord to share questions during the term. I will use Discord but make sure any *essential* communications are sent via Blackboard or email. It also turned out to be a helpful work around with the out-of-order projector this evening!
+
+-   We confirmed that everyone has R, RStudio, and QGIS installed (or will be able to install soon). Let me know if you run into trouble with installing packages as we continue forward in the class.
+
+-   **Note:** In your RStudio settings, everyone should update the setting for "Save workspace to `.RData` on exit" to "Never" --- a key step for ensuring reproducibility (endorsed [by Hadley Wickham](https://twitter.com/hadleywickham/status/1032665959734108160?lang=en) among others). This setting changes covered in the [R Basics and workflows](https://stat545.com/r-basics.html) material included in the Setup section of our [course schedule](https://elipousson.github.io/bldgspatialdata/).
+
+-   We concluded with a short demonstration of how to use the [sf package](https://r-spatial.github.io/sf/) to read data from a shapefile I downloaded from [Natural Earth](https://www.naturalearthdata.com/downloads/). We also looked at a few handy features and functions including:
+
+-   Using the `?` help operator to get to function documentation (see [Getting Help with R](https://www.r-project.org/help.html) for more info)
+
+-   Using RMarkdown (or Quarto documents) to combine text with executable code (see this [accessible guide from RStudio](https://rmarkdown.rstudio.com/index.html) or Ch. 2 [Basics](https://bookdown.org/yihui/rmarkdown/basics.html) from [RMarkdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/) for more info on RMarkdown).
+
+-   Using functions to take a quick look at your data including `View()` and `plot()` (both base R functions), `glimpse()` (from the [dplyr package](https://dplyr.tidyverse.org/)), and `mapview()` (from the [mapview package](https://r-spatial.github.io/mapview/))
+
+-   I shared a copy of the sf cheatsheet (available [here as a PDF](https://github.com/rstudio/cheatsheets/blob/main/sf.pdf)) and you can find cheat sheets for the RStudio IDE, dplyr, and many other useful packages [on the RStudio website](https://www.rstudio.com/resources/cheatsheets/) or [on GitHub](https://github.com/rstudio/cheatsheets).
+
+### Session 1 next steps
+
+-   We're going to try out GitHub classroom for our GitHub fundamentals activity which you can access via [this invitation link](https://classroom.github.com/a/KrKVDaCo).
+
+-   If you sent me your GitHub account name, I have added you to our GitHub organization and sent you an invite to a private repository matching your name. I'll add a log folder to each repository and a template you can use for the written response for our first week assignment on [finding spatial data](https://elipousson.github.io/bldgspatialdata/assignments/01_find-data.html).
+
+### What to expect next week for Session 2
+
+-   Next week, we will kick off with a discussion covering both Chapter 1 and 2 from All Data Are Local.[@loukissas2019] If you're someone who enjoys taking in ideas via video or audio, you may enjoy this [recorded one-hour talk by Loukissas](https://www.youtube.com/watch?v=vc2UAP3OfKc) ([transcript here](https://cyber.harvard.edu/sites/default/files/2020-03/2020_03_03_berkman_lunchtalk.pdf)) where he summarizes the main ideas behind the book.
+
+-   We will then continue our review of how the sf package works with spatial data (here is [the example we started going through](examples/01_read-data-r.html)) and then review the same process of reading data with QGIS.
+
+-   Assignment 1 (setting up your GitHub account and completing the fundamentals training) and assignment 2 (finding spatial data) are both due next week.

@@ -1,0 +1,92 @@
+---
+title: "September 7: Recap & Next Steps"
+date: "2022-09-10"
+categories: [recap]
+---
+
+Thanks for your flexibility as we work out a balanced approach to the course this fall. You can see that I've added these recap and next steps updates to the course website so they are easy to find alongside the other course materials.
+
+## What did we do for Session 2
+
+### Schedule changes
+
+We confirmed class schedule changes for October 5 and November 23. I'll send out calendar invitations for the following sessions:
+
+-   **Monday, October 3, 6:30 pm to 7:30 pm** (participation is recommended but the session will be recorded for anyone who can't attend)
+
+-   **Monday, November 21, 6:00 pm to 7:30 pm** (participation is optional - this session will be formatted as a drop-in discussion on final project proposals)
+
+We also pushed our next few assignment due dates forward by one week:
+
+-   Find spatial data is due on **September 14**
+-   Read spatial data and make a map with R and with QGIS are both due **September 28**
+-   Compare spatial and geometry operations in QGIS and R is due on **October 5**
+
+I am keeping the other assignment due dates in place for now but I may make other adjustments if needed. The [course schedule](/schedule/) is updated to note these schedule changes.
+
+### Topics and discussion
+
+We reviewed the process of using [GitHub Desktop](https://desktop.github.com/) and the basics of using GitHub to submit assignments. I'm still putting together a more detailed "how to" for this process and will add a link to that resource to this recap and the assignment pages when it is published.
+
+We started with a quick review of last week's introduction to R and RStudio including:
+
+-   Installing packages from CRAN using `install.packages()` or from GitHub or other sources using `pak::pkg_install()`
+-   Using RStudio project or `.Rproj` files (see [Workflow: projects](https://r4ds.had.co.nz/workflow-projects.html) in @wickhamDataScienceImport2022 for more details)
+-   Cloning the course website repository to access the example Quarto document or `.qmd` files and related spatial data
+
+We continued to review [the example](https://elipousson.github.io/bldgspatialdata/examples/01_read-data-r.html) on the basics of working with simple feature data in R this week including:
+
+-   How data frames include rows and columns with basic data types including numeric (including double and integer values) and character vectors
+
+-   Using logical operators with the filter function (see [Filter rows with filter()](https://r4ds.had.co.nz/transform.html#filter-rows-with-filter) from @wickhamDataScienceImport2022)
+
+-   How sf objects use a geometry column (usually named geom or geometry) to store spatial data (using the `sf::st_geometry()` function to access this column)
+
+-   How spatial data is organized using an open data standard (officially named [simple feature access](https://www.ogc.org/standards/sfa)) around points, lines, and polygons
+
+-   Summarizing data using the `summary()`, `skimr::skim()`, and `mapview::mapview()` functions
+
+I got a little off-topic and explained how using a "nerd" font offers a better display of logical operators. I recommended [Fira Code](https://github.com/tonsky/FiraCode) but [Hasklig](https://github.com/i-tu/Hasklig) is another popular alternative. See RStudio documentation on [Appearance and Themes](https://support.rstudio.com/hc/en-us/articles/200549016-Customizing-the-RStudio-IDE#appearance) for more on customizing your Editor Font option.
+
+In the second part of our class, we discussed Loukissas' case study on the [Arnold Arboretum](https://arboretum.harvard.edu/) in Ch. 2 of All Data Are Local and reflected on the parallels between Loukissas' place-based approach to D'Ignazio and Klein's analysis based on Patricia Hill Collins' concept of the matrix of domination.[@loukissas2019; @dignazio2021]
+
+D'Ignazio and Klein also highlighted a few examples of counterdata projects that included:
+
+-   Independent data projects like the [Los feminicidios en México](https://feminicidiosmx.crowdmap.com/) by María Salguero
+-   Data journalism projects like [How We Collected Nearly 5,000 Stories of Maternal Harm](https://www.propublica.org/article/how-we-collected-nearly-5-000-stories-of-maternal-harm) from ProPublica
+-   Collaborations between academic and community partners like [Detroit Geographic Expedition and Institute](https://civic.mit.edu/index.html%3Fp=220.html)
+
+If you have your own examples of "counterdata", please feel free to share them in the course Discord!
+
+### Next steps
+
+Everyone has set up a GitHub user account which counts as full credit for the first assignment.
+
+#### Submit the Finding data assignment
+
+Thanks to everyone who already completed the finding data assignment. This assignment did not include any options for bonus points so if you submitted the assignment you should get full credit for completion on the second assignment. I'll share feedback via GitHub but post resources related to your topics of interest to the Discord so others can also find them.
+
+If you have not already completed the assignment, please use the `01_find-data_template.md` file in the assignments folder of your personal course repository. Keep the headings in place but you can edit everything else in the document. Rename the file to `01_find-data.md` and commit your changes when you are done with the assignment.
+
+#### Submit a weekly log entry
+
+Since we extended the deadline for the weekly log, you can write the reflection based on any of the readings in the course so far. You are also welcome to incorporate outside materials into your reflection - the main goal of this assignment is to give you an opportunity to write about what you're thinking about and learning during the class. Each log should also include a question. If you're able to submit your log before our class session, we can use your questions to help guide our in-person work.
+
+Make sure to copy the template file `2022-MM-DD_log.md` and save a new copy replacing MM with the two-digit month and DD with the two-digit date of the class session.
+
+## What to expect for Session 3
+
+Next week, we're going to continue our introduction to spatial data with R by covering:
+
+-   Converting tabular data into spatial data (covered in [this example](https://elipousson.github.io/bldgspatialdata/examples/02_read-tabular-data-r.html))
+-   Summarizing or aggregating attribute data
+-   Basics of visualizing attribute data with maps and plots
+
+We will also spend some time on an introduction to QGIS with a focus on learning equivalent approaches for the activities we've covered in R so far.
+
+This topic is covered in *Learn QGIS* by Andrew Cutts and Anita Graser but you are welcome to use alternate resources instead. The [QGIS User Guide](https://docs.qgis.org/3.22/en/docs/user_manual/index.html) covers similar material and there are a variety of helpful tutorial videos on YouTube including:
+
+-   [QGIS Unconvered](https://www.youtube.com/playlist?list=PL7HotvlLKHCs9nD1fFUjSOsZrsnctyV2R) by Steven Bernard (a design editor with the Financial Times): These videos are a few years old but they are short and lessons 4, 9, and 10 cover the information you need for the QGIS map making assignment in an accessible format.
+-   [An Introductory QGIS Workshop for Beginners](https://youtu.be/-7v5qfJYWxA) from Michele Tobias (UC Davis DataLab): This recorded workshop is over 3 hours long but you may find it helpful to check out the section on mapping vector data (starting at [1:24:00](https://youtu.be/-7v5qfJYWxA?t=5040)) and the section on working with the map layout tools (starting at [2:30:00](https://youtu.be/-7v5qfJYWxA?t=9000)). There is also a [corresponding GitHub repository](https://github.com/ucdavisdatalab/Intro-to-Desktop-GIS-with-QGIS) with more resources.
+
+I'm still in the process of adjusting the schedule to make sure we don't have any more overloaded sessions so I'm holding off on the poll we discussed in class for now. As always, any feedback on your preferred approach to engaging with this material or questions about anything we have covered so far is welcome.
