@@ -1,7 +1,5 @@
 ---
 title: "Using R and RStudio Desktop"
-format: html
-editor: visual
 ---
 
 ## About R 📋

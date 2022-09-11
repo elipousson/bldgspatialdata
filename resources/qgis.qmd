@@ -1,7 +1,5 @@
 ---
 title: "Using QGIS"
-format: html
-editor: visual
 ---
 
 ## **About QGIS 📋**

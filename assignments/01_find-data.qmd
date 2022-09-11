@@ -1,7 +1,5 @@
 ---
 title: "Find spatial data"
-format: html
-editor: visual
 license: CC BY
 title-block-categories: true
 category: assignment

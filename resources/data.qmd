@@ -1,7 +1,5 @@
 ---
 title: "Data sources"
-format: html
-editor: visual
 ---
 
 Spatial data is available in a wide range of formats:

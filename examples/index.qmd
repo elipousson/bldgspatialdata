@@ -1,7 +1,5 @@
 ---
 title: "Examples"
-format: html
-editor: visual
 listing:
   contents:
     - "*.qmd"
