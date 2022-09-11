@@ -40,7 +40,7 @@ We continued to review [the example](https://elipousson.github.io/bldgspatialdat
 
 -   Using logical operators with the filter function (see [Filter rows with filter()](https://r4ds.had.co.nz/transform.html#filter-rows-with-filter) from @wickhamDataScienceImport2022)
 
--   How sf objects use a geometry column (usually named geom or geometry) to store spatial data (using the `sf::st_geometry()` function to access this column)
+-   How sf objects use a geometry column (usually named geom or geometry) to store spatial data (and how to use the `sf::st_geometry()` function to access this column)
 
 -   How spatial data is organized using an open data standard (officially named [simple feature access](https://www.ogc.org/standards/sfa)) around points, lines, and polygons
 
@@ -48,7 +48,7 @@ We continued to review [the example](https://elipousson.github.io/bldgspatialdat
 
 I got a little off-topic and explained how using a "nerd" font offers a better display of logical operators. I recommended [Fira Code](https://github.com/tonsky/FiraCode) but [Hasklig](https://github.com/i-tu/Hasklig) is another popular alternative. See RStudio documentation on [Appearance and Themes](https://support.rstudio.com/hc/en-us/articles/200549016-Customizing-the-RStudio-IDE#appearance) for more on customizing your Editor Font option.
 
-In the second part of our class, we discussed Loukissas' case study on the [Arnold Arboretum](https://arboretum.harvard.edu/) in Ch. 2 of All Data Are Local and reflected on the parallels between Loukissas' place-based approach to D'Ignazio and Klein's analysis based on Patricia Hill Collins' concept of the matrix of domination.[@loukissas2019; @dignazio2021]
+In the second part of our class, we discussed the case study on the [Arnold Arboretum](https://arboretum.harvard.edu/) from @loukissas2019 and reflected on the parallels between Loukissas' place-based approach to the analysis based on Patricia Hill Collins' concept of the matrix of domination from @dignazio2021.
 
 D'Ignazio and Klein also highlighted a few examples of counterdata projects that included:
 
