@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.1.149">
+<meta name="generator" content="quarto-1.1.189">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -20,69 +20,25 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
 }
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
 }
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 
@@ -135,7 +91,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <meta name="twitter:title" content="Building Spatial Datasets - Make a map with R and ggplot2">
 <meta name="twitter:description" content="Complete all of the following steps using the linked function documentation for reference:">
 <meta name="twitter:image" content="https://elipousson.github.io/bldgspatialdata/files/img/ges600-logo.png">
-<meta name="twitter:creator" content="@elipousson">
+<meta name="twitter:creator" content="\@elipousson">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image-height" content="1254">
 <meta name="twitter:image-width" content="1180">
@@ -188,6 +144,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
    
   <ul>
   <li><a href="#step-by-step-instructions" id="toc-step-by-step-instructions" class="nav-link active" data-scroll-target="#step-by-step-instructions">Step-by-step instructions</a></li>
+  <li><a href="#optional-bonus-activities" id="toc-optional-bonus-activities" class="nav-link" data-scroll-target="#optional-bonus-activities">Optional bonus activities</a></li>
   </ul>
 </nav>
     </div>
@@ -196,7 +153,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Make a map with R and ggplot2</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<h1 class="title">Make a map with R and ggplot2</h1>
 </div>
 
 
@@ -231,20 +188,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2 class="anchored" data-anchor-id="step-by-step-instructions">Step-by-step instructions</h2>
 <p>Complete <em>all</em> of the following steps using the linked function documentation for reference:</p>
 <ol type="1">
-<li>Open the “02_map-R.RProj” project file (see <a href="https://support.rstudio.com/hc/en-us/articles/200526207-Using-RStudio-Projects">using RStudio Projects</a>) and open the RMarkdown template found within the project folder.</li>
-<li>Read any additional data using <a href="https://r-spatial.github.io/sf/reference/st_read.html">sf::read_sf()</a> or <a href="https://r-spatial.github.io/sf/reference/st_read.html">sf::st_read()</a></li>
-<li>Filter data by attribute using <a href="https://dplyr.tidyverse.org/reference/filter.html">dplyr::filter()</a></li>
-<li>Create a plot with <a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot2::ggplot()</a> and a geom with <a href="https://ggplot2.tidyverse.org/reference/ggsf.html">ggplot2::geom_sf()</a></li>
-<li>Specify one or more aesthetic attributes using <a href="https://ggplot2.tidyverse.org/reference/aes.html">ggplot2::aes()</a></li>
-<li>Add an appropriate scale for the attribute using <a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">ggplot2::scale_fill_brewer()</a>, <a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">ggplot2::scale_color_brewer()</a>, or another <a href="https://ggplot2.tidyverse.org/reference/index.html#scales">ggplot2 scale function</a></li>
-<li>Set a theme using <a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">ggplot2::theme_minimal()</a> or another theme function</li>
-<li>Customize the map title, caption, and legend using <a href="https://ggplot2.tidyverse.org/reference/labs.html">ggplot2::labs()</a></li>
-<li>Export the map as a PDF file using <a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggplot2::ggsave()</a></li>
+<li><p>Open the <code>02_map-R.RProj</code> project file (see <a href="https://support.rstudio.com/hc/en-us/articles/200526207-Using-RStudio-Projects">using RStudio Projects</a>) and open the RMarkdown template found within the project folder.</p></li>
+<li><p>Read any additional data using <a href="https://r-spatial.github.io/sf/reference/st_read.html"><code>sf::read_sf()</code></a> or <a href="https://r-spatial.github.io/sf/reference/st_read.html"><code>sf::st_read()</code></a></p></li>
+<li><p>Filter data by attribute using <code>dplyr::filter()</code></p></li>
+<li><p>Create a plot with <a href="https://ggplot2.tidyverse.org/reference/ggplot.html"><code>ggplot2::ggplot()</code></a> and a geom with <a href="https://ggplot2.tidyverse.org/reference/ggsf.html"><code>ggplot2::geom_sf()</code></a>.</p></li>
+<li><p>Specify one or more aesthetic attributes using <a href="https://ggplot2.tidyverse.org/reference/aes.html"><code>ggplot2::aes()</code></a></p></li>
+<li><p>Add an appropriate scale for the attribute using <a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html"><code>ggplot2::scale_fill_brewer()</code></a>, <a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html"><code>ggplot2::scale_color_brewer()</code></a>, or another <a href="https://ggplot2.tidyverse.org/reference/index.html#scales">ggplot2 scale function</a></p></li>
+<li><p>Set a theme using <a href="https://ggplot2.tidyverse.org/reference/ggtheme.html"><code>ggplot2::theme_minimal()</code></a> or another theme function</p></li>
+<li><p>Customize the map title, caption, and legend using <a href="https://ggplot2.tidyverse.org/reference/labs.html"><code>ggplot2::labs()</code></a>. Depending on the attribute type, you may want to use a labelling function from the <a href="https://scales.r-lib.org/">{scales} package</a>, e.g.&nbsp;<a href="https://scales.r-lib.org/reference/label_dollar.html"><code>label_dolar()</code></a> for currency values or <a href="https://scales.r-lib.org/reference/label_percent.html"><code>label_percent()</code></a> for percentages. These functions are passed to the labels parameter of your scale function.</p></li>
+<li><p>Export the map as a PDF file using <a href="https://ggplot2.tidyverse.org/reference/ggsave.html"><code>ggplot2::ggsave()</code></a></p></li>
 </ol>
-<div class="callout-important callout callout-style-simple callout-captioned">
+</section>
+<section id="optional-bonus-activities" class="level2">
+<h2 class="anchored" data-anchor-id="optional-bonus-activities">Optional bonus activities</h2>
+<p>Create one or more additional maps using <em>any</em> of the following approaches for an extra bonus points:</p>
+<ul>
+<li><p>Create a multi-panel map using a <a href="https://ggplot2.tidyverse.org/reference/index.html#facetting">faceting function</a>. Typically, multi-panel maps are used for categorical variables or binned continuous variables. Consider using the <a href="https://dplyr.tidyverse.org/reference/mutate.html"><code>dplyr::mutate()</code></a> function to recode a categorical variable or using <a href="https://ggplot2.tidyverse.org/reference/scale_binned.html">a binned scale</a> to convert a continuous variable into a discrete variable.</p></li>
+<li><p>Create a bar chart showing the distribution of the mapped attribute by location or a scatter plot to compare the mapped attribute data to another attribute in your data. <a href="https://r4ds.had.co.nz/data-visualisation.html">Ch. 3 Data visualization</a> in <span class="citation" data-cites="wickhamDataScienceImport2022">Wickham and Grolemund (<a href="#ref-wickhamDataScienceImport2022" role="doc-biblioref">2022</a>)</span> has examples of both types of data visualizations or you can explore the documentation for <a href="https://ggplot2.tidyverse.org/reference/geom_bar.html"><code>ggplot2::geom_bar()</code></a> or <a href="https://ggplot2.tidyverse.org/reference/geom_point.html"><code>ggplot2::geom_point()</code></a>.</p></li>
+</ul>
+<div class="callout-tip callout callout-style-simple no-icon callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
-<i class="callout-icon"></i>
+<i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-caption-container flex-fill">
 Submitting the completed assignment
@@ -256,11 +221,14 @@ Submitting the completed assignment
 </div>
 
 
-<!-- -->
 
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-wickhamDataScienceImport2022" class="csl-entry" role="doc-biblioentry">
+Wickham, Hadley, and Garrett Grolemund. 2022. <em>R for <span>Data Science</span>: <span>Import</span>, <span>Tidy</span>, <span>Transform</span>, <span>Visualize</span>, and <span>Model Data</span></em>. 2nd edition (WIP). <span>Sebastopol, CA</span>: <span>O’Reilly Media</span>. <a href="https://r4ds.had.co.nz">https://r4ds.had.co.nz</a>.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -309,57 +277,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  const viewSource = window.document.getElementById('quarto-view-source') ||
-                     window.document.getElementById('quarto-code-tools-source');
-  if (viewSource) {
-    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
-    viewSource.addEventListener("click", function(e) {
-      if (sourceUrl) {
-        // rstudio viewer pane
-        if (/\bcapabilities=\b/.test(window.location)) {
-          window.open(sourceUrl);
-        } else {
-          window.location.href = sourceUrl;
-        }
-      } else {
-        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
-        modal.show();
-      }
-      return false;
-    });
-  }
-  function toggleCodeHandler(show) {
-    return function(e) {
-      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
-      for (let i=0; i<detailsSrc.length; i++) {
-        const details = detailsSrc[i].parentElement;
-        if (show) {
-          details.open = true;
-        } else {
-          details.removeAttribute("open");
-        }
-      }
-      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
-      const fromCls = show ? "hidden" : "unhidden";
-      const toCls = show ? "unhidden" : "hidden";
-      for (let i=0; i<cellCodeDivs.length; i++) {
-        const codeDiv = cellCodeDivs[i];
-        if (codeDiv.classList.contains(fromCls)) {
-          codeDiv.classList.remove(fromCls);
-          codeDiv.classList.add(toCls);
-        } 
-      }
-      return false;
-    }
-  }
-  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
-  if (hideAllCode) {
-    hideAllCode.addEventListener("click", toggleCodeHandler(false));
-  }
-  const showAllCode = window.document.getElementById("quarto-show-all-code");
-  if (showAllCode) {
-    showAllCode.addEventListener("click", toggleCodeHandler(true));
-  }
   function tippyHover(el, contentFn) {
     const config = {
       allowHTML: true,
@@ -409,49 +326,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     });
   }
 });
-</script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Make a map with R and ggplot2"</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span><span class="co"> html</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="an">editor:</span><span class="co"> visual</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="an">title-block-categories:</span><span class="co"> true</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="an">category:</span><span class="co"> assignment</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>::: {.callout-note appearance="simple"}</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>**Learn how to...**</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Open and save project files using RStudio</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Read vector data files (e.g. shapefile or GeoJSON) using the sf package</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Filter data by attribute using the dplyr package</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Create a map with the ggplot2 package using an attribute to define the aesthetics of the map</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Label and export a map using the ggplot2 package</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="fu">## Step-by-step instructions</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>Complete *all* of the following steps using the linked function documentation for reference:</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>Open the "02_map-R.RProj" project file (see <span class="co">[</span><span class="ot">using RStudio Projects</span><span class="co">](https://support.rstudio.com/hc/en-us/articles/200526207-Using-RStudio-Projects)</span>) and open the RMarkdown template found within the project folder.</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Read any additional data using <span class="co">[</span><span class="ot">sf::read_sf()</span><span class="co">](https://r-spatial.github.io/sf/reference/st_read.html)</span> or <span class="co">[</span><span class="ot">sf::st_read()</span><span class="co">](https://r-spatial.github.io/sf/reference/st_read.html)</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>Filter data by attribute using <span class="co">[</span><span class="ot">dplyr::filter()</span><span class="co">](https://dplyr.tidyverse.org/reference/filter.html)</span></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>Create a plot with <span class="co">[</span><span class="ot">ggplot2::ggplot()</span><span class="co">](https://ggplot2.tidyverse.org/reference/ggplot.html)</span> and a geom with <span class="co">[</span><span class="ot">ggplot2::geom_sf()</span><span class="co">](https://ggplot2.tidyverse.org/reference/ggsf.html)</span></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="ss">5.  </span>Specify one or more aesthetic attributes using <span class="co">[</span><span class="ot">ggplot2::aes()</span><span class="co">](https://ggplot2.tidyverse.org/reference/aes.html)</span></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="ss">6.  </span>Add an appropriate scale for the attribute using <span class="co">[</span><span class="ot">ggplot2::scale_fill_brewer()</span><span class="co">](https://ggplot2.tidyverse.org/reference/scale_brewer.html)</span>, <span class="co">[</span><span class="ot">ggplot2::scale_color_brewer()</span><span class="co">](https://ggplot2.tidyverse.org/reference/scale_brewer.html)</span>, or another <span class="co">[</span><span class="ot">ggplot2 scale function</span><span class="co">](https://ggplot2.tidyverse.org/reference/index.html#scales)</span></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="ss">7.  </span>Set a theme using <span class="co">[</span><span class="ot">ggplot2::theme_minimal()</span><span class="co">](https://ggplot2.tidyverse.org/reference/ggtheme.html)</span> or another theme function</span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="ss">8.  </span>Customize the map title, caption, and legend using <span class="co">[</span><span class="ot">ggplot2::labs()</span><span class="co">](https://ggplot2.tidyverse.org/reference/labs.html)</span></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="ss">9.  </span>Export the map as a PDF file using <span class="co">[</span><span class="ot">ggplot2::ggsave()</span><span class="co">](https://ggplot2.tidyverse.org/reference/ggsave.html)</span></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>::: {.callout-important appearance="simple"}</span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="fu">### Submitting the completed assignment</span></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>Add the PDF map and a RMarkdown file with a brief description of your process and the map to the assignment folder in your course GitHub repository. If your map uses data that is not included in the Natural Earth Quick Start file, you *must* include links to sources where the data can be downloaded to allow the project file to be opened for review and feedback. If data files are less than 50 MB, please add the files to the GitHub repository in the same folder as the project file.</span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>:::</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div></div></div></div></div>
+</script>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">

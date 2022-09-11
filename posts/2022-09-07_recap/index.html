@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.189">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Eli Pousson">
+<meta name="dcterms.date" content="2022-09-10">
+
+<title>Building Spatial Datasets - September 7: Recap &amp; Next Steps</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+<meta property="og:title" content="Building Spatial Datasets - September 7: Recap &amp; Next Steps">
+<meta property="og:description" content="Thanks for your flexibility as we work out a balanced approach to the course this fall.">
+<meta property="og:image" content="https://elipousson.github.io/bldgspatialdata/files/img/ges600-logo.png">
+<meta property="og:site-name" content="Building Spatial Datasets">
+<meta property="og:locale" content="en_US">
+<meta property="og:image:height" content="1254">
+<meta property="og:image:width" content="1180">
+<meta name="twitter:title" content="Building Spatial Datasets - September 7: Recap &amp; Next Steps">
+<meta name="twitter:description" content="Thanks for your flexibility as we work out a balanced approach to the course this fall.">
+<meta name="twitter:image" content="https://elipousson.github.io/bldgspatialdata/files/img/ges600-logo.png">
+<meta name="twitter:creator" content="\@elipousson">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image-height" content="1254">
+<meta name="twitter:image-width" content="1180">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Building Spatial Datasets</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html">Home</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../syllabus.html">Syllabus</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../schedule.html">Schedule</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../assignments/index.html">Assignments</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../resources/index.html">Resources</a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#what-did-we-do-for-session-2" id="toc-what-did-we-do-for-session-2" class="nav-link active" data-scroll-target="#what-did-we-do-for-session-2">What did we do for Session 2</a>
+  <ul class="collapse">
+  <li><a href="#schedule-changes" id="toc-schedule-changes" class="nav-link" data-scroll-target="#schedule-changes">Schedule changes</a></li>
+  <li><a href="#topics-and-discussion" id="toc-topics-and-discussion" class="nav-link" data-scroll-target="#topics-and-discussion">Topics and discussion</a></li>
+  <li><a href="#next-steps" id="toc-next-steps" class="nav-link" data-scroll-target="#next-steps">Next steps</a></li>
+  </ul></li>
+  <li><a href="#what-to-expect-for-session-3" id="toc-what-to-expect-for-session-3" class="nav-link" data-scroll-target="#what-to-expect-for-session-3">What to expect for Session 3</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">September 7: Recap &amp; Next Steps</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">recap</div>
+  </div>
+  </div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Eli Pousson </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">September 10, 2022</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+</header>
+
+<p>Thanks for your flexibility as we work out a balanced approach to the course this fall. You can see that I’ve added these recap and next steps updates to the course website so they are easy to find alongside the other course materials.</p>
+<section id="what-did-we-do-for-session-2" class="level2">
+<h2 class="anchored" data-anchor-id="what-did-we-do-for-session-2">What did we do for Session 2</h2>
+<section id="schedule-changes" class="level3">
+<h3 class="anchored" data-anchor-id="schedule-changes">Schedule changes</h3>
+<p>We confirmed class schedule changes for October 5 and November 23. I’ll send out calendar invitations for the following sessions:</p>
+<ul>
+<li><p><strong>Monday, October 3, 6:30 pm to 7:30 pm</strong> (participation is recommended but the session will be recorded for anyone who can’t attend)</p></li>
+<li><p><strong>Monday, November 21, 6:00 pm to 7:30 pm</strong> (participation is optional - this session will be formatted as a drop-in discussion on final project proposals)</p></li>
+</ul>
+<p>We also pushed our next few assignment due dates forward by one week:</p>
+<ul>
+<li>Find spatial data is due on <strong>September 14</strong></li>
+<li>Read spatial data and make a map with R and with QGIS are both due <strong>September 28</strong></li>
+<li>Compare spatial and geometry operations in QGIS and R is due on <strong>October 5</strong></li>
+</ul>
+<p>I am keeping the other assignment due dates in place for now but I may make other adjustments if needed. The <a href="../../schedule/">course schedule</a> is updated to note these schedule changes.</p>
+</section>
+<section id="topics-and-discussion" class="level3">
+<h3 class="anchored" data-anchor-id="topics-and-discussion">Topics and discussion</h3>
+<p>We reviewed the process of using <a href="https://desktop.github.com/">GitHub Desktop</a> and the basics of using GitHub to submit assignments. I’m still putting together a more detailed “how to” for this process and will add a link to that resource to this recap and the assignment pages when it is published.</p>
+<p>We started with a quick review of last week’s introduction to R and RStudio including:</p>
+<ul>
+<li>Installing packages from CRAN using <code>install.packages()</code> or from GitHub or other sources using <code>pak::pkg_install()</code></li>
+<li>Using RStudio project or <code>.Rproj</code> files (see <a href="https://r4ds.had.co.nz/workflow-projects.html">Workflow: projects</a> in <span class="citation" data-cites="wickhamDataScienceImport2022">Wickham and Grolemund (<a href="#ref-wickhamDataScienceImport2022" role="doc-biblioref">2022</a>)</span> for more details)</li>
+<li>Cloning the course website repository to access the example Quarto document or <code>.qmd</code> files and related spatial data</li>
+</ul>
+<p>We continued to review <a href="https://elipousson.github.io/bldgspatialdata/examples/01_read-data-r.html">the example</a> on the basics of working with simple feature data in R this week including:</p>
+<ul>
+<li><p>How data frames include rows and columns with basic data types including numeric (including double and integer values) and character vectors</p></li>
+<li><p>Using logical operators with the filter function (see <a href="https://r4ds.had.co.nz/transform.html#filter-rows-with-filter">Filter rows with filter()</a> from <span class="citation" data-cites="wickhamDataScienceImport2022">Wickham and Grolemund (<a href="#ref-wickhamDataScienceImport2022" role="doc-biblioref">2022</a>)</span>)</p></li>
+<li><p>How sf objects use a geometry column (usually named geom or geometry) to store spatial data (and how to use the <code>sf::st_geometry()</code> function to access this column)</p></li>
+<li><p>How spatial data is organized using an open data standard (officially named <a href="https://www.ogc.org/standards/sfa">simple feature access</a>) around points, lines, and polygons</p></li>
+<li><p>Summarizing data using the <code>summary()</code>, <code>skimr::skim()</code>, and <code>mapview::mapview()</code> functions</p></li>
+</ul>
+<p>I got a little off-topic and explained how using a “nerd” font offers a better display of logical operators. I recommended <a href="https://github.com/tonsky/FiraCode">Fira Code</a> but <a href="https://github.com/i-tu/Hasklig">Hasklig</a> is another popular alternative. See RStudio documentation on <a href="https://support.rstudio.com/hc/en-us/articles/200549016-Customizing-the-RStudio-IDE#appearance">Appearance and Themes</a> for more on customizing your Editor Font option.</p>
+<p>In the second part of our class, we discussed the case study on the <a href="https://arboretum.harvard.edu/">Arnold Arboretum</a> from <span class="citation" data-cites="loukissas2019">Loukissas (<a href="#ref-loukissas2019" role="doc-biblioref">2019</a>)</span> and reflected on the parallels between Loukissas’ place-based approach to the analysis based on Patricia Hill Collins’ concept of the matrix of domination from <span class="citation" data-cites="dignazio2021">D’Ignazio and Klein (<a href="#ref-dignazio2021" role="doc-biblioref">2021</a>)</span>.</p>
+<p>D’Ignazio and Klein also highlighted a few examples of counterdata projects that included:</p>
+<ul>
+<li>Independent data projects like the <a href="https://feminicidiosmx.crowdmap.com/">Los feminicidios en México</a> by María Salguero</li>
+<li>Data journalism projects like <a href="https://www.propublica.org/article/how-we-collected-nearly-5-000-stories-of-maternal-harm">How We Collected Nearly 5,000 Stories of Maternal Harm</a> from ProPublica</li>
+<li>Collaborations between academic and community partners like <a href="https://civic.mit.edu/index.html%3Fp=220.html">Detroit Geographic Expedition and Institute</a></li>
+</ul>
+<p>If you have your own examples of “counterdata”, please feel free to share them in the course Discord!</p>
+</section>
+<section id="next-steps" class="level3">
+<h3 class="anchored" data-anchor-id="next-steps">Next steps</h3>
+<p>Everyone has set up a GitHub user account which counts as full credit for the first assignment.</p>
+<section id="submit-the-finding-data-assignment" class="level4">
+<h4 class="anchored" data-anchor-id="submit-the-finding-data-assignment">Submit the Finding data assignment</h4>
+<p>Thanks to everyone who already completed the finding data assignment. This assignment did not include any options for bonus points so if you submitted the assignment you should get full credit for completion on the second assignment. I’ll share feedback via GitHub but post resources related to your topics of interest to the Discord so others can also find them.</p>
+<p>If you have not already completed the assignment, please use the <code>01_find-data_template.md</code> file in the assignments folder of your personal course repository. Keep the headings in place but you can edit everything else in the document. Rename the file to <code>01_find-data.md</code> and commit your changes when you are done with the assignment.</p>
+</section>
+<section id="submit-a-weekly-log-entry" class="level4">
+<h4 class="anchored" data-anchor-id="submit-a-weekly-log-entry">Submit a weekly log entry</h4>
+<p>Since we extended the deadline for the weekly log, you can write the reflection based on any of the readings in the course so far. You are also welcome to incorporate outside materials into your reflection - the main goal of this assignment is to give you an opportunity to write about what you’re thinking about and learning during the class. Each log should also include a question. If you’re able to submit your log before our class session, we can use your questions to help guide our in-person work.</p>
+<p>Make sure to copy the template file <code>2022-MM-DD_log.md</code> and save a new copy replacing MM with the two-digit month and DD with the two-digit date of the class session.</p>
+</section>
+</section>
+</section>
+<section id="what-to-expect-for-session-3" class="level2">
+<h2 class="anchored" data-anchor-id="what-to-expect-for-session-3">What to expect for Session 3</h2>
+<p>Next week, we’re going to continue our introduction to spatial data with R by covering:</p>
+<ul>
+<li>Converting tabular data into spatial data (covered in <a href="https://elipousson.github.io/bldgspatialdata/examples/02_read-tabular-data-r.html">this example</a>)</li>
+<li>Summarizing or aggregating attribute data</li>
+<li>Basics of visualizing attribute data with maps and plots</li>
+</ul>
+<p>We will also spend some time on an introduction to QGIS with a focus on learning equivalent approaches for the activities we’ve covered in R so far.</p>
+<p>This topic is covered in <em>Learn QGIS</em> by Andrew Cutts and Anita Graser but you are welcome to use alternate resources instead. The <a href="https://docs.qgis.org/3.22/en/docs/user_manual/index.html">QGIS User Guide</a> covers similar material and there are a variety of helpful tutorial videos on YouTube including:</p>
+<ul>
+<li><a href="https://www.youtube.com/playlist?list=PL7HotvlLKHCs9nD1fFUjSOsZrsnctyV2R">QGIS Unconvered</a> by Steven Bernard (a design editor with the Financial Times): These videos are a few years old but they are short and lessons 4, 9, and 10 cover the information you need for the QGIS map making assignment in an accessible format.</li>
+<li><a href="https://youtu.be/-7v5qfJYWxA">An Introductory QGIS Workshop for Beginners</a> from Michele Tobias (UC Davis DataLab): This recorded workshop is over 3 hours long but you may find it helpful to check out the section on mapping vector data (starting at <a href="https://youtu.be/-7v5qfJYWxA?t=5040">1:24:00</a>) and the section on working with the map layout tools (starting at <a href="https://youtu.be/-7v5qfJYWxA?t=9000">2:30:00</a>). There is also a <a href="https://github.com/ucdavisdatalab/Intro-to-Desktop-GIS-with-QGIS">corresponding GitHub repository</a> with more resources.</li>
+</ul>
+<p>I’m still in the process of adjusting the schedule to make sure we don’t have any more overloaded sessions so I’m holding off on the poll we discussed in class for now. As always, any feedback on your preferred approach to engaging with this material or questions about anything we have covered so far is welcome.</p>
+
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-dignazio2021" class="csl-entry" role="doc-biblioentry">
+D’Ignazio, Catherine, and Lauren Klein. 2021. <span>“Who Collects the Data? A Tale of Three Maps.”</span> <em>MIT Case Studies in Social and Ethical Responsibilities of Computing</em>, no. Winter 2021 (February). <a href="https://doi.org/10.21428/2c646de5.fc6a97cc">https://doi.org/10.21428/2c646de5.fc6a97cc</a>.
+</div>
+<div id="ref-loukissas2019" class="csl-entry" role="doc-biblioentry">
+Loukissas, Yanni Alexander. 2019. <em>All Data Are Local: Thinking Critically in a Data-Driven Society</em>. <a href="https://doi.org/10.7551/mitpress/11543.001.0001">https://doi.org/10.7551/mitpress/11543.001.0001</a>.
+</div>
+<div id="ref-wickhamDataScienceImport2022" class="csl-entry" role="doc-biblioentry">
+Wickham, Hadley, and Garrett Grolemund. 2022. <em>R for <span>Data Science</span>: <span>Import</span>, <span>Tidy</span>, <span>Transform</span>, <span>Visualize</span>, and <span>Model Data</span></em>. 2nd edition (WIP). <span>Sebastopol, CA</span>: <span>O’Reilly Media</span>. <a href="https://r4ds.had.co.nz">https://r4ds.had.co.nz</a>.
+</div>
+</div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-right">Made with <i class="fa-brands fa-r-project" aria-hidden="true"></i> and <a href="https://quarto.org/">Quarto</a><br> <a href="https://www.github.com/elipousson/bldgspatialdata">View the source at <i class="fa-brands fa-github" aria-hidden="true"></i> GitHub</a></div>
+  </div>
+</footer>
+
+
+
+</body></html>

@@ -15,6 +15,13 @@
     ]
   },
   {
+    "listing": "/index.html",
+    "items": [
+      "/posts/2022-09-07_recap/index.html",
+      "/posts/2022-08-31_recap/index.html"
+    ]
+  },
+  {
     "listing": "/resources/index.html",
     "items": [
       "/resources/data.html",
