@@ -226,8 +226,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Read and filter spatial data with R</h1>
-</div>
+<div class="quarto-title-block"><div><h1 class="title">Read and filter spatial data with R</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+  <div class="quarto-categories">
+    <div class="quarto-category">example</div>
+  </div>
+  </div>
 
 
 
@@ -962,6 +965,8 @@ Tip
 </div>
 
 
+<!-- -->
+
 </section>
 </section>
 
@@ -1014,6 +1019,57 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
   function tippyHover(el, contentFn) {
     const config = {
       allowHTML: true,
@@ -1063,7 +1119,298 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     });
   }
 });
-</script>
+</script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb53" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Read and filter spatial data with R"</span></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a><span class="in">```{r setup}</span></span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
+<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tmap)</span>
+<span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-12"><a href="#cb53-12" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"R"</span>, <span class="st">"utils.R"</span>))</span>
+<span id="cb53-13"><a href="#cb53-13" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">tibble.print_min =</span> 4L, <span class="at">tibble.print_max =</span> 4L)</span>
+<span id="cb53-14"><a href="#cb53-14" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb53-15"><a href="#cb53-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-16"><a href="#cb53-16" aria-hidden="true" tabindex="-1"></a>This example shows how to read spatial data into R using the sf package and explains the basic structure and attributes simple feature sf objects. This example uses two datasets from <span class="co">[</span><span class="ot">Natural Earth</span><span class="co">](https://www.naturalearthdata.com/)</span>:</span>
+<span id="cb53-17"><a href="#cb53-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-18"><a href="#cb53-18" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>*Admin 0 -- Countries* data (from <span class="co">[</span><span class="ot">1:10m Cultural Vectors</span><span class="co">](https://www.naturalearthdata.com/downloads/10m-cultural-vectors/)</span>)</span>
+<span id="cb53-19"><a href="#cb53-19" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>*Populated Places* (from <span class="co">[</span><span class="ot">1:50m Cultural Vectors</span><span class="co">](https://www.naturalearthdata.com/downloads/50m-cultural-vectors/)</span>)</span>
+<span id="cb53-20"><a href="#cb53-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-21"><a href="#cb53-21" aria-hidden="true" tabindex="-1"></a>You are required to use this same data in completing the introductory assignments on reading and mapping data <span class="co">[</span><span class="ot">with QGIS</span><span class="co">](/assignments/02_read-data-qgis.html)</span> and <span class="co">[</span><span class="ot">with R</span><span class="co">](/assignments/03_read-data-r.html)</span> so this example.</span>
+<span id="cb53-22"><a href="#cb53-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-23"><a href="#cb53-23" aria-hidden="true" tabindex="-1"></a><span class="fu">## Read spatial data</span></span>
+<span id="cb53-24"><a href="#cb53-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-25"><a href="#cb53-25" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="false" appearance="default" icon="true"}</span>
+<span id="cb53-26"><a href="#cb53-26" aria-hidden="true" tabindex="-1"></a>Review the sf vignette on <span class="co">[</span><span class="ot">Reading, Writing and Converting Simple Features</span><span class="co">](https://r-spatial.github.io/sf/articles/sf2.html)</span> for more detailed explanation on how to read spatial data into R.</span>
+<span id="cb53-27"><a href="#cb53-27" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb53-28"><a href="#cb53-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-29"><a href="#cb53-29" aria-hidden="true" tabindex="-1"></a>Reading spatial data into your local R environment using the sf package is straight forward. For example, you can read a local GeoPackage file to an sf object by setting the dsn (short for data source name) to the file path:</span>
+<span id="cb53-30"><a href="#cb53-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-33"><a href="#cb53-33" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb53-34"><a href="#cb53-34" aria-hidden="true" tabindex="-1"></a>dsn <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"files/data"</span>, <span class="st">"ne_50m_populated_places_simple.gpkg"</span>)</span>
+<span id="cb53-35"><a href="#cb53-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-36"><a href="#cb53-36" aria-hidden="true" tabindex="-1"></a>populated_places <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="at">dsn =</span> dsn)</span>
+<span id="cb53-37"><a href="#cb53-37" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb53-38"><a href="#cb53-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-39"><a href="#cb53-39" aria-hidden="true" tabindex="-1"></a><span class="in">`st_read`</span> read the GeoPackage file into a simple feature (sf) object and output details on the layer, data source, driver, and attributes of the new object.</span>
+<span id="cb53-40"><a href="#cb53-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-41"><a href="#cb53-41" aria-hidden="true" tabindex="-1"></a>You can also use <span class="in">`read_sf()`</span> which is the same as <span class="in">`st_read()`</span> but it returns a tibble object and uses <span class="in">`quiet = TRUE`</span> by default.</span>
+<span id="cb53-42"><a href="#cb53-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-45"><a href="#cb53-45" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb53-46"><a href="#cb53-46" aria-hidden="true" tabindex="-1"></a>dsn <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"files/data"</span>, <span class="st">"ne_10m_admin_0_countries.gpkg"</span>)</span>
+<span id="cb53-47"><a href="#cb53-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-48"><a href="#cb53-48" aria-hidden="true" tabindex="-1"></a>countries <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="at">dsn =</span> dsn)</span>
+<span id="cb53-49"><a href="#cb53-49" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb53-50"><a href="#cb53-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-51"><a href="#cb53-51" aria-hidden="true" tabindex="-1"></a>The <span class="in">`dsn`</span> argument can also be a URL for a spatial data file that is stored online (instead of locally on your computer) or a database endpoint. The data source is also not limited to a GeoPackage files. Supported filetypes include GeoJSON files, shapefiles, KML files, and any other file type with a <span class="co">[</span><span class="ot">GDAL</span><span class="co">](https://gdal.org/)</span> (Geospatial Data Abstraction Library) driver. You can review list available drivers using the <span class="in">`sf::st_drivers()`</span> function.</span>
+<span id="cb53-52"><a href="#cb53-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-53"><a href="#cb53-53" aria-hidden="true" tabindex="-1"></a>::: panel-tabset</span>
+<span id="cb53-54"><a href="#cb53-54" aria-hidden="true" tabindex="-1"></a><span class="fu">### Supported vector drivers</span></span>
+<span id="cb53-55"><a href="#cb53-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-58"><a href="#cb53-58" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb53-59"><a href="#cb53-59" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb53-60"><a href="#cb53-60" aria-hidden="true" tabindex="-1"></a>dt_drivers <span class="ot">&lt;-</span> <span class="cf">function</span>(what) {</span>
+<span id="cb53-61"><a href="#cb53-61" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dt_tbl</span>(</span>
+<span id="cb53-62"><a href="#cb53-62" aria-hidden="true" tabindex="-1"></a>    <span class="fu">list_drivers</span>(what),</span>
+<span id="cb53-63"><a href="#cb53-63" aria-hidden="true" tabindex="-1"></a>    <span class="at">options =</span> <span class="fu">list</span>(</span>
+<span id="cb53-64"><a href="#cb53-64" aria-hidden="true" tabindex="-1"></a>      <span class="at">autoWidth =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb53-65"><a href="#cb53-65" aria-hidden="true" tabindex="-1"></a>      <span class="at">columnDefs =</span> <span class="fu">list</span>(<span class="fu">list</span>(<span class="at">width =</span> <span class="st">"30px"</span>, <span class="at">targets =</span> <span class="st">"Write support"</span>))</span>
+<span id="cb53-66"><a href="#cb53-66" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb53-67"><a href="#cb53-67" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb53-68"><a href="#cb53-68" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb53-69"><a href="#cb53-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-70"><a href="#cb53-70" aria-hidden="true" tabindex="-1"></a><span class="fu">dt_drivers</span>(<span class="st">"vector"</span>)</span>
+<span id="cb53-71"><a href="#cb53-71" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb53-72"><a href="#cb53-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-73"><a href="#cb53-73" aria-hidden="true" tabindex="-1"></a><span class="fu">### Supported raster drivers</span></span>
+<span id="cb53-74"><a href="#cb53-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-77"><a href="#cb53-77" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb53-78"><a href="#cb53-78" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb53-79"><a href="#cb53-79" aria-hidden="true" tabindex="-1"></a><span class="fu">dt_tbl</span>(<span class="fu">list_drivers</span>(<span class="st">"raster"</span>))</span>
+<span id="cb53-80"><a href="#cb53-80" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb53-81"><a href="#cb53-81" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb53-82"><a href="#cb53-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-83"><a href="#cb53-83" aria-hidden="true" tabindex="-1"></a><span class="fu">## Structure and attributes of sf objects</span></span>
+<span id="cb53-84"><a href="#cb53-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-85"><a href="#cb53-85" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="false" appearance="default" icon="true"}</span>
+<span id="cb53-86"><a href="#cb53-86" aria-hidden="true" tabindex="-1"></a>Read the sf vignette on <span class="co">[</span><span class="ot">Simple Features for R</span><span class="co">](https://r-spatial.github.io/sf/articles/sf1.html)</span> for more detailed explanation of geometry types, dimensions, coordinate reference systems, and more. For more on data frames, read the <span class="co">[</span><span class="ot">R Manual: An Introduction to R on data frames</span><span class="co">](https://rstudio.github.io/r-manuals/r-intro/Lists-and-data-frames.html#data-frames)</span> or the chapter on <span class="co">[</span><span class="ot">Tibbles from R for Data Science</span><span class="co">](https://r4ds.had.co.nz/tibbles.html)</span>.</span>
+<span id="cb53-87"><a href="#cb53-87" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb53-88"><a href="#cb53-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-89"><a href="#cb53-89" aria-hidden="true" tabindex="-1"></a>A simple feature (sf) object is always a data frame where each row is a feature. Like any other data frame, these columns can hold numeric (double or integer), character, factor, or logical values. These columns may also include list columns or nested data frame columns. The <span class="in">`dplyr::glimpse()`</span> function provides a convenient way to get a quick overview of the column types and values for "populated_places" and "countries":</span>
+<span id="cb53-90"><a href="#cb53-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-93"><a href="#cb53-93" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb53-94"><a href="#cb53-94" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(populated_places)</span>
+<span id="cb53-95"><a href="#cb53-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-96"><a href="#cb53-96" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(countries)</span>
+<span id="cb53-97"><a href="#cb53-97" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb53-98"><a href="#cb53-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-99"><a href="#cb53-99" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="false" appearance="default" icon="true"}</span>
+<span id="cb53-100"><a href="#cb53-100" aria-hidden="true" tabindex="-1"></a>Review the tibble vignette on <span class="co">[</span><span class="ot">Column types</span><span class="co">](https://r-spatial.github.io/sf/articles/sf1.html)</span> for more detailed explanation of geometry types, dimensions, coordinate reference systems, and more.</span>
+<span id="cb53-101"><a href="#cb53-101" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb53-102"><a href="#cb53-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-103"><a href="#cb53-103" aria-hidden="true" tabindex="-1"></a>A sf object can have any number of rows but it always has at least one special list column with the geometry for each feature. This column is usually named "geometry" or "geom" but it can be named anything. You can extract, rename, or replace the geometry column using the <span class="in">`sf::st_geometry`</span> function.</span>
+<span id="cb53-104"><a href="#cb53-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-107"><a href="#cb53-107" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb53-108"><a href="#cb53-108" aria-hidden="true" tabindex="-1"></a>sf<span class="sc">::</span><span class="fu">st_geometry</span>(countries)</span>
+<span id="cb53-109"><a href="#cb53-109" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb53-110"><a href="#cb53-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-111"><a href="#cb53-111" aria-hidden="true" tabindex="-1"></a>In addition to a geometry column, sf object also four special attributes that make it different than other dataframes. These attributes are:</span>
+<span id="cb53-112"><a href="#cb53-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-113"><a href="#cb53-113" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Geometry type</span>
+<span id="cb53-114"><a href="#cb53-114" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Dimensions</span>
+<span id="cb53-115"><a href="#cb53-115" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Bounding box</span>
+<span id="cb53-116"><a href="#cb53-116" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Coordinate reference system</span>
+<span id="cb53-117"><a href="#cb53-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-118"><a href="#cb53-118" aria-hidden="true" tabindex="-1"></a>Simple feature collections (sfc) objects share all these same attributes. Bounding box (bbox) objects have a crs attribute but none of the other attributes.</span>
+<span id="cb53-119"><a href="#cb53-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-120"><a href="#cb53-120" aria-hidden="true" tabindex="-1"></a><span class="fu">### Geometry types</span></span>
+<span id="cb53-121"><a href="#cb53-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-122"><a href="#cb53-122" aria-hidden="true" tabindex="-1"></a>You can use <span class="in">`sf::st_geometry_type()`</span> to list the geometry types for any sf object. All of the features in <span class="in">`countries`</span> use MULTIPOLYGON geometry. Features in <span class="in">`populated_places`</span> use POINT geometry.</span>
+<span id="cb53-123"><a href="#cb53-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-126"><a href="#cb53-126" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb53-127"><a href="#cb53-127" aria-hidden="true" tabindex="-1"></a><span class="fu">st_geometry_type</span>(countries, <span class="at">by_geometry =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb53-128"><a href="#cb53-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-129"><a href="#cb53-129" aria-hidden="true" tabindex="-1"></a><span class="fu">st_geometry_type</span>(populated_places, <span class="at">by_geometry =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb53-130"><a href="#cb53-130" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb53-131"><a href="#cb53-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-132"><a href="#cb53-132" aria-hidden="true" tabindex="-1"></a>While GeoPackage and shapefiles only support a single geometry type for each layer, sf objects do support mixed types. To show how this works, we can filter the populated places and country boundaries data to a single country then combine both objects into a single object using <span class="in">`dplyr::bind_rows()`</span>.</span>
+<span id="cb53-133"><a href="#cb53-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-134"><a href="#cb53-134" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="false" appearance="default" icon="true"}</span>
+<span id="cb53-135"><a href="#cb53-135" aria-hidden="true" tabindex="-1"></a>Review the <span class="co">[</span><span class="ot">Data transformation chapter</span><span class="co">](https://r-spatial.github.io/sf/articles/sf1.html)</span> from R for Data Science for more on how to use dplyr package to filter and arrange rows, select columns, and add new variables to a data frame.</span>
+<span id="cb53-136"><a href="#cb53-136" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb53-137"><a href="#cb53-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-140"><a href="#cb53-140" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb53-141"><a href="#cb53-141" aria-hidden="true" tabindex="-1"></a>usa_name <span class="ot">&lt;-</span> <span class="st">"United States of America"</span></span>
+<span id="cb53-142"><a href="#cb53-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-143"><a href="#cb53-143" aria-hidden="true" tabindex="-1"></a>usa_places <span class="ot">&lt;-</span> <span class="fu">filter</span>(populated_places, adm0name <span class="sc">==</span> usa_name)</span>
+<span id="cb53-144"><a href="#cb53-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-145"><a href="#cb53-145" aria-hidden="true" tabindex="-1"></a>usa_boundaries <span class="ot">&lt;-</span> <span class="fu">filter</span>(countries, SOVEREIGNT <span class="sc">==</span> usa_name)</span>
+<span id="cb53-146"><a href="#cb53-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-147"><a href="#cb53-147" aria-hidden="true" tabindex="-1"></a>usa <span class="ot">&lt;-</span></span>
+<span id="cb53-148"><a href="#cb53-148" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>(</span>
+<span id="cb53-149"><a href="#cb53-149" aria-hidden="true" tabindex="-1"></a>    usa_places,</span>
+<span id="cb53-150"><a href="#cb53-150" aria-hidden="true" tabindex="-1"></a>    usa_boundaries</span>
+<span id="cb53-151"><a href="#cb53-151" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb53-152"><a href="#cb53-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-153"><a href="#cb53-153" aria-hidden="true" tabindex="-1"></a><span class="fu">st_geometry_type</span>(usa, <span class="at">by_geometry =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb53-154"><a href="#cb53-154" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb53-155"><a href="#cb53-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-156"><a href="#cb53-156" aria-hidden="true" tabindex="-1"></a>You can also use the <span class="in">`sf::st_is()`</span> function to test if an object matches a specific geometry type. You can combine this function with <span class="in">`all`</span> or <span class="in">`any`</span> to check features as a whole.</span>
+<span id="cb53-157"><a href="#cb53-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-160"><a href="#cb53-160" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb53-161"><a href="#cb53-161" aria-hidden="true" tabindex="-1"></a><span class="fu">st_is</span>(usa_boundaries, <span class="at">type =</span> <span class="st">"MULTIPOLYGON"</span>)</span>
+<span id="cb53-162"><a href="#cb53-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-163"><a href="#cb53-163" aria-hidden="true" tabindex="-1"></a><span class="fu">any</span>(<span class="fu">st_is</span>(usa_places, <span class="at">type =</span> <span class="st">"MULTIPOLYGON"</span>))</span>
+<span id="cb53-164"><a href="#cb53-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-165"><a href="#cb53-165" aria-hidden="true" tabindex="-1"></a><span class="fu">all</span>(<span class="fu">st_is</span>(usa_places, <span class="at">type =</span> <span class="st">"POINT"</span>))</span>
+<span id="cb53-166"><a href="#cb53-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-167"><a href="#cb53-167" aria-hidden="true" tabindex="-1"></a><span class="fu">any</span>(<span class="fu">st_is</span>(usa, <span class="at">type =</span> <span class="st">"MULTIPOLYGON"</span>))</span>
+<span id="cb53-168"><a href="#cb53-168" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb53-169"><a href="#cb53-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-170"><a href="#cb53-170" aria-hidden="true" tabindex="-1"></a><span class="fu">### Dimension</span></span>
+<span id="cb53-171"><a href="#cb53-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-172"><a href="#cb53-172" aria-hidden="true" tabindex="-1"></a>sf objects must have at least two dimensions: X and Y. *All* geometries (such as polygons or linestrings) are made up of points so two dimensions are required to locate a point within a coordinate reference system. You may also see people refer to X and Y as easting and northing or longitude and latitude. sf objects can *optionally* include a Z dimension (for altitude) or a M coordinate (for a measure associated with an individual point). The M coordinate is rarely used but can be</span>
+<span id="cb53-173"><a href="#cb53-173" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-174"><a href="#cb53-174" aria-hidden="true" tabindex="-1"></a>M coordinate (rarely used), denoting some measure that is associated with the point, rather than with the feature as a whole (in which case it would be a feature attribute) (such as the time of measurement or measurement error of the coordinates)</span>
+<span id="cb53-175"><a href="#cb53-175" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-176"><a href="#cb53-176" aria-hidden="true" tabindex="-1"></a>If you do not need the Z dimension in your data, you can drop it using the <span class="in">`sf::st_zm()`</span> function.</span>
+<span id="cb53-177"><a href="#cb53-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-178"><a href="#cb53-178" aria-hidden="true" tabindex="-1"></a>All geometries are composed of points. Points are coordinates in a 2-, 3- or 4-dimensional space. All points in a geometry have the same dimensionality. In addition to X and Y coordinates, there are two optional additional dimensions:</span>
+<span id="cb53-179"><a href="#cb53-179" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-180"><a href="#cb53-180" aria-hidden="true" tabindex="-1"></a><span class="in">    a Z coordinate, denoting altitude</span></span>
+<span id="cb53-181"><a href="#cb53-181" aria-hidden="true" tabindex="-1"></a><span class="in">    an </span></span>
+<span id="cb53-182"><a href="#cb53-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-183"><a href="#cb53-183" aria-hidden="true" tabindex="-1"></a>The four possible cases then are:</span>
+<span id="cb53-184"><a href="#cb53-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-185"><a href="#cb53-185" aria-hidden="true" tabindex="-1"></a><span class="in">    two-dimensional points refer to x and y, , we refer to them as XY</span></span>
+<span id="cb53-186"><a href="#cb53-186" aria-hidden="true" tabindex="-1"></a><span class="in">    three-dimensional points as XYZ</span></span>
+<span id="cb53-187"><a href="#cb53-187" aria-hidden="true" tabindex="-1"></a><span class="in">    three-dimensional points as XYM</span></span>
+<span id="cb53-188"><a href="#cb53-188" aria-hidden="true" tabindex="-1"></a><span class="in">    four-dimensional points as XYZM (the third axis is Z, fourth M)</span></span>
+<span id="cb53-189"><a href="#cb53-189" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-190"><a href="#cb53-190" aria-hidden="true" tabindex="-1"></a><span class="fu">### Bounding box</span></span>
+<span id="cb53-191"><a href="#cb53-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-192"><a href="#cb53-192" aria-hidden="true" tabindex="-1"></a>You can get the bounding box for any sf or sfc object using <span class="in">`sf::st_bbox`</span></span>
+<span id="cb53-193"><a href="#cb53-193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-196"><a href="#cb53-196" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb53-197"><a href="#cb53-197" aria-hidden="true" tabindex="-1"></a>usa_bbox <span class="ot">&lt;-</span> <span class="fu">st_bbox</span>(usa)</span>
+<span id="cb53-198"><a href="#cb53-198" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-199"><a href="#cb53-199" aria-hidden="true" tabindex="-1"></a>usa_bbox</span>
+<span id="cb53-200"><a href="#cb53-200" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb53-201"><a href="#cb53-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-202"><a href="#cb53-202" aria-hidden="true" tabindex="-1"></a>A bounding box is a named numeric vector with a <span class="in">`crs`</span> attribute. You can convert it to a numeric vector using <span class="in">`as.numeric()`</span> or get the coordinate reference system with <span class="in">`sf::st_crs`</span>.</span>
+<span id="cb53-203"><a href="#cb53-203" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-206"><a href="#cb53-206" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb53-207"><a href="#cb53-207" aria-hidden="true" tabindex="-1"></a><span class="fu">as.numeric</span>(usa_bbox)</span>
+<span id="cb53-208"><a href="#cb53-208" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-209"><a href="#cb53-209" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(usa_bbox)</span>
+<span id="cb53-210"><a href="#cb53-210" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb53-211"><a href="#cb53-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-212"><a href="#cb53-212" aria-hidden="true" tabindex="-1"></a>You can convert a numeric vector back into a bounding box object with <span class="in">`sf::st_bbox`</span>.</span>
+<span id="cb53-213"><a href="#cb53-213" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-216"><a href="#cb53-216" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb53-217"><a href="#cb53-217" aria-hidden="true" tabindex="-1"></a><span class="fu">st_bbox</span>(</span>
+<span id="cb53-218"><a href="#cb53-218" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"xmin"</span> <span class="ot">=</span> <span class="sc">-</span><span class="fl">179.14350</span>,</span>
+<span id="cb53-219"><a href="#cb53-219" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ymin"</span> <span class="ot">=</span> <span class="sc">-</span><span class="fl">14.53289</span>,</span>
+<span id="cb53-220"><a href="#cb53-220" aria-hidden="true" tabindex="-1"></a>    <span class="st">"xmax"</span> <span class="ot">=</span> <span class="fl">179.78094</span>,</span>
+<span id="cb53-221"><a href="#cb53-221" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ymax"</span> <span class="ot">=</span> <span class="fl">71.41250</span>)</span>
+<span id="cb53-222"><a href="#cb53-222" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb53-223"><a href="#cb53-223" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb53-224"><a href="#cb53-224" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-225"><a href="#cb53-225" aria-hidden="true" tabindex="-1"></a>If we want to plot the bounding box on a map, we can convert it into a sfc object with <span class="in">`sf::st_as_sfc()`</span> and convert the sfc object into an sf object using <span class="in">`sf::st_as_sf()`</span>.</span>
+<span id="cb53-226"><a href="#cb53-226" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-229"><a href="#cb53-229" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb53-230"><a href="#cb53-230" aria-hidden="true" tabindex="-1"></a>usa_bbox_sfc <span class="ot">&lt;-</span> <span class="fu">st_as_sfc</span>(usa_bbox)</span>
+<span id="cb53-231"><a href="#cb53-231" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-232"><a href="#cb53-232" aria-hidden="true" tabindex="-1"></a>usa_bbox_sf <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(usa_bbox_sfc)</span>
+<span id="cb53-233"><a href="#cb53-233" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb53-234"><a href="#cb53-234" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-235"><a href="#cb53-235" aria-hidden="true" tabindex="-1"></a>Finally, we can use <span class="in">`tmap::tmap_leaflet()`</span> to compare the bounding box to the country boundary and places objects created in the previous section on geometry types.</span>
+<span id="cb53-236"><a href="#cb53-236" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-239"><a href="#cb53-239" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb53-240"><a href="#cb53-240" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
+<span id="cb53-241"><a href="#cb53-241" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-242"><a href="#cb53-242" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_leaflet</span>(</span>
+<span id="cb53-243"><a href="#cb53-243" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_shape</span>(usa_bbox_sf) <span class="sc">+</span></span>
+<span id="cb53-244"><a href="#cb53-244" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tm_borders</span>() <span class="sc">+</span></span>
+<span id="cb53-245"><a href="#cb53-245" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tm_shape</span>(usa_boundaries) <span class="sc">+</span></span>
+<span id="cb53-246"><a href="#cb53-246" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tm_polygons</span>(<span class="at">col =</span> <span class="st">"NAME"</span>, <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb53-247"><a href="#cb53-247" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tm_shape</span>(usa_places) <span class="sc">+</span></span>
+<span id="cb53-248"><a href="#cb53-248" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tm_sf</span>(<span class="at">id =</span> <span class="st">"name"</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>)</span>
+<span id="cb53-249"><a href="#cb53-249" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb53-250"><a href="#cb53-250" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb53-251"><a href="#cb53-251" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-252"><a href="#cb53-252" aria-hidden="true" tabindex="-1"></a><span class="fu">### Coordinate reference systems</span></span>
+<span id="cb53-253"><a href="#cb53-253" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-254"><a href="#cb53-254" aria-hidden="true" tabindex="-1"></a>You can get a coordinate reference system with <span class="in">`sf::st_crs`</span>. This returns a crs object which has the crs for the user input object as a character string and the well-known text (wkt) for the coordinate reference system.</span>
+<span id="cb53-255"><a href="#cb53-255" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-258"><a href="#cb53-258" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb53-259"><a href="#cb53-259" aria-hidden="true" tabindex="-1"></a>usa_crs <span class="ot">&lt;-</span> <span class="fu">st_crs</span>(usa)</span>
+<span id="cb53-260"><a href="#cb53-260" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-261"><a href="#cb53-261" aria-hidden="true" tabindex="-1"></a>usa_crs</span>
+<span id="cb53-262"><a href="#cb53-262" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb53-263"><a href="#cb53-263" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-264"><a href="#cb53-264" aria-hidden="true" tabindex="-1"></a>A crs object also has a method for returning the spatial reference identifier (or SRID). The SRID is a unique identifier for a specific coordinate system, tolerance, and resolution.</span>
+<span id="cb53-265"><a href="#cb53-265" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-266"><a href="#cb53-266" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="false" appearance="default" icon="true"}</span>
+<span id="cb53-267"><a href="#cb53-267" aria-hidden="true" tabindex="-1"></a><span class="fu">## Find coordinate reference systems</span></span>
+<span id="cb53-268"><a href="#cb53-268" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-269"><a href="#cb53-269" aria-hidden="true" tabindex="-1"></a>You can explore a database of over 6000 coordinate reference system with the corresponding EPSG and ESRI SRID codes at <span class="co">[</span><span class="ot">EPSG.io</span><span class="co">](https://epsg.io/)</span>. You can also use the <span class="co">[</span><span class="ot">crsuggest</span><span class="co">](https://github.com/walkerke/crsuggest/)</span> package which uses data from the <span class="co">[</span><span class="ot">EPSG Registry</span><span class="co">](https://epsg.org/home.html)</span> (a product of the International Association of Oil &amp; Gas Producers). The <span class="co">[</span><span class="ot">Web Mercator projection</span><span class="co">](https://en.wikipedia.org/wiki/Web_Mercator_projection)</span> or "EPSG:3857" is convenient option that works well for many use cases.</span>
+<span id="cb53-270"><a href="#cb53-270" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb53-271"><a href="#cb53-271" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-274"><a href="#cb53-274" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb53-275"><a href="#cb53-275" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(usa)<span class="sc">$</span>srid</span>
+<span id="cb53-276"><a href="#cb53-276" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb53-277"><a href="#cb53-277" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-278"><a href="#cb53-278" aria-hidden="true" tabindex="-1"></a>You can change the coordinate reference system using the <span class="in">`sf::st_transform`</span> function:</span>
+<span id="cb53-279"><a href="#cb53-279" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-282"><a href="#cb53-282" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb53-283"><a href="#cb53-283" aria-hidden="true" tabindex="-1"></a>usa_3857 <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(usa, <span class="dv">3857</span>)</span>
+<span id="cb53-284"><a href="#cb53-284" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-285"><a href="#cb53-285" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(usa_3857)</span>
+<span id="cb53-286"><a href="#cb53-286" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb53-287"><a href="#cb53-287" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-288"><a href="#cb53-288" aria-hidden="true" tabindex="-1"></a>You can also check if a object is using a <span class="co">[</span><span class="ot">geographic</span><span class="co">](https://en.wikipedia.org/wiki/Geographic_coordinate_system)</span> (also known as geodetic or simply lon/lat) or <span class="co">[</span><span class="ot">projected coordinate reference system</span><span class="co">]()</span> using the <span class="in">`sf::st_is_longlat`</span> function:</span>
+<span id="cb53-289"><a href="#cb53-289" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-292"><a href="#cb53-292" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb53-293"><a href="#cb53-293" aria-hidden="true" tabindex="-1"></a><span class="fu">st_is_longlat</span>(usa)</span>
+<span id="cb53-294"><a href="#cb53-294" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-295"><a href="#cb53-295" aria-hidden="true" tabindex="-1"></a><span class="fu">st_is_longlat</span>(usa_3857)</span>
+<span id="cb53-296"><a href="#cb53-296" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb53-297"><a href="#cb53-297" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-298"><a href="#cb53-298" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="false" appearance="default" icon="true"}</span>
+<span id="cb53-299"><a href="#cb53-299" aria-hidden="true" tabindex="-1"></a>Review the sf vignette <span class="co">[</span><span class="ot">Spherical geometry in sf using s2geometry</span><span class="co">](https://r-spatial.github.io/sf/articles/sf7.html)</span> for a technical explanation of how sf uses the <span class="co">[</span><span class="ot">S2 Geometry Library</span><span class="co">](https://s2geometry.io/)</span> when manipulating data with a geographic coordinate reference system.</span>
+<span id="cb53-300"><a href="#cb53-300" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb53-301"><a href="#cb53-301" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-302"><a href="#cb53-302" aria-hidden="true" tabindex="-1"></a>Both ggplot2 and tmap can convert the crs of input objects before mapping. For example, <span class="in">`tm_shape`</span> supports an optional "projection" argument such as "EPSG:3035" (the <span class="co">[</span><span class="ot">Lambert azimuthal equal-area projection</span><span class="co">](https://en.wikipedia.org/wiki/Lambert_azimuthal_equal-area_projection)</span>):</span>
+<span id="cb53-303"><a href="#cb53-303" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-306"><a href="#cb53-306" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb53-307"><a href="#cb53-307" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
+<span id="cb53-308"><a href="#cb53-308" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(countries, <span class="at">projection =</span> <span class="st">"EPSG:3035"</span>) <span class="sc">+</span></span>
+<span id="cb53-309"><a href="#cb53-309" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="st">"grey85"</span>, <span class="at">border.col =</span> <span class="st">"grey30"</span>) <span class="sc">+</span></span>
+<span id="cb53-310"><a href="#cb53-310" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_layout</span>(<span class="at">earth.boundary =</span> <span class="cn">TRUE</span>, <span class="at">frame =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb53-311"><a href="#cb53-311" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb53-312"><a href="#cb53-312" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-313"><a href="#cb53-313" aria-hidden="true" tabindex="-1"></a>The <span class="in">`ggplot2::geom_sf`</span> function uses the coordinate reference system of the first sf object provided and re-projects additional objects to match.</span>
+<span id="cb53-314"><a href="#cb53-314" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-317"><a href="#cb53-317" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb53-318"><a href="#cb53-318" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
+<span id="cb53-319"><a href="#cb53-319" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-320"><a href="#cb53-320" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb53-321"><a href="#cb53-321" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-322"><a href="#cb53-322" aria-hidden="true" tabindex="-1"></a>countries_3857 <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(countries, <span class="dv">3857</span>)</span>
+<span id="cb53-323"><a href="#cb53-323" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-324"><a href="#cb53-324" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb53-325"><a href="#cb53-325" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> populated_places, <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb53-326"><a href="#cb53-326" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> countries_3857, <span class="at">fill =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb53-327"><a href="#cb53-327" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="fu">st_crs</span>(populated_places)<span class="sc">$</span>srid) <span class="sc">+</span></span>
+<span id="cb53-328"><a href="#cb53-328" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb53-329"><a href="#cb53-329" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">

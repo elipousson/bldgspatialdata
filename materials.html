@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Building Spatial Datasets - Assignments</title>
+<title>Building Spatial Datasets - Materials</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,25 +23,25 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<script src="../site_libs/quarto-listing/list.min.js"></script>
-<script src="../site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="../site_libs/quarto-html/quarto.js"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
-<link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-listing/list.min.js"></script>
+<script src="site_libs/quarto-listing/quarto-listing.js"></script>
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -71,9 +71,9 @@ ul.task-list li input[type="checkbox"] {
     }
 
     const options = {
-      valueNames: ['listing-title','listing-author','listing-image','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      valueNames: ['listing-title','listing-author','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
       
-      searchColumns: ["listing-title","listing-author","listing-image","listing-description"],
+      searchColumns: ["listing-title","listing-author","listing-description","listing-categories"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -93,14 +93,14 @@ ul.task-list li input[type="checkbox"] {
 
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<link rel="stylesheet" href="../styles.css">
-<meta property="og:title" content="Building Spatial Datasets - Assignments">
+<link rel="stylesheet" href="styles.css">
+<meta property="og:title" content="Building Spatial Datasets - Materials">
 <meta property="og:image" content="https://elipousson.github.io/bldgspatialdata/files/img/ges600-logo.png">
 <meta property="og:site-name" content="Building Spatial Datasets">
 <meta property="og:locale" content="en_US">
 <meta property="og:image:height" content="1254">
 <meta property="og:image:width" content="1180">
-<meta name="twitter:title" content="Building Spatial Datasets - Assignments">
+<meta name="twitter:title" content="Building Spatial Datasets - Materials">
 <meta name="twitter:image" content="https://elipousson.github.io/bldgspatialdata/files/img/ges600-logo.png">
 <meta name="twitter:creator" content="\@elipousson">
 <meta name="twitter:card" content="summary_large_image">
@@ -115,7 +115,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">Building Spatial Datasets</span>
     </a>
   </div>
@@ -125,19 +125,19 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html">Home</a>
+    <a class="nav-link" href="./index.html">Home</a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../syllabus.html">Syllabus</a>
+    <a class="nav-link" href="./syllabus.html">Syllabus</a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../schedule.html">Schedule</a>
+    <a class="nav-link" href="./schedule.html">Schedule</a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../assignments/index.html" aria-current="page">Assignments</a>
+    <a class="nav-link" href="./assignments/index.html">Assignments</a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../resources/index.html">Resources</a>
+    <a class="nav-link" href="./resources/index.html">Resources</a>
   </li>  
 </ul>
               <div id="quarto-search" class="" title="Search"></div>
@@ -151,13 +151,13 @@ ul.task-list li input[type="checkbox"] {
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
-    </div>
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(5)</span></div><div class="category" data-category="example">example <span class="quarto-category-count">(2)</span></div><div class="category" data-category="resource">resource <span class="quarto-category-count">(3)</span></div></div></div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Assignments</h1>
+<h1 class="title">Materials</h1>
 </div>
 
 
@@ -176,19 +176,27 @@ ul.task-list li input[type="checkbox"] {
 
 
 <div class="quarto-listing quarto-listing-container-grid" id="listing-listing">
+<div class="listing-actions-group">
+    <div class="input-group input-group-sm quarto-listing-filter">
+      <span class="input-group-text"><i class="bi bi-search"></i></span>
+      <input type="text" class="search form-control" placeholder="Filter">
+    </div>
+</div>
 <div class="list grid quarto-listing-cols-3">
-<div class="g-col-1" data-index="0" data-listing-file-modified-sort="1662996095590" data-listing-reading-time-sort="4.675">
-<a href="../assignments/01_find-data.html" class="quarto-grid-link">
+<div class="g-col-1" data-index="0" data-categories="resource" data-listing-file-modified-sort="1662996095778" data-listing-reading-time-sort="1.125">
+<a href="./resources/data.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img src="../assignments/images/master-pnp-cph-3b20000-3b22000-3b22300-3b22345u.jpg" class="thumbnail-image card-img" style="height: 150px;">
-</p>
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
-Find spatial data
+Data sources
 </h5>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('resource'); return false;">
+resource
+</div>
+</div>
 <div class="card-text listing-description">
-<strong>Learn how to…</strong>
+Spatial data is available in a wide range of formats:
 </div>
 <div class="card-attribution card-text-small start">
 <div class="listing-author">
@@ -199,18 +207,20 @@ Find spatial data
 </div>
 </a>
 </div>
-<div class="g-col-1" data-index="1" data-listing-file-modified-sort="1662996095590" data-listing-reading-time-sort="2.185">
-<a href="../assignments/02_make-map-r.html" class="quarto-grid-link">
+<div class="g-col-1" data-index="1" data-categories="example" data-listing-file-modified-sort="1662996095594" data-listing-reading-time-sort="7.595">
+<a href="./examples/01_read-data-r.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img src="../assignments/images/ggsf-example.png" class="thumbnail-image card-img" style="height: 150px;">
-</p>
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
-Make a map with R and ggplot2
+Read and filter spatial data with R
 </h5>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('example'); return false;">
+example
+</div>
+</div>
 <div class="card-text listing-description">
-<strong>Learn how to…</strong>
+This example shows how to read spatial data into R using the sf package and explains the basic structure and attributes simple feature sf objects. This example uses two datasets from Natural Earth:
 </div>
 <div class="card-attribution card-text-small start">
 <div class="listing-author">
@@ -221,18 +231,68 @@ Make a map with R and ggplot2
 </div>
 </a>
 </div>
-<div class="g-col-1" data-index="2" data-listing-file-modified-sort="1662996095590" data-listing-reading-time-sort="2.775">
-<a href="../assignments/03_make-map-qgis.html" class="quarto-grid-link">
+<div class="g-col-1" data-index="2" data-categories="example" data-listing-file-modified-sort="1662996095594" data-listing-reading-time-sort="5.34">
+<a href="./examples/02_read-tabular-data-r.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img src="../assignments/images/about-qgis-screenshot.png" class="thumbnail-image card-img" style="height: 150px;">
-</p>
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
-Read data and make a map with QGIS
+Read tabular data and convert to spatial data with R
 </h5>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('example'); return false;">
+example
+</div>
+</div>
 <div class="card-text listing-description">
-<strong>Learn how to…</strong>
+Learn to read tabular data with R, convert to spatial data with the sf package, and clean data with the dplyr and tidy packages.
+</div>
+<div class="card-attribution card-text-small start">
+<div class="listing-author">
+
+</div>
+</div>
+</div>
+</div>
+</a>
+</div>
+<div class="g-col-1" data-index="3" data-categories="resource" data-listing-file-modified-sort="1662996095778" data-listing-reading-time-sort="3.25">
+<a href="./resources/qgis.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Using QGIS
+</h5>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('resource'); return false;">
+resource
+</div>
+</div>
+<div class="card-text listing-description">
+Read the Desktop User Guide/Manual
+</div>
+<div class="card-attribution card-text-small start">
+<div class="listing-author">
+
+</div>
+</div>
+</div>
+</div>
+</a>
+</div>
+<div class="g-col-1" data-index="4" data-categories="resource" data-listing-file-modified-sort="1662996095778" data-listing-reading-time-sort="1.755">
+<a href="./resources/r.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Using R and RStudio Desktop
+</h5>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('resource'); return false;">
+resource
+</div>
+</div>
+<div class="card-text listing-description">
+R is a statistical programming language that supports a wide range of data analysis, processing, and visualization activities.
 </div>
 <div class="card-attribution card-text-small start">
 <div class="listing-author">
