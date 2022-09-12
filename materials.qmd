@@ -1,0 +1,11 @@
+---
+title: "Materials"
+listing:
+  type: grid
+  filter-ui: true
+  categories: true
+  contents:
+    - "slides/!(index).qmd"
+    - "examples/!(index).qmd"
+    - "resources/!(index).qmd"
+---
