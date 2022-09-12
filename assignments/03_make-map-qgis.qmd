@@ -21,13 +21,13 @@ category: assignment
 
 For this assignment, you are encouraged to use the Natural Earth Quickstart Kit (a small sample of Natural Earth themes styled in in a QGIS document) as a data source or basemap:
 
--   [Download the kit](http://naciscdn.org/naturalearth/packages/Natural_Earth_quick_start.zip) and unzip the file *Natural_Earth_quick_start.zip* file
+-   [Download the kit](http://naciscdn.org/naturalearth/packages/Natural_Earth_quick_start.zip) and unzip the file `Natural_Earth_quick_start.zip` file
 
 ## Step-by-step instructions
 
 Complete *all* of the following steps using the linked documentation for reference:
 
-1.  Open the project file *Natural_Earth_quick_start_for_QGIS.qgs.*
+1.  Open the project file `Natural_Earth_quick_start_for_QGIS.qgs`.
 
 2.  Load one or more additional data identified in the Finding data assignment using the Data Source Manager (see [Opening Data](https://docs.qgis.org/3.22/en/docs/user_manual/managing_data_source/opening_data.html))
 
@@ -64,4 +64,3 @@ Add the PDF map, QGS project file, and the Markdown file with your description t
 -   [Making a Map (QGIS3)](https://www.qgistutorials.com/en/docs/3/making_a_map.html) from QGIS Tutorials and Tips
 
 -   [5.3 Sample Session: Loading raster and vector layers](https://docs.qgis.org/3.22/en/docs/user_manual/introduction/getting_started.html#sample-session-loading-raster-and-vector-layers) from QGIS Desktop User Guide/Manual (3.22)
-
