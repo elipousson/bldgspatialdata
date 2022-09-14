@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.1.189">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-
 <title>Building Spatial Datasets - Make a map with R and ggplot2</title>
 <style>
 code{white-space: pre-wrap;}
@@ -41,7 +38,6 @@ div.csl-indent {
 }
 </style>
 
-
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -58,8 +54,7 @@ div.csl-indent {
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
-<link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
-<script id="quarto-search-options" type="application/json">{
+<link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -77,10 +72,7 @@ div.csl-indent {
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit"
   }
-}</script>
-
-
-<link rel="stylesheet" href="../styles.css">
+}</script><link rel="stylesheet" href="../styles.css">
 <meta property="og:title" content="Building Spatial Datasets - Make a map with R and ggplot2">
 <meta property="og:description" content="Complete all of the following steps using the linked function documentation for reference:">
 <meta property="og:image" content="https://elipousson.github.io/bldgspatialdata/files/img/ges600-logo.png">
@@ -96,13 +88,10 @@ div.csl-indent {
 <meta name="twitter:image-height" content="1254">
 <meta name="twitter:image-width" content="1180">
 </head>
-
 <body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
-      <div class="navbar-container container-fluid">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg navbar-dark "><div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Building Spatial Datasets</span>
@@ -113,7 +102,7 @@ div.csl-indent {
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item">
+<li class="nav-item">
     <a class="nav-link" href="../index.html">Home</a>
   </li>  
   <li class="nav-item">
@@ -126,33 +115,25 @@ div.csl-indent {
     <a class="nav-link" href="../assignments/index.html">Assignments</a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../resources/index.html">Resources</a>
+    <a class="nav-link" href="../materials.html">Materials</a>
   </li>  
 </ul>
-              <div id="quarto-search" class="" title="Search"></div>
+<div id="quarto-search" class="" title="Search"></div>
           </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
-    </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+    </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#step-by-step-instructions" id="toc-step-by-step-instructions" class="nav-link active" data-scroll-target="#step-by-step-instructions">Step-by-step instructions</a></li>
+<li><a href="#step-by-step-instructions" id="toc-step-by-step-instructions" class="nav-link active" data-scroll-target="#step-by-step-instructions">Step-by-step instructions</a></li>
   <li><a href="#optional-bonus-activities" id="toc-optional-bonus-activities" class="nav-link" data-scroll-target="#optional-bonus-activities">Optional bonus activities</a></li>
-  </ul>
-</nav>
+  </ul></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
 <h1 class="title">Make a map with R and ggplot2</h1>
 </div>
 
@@ -165,9 +146,7 @@ div.csl-indent {
   </div>
   
 
-</header>
-
-<div class="callout-note callout callout-style-simple">
+</header><div class="callout-note callout callout-style-simple">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -177,34 +156,49 @@ div.csl-indent {
 <ul>
 <li><p>Open and save project files using RStudio</p></li>
 <li><p>Read vector data files (e.g.&nbsp;shapefile or GeoJSON) using the sf package</p></li>
-<li><p>Filter data by attribute using the dplyr package</p></li>
-<li><p>Create a map with the ggplot2 package using an attribute to define the aesthetics of the map</p></li>
-<li><p>Label and export a map using the ggplot2 package</p></li>
+<li><p>Filter data by attribute using the {dplyr} package</p></li>
+<li><p>Create a map with the {ggplot2} package using an attribute to define the aesthetics of the map</p></li>
+<li><p>Label and export a map using the {ggplot2} package</p></li>
 </ul>
 </div>
 </div>
 </div>
-<section id="step-by-step-instructions" class="level2">
-<h2 class="anchored" data-anchor-id="step-by-step-instructions">Step-by-step instructions</h2>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'dplyr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:stats':
+
+    filter, lag</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Linking to GEOS 3.10.2, GDAL 3.4.2, PROJ 8.2.1; sf_use_s2() is TRUE</code></pre>
+</div>
+</div>
+<section id="step-by-step-instructions" class="level2"><h2 class="anchored" data-anchor-id="step-by-step-instructions">Step-by-step instructions</h2>
 <p>Complete <em>all</em> of the following steps using the linked function documentation for reference:</p>
 <ol type="1">
 <li><p>Open the <code>02_map-R.RProj</code> project file (see <a href="https://support.rstudio.com/hc/en-us/articles/200526207-Using-RStudio-Projects">using RStudio Projects</a>) and open the RMarkdown template found within the project folder.</p></li>
-<li><p>Read any additional data using <a href="https://r-spatial.github.io/sf/reference/st_read.html"><code>sf::read_sf()</code></a> or <a href="https://r-spatial.github.io/sf/reference/st_read.html"><code>sf::st_read()</code></a></p></li>
-<li><p>Filter data by attribute using <code>dplyr::filter()</code></p></li>
-<li><p>Create a plot with <a href="https://ggplot2.tidyverse.org/reference/ggplot.html"><code>ggplot2::ggplot()</code></a> and a geom with <a href="https://ggplot2.tidyverse.org/reference/ggsf.html"><code>ggplot2::geom_sf()</code></a>.</p></li>
-<li><p>Specify one or more aesthetic attributes using <a href="https://ggplot2.tidyverse.org/reference/aes.html"><code>ggplot2::aes()</code></a></p></li>
-<li><p>Add an appropriate scale for the attribute using <a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html"><code>ggplot2::scale_fill_brewer()</code></a>, <a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html"><code>ggplot2::scale_color_brewer()</code></a>, or another <a href="https://ggplot2.tidyverse.org/reference/index.html#scales">ggplot2 scale function</a></p></li>
-<li><p>Set a theme using <a href="https://ggplot2.tidyverse.org/reference/ggtheme.html"><code>ggplot2::theme_minimal()</code></a> or another theme function</p></li>
-<li><p>Customize the map title, caption, and legend using <a href="https://ggplot2.tidyverse.org/reference/labs.html"><code>ggplot2::labs()</code></a>. Depending on the attribute type, you may want to use a labelling function from the <a href="https://scales.r-lib.org/">{scales} package</a>, e.g.&nbsp;<a href="https://scales.r-lib.org/reference/label_dollar.html"><code>label_dolar()</code></a> for currency values or <a href="https://scales.r-lib.org/reference/label_percent.html"><code>label_percent()</code></a> for percentages. These functions are passed to the labels parameter of your scale function.</p></li>
-<li><p>Export the map as a PDF file using <a href="https://ggplot2.tidyverse.org/reference/ggsave.html"><code>ggplot2::ggsave()</code></a></p></li>
-</ol>
-</section>
-<section id="optional-bonus-activities" class="level2">
-<h2 class="anchored" data-anchor-id="optional-bonus-activities">Optional bonus activities</h2>
+<li><p>Read any additional data using <code><a href="https://r-spatial.github.io/sf/reference/st_read.html">sf::read_sf()</a></code> or <code><a href="https://r-spatial.github.io/sf/reference/st_read.html">sf::st_read()</a></code></p></li>
+<li><p>Filter data by attribute using <code><a href="https://dplyr.tidyverse.org/reference/filter.html">dplyr::filter()</a></code></p></li>
+<li><p>Create a plot with <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot2::ggplot()</a></code> and a geom with <code><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">ggplot2::geom_sf()</a></code></p></li>
+<li><p>Specify one or more aesthetic attributes using <code><a href="https://ggplot2.tidyverse.org/reference/aes.html">ggplot2::aes()</a></code></p></li>
+<li><p>Add an appropriate scale for the attribute using <code><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">ggplot2::scale_fill_brewer()</a></code>, <code><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">ggplot2::scale_color_brewer()</a></code>, or another <a href="https://ggplot2.tidyverse.org/reference/index.html#scales">ggplot2 scale function</a></p></li>
+<li><p>Set a theme using <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">ggplot2::theme_minimal()</a></code> or another theme function</p></li>
+<li><p>Customize the map title, caption, and legend using <code><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggplot2::labs()</a></code>. Depending on the attribute type, you may want to use a labelling function from the {scales} package, e.g.&nbsp;<code>label_dolar()</code> for currency values or <code>label_percent()</code> for percentages. These functions are passed to the labels parameter of your scale function.</p></li>
+<li><p>Export the map as a PDF file using <code><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggplot2::ggsave()</a></code></p></li>
+</ol></section><section id="optional-bonus-activities" class="level2"><h2 class="anchored" data-anchor-id="optional-bonus-activities">Optional bonus activities</h2>
 <p>Create one or more additional maps using <em>any</em> of the following approaches for an extra bonus points:</p>
 <ul>
-<li><p>Create a multi-panel map using a <a href="https://ggplot2.tidyverse.org/reference/index.html#facetting">faceting function</a>. Typically, multi-panel maps are used for categorical variables or binned continuous variables. Consider using the <a href="https://dplyr.tidyverse.org/reference/mutate.html"><code>dplyr::mutate()</code></a> function to recode a categorical variable or using <a href="https://ggplot2.tidyverse.org/reference/scale_binned.html">a binned scale</a> to convert a continuous variable into a discrete variable.</p></li>
-<li><p>Create a bar chart showing the distribution of the mapped attribute by location or a scatter plot to compare the mapped attribute data to another attribute in your data. <a href="https://r4ds.had.co.nz/data-visualisation.html">Ch. 3 Data visualization</a> in <span class="citation" data-cites="wickhamDataScienceImport2022">Wickham and Grolemund (<a href="#ref-wickhamDataScienceImport2022" role="doc-biblioref">2022</a>)</span> has examples of both types of data visualizations or you can explore the documentation for <a href="https://ggplot2.tidyverse.org/reference/geom_bar.html"><code>ggplot2::geom_bar()</code></a> or <a href="https://ggplot2.tidyverse.org/reference/geom_point.html"><code>ggplot2::geom_point()</code></a>.</p></li>
+<li><p>Create a multi-panel map using a <a href="https://ggplot2.tidyverse.org/reference/index.html#facetting">faceting function</a>. Typically, multi-panel maps are used for categorical variables or binned continuous variables. Consider using the <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">dplyr::mutate()</a></code> function to re-code a categorical variable or using <a href="https://ggplot2.tidyverse.org/reference/scale_binned.html">a binned scale</a> to convert a continuous variable into a discrete variable.</p></li>
+<li><p>Create a bar chart showing the distribution of the mapped attribute by location or a scatter plot to compare the mapped attribute data to another attribute in your data. <a href="https://r4ds.had.co.nz/data-visualisation.html">Ch. 3 Data visualization</a> in <span class="citation" data-cites="wickhamDataScienceImport2022">Wickham and Grolemund (<a href="#ref-wickhamDataScienceImport2022" role="doc-biblioref">2022</a>)</span> has examples of both types of data visualizations or you can explore the documentation for <code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">ggplot2::geom_bar()</a></code> or <code><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">ggplot2::geom_point()</a></code>.</p></li>
 </ul>
 <div class="callout-tip callout callout-style-simple no-icon callout-captioned">
 <div class="callout-header d-flex align-content-center">
@@ -222,14 +216,11 @@ Submitting the completed assignment
 
 
 
-</section>
-
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+</section><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
 <div id="ref-wickhamDataScienceImport2022" class="csl-entry" role="doc-biblioentry">
 Wickham, Hadley, and Garrett Grolemund. 2022. <em>R for <span>Data Science</span>: <span>Import</span>, <span>Tidy</span>, <span>Transform</span>, <span>Visualize</span>, and <span>Model Data</span></em>. 2nd edition (WIP). <span>Sebastopol, CA</span>: <span>O’Reilly Media</span>. <a href="https://r4ds.had.co.nz">https://r4ds.had.co.nz</a>.
 </div>
-</div></section></div></main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</div></section></div></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -328,12 +319,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-<footer class="footer">
-  <div class="nav-footer">
-    <div class="nav-footer-right">Made with <i class="fa-brands fa-r-project" aria-hidden="true"></i> and <a href="https://quarto.org/">Quarto</a><br> <a href="https://www.github.com/elipousson/bldgspatialdata">View the source at <i class="fa-brands fa-github" aria-hidden="true"></i> GitHub</a></div>
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-right">Made with <i class="fa-brands fa-r-project" aria-hidden="true"></i> and <a href="https://quarto.org/">Quarto</a><br><a href="https://www.github.com/elipousson/bldgspatialdata">View the source at <i class="fa-brands fa-github" aria-hidden="true"></i> GitHub</a></div>
   </div>
 </footer>
-
 
 
 </body></html>
