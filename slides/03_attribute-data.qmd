@@ -1,0 +1,364 @@
+---
+title: "Working with attributes in R (and QGIS)"
+format: revealjs
+execute:
+  echo: true
+  output-location: column
+#  cache: true
+---
+
+# Overview
+
+Based on Ch. 3 [Attribute data operations](https://geocompr.robinlovelace.net/attr.html) from @lovelaceGeocomputation2022 we are going to look at the following:
+
+-   What is attribute data?
+
+-   How do you work with attribute data?
+
+-   How do base R and dplyr compare for this work?
+
+::: notes
+"Becoming skilled at geographic attribute data manipulation means becoming skilled at manipulating data frames."
+:::
+
+## What is attribute data?
+
+Attribute data is "*non-spatial information* associated with geographic (geometry) data."
+
+Most often, when we talk about attribute data we are talking about *vector* attribute data.
+
+::: notes
+@lovelaceGeocomputation2022 notes:
+
+> "Unlike the vector data model, the raster data model stores the coordinate of the grid cell indirectly, meaning the distinction between attribute and spatial information is less clear."
+:::
+
+## What can you do with attribute data?
+
+You can...
+
+-   subset or filter data
+-   aggregate or summarize data
+-   combine data sets based on shared attributes
+-   create new attributes
+
+::: notes
+You can also do many of these same tasks using spatial operations, e.g. filtering by area instead of attribute.
+:::
+
+# Using R to work with attribute data
+
+## Loading packages
+
+First, you should load the {sf}, {dplyr}, and {ggplot2} packages along with data from the {spData} package:
+
+```{r}
+library(sf)
+library(dplyr)
+library(ggplot2)
+
+library(spData)
+data("us_states")
+```
+
+------------------------------------------------------------------------
+
+Then we can take a quick look at the attributes:
+
+```{r}
+summary(us_states)
+```
+
+------------------------------------------------------------------------
+
+## Comparing approaches to data frames
+
+| {base}          | {dplyr}                           |
+|-----------------|-----------------------------------|
+| `$`             | `pull()`                          |
+| `[`; `subset()` | `filter()`; `slice()`; `select()` |
+| `rbind()`       | `bind_rows()`                     |
+| `cbind()`       | `bind_cols()`                     |
+| `aggregate()`   | `summarize()`                     |
+
+::: notes
+You can use base R or {dplyr}.
+
+base R functions are more stable and (in some cases) may be faster but dplyr and other tidyverse packages offer an intuitive interface that many people prefer.
+:::
+
+------------------------------------------------------------------------
+
+## Using base R with attribute data
+
+------------------------------------------------------------------------
+
+### Subsetting by position
+
+The base R `[` operator lets you filter rows or select columns using an integer index:
+
+```{r}
+#| eval: false
+#| code-line-numbers: 1,2|4,5|7,8
+# get first row and all columns
+us_states[1, ]
+
+# get all rows and columns 1, 2, and 3
+us_states[, c(1:3)]
+
+# get first row and columns 1, 2, and 3
+us_states[1, c(1:3)]
+```
+
+------------------------------------------------------------------------
+
+### Subsetting with a character or logical vector
+
+You can also use character or logical vectors:
+
+```{r}
+#| eval: false
+#| code-line-numbers: 1,2|4,5
+# get row 20 and column "NAME"
+us_states[20, "NAME"]
+
+# get all rows where "NAME" equals "Maryland"
+us_states[us_states$NAME == "Maryland", ]
+```
+
+------------------------------------------------------------------------
+
+### sf provides a "sticky" geometry column
+
+The geometry column is "sticky" even when you transform the data:
+
+```{r}
+glimpse(us_states[,1])
+```
+
+------------------------------------------------------------------------
+
+### Using comparison operators that return logical vectors
+
+Using comparison operators to filter or subset data is a common approach to answering questions.
+
+```{r}
+#| eval: false
+# Which U.S. states are smaller than Maryland?
+us_states[us_states$AREA < us_states[34, ]$AREA, ]
+
+# Which U.S. states are larger than Pennsylvania?
+us_states[us_states$AREA > us_states[20, ]$AREA, ]
+```
+
+::: notes
+For example, using the the `$` operator, we can pull the AREA column for a single state and compare it with the `>` operator to AREA of all other states to answer
+:::
+
+------------------------------------------------------------------------
+
+### Comparison operators
+
+```{r operators_tbl}
+#| echo: false
+#| caption: From Geocomputation with R (CC-BY-ND)
+knitr::kable(
+  tibble(
+    Symbol = c("`==`", "`!=`", "`>`, `<`", "`>=`, `<=`", "`&`, <code>|</code>, `!`"),
+    Name = c(
+      "Equal to", "Not equal to", "Greater/Less than",
+      "Greater/Less than or equal",
+      "Logical operators: And, Or, Not"
+    )
+  ),
+  caption = paste(
+    "Comparison operators that return Booleans",
+    "(TRUE/FALSE)."
+  ),
+  caption.short = "Comparison operators that return Booleans.",
+  booktabs = TRUE
+)
+```
+
+------------------------------------------------------------------------
+
+## Using dplyr with attribute data
+
+------------------------------------------------------------------------
+
+### Using `filter()` or `slice()`
+
+```{r}
+#| eval: false
+# Subset states for the Midwest and Northeast region
+filter(us_states, REGION %in% c("Midwest", "Northeast"))
+
+# Subset 5 random states
+slice_sample(us_states, n = 5)
+```
+
+------------------------------------------------------------------------
+
+### Using `select()`
+
+```{r}
+#| eval: false
+
+# bare column names
+select(us_states, c(NAME, REGION))
+
+# character strings with column names
+select(us_states, c("NAME", "REGION"))
+
+# tidyselect functions
+select(us_states, starts_with("total_pop"))
+```
+
+------------------------------------------------------------------------
+
+## Creating new variables
+
+------------------------------------------------------------------------
+
+### Using `<-` or `=`
+
+```{r}
+# convert area to square miles and add as new column
+us_states$AREA <- units::set_units(us_states$AREA, "mi^2")
+
+# scale 2010 population into thousands
+us_states$total_pop_10_scaled <- us_states$total_pop_10 / 1000
+```
+
+------------------------------------------------------------------------
+
+### Using `mutate()`
+
+```{r}
+us_states <-
+  mutate(
+    .data = us_states,
+    total_pop_change_10_15 = total_pop_15 - total_pop_10,
+    .after = total_pop_15
+  )
+```
+
+------------------------------------------------------------------------
+
+### Using `left_join()` or `inner_join()`
+
+
+------------------------------------------------------------------------
+
+## Chaining functions with pipes: `%>%` or `|>`
+
+Pipes are helpful for creating multi-step data transformation workflows that are easier to read and understand:
+
+```{r}
+us_states %>% 
+  filter(REGION == "Midwest") %>% 
+  mutate(
+    total_pop_change_10_15 = total_pop_change_10_15 / 1000
+  )
+```
+
+------------------------------------------------------------------------
+
+## Tip: Packages
+
+- [{tidylog}]()
+- [{ViewPipeSteps}](https://github.com/daranzolin/ViewPipeSteps)
+
+------------------------------------------------------------------------
+
+## Bonus: Maps and charts with {ggplot2}
+
+```{r}
+#| echo: false
+theme_set(theme_minimal())
+```
+
+The use of pipes is especially helpful with data visualizations where it reduces the need for intermediate objects or exports.
+
+```{r}
+#| output-location: slide
+us_states %>% 
+  filter(REGION == "Midwest") %>% 
+  mutate(
+    total_pop_change_10_15 = total_pop_change_10_15 / 1000
+  ) %>% 
+  ggplot() +
+  geom_sf(aes(fill = total_pop_change_10_15)) +
+  scale_fill_distiller(type = "div") +
+  labs(fill = "2010 to 2015 pop change\n(in thousands)")
+```
+
+------------------------------------------------------------------------
+
+This example uses `arrange()` with a helper function `desc()` to sort by AREA in descending order, renames the REGION column to Region, subsets the first 10 rows with the `slice_head()` function, and add a rank label with `mutate()` and `row_number` functions. Note, that this example uses the `scale_fill_brewer()` scale function designed for discrete data (not continuous) and sets `type = "qual"` because region is a qualitative value with no ranking.
+
+```{r}
+#| output-location: slide
+us_states %>% 
+  arrange(desc(AREA)) %>% 
+  rename(Region = REGION) %>% 
+  slice_head(n = 10) %>% 
+  mutate(
+    rank = row_number()
+  ) %>% 
+  ggplot() +
+  geom_sf(aes(fill = Region)) +
+  geom_sf_label(aes(label = rank)) +
+  scale_fill_brewer(type = "qual") +
+  geom_sf(data = us_states, fill = NA) +
+  labs(title = "10 largest states (by area) in U.S.")
+```
+
+------------------------------------------------------------------------
+
+## Additional topics
+
+- using SQL queries to filter data
+- {stringr} package and using regex
+- using `case_when()` for recoding variables
+- using `pivot_longer()` to pull variables from column names
+- date and time variables
+
+## Recap
+
+- base R and dplyr both support many of the same tasks
+- use pipes to chain together actions
+
+------------------------------------------------------------------------
+
+# Attribute data with QGIS
+
+
+
+------------------------------------------------------------------------
+
+But you can drop geometry if you need to (you can add it back later):
+
+```{r}
+us_states <- sf::st_drop_geometry(us_states)
+```
+
+------------------------------------------------------------------------
+
+You can pass filtered data frames to other functions, such as `nrow()`, `length()`, `unique()`, or `dplyr::count()`:
+
+```{r}
+# How many U.S. states lost population from 2010 to 2015?
+us_states[(us_states$total_pop_15 - us_states$total_pop_10) < 0, ] %>% 
+  nrow()
+```
+
+### Using `slice()`
+
+```{r}
+# Subset rows 10 to 12
+slice(us_states, c(10:12))
+
+# Subset first 2 rows
+slice_head(us_states, n = 2)
+```
