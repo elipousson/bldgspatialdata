@@ -38,8 +38,8 @@ website:
         file: assignments/index.qmd
       # - text: "Examples"
       #   file: examples/index.qmd
-      - text: "Resources"
-        file: resources/index.qmd
+      - text: "Materials"
+        file: materials.qmd
 
   page-footer:
     right: |
@@ -54,10 +54,12 @@ format:
     theme: zephyr
     css: styles.css
     toc: true
-    df-print: tibble
     code-link: true
-    error: true
+    code-copy: true
+    code-overflow: scroll
     highlight-style: a11y
+    df-print: tibble
+    error: true
 #    citeproc: true
 
 editor: visual
