@@ -12,12 +12,21 @@ category: assignment
 
 -   Read vector data files (e.g. shapefile or GeoJSON) using the sf package
 
--   Filter data by attribute using the dplyr package
+-   Filter data by attribute using the {dplyr} package
 
--   Create a map with the ggplot2 package using an attribute to define the aesthetics of the map
+-   Create a map with the {ggplot2} package using an attribute to define the aesthetics of the map
 
--   Label and export a map using the ggplot2 package
+-   Label and export a map using the {ggplot2} package
 :::
+```{r}
+#| echo: false
+
+library(dplyr)
+library(ggplot2)
+library(sf)
+library(scales)
+```
+
 
 ## Step-by-step instructions
 
@@ -25,29 +34,29 @@ Complete *all* of the following steps using the linked function documentation fo
 
 1.  Open the `02_map-R.RProj` project file (see [using RStudio Projects](https://support.rstudio.com/hc/en-us/articles/200526207-Using-RStudio-Projects)) and open the RMarkdown template found within the project folder.
 
-2.  Read any additional data using [`sf::read_sf()`](https://r-spatial.github.io/sf/reference/st_read.html) or [`sf::st_read()`](https://r-spatial.github.io/sf/reference/st_read.html)
+2.  Read any additional data using `sf::read_sf()` or `sf::st_read()`
 
 3.  Filter data by attribute using `dplyr::filter()`
 
-4.  Create a plot with [`ggplot2::ggplot()`](https://ggplot2.tidyverse.org/reference/ggplot.html) and a geom with [`ggplot2::geom_sf()`](https://ggplot2.tidyverse.org/reference/ggsf.html).
+4.  Create a plot with `ggplot2::ggplot()` and a geom with `ggplot2::geom_sf()`
 
-5.  Specify one or more aesthetic attributes using [`ggplot2::aes()`](https://ggplot2.tidyverse.org/reference/aes.html)
+5.  Specify one or more aesthetic attributes using `ggplot2::aes()`
 
-6.  Add an appropriate scale for the attribute using [`ggplot2::scale_fill_brewer()`](https://ggplot2.tidyverse.org/reference/scale_brewer.html), [`ggplot2::scale_color_brewer()`](https://ggplot2.tidyverse.org/reference/scale_brewer.html), or another [ggplot2 scale function](https://ggplot2.tidyverse.org/reference/index.html#scales)
+6.  Add an appropriate scale for the attribute using `ggplot2::scale_fill_brewer()`, `ggplot2::scale_color_brewer()`, or another [ggplot2 scale function](https://ggplot2.tidyverse.org/reference/index.html#scales)
 
-7.  Set a theme using [`ggplot2::theme_minimal()`](https://ggplot2.tidyverse.org/reference/ggtheme.html) or another theme function
+7.  Set a theme using `ggplot2::theme_minimal()` or another theme function
 
-8.  Customize the map title, caption, and legend using [`ggplot2::labs()`](https://ggplot2.tidyverse.org/reference/labs.html). Depending on the attribute type, you may want to use a labelling function from the [{scales} package](https://scales.r-lib.org/), e.g. [`label_dolar()`](https://scales.r-lib.org/reference/label_dollar.html) for currency values or [`label_percent()`](https://scales.r-lib.org/reference/label_percent.html) for percentages. These functions are passed to the labels parameter of your scale function.
+8.  Customize the map title, caption, and legend using `ggplot2::labs()`. Depending on the attribute type, you may want to use a labelling function from the {scales} package, e.g. `label_dolar()` for currency values or `label_percent()` for percentages. These functions are passed to the labels parameter of your scale function.
 
-9.  Export the map as a PDF file using [`ggplot2::ggsave()`](https://ggplot2.tidyverse.org/reference/ggsave.html)
+9.  Export the map as a PDF file using `ggplot2::ggsave()`
 
 ## Optional bonus activities
 
 Create one or more additional maps using *any* of the following approaches for an extra bonus points:
 
--   Create a multi-panel map using a [faceting function](https://ggplot2.tidyverse.org/reference/index.html#facetting). Typically, multi-panel maps are used for categorical variables or binned continuous variables. Consider using the [`dplyr::mutate()`](https://dplyr.tidyverse.org/reference/mutate.html) function to recode a categorical variable or using [a binned scale](https://ggplot2.tidyverse.org/reference/scale_binned.html) to convert a continuous variable into a discrete variable.
+-   Create a multi-panel map using a [faceting function](https://ggplot2.tidyverse.org/reference/index.html#facetting). Typically, multi-panel maps are used for categorical variables or binned continuous variables. Consider using the `dplyr::mutate()` function to re-code a categorical variable or using [a binned scale](https://ggplot2.tidyverse.org/reference/scale_binned.html) to convert a continuous variable into a discrete variable.
 
--   Create a bar chart showing the distribution of the mapped attribute by location or a scatter plot to compare the mapped attribute data to another attribute in your data. [Ch. 3 Data visualization](https://r4ds.had.co.nz/data-visualisation.html) in @wickhamDataScienceImport2022 has examples of both types of data visualizations or you can explore the documentation for [`ggplot2::geom_bar()`](https://ggplot2.tidyverse.org/reference/geom_bar.html) or [`ggplot2::geom_point()`](https://ggplot2.tidyverse.org/reference/geom_point.html).
+-   Create a bar chart showing the distribution of the mapped attribute by location or a scatter plot to compare the mapped attribute data to another attribute in your data. [Ch. 3 Data visualization](https://r4ds.had.co.nz/data-visualisation.html) in @wickhamDataScienceImport2022 has examples of both types of data visualizations or you can explore the documentation for `ggplot2::geom_bar()` or `ggplot2::geom_point()`.
 
 ::: {.callout-tip appearance="simple" icon="false"}
 ## Submitting the completed assignment
