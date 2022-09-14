@@ -56,7 +56,7 @@ bcps_programs_df <- bcps_programs_df %>%
 ::: {.callout-tip collapse="false" appearance="default" icon="true"}
 ## Validating CSV files
 
-In some cases, you may have a CSV file that does not work the way you expect or a CSV file that you want to validate using an established schema. You can use tools such as [CSVLint](https://csvlint.io/) or [Data Curator](https://github.com/qcif/data-curator) (from the Queensland Cyber Infrastructure Foundation) to accomplish this task.
+In some cases, you may have a CSV file that does not work the way you expect or a CSV file that you want to validate using an established schema. [CSVLint](https://csvlint.io/) or [Data Curator](https://github.com/qcif/data-curator) (from the Queensland Cyber Infrastructure Foundation) are two tools developed to support this type of validation.
 :::
 
 You can then use `st_as_sf()` function from the [sf](https://r-spatial.github.io/sf/) package to convert the data frame read into a simple feature object. You must specify the name of the coordinate columns and the expected coordinate reference system. By default, the `st_as_sf` returns a tibble data frame.
