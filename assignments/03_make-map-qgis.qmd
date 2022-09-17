@@ -2,7 +2,6 @@
 title: "Read data and make a map with QGIS"
 title-block-categories: false
 image: images/about-qgis-screenshot.png
-category: assignment
 ---
 
 ::: {.callout-note appearance="simple"}

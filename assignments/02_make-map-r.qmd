@@ -2,7 +2,6 @@
 title: "Make a map with R and ggplot2"
 title-block-categories: false
 image: images/ggsf-example.png
-category: assignment
 ---
 
 ::: {.callout-note appearance="simple"}
@@ -18,6 +17,7 @@ category: assignment
 
 -   Label and export a map using the {ggplot2} package
 :::
+
 ```{r}
 #| echo: false
 
@@ -26,7 +26,6 @@ library(ggplot2)
 library(sf)
 library(scales)
 ```
-
 
 ## Step-by-step instructions
 
