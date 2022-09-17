@@ -9,7 +9,7 @@ link-citations: false
 ---
 
 ::: {.callout-note appearance="simple"}
-This schedule was updated on September 10, 2022.
+This schedule was updated on September 14, 2022.
 :::
 
 ## How is this schedule organized
@@ -119,6 +119,7 @@ To set up GitHub account and learn how to connect your account to RStudio, pleas
 
 -   Using geometry operations in exploratory data analysis
 -   Using spatial joins to combine data sets
+-   Using aggregate and other summary QGIS Expression functions
 
 ### Readings
 
