@@ -227,7 +227,7 @@ select(us_states, starts_with("total_pop"))
 us_states$AREA <- units::set_units(us_states$AREA, "mi^2")
 
 # scale 2010 population into thousands
-us_states$total_pop_10_scaled <- us_states$total_pop_10 / 1000
+us_states$total_pop_10_scaled = us_states$total_pop_10 / 1000
 ```
 
 ------------------------------------------------------------------------
@@ -247,12 +247,13 @@ us_states <-
 
 ### Using `left_join()` or `inner_join()`
 
+Example to be added!
 
 ------------------------------------------------------------------------
 
-## Chaining functions with pipes: `%>%` or `|>`
+## Chaining functions with pipes
 
-Pipes are helpful for creating multi-step data transformation workflows that are easier to read and understand:
+Pipes (`%>%` or `|>`) help make data transformation scripts easier to read and understand:
 
 ```{r}
 us_states %>% 
@@ -264,21 +265,21 @@ us_states %>%
 
 ------------------------------------------------------------------------
 
-## Tip: Packages
+## Tip: Packages to use with pipes
 
-- [{tidylog}]()
-- [{ViewPipeSteps}](https://github.com/daranzolin/ViewPipeSteps)
+-   [{tidylog}](https://github.com/elbersb/tidylog)
+-   [{ViewPipeSteps}](https://github.com/daranzolin/ViewPipeSteps)
 
 ------------------------------------------------------------------------
 
-## Bonus: Maps and charts with {ggplot2}
+## Intermission: Maps and charts with {ggplot2}
 
 ```{r}
 #| echo: false
 theme_set(theme_minimal())
 ```
 
-The use of pipes is especially helpful with data visualizations where it reduces the need for intermediate objects or exports.
+The use of pipes is especially helpful with data visualizations where it reduces the need for intermediate placeholder objects or exports.
 
 ```{r}
 #| output-location: slide
@@ -295,7 +296,17 @@ us_states %>%
 
 ------------------------------------------------------------------------
 
-This example uses `arrange()` with a helper function `desc()` to sort by AREA in descending order, renames the REGION column to Region, subsets the first 10 rows with the `slice_head()` function, and add a rank label with `mutate()` and `row_number` functions. Note, that this example uses the `scale_fill_brewer()` scale function designed for discrete data (not continuous) and sets `type = "qual"` because region is a qualitative value with no ranking.
+You can also pass functions directly to the data and aesthetic arguments for {ggplot2} geoms:
+
+```{r}
+#| output-location: slide
+ggplot(data = us_states %>% filter(REGION == "Midwest")) +
+  geom_sf(aes(fill = total_pop_change_10_15 / 1000)) +
+  scale_fill_distiller(type = "div") +
+  labs(fill = "2010 to 2015 pop change\n(in thousands)")
+```
+
+------------------------------------------------------------------------
 
 ```{r}
 #| output-location: slide
@@ -314,51 +325,29 @@ us_states %>%
   labs(title = "10 largest states (by area) in U.S.")
 ```
 
+::: notes
+This example uses `arrange()` with a helper function `desc()` to sort by AREA in descending order, renames the REGION column to Region, subsets the first 10 rows with the `slice_head()` function, and add a rank label with `mutate()` and `row_number` functions. Note, that this example uses the `scale_fill_brewer()` scale function designed for discrete data (not continuous) and sets `type = "qual"` because region is a qualitative value with no ranking.
+:::
+
 ------------------------------------------------------------------------
 
 ## Additional topics
 
-- using SQL queries to filter data
-- {stringr} package and using regex
-- using `case_when()` for recoding variables
-- using `pivot_longer()` to pull variables from column names
-- date and time variables
+-   using SQL queries to filter data
+-   {stringr} package and using regex
+-   using `case_when()` for recoding variables
+-   using `pivot_longer()` to pull variables from column names
+-   date and time variables
 
-## Recap
+## Recap on attribute data with R
 
-- base R and dplyr both support many of the same tasks
-- use pipes to chain together actions
-
-------------------------------------------------------------------------
-
-# Attribute data with QGIS
-
-
+-   base R and dplyr both support many of the same tasks
+-   use pipes to chain together actions
 
 ------------------------------------------------------------------------
 
-But you can drop geometry if you need to (you can add it back later):
+## Attribute data with QGIS
 
-```{r}
-us_states <- sf::st_drop_geometry(us_states)
-```
+To be added!
 
 ------------------------------------------------------------------------
-
-You can pass filtered data frames to other functions, such as `nrow()`, `length()`, `unique()`, or `dplyr::count()`:
-
-```{r}
-# How many U.S. states lost population from 2010 to 2015?
-us_states[(us_states$total_pop_15 - us_states$total_pop_10) < 0, ] %>% 
-  nrow()
-```
-
-### Using `slice()`
-
-```{r}
-# Subset rows 10 to 12
-slice(us_states, c(10:12))
-
-# Subset first 2 rows
-slice_head(us_states, n = 2)
-```
