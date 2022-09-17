@@ -13,6 +13,11 @@ library(dplyr)
 library(readr)
 library(sf)
 library(ggplot2)
+# following packages only loaded to allow autolinking to function definitions
+library(here)
+library(jsonlite)
+library(googlesheets4)
+library(readxl)
 
 options(tigris_use_cache = TRUE)
 ```
