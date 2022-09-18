@@ -9,7 +9,7 @@
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.1.189">
+  <meta name="generator" content="quarto-1.1.251">
 
   <title>Building Spatial Datasets - Working with attributes in R (and QGIS)</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -726,7 +726,7 @@ $ geometry &lt;MULTIPOLYGON [°]&gt; MULTIPOLYGON (((-88.20006 3..., MULTIPOLYGO
 <span id="cb11-2"><a href="#cb11-2"></a>us_states<span class="sc">$</span>AREA <span class="ot">&lt;-</span> units<span class="sc">::</span><span class="fu">set_units</span>(us_states<span class="sc">$</span>AREA, <span class="st">"mi^2"</span>)</span>
 <span id="cb11-3"><a href="#cb11-3"></a></span>
 <span id="cb11-4"><a href="#cb11-4"></a><span class="co"># scale 2010 population into thousands</span></span>
-<span id="cb11-5"><a href="#cb11-5"></a>us_states<span class="sc">$</span>total_pop_10_scaled <span class="ot">&lt;-</span> us_states<span class="sc">$</span>total_pop_10 <span class="sc">/</span> <span class="dv">1000</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-5"><a href="#cb11-5"></a>us_states<span class="sc">$</span>total_pop_10_scaled <span class="ot">=</span> us_states<span class="sc">$</span>total_pop_10 <span class="sc">/</span> <span class="dv">1000</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section class="slide level2 center">
@@ -744,10 +744,11 @@ $ geometry &lt;MULTIPOLYGON [°]&gt; MULTIPOLYGON (((-88.20006 3..., MULTIPOLYGO
 <section class="slide level2 center">
 
 <h3 id="using-left_join-or-inner_join">Using <code>left_join()</code> or <code>inner_join()</code></h3>
+<p>Example to be added!</p>
 </section>
-<section id="chaining-functions-with-pipes-or" class="slide level2 center">
-<h2>Chaining functions with pipes: <code>%&gt;%</code> or <code>|&gt;</code></h2>
-<p>Pipes are helpful for creating multi-step data transformation workflows that are easier to read and understand:</p>
+<section id="chaining-functions-with-pipes" class="slide level2 center">
+<h2>Chaining functions with pipes</h2>
+<p>Pipes (<code>%&gt;%</code> or <code>|&gt;</code>) help make data transformation scripts easier to read and understand:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>us_states <span class="sc">%&gt;%</span> </span>
 <span id="cb13-2"><a href="#cb13-2"></a>  <span class="fu">filter</span>(REGION <span class="sc">==</span> <span class="st">"Midwest"</span>) <span class="sc">%&gt;%</span> </span>
@@ -786,19 +787,19 @@ First 10 features:
 </div>
 </div>
 </section>
-<section id="tip-packages" class="slide level2 center">
-<h2>Tip: Packages</h2>
+<section id="tip-packages-to-use-with-pipes" class="slide level2 center">
+<h2>Tip: Packages to use with pipes</h2>
 <ul>
-<li><a href="">{tidylog}</a></li>
+<li><a href="https://github.com/elbersb/tidylog">{tidylog}</a></li>
 <li><a href="https://github.com/daranzolin/ViewPipeSteps">{ViewPipeSteps}</a></li>
 </ul>
 </section>
-<section id="bonus-maps-and-charts-with-ggplot2" class="slide level2 center">
-<h2>Bonus: Maps and charts with {ggplot2}</h2>
+<section id="intermission-maps-and-charts-with-ggplot2" class="slide level2 center">
+<h2>Intermission: Maps and charts with {ggplot2}</h2>
 <div class="cell">
 
 </div>
-<p>The use of pipes is especially helpful with data visualizations where it reduces the need for intermediate objects or exports.</p>
+<p>The use of pipes is especially helpful with data visualizations where it reduces the need for intermediate placeholder objects or exports.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>us_states <span class="sc">%&gt;%</span> </span>
 <span id="cb15-2"><a href="#cb15-2"></a>  <span class="fu">filter</span>(REGION <span class="sc">==</span> <span class="st">"Midwest"</span>) <span class="sc">%&gt;%</span> </span>
@@ -812,33 +813,60 @@ First 10 features:
 </div>
 
 </section>
-<section id="bonus-maps-and-charts-with-ggplot2-output" class="slide level2 output-location-slide center"><h2>Bonus: Maps and charts with {ggplot2}</h2><div class="cell output-location-slide">
+<section id="intermission-maps-and-charts-with-ggplot2-output" class="slide level2 output-location-slide center"><h2>Intermission: Maps and charts with {ggplot2}</h2><div class="cell output-location-slide">
 <div class="cell-output-display">
 <p><img data-src="03_attribute-data_files/figure-revealjs/unnamed-chunk-13-1.png" width="960"></p>
 </div>
 </div></section><section class="slide level2 center">
 
-<p>This example uses <code>arrange()</code> with a helper function <code>desc()</code> to sort by AREA in descending order, renames the REGION column to Region, subsets the first 10 rows with the <code>slice_head()</code> function, and add a rank label with <code>mutate()</code> and <code>row_number</code> functions. Note, that this example uses the <code>scale_fill_brewer()</code> scale function designed for discrete data (not continuous) and sets <code>type = "qual"</code> because region is a qualitative value with no ranking.</p>
+<p>You can also pass functions directly to the data and aesthetic arguments for {ggplot2} geoms:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>us_states <span class="sc">%&gt;%</span> </span>
-<span id="cb16-2"><a href="#cb16-2"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(AREA)) <span class="sc">%&gt;%</span> </span>
-<span id="cb16-3"><a href="#cb16-3"></a>  <span class="fu">rename</span>(<span class="at">Region =</span> REGION) <span class="sc">%&gt;%</span> </span>
-<span id="cb16-4"><a href="#cb16-4"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb16-5"><a href="#cb16-5"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb16-6"><a href="#cb16-6"></a>    <span class="at">rank =</span> <span class="fu">row_number</span>()</span>
-<span id="cb16-7"><a href="#cb16-7"></a>  ) <span class="sc">%&gt;%</span> </span>
-<span id="cb16-8"><a href="#cb16-8"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb16-9"><a href="#cb16-9"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> Region)) <span class="sc">+</span></span>
-<span id="cb16-10"><a href="#cb16-10"></a>  <span class="fu">geom_sf_label</span>(<span class="fu">aes</span>(<span class="at">label =</span> rank)) <span class="sc">+</span></span>
-<span id="cb16-11"><a href="#cb16-11"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">type =</span> <span class="st">"qual"</span>) <span class="sc">+</span></span>
-<span id="cb16-12"><a href="#cb16-12"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> us_states, <span class="at">fill =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
-<span id="cb16-13"><a href="#cb16-13"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"10 largest states (by area) in U.S."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> us_states <span class="sc">%&gt;%</span> <span class="fu">filter</span>(REGION <span class="sc">==</span> <span class="st">"Midwest"</span>)) <span class="sc">+</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> total_pop_change_10_15 <span class="sc">/</span> <span class="dv">1000</span>)) <span class="sc">+</span></span>
+<span id="cb16-3"><a href="#cb16-3"></a>  <span class="fu">scale_fill_distiller</span>(<span class="at">type =</span> <span class="st">"div"</span>) <span class="sc">+</span></span>
+<span id="cb16-4"><a href="#cb16-4"></a>  <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">"2010 to 2015 pop change</span><span class="sc">\n</span><span class="st">(in thousands)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 </section>
 <section id="" class="slide level2 output-location-slide center"><div class="cell output-location-slide">
 <div class="cell-output-display">
 <p><img data-src="03_attribute-data_files/figure-revealjs/unnamed-chunk-14-1.png" width="960"></p>
+</div>
+</div></section><section class="slide level2 center">
+
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>us_states <span class="sc">%&gt;%</span> </span>
+<span id="cb17-2"><a href="#cb17-2"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(AREA)) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-3"><a href="#cb17-3"></a>  <span class="fu">rename</span>(<span class="at">Region =</span> REGION) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-4"><a href="#cb17-4"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-5"><a href="#cb17-5"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb17-6"><a href="#cb17-6"></a>    <span class="at">rank =</span> <span class="fu">row_number</span>()</span>
+<span id="cb17-7"><a href="#cb17-7"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-8"><a href="#cb17-8"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb17-9"><a href="#cb17-9"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> Region)) <span class="sc">+</span></span>
+<span id="cb17-10"><a href="#cb17-10"></a>  <span class="fu">geom_sf_label</span>(<span class="fu">aes</span>(<span class="at">label =</span> rank)) <span class="sc">+</span></span>
+<span id="cb17-11"><a href="#cb17-11"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">type =</span> <span class="st">"qual"</span>) <span class="sc">+</span></span>
+<span id="cb17-12"><a href="#cb17-12"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> us_states, <span class="at">fill =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb17-13"><a href="#cb17-13"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"10 largest states (by area) in U.S."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+<aside class="notes">
+<p>This example uses <code>arrange()</code> with a helper function <code>desc()</code> to sort by AREA in descending order, renames the REGION column to Region, subsets the first 10 rows with the <code>slice_head()</code> function, and add a rank label with <code>mutate()</code> and <code>row_number</code> functions. Note, that this example uses the <code>scale_fill_brewer()</code> scale function designed for discrete data (not continuous) and sets <code>type = "qual"</code> because region is a qualitative value with no ranking.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="" class="slide level2 output-location-slide center"><div class="cell output-location-slide">
+<div class="cell-output-display">
+<p><img data-src="03_attribute-data_files/figure-revealjs/unnamed-chunk-15-1.png" width="960"></p>
 </div>
 </div></section><section id="additional-topics" class="slide level2 center">
 <h2>Additional topics</h2>
@@ -850,64 +878,19 @@ First 10 features:
 <li>date and time variables</li>
 </ul>
 </section>
-<section id="recap" class="slide level2 center">
-<h2>Recap</h2>
+<section id="recap-on-attribute-data-with-r" class="slide level2 center">
+<h2>Recap on attribute data with R</h2>
 <ul>
 <li>base R and dplyr both support many of the same tasks</li>
 <li>use pipes to chain together actions</li>
 </ul>
 </section>
-<section class="slide level2 center">
-
-</section></section>
-<section>
-<section id="attribute-data-with-qgis" class="title-slide slide level1 center">
-<h1>Attribute data with QGIS</h1>
-
-</section>
-<section class="slide level2 center">
-
-<p>But you can drop geometry if you need to (you can add it back later):</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>us_states <span class="ot">&lt;-</span> sf<span class="sc">::</span><span class="fu">st_drop_geometry</span>(us_states)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<section id="attribute-data-with-qgis" class="slide level2 center">
+<h2>Attribute data with QGIS</h2>
+<p>To be added!</p>
 </section>
 <section class="slide level2 smaller scrollable" id="references">
 
-<p>You can pass filtered data frames to other functions, such as <code>nrow()</code>, <code>length()</code>, <code>unique()</code>, or <code>dplyr::count()</code>:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="co"># How many U.S. states lost population from 2010 to 2015?</span></span>
-<span id="cb18-2"><a href="#cb18-2"></a>us_states[(us_states<span class="sc">$</span>total_pop_15 <span class="sc">-</span> us_states<span class="sc">$</span>total_pop_10) <span class="sc">&lt;</span> <span class="dv">0</span>, ] <span class="sc">%&gt;%</span> </span>
-<span id="cb18-3"><a href="#cb18-3"></a>  <span class="fu">nrow</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 2</code></pre>
-</div>
-</div>
-<h3 id="using-slice">Using <code>slice()</code></h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="co"># Subset rows 10 to 12</span></span>
-<span id="cb20-2"><a href="#cb20-2"></a><span class="fu">slice</span>(us_states, <span class="fu">c</span>(<span class="dv">10</span><span class="sc">:</span><span class="dv">12</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  GEOID          NAME   REGION             AREA total_pop_10 total_pop_15
-1    22     Louisiana    South 47237.963 [mi^2]      4429940      4625253
-2    25 Massachusetts Norteast  8073.686 [mi^2]      6477096      6705586
-3    27     Minnesota  Midwest 84388.994 [mi^2]      5241914      5419171
-  total_pop_change_10_15 total_pop_10_scaled
-1                 195313            4429.940
-2                 228490            6477.096
-3                 177257            5241.914</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="co"># Subset first 2 rows</span></span>
-<span id="cb22-2"><a href="#cb22-2"></a><span class="fu">slice_head</span>(us_states, <span class="at">n =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  GEOID    NAME REGION             AREA total_pop_10 total_pop_15
-1    01 Alabama  South  51625.44 [mi^2]      4712651      4830620
-2    04 Arizona   West 114008.73 [mi^2]      6246816      6641928
-  total_pop_change_10_15 total_pop_10_scaled
-1                 117969            4712.651
-2                 395112            6246.816</code></pre>
-</div>
-</div>
 
 <div class="footer footer-default">
 
