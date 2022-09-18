@@ -11,13 +11,12 @@ course:
   number: "GES 660"
   semester: "Fall 2022"
   days: "Wednesdays"
-  time: "6:30–8:00 PM" # FIXME: Update the time when the time is confirmed
+  time: "6:00–8:30 PM" # FIXME: Update the time when the time is confirmed
   location: "Sondheim Hall 001 (Cartography Lab)"
   dates: "August 31 – December 7, 2022"
   github: "https://www.github.com/elipousson/bldgspatialdata"
   url: "https://elipousson.github.io/bldgspatialdata"
   year: "2022"
-  discord: "https://elipousson.github.io/bldgspatialdata"
 
 university:
   name: University of Maryland Baltimore County
