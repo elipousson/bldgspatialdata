@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Eli Pousson">
-<meta name="dcterms.date" content="2022-08-31">
+<meta name="dcterms.date" content="2022-09-18">
 
-<title>Building Spatial Datasets - August 31: Recap &amp; Next Steps</title>
+<title>Building Spatial Datasets - September 14: Recap &amp; Next Steps</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -83,15 +83,15 @@ div.csl-indent {
 
 
 <link rel="stylesheet" href="../../styles.css">
-<meta property="og:title" content="Building Spatial Datasets - August 31: Recap &amp; Next Steps">
-<meta property="og:description" content="Thanks to everyone for an exciting first class yesterday evening.">
+<meta property="og:title" content="Building Spatial Datasets - September 14: Recap &amp; Next Steps">
+<meta property="og:description" content="Next week, we’re going to start with QGIS so I can demonstrate the basic features for working with attributes, explain how QGIS expressions work, and demonstrate the print layout tools you’ll need…">
 <meta property="og:image" content="https://elipousson.github.io/bldgspatialdata/files/img/ges600-logo.png">
 <meta property="og:site-name" content="Building Spatial Datasets">
 <meta property="og:locale" content="en_US">
 <meta property="og:image:height" content="1254">
 <meta property="og:image:width" content="1180">
-<meta name="twitter:title" content="Building Spatial Datasets - August 31: Recap &amp; Next Steps">
-<meta name="twitter:description" content="Thanks to everyone for an exciting first class yesterday evening.">
+<meta name="twitter:title" content="Building Spatial Datasets - September 14: Recap &amp; Next Steps">
+<meta name="twitter:description" content="Next week, we’re going to start with QGIS so I can demonstrate the basic features for working with attributes, explain how QGIS expressions work, and demonstrate the print layout tools you’ll need…">
 <meta name="twitter:image" content="https://elipousson.github.io/bldgspatialdata/files/img/ges600-logo.png">
 <meta name="twitter:creator" content="\@elipousson">
 <meta name="twitter:card" content="summary_large_image">
@@ -145,9 +145,14 @@ div.csl-indent {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#session-1-recap" id="toc-session-1-recap" class="nav-link active" data-scroll-target="#session-1-recap">Session 1 recap</a></li>
-  <li><a href="#session-1-next-steps" id="toc-session-1-next-steps" class="nav-link" data-scroll-target="#session-1-next-steps">Session 1 next steps</a></li>
-  <li><a href="#what-to-expect-next-week-for-session-2" id="toc-what-to-expect-next-week-for-session-2" class="nav-link" data-scroll-target="#what-to-expect-next-week-for-session-2">What to expect next week for Session 2</a></li>
+  <li><a href="#what-did-we-do-for-session-3" id="toc-what-did-we-do-for-session-3" class="nav-link active" data-scroll-target="#what-did-we-do-for-session-3">What did we do for Session 3</a>
+  <ul class="collapse">
+  <li><a href="#questions-and-answers" id="toc-questions-and-answers" class="nav-link" data-scroll-target="#questions-and-answers">Questions and answers</a></li>
+  <li><a href="#topics" id="toc-topics" class="nav-link" data-scroll-target="#topics">Topics</a></li>
+  <li><a href="#miscellaneous-extras" id="toc-miscellaneous-extras" class="nav-link" data-scroll-target="#miscellaneous-extras">Miscellaneous extras</a></li>
+  <li><a href="#next-steps" id="toc-next-steps" class="nav-link" data-scroll-target="#next-steps">Next steps</a></li>
+  </ul></li>
+  <li><a href="#what-to-expect-for-session-4" id="toc-what-to-expect-for-session-4" class="nav-link" data-scroll-target="#what-to-expect-for-session-4">What to expect for Session 4</a></li>
   </ul>
 </nav>
     </div>
@@ -156,7 +161,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">August 31: Recap &amp; Next Steps</h1>
+<h1 class="title">September 14: Recap &amp; Next Steps</h1>
   <div class="quarto-categories">
     <div class="quarto-category">recap</div>
   </div>
@@ -176,7 +181,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 31, 2022</p>
+      <p class="date">September 18, 2022</p>
     </div>
   </div>
     
@@ -185,45 +190,68 @@ div.csl-indent {
 
 </header>
 
-<p>Thanks to everyone for an exciting first class yesterday evening. I’ll try to send out a quick session recap and a review of next steps after each session so, if I miss anything, please let me know or just flag it in the Discord!</p>
-<section id="session-1-recap" class="level3">
-<h3 class="anchored" data-anchor-id="session-1-recap">Session 1 recap</h3>
+<section id="what-did-we-do-for-session-3" class="level2">
+<h2 class="anchored" data-anchor-id="what-did-we-do-for-session-3">What did we do for Session 3</h2>
+<section id="questions-and-answers" class="level3">
+<h3 class="anchored" data-anchor-id="questions-and-answers">Questions and answers</h3>
+<p>We took some a good bit of time at the start of class this past week to go over questions from the daily logs. Feel free to share your questions to the Discord during the week as well as including them in your log. Here are a few of the questions we tackled this week:</p>
 <ul>
-<li><p>You are all coming in with interesting and varied experiences with a mix of backgrounds in STATA, SAS, GIS desktop applications, Python, and R with interests including ecology, transit, reproducible data analysis, and disaster response. Please feel free to use your weekly reading responses to connect these interests to our readings and to find related R packages or QGIS methods you can use to expand your work in this area.</p></li>
-<li><p>We reviewed the syllabus on <a href="https://elipousson.github.io/bldgspatialdata/syllabus.html">the course website</a> including the assignment structure and reading schedule. More details on the upcoming assignments and final project will be coming soon!</p></li>
-<li><p>I expect we will typically meet from 6:00 pm to 8:00 pm. A heads up if you need to miss a session is appreciated but we’ll do our best to catch you up if you are unable to attend.</p></li>
-<li><p>I shared an invitation to the course Discord channel and encouraged everyone to use Discord to share questions during the term. I will use Discord but make sure any <em>essential</em> communications are sent via Blackboard or email. It also turned out to be a helpful work around with the out-of-order projector this evening!</p></li>
-<li><p>We confirmed that everyone has R, RStudio, and QGIS installed (or will be able to install soon). Let me know if you run into trouble with installing packages as we continue forward in the class.</p></li>
-<li><p><strong>Note:</strong> In your RStudio settings, everyone should update the setting for “Save workspace to <code>.RData</code> on exit” to “Never” — a key step for ensuring reproducibility (endorsed <a href="https://twitter.com/hadleywickham/status/1032665959734108160?lang=en">by Hadley Wickham</a> among others). This setting changes covered in the <a href="https://stat545.com/r-basics.html">R Basics and workflows</a> material included in the Setup section of our <a href="https://elipousson.github.io/bldgspatialdata/">course schedule</a>.</p></li>
-<li><p>We concluded with a short demonstration of how to use the <a href="https://r-spatial.github.io/sf/">sf package</a> to read data from a shapefile I downloaded from <a href="https://www.naturalearthdata.com/downloads/">Natural Earth</a>. We also looked at a few handy features and functions including:</p></li>
-<li><p>Using the <code>?</code> help operator to get to function documentation (see <a href="https://www.r-project.org/help.html">Getting Help with R</a> for more info)</p></li>
-<li><p>Using RMarkdown (or Quarto documents) to combine text with executable code (see this <a href="https://rmarkdown.rstudio.com/index.html">accessible guide from RStudio</a> or Ch. 2 <a href="https://bookdown.org/yihui/rmarkdown/basics.html">Basics</a> from <a href="https://bookdown.org/yihui/rmarkdown/">RMarkdown: The Definitive Guide</a> for more info on RMarkdown).</p></li>
-<li><p>Using functions to take a quick look at your data including <code>View()</code> and <code>plot()</code> (both base R functions), <code>glimpse()</code> (from the <a href="https://dplyr.tidyverse.org/">dplyr package</a>), and <code>mapview()</code> (from the <a href="https://r-spatial.github.io/mapview/">mapview package</a>)</p></li>
-<li><p>I shared a copy of the sf cheatsheet (available <a href="https://github.com/rstudio/cheatsheets/blob/main/sf.pdf">here as a PDF</a>) and you can find cheat sheets for the RStudio IDE, dplyr, and many other useful packages <a href="https://www.rstudio.com/resources/cheatsheets/">on the RStudio website</a> or <a href="https://github.com/rstudio/cheatsheets">on GitHub</a>.</p></li>
+<li><p><strong>How do I submit an assignment using GitHub?</strong> I’ve added an <a href="../../assignment/00_weekly_logs.html">assignment page for the weekly logs</a> that explains the process for committing changes to your course repository using the Git tab in RStudio and links to step-by-step instructions on how to do the same using GitHub Studio.</p></li>
+<li><p><strong>What is the difference between sf, sfc, sfg?</strong> In short, a sf (simple feature) object is a data frame with both geometry and attributes, a sfc (simple feature column) object is a list that is used as the geometry column for an sf object, and a sfg (simple feature geometry) object is a single point, polygon, or other feature (representing the geometry of a single feature when it is part of a complete sf object). The <a href="https://r-spatial.github.io/sf/articles/sf1.html">introductory vignette for the {sf} package</a> includes a helpful explanation of the difference between sf, sfc, and sfg objects.</p></li>
+<li><p><strong>How do you create inline code within a RMarkdown document? And what is online code useful for?</strong> You can use backticks around text starting with a lower-case “r” to create inline code within a R Markdown or Quarto document. This approach is handy for integrating variables into the text of a rendered document. Check out <a href="https://bookdown.org/yihui/rmarkdown-cookbook/r-code.html">The R Markdown Cookbook</a> for more inline code and code chunks.</p></li>
 </ul>
 </section>
-<section id="session-1-next-steps" class="level3">
-<h3 class="anchored" data-anchor-id="session-1-next-steps">Session 1 next steps</h3>
+<section id="topics" class="level3">
+<h3 class="anchored" data-anchor-id="topics">Topics</h3>
+<section id="attribute-data-with-r" class="level4">
+<h4 class="anchored" data-anchor-id="attribute-data-with-r">Attribute data with R</h4>
+<p>We spent the bulk of the session walking through the process of using base R and the dplyr package. The slides are available on <a href="https://elipousson.github.io/bldgspatialdata/slides/03_attribute-data.html#/title-slide">the course website</a>. You can also find them via the new Materials section I set up that includes slides, annotated examples, and resource pages. If you have any suggestions for changes or additions to the course material, please feel free to open an issue on <a href="https://github.com/elipousson/bldgspatialdata">the GitHub repository</a> for the course site.</p>
+</section>
+<section id="introduction-to-qgis" class="level4">
+<h4 class="anchored" data-anchor-id="introduction-to-qgis">Introduction to QGIS</h4>
+<p>We briefly discussed the early history of QGIS (drawn from this <a href="https://www.xyht.com/spatial-itgis/godfather-of-qgis/">brief interview with the founding QGIS developer, Gary Sherman</a>) and jumped into a quick demonstration of the basic features including:</p>
 <ul>
-<li><p>We’re going to try out GitHub classroom for our GitHub fundamentals activity which you can access via <a href="https://classroom.github.com/a/KrKVDaCo">this invitation link</a>.</p></li>
-<li><p>If you sent me your GitHub account name, I have added you to our GitHub organization and sent you an invite to a private repository matching your name. I’ll add a log folder to each repository and a template you can use for the written response for our first week assignment on <a href="https://elipousson.github.io/bldgspatialdata/assignments/01_find-data.html">finding spatial data</a>.</p></li>
+<li><p>Importing data by dragging local files on the Map pane</p></li>
+<li><p>Importing data using the <strong>Layer &gt; Add Layer &gt; Add Vector Layer</strong> and <strong>Add Delimited Text</strong> Layer options</p></li>
+<li><p>Using the data browser pane to add local files to the Layers pane and reordering layers within the Layers pane</p></li>
+<li><p>Installing the <a href="https://plugins.qgis.org/plugins/quick_map_services/">QuickMapServices plugin</a> and using it to add Google Maps as a basemap.</p></li>
+<li><p>Using the <strong>Layer &gt; Save As</strong> menu option or <strong>Export &gt; Save Features As…</strong> option from the right-click context menu to export a layer as a GeoPackage file</p></li>
+</ul>
+<p>We also briefly looked at the the Natural Earth Quick Start Kit (available <a href="https://www.naturalearthdata.com/downloads/">via the Downloads page</a>) which offers a good demonstration of the varied layer styling and symbology options within QGiS.</p>
+</section>
+</section>
+<section id="miscellaneous-extras" class="level3">
+<h3 class="anchored" data-anchor-id="miscellaneous-extras">Miscellaneous extras</h3>
+<ul>
+<li>If you’re interested in data visualization beyond mapping, I recommend <a href="https://socviz.co/">Data Visualization: A practical introduction</a> by Kieran Healy. The book has <a href="https://github.com/kjhealy/socviz">an accompanying support package</a> packed full of examples.</li>
+<li>During the break we talked about <a href="https://github.com/JoshOBrien/exiftoolr">{exiftoolr}</a>: a package for accessing <a href="https://exiftool.org/">ExifTool</a> (a Perl library for accessing EXIF metadata) including the coordinates attached to pictures you take with your phone. I recommended the <code>read_sf_exif()</code> function from my own <a href="https://elipousson.github.io/sfext/">{sfext}</a> package (that extends the sf package with a variety of additional features) for working with this data.</li>
+<li>During the demonstration of mapping with {ggplot2} we talked briefly about color-blind safe palettes as one advantage in using a preset scale like the <code>scale_fill_brewer()</code> or <code>scale_fill_distiller()</code>. The palettes for those functions are both from ColorBrewer: a web tool for guidance in choosing choropleth map color schemes, based on the research of <a href="http://www.personal.psu.edu/cab38/">Dr.&nbsp;Cynthia Brewer</a>. In a follow-up chat on Discord, I recommended the <a href="https://github.com/mtennekes/cols4all">{cols4all}</a> R package and noted that <a href="https://www.gislounge.com/use-color-blind-preview-option-qgis/">QGIS also has a feature</a> allowing you to preview what a map looks like for a color-blind viewer.</li>
 </ul>
 </section>
-<section id="what-to-expect-next-week-for-session-2" class="level3">
-<h3 class="anchored" data-anchor-id="what-to-expect-next-week-for-session-2">What to expect next week for Session 2</h3>
+<section id="next-steps" class="level3">
+<h3 class="anchored" data-anchor-id="next-steps">Next steps</h3>
+<p>The only assignment due this week is your weekly log. We’re taking a week off from All Data Are Local so you’d also be welcome to use your weekly log to reflect on any initial ideas for how you may be able to apply the approaches we are learning to your own research or practice.</p>
+<p>The mapping with R and mapping with QGIS assignments are both due the following Wednesday, <strong>September 28</strong>. If there is interest, I can offer an “office hours” session late next week or early the week following to help trouble-shoot any challenges you may encounter.</p>
+</section>
+</section>
+<section id="what-to-expect-for-session-4" class="level2">
+<h2 class="anchored" data-anchor-id="what-to-expect-for-session-4">What to expect for Session 4</h2>
+<p>Next week, we’re going to start with QGIS so I can demonstrate the basic features for working with attributes, explain how QGIS expressions work, and demonstrate the print layout tools you’ll need to use for the QGIS assignment.</p>
+<p>We’ll then switch back to R and show off how to use the sf package for:</p>
 <ul>
-<li><p>Next week, we will kick off with a discussion covering both Chapter 1 and 2 from All Data Are Local.<span class="citation" data-cites="loukissas2019">(<a href="#ref-loukissas2019" role="doc-biblioref">Loukissas 2019</a>)</span> If you’re someone who enjoys taking in ideas via video or audio, you may enjoy this <a href="https://www.youtube.com/watch?v=vc2UAP3OfKc">recorded one-hour talk by Loukissas</a> (<a href="https://cyber.harvard.edu/sites/default/files/2020-03/2020_03_03_berkman_lunchtalk.pdf">transcript here</a>) where he summarizes the main ideas behind the book.</p></li>
-<li><p>We will then continue our review of how the sf package works with spatial data (here is <a href="examples/01_read-data-r.html">the example we started going through</a>) and then review the same process of reading data with QGIS.</p></li>
-<li><p>Assignment 1 (setting up your GitHub account and completing the fundamentals training) and assignment 2 (finding spatial data) are both due next week.</p></li>
+<li>geometry operations for buffering or simplifying features</li>
+<li>geometric operations like union, intersection, and difference</li>
+<li>and related functions including spatial joins and filters</li>
 </ul>
+<p>In addition to the assigned chapter from <span class="citation" data-cites="lovelaceGeocomputation2022">Lovelace, Nowosad, and Muenchow (<a href="#ref-lovelaceGeocomputation2022" role="doc-biblioref">2022</a>)</span>, some of these topics are also demonstrated in the <a href="https://r-spatial.github.io/sf/articles/sf3.html">{sf} vignette on manipulating simple feature geometries</a>.</p>
 
 
 
 </section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
-<div id="ref-loukissas2019" class="csl-entry" role="doc-biblioentry">
-Loukissas, Yanni Alexander. 2019. <em>All Data Are Local: Thinking Critically in a Data-Driven Society</em>. <a href="https://doi.org/10.7551/mitpress/11543.001.0001">https://doi.org/10.7551/mitpress/11543.001.0001</a>.
+<div id="ref-lovelaceGeocomputation2022" class="csl-entry" role="doc-biblioentry">
+Lovelace, Robin, Jakub Nowosad, and Jannes Muenchow. 2022. <em>Geocomputation with <span>R</span></em>. 2nd (WIP). <a href="https://geocompr.robinlovelace.net/">https://geocompr.robinlovelace.net/</a>.
 </div>
 </div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
