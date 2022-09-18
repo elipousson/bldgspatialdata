@@ -1,0 +1,63 @@
+---
+title: "September 14: Recap & Next Steps"
+date: "2022-09-18"
+categories: [recap]
+---
+
+## What did we do for Session 3
+
+### Questions and answers
+
+We took some a good bit of time at the start of class this past week to go over questions from the daily logs. Feel free to share your questions to the Discord during the week as well as including them in your log. Here are a few of the questions we tackled this week:
+
+-   **How do I submit an assignment using GitHub?** I've added an [assignment page for the weekly logs](/assignment/00_weekly_logs.html) that explains the process for committing changes to your course repository using the Git tab in RStudio and links to step-by-step instructions on how to do the same using GitHub Studio.
+
+-   **What is the difference between sf, sfc, sfg?** In short, a sf (simple feature) object is a data frame with both geometry and attributes, a sfc (simple feature column) object is a list that is used as the geometry column for an sf object, and a sfg (simple feature geometry) object is a single point, polygon, or other feature (representing the geometry of a single feature when it is part of a complete sf object). The [introductory vignette for the {sf} package](https://r-spatial.github.io/sf/articles/sf1.html) includes a helpful explanation of the difference between sf, sfc, and sfg objects.
+
+-   **How do you create inline code within a RMarkdown document? And what is online code useful for?** Use backticks (\`r \# inline code goes here\`) to create inline code within a R Markdown or Quarto document. This approach is handy for integrating variables into the text of a rendered document. Check out [The R Markdown Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/r-code.html) for more inline code and code chunks.
+
+### Topics
+
+#### Attribute data with R
+
+We spent the bulk of the session walking through the process of using base R and the dplyr package. The slides are available on [the course website](https://elipousson.github.io/bldgspatialdata/slides/03_attribute-data.html#/title-slide). You can also find them via the new Materials section I set up that includes slides, annotated examples, and resource pages. If you have any suggestions for changes or additions to the course material, please feel free to open an issue on [the GitHub repository](https://github.com/elipousson/bldgspatialdata) for the course site.
+
+#### Introduction to QGIS
+
+We briefly discussed the early history of QGIS (drawn from this [brief interview with the founding QGIS developer, Gary Sherman](https://www.xyht.com/spatial-itgis/godfather-of-qgis/)) and jumped into a quick demonstration of the basic features including:
+
+-   Importing data by dragging local files on the Map pane
+
+-   Importing data using the **Layer \> Add Layer \> Add Vector Layer** and **Add Delimited Text** Layer options
+
+-   Using the data browser pane to add local files to the Layers pane and reordering layers within the Layers pane
+
+-   Installing the [QuickMapServices plugin](https://plugins.qgis.org/plugins/quick_map_services/) and using it to add Google Maps as a basemap.
+
+-   Using the **Layer \> Save As** menu option or **Export \> Save Features As...** option from the right-click context menu to export a layer as a GeoPackage file
+
+We also briefly looked at the the Natural Earth Quick Start Kit (available [via the Downloads page](https://www.naturalearthdata.com/downloads/)) which offers a good demonstration of the varied layer styling and symbology options within QGiS.
+
+### Miscellaneous extras
+
+-   If you're interested in data visualization beyond mapping, I recommend [Data Visualization: A practical introduction](https://socviz.co/) by Kieran Healy. The book has [an accompanying support package](https://github.com/kjhealy/socviz) packed full of examples.
+-   During the break we talked about [{exiftoolr}](https://github.com/JoshOBrien/exiftoolr): a package for accessing [ExifTool](https://exiftool.org/) (a Perl library for accessing EXIF metadata) including the coordinates attached to pictures you take with your phone. I recommended the `read_sf_exif()` function from my own [{sfext}](https://elipousson.github.io/sfext/) package (that extends the sf package with a variety of additional features) for working with this data.
+-   During the demonstration of mapping with {ggplot2} we talked briefly about color-blind safe palettes as one advantage in using a preset scale like the `scale_fill_brewer()` or `scale_fill_distiller()`. The palettes for those functions are both from ColorBrewer: a web tool for guidance in choosing choropleth map color schemes, based on the research of [Dr. Cynthia Brewer](http://www.personal.psu.edu/cab38/). In a follow-up chat on Discord, I recommended the [{cols4all}](https://github.com/mtennekes/cols4all) R package and noted that [QGIS also has a feature](https://www.gislounge.com/use-color-blind-preview-option-qgis/) allowing you to preview what a map looks like for a color-blind viewer.
+
+### Next steps
+
+The only assignment due this week is your weekly log. We're taking a week off from All Data Are Local so you'd also be welcome to use your weekly log to reflect on any initial ideas for how you may be able to apply the approaches we are learning to your own research or practice.
+
+The mapping with R and mapping with QGIS assignments are both due the following Wednesday, **September 28**. If there is interest, I can offer an "office hours" session late next week or early the week following to help trouble-shoot any challenges you may encounter.
+
+## What to expect for Session 4
+
+Next week, we're going to start with QGIS so I can demonstrate the basic features for working with attributes, explain how QGIS expressions work, and demonstrate the print layout tools you'll need to use for the QGIS assignment.
+
+We'll then switch back to R and show off how to use the sf package for:
+
+-   geometry operations for buffering or simplifying features
+-   geometric operations like union, intersection, and difference
+-   and related functions including spatial joins and filters
+
+In addition to the assigned chapter from @lovelaceGeocomputation2022, some of these topics are also demonstrated in the [{sf} vignette on manipulating simple feature geometries](https://r-spatial.github.io/sf/articles/sf3.html).
