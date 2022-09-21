@@ -20,6 +20,25 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 
@@ -69,6 +88,7 @@ ul.task-list li input[type="checkbox"] {
 <meta property="og:locale" content="en_US">
 <meta property="og:image:height" content="1254">
 <meta property="og:image:width" content="1180">
+<meta property="og:image:alt" content="A man, middle-aged, White, wearing a baseball-style cap and weathered work shirt, sitting at a desk full of papers and writing in a 3-ring binder.">
 <meta name="twitter:title" content="Building Spatial Datasets - Write a weekly log">
 <meta name="twitter:description" content="Each week students are expected to write a 1-2 paragraph reflection the assigned readings and one to three questions related to the technical materials.">
 <meta name="twitter:image" content="https://elipousson.github.io/bldgspatialdata/files/img/ges600-logo.png">
@@ -76,6 +96,7 @@ ul.task-list li input[type="checkbox"] {
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image-height" content="1254">
 <meta name="twitter:image-width" content="1180">
+<meta name="twitter:image:alt" content="A man, middle-aged, White, wearing a baseball-style cap and weathered work shirt, sitting at a desk full of papers and writing in a 3-ring binder.">
 </head>
 
 <body class="nav-fixed">
@@ -160,9 +181,9 @@ ul.task-list li input[type="checkbox"] {
 <p>Here is a typical process for submitting a log entry using RStudio and GitHub:</p>
 <ol type="1">
 <li>Open the <code>logs.Rproj</code> file in the logs folder in your repository with RStudio.</li>
-<li>Locate the template file (<code>2022-MM-DD.md</code>) using the files pane of RStudio (you can <a href="https://support.rstudio.com/hc/en-us/articles/200549016-Customizing-the-RStudio-IDE#pane-layout">customize the pane layout</a> using the options dialog for the RStudio IDE).</li>
-<li>Select the template file, make a copy, and rename the file substituting the month and date of the related session for <code>MM-DD</code> in the file name.</li>
-<li>Add your own reflection and questions to the new Markdown document. Make sure to keep the headings from the template in place. Use the <a href="https://rstudio.github.io/visual-markdown-editing/">RStudio visual editor</a> to add formatting and links as needed.</li>
+<li>Locate the template file (<code>2022-MM-DD_log.md</code>) using the files pane of RStudio (you can <a href="https://support.rstudio.com/hc/en-us/articles/200549016-Customizing-the-RStudio-IDE#pane-layout">customize the pane layout</a> using the options dialog for the RStudio IDE).</li>
+<li>Select the template file, make a copy (using the More &gt; Copy drop-down menu option), and name the new file substituting the month and date of the related session for <code>MM-DD</code> in the file name. For example, a log due on September 21, 2022 should be named <code>2022-09-21_log.md</code>.</li>
+<li>Add your own reflection and questions to the new Markdown document. <em>Both</em> a reflection <em>and</em> a question are expected for a complete log entry. Please keep the headings from the template in place. Use the <a href="https://rstudio.github.io/visual-markdown-editing/">RStudio visual editor</a> to add formatting and links as needed.</li>
 <li>Use the Git tab to commit and push the new log file to your repository:
 <ul>
 <li>Click the Git tab</li>
@@ -174,11 +195,17 @@ ul.task-list li input[type="checkbox"] {
 </ul></li>
 </ol>
 <p>You can also commit and push changes using GitHub Desktop. Review the documentation on <a href="https://docs.github.com/en/desktop/contributing-and-collaborating-using-github-desktop/making-changes-in-a-branch/committing-and-reviewing-changes-to-your-project">Committing and reviewing changes to your project</a> for more information.</p>
+<p><em>Featured image: <span class="citation" data-cites="phcsronbaylesusnPETTYOfficerFirst1989">PHCS Ron Bayles, USN (<a href="#ref-phcsronbaylesusnPETTYOfficerFirst1989" role="doc-biblioref">1989</a>)</span></em></p>
+
 
 
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-phcsronbaylesusnPETTYOfficerFirst1989" class="csl-entry" role="doc-biblioentry">
+PHCS Ron Bayles, USN. 1989. <span>“PETTY Officer First Class (PO1) Roschi Fills Out a Log Book at His Desk Aboard the Amphibious Assault Ship USS BELLEAU WOOD (LHA 3),”</span> January.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
