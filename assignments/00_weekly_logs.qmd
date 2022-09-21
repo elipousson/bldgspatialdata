@@ -2,6 +2,8 @@
 title: "Write a weekly log"
 title-block-categories: true
 category: assignment
+image: images/DN-SN-89-04812.jpeg
+image-alt: "A man, middle-aged, White, wearing a baseball-style cap and weathered work shirt, sitting at a desk full of papers and writing in a 3-ring binder."
 ---
 
 Each week students are expected to write a 1-2 paragraph reflection the assigned readings and one to three questions related to the technical materials.
@@ -19,9 +21,9 @@ After you initially [set up your GitHub account](https://docs.github.com/en/get-
 Here is a typical process for submitting a log entry using RStudio and GitHub:
 
 1.  Open the `logs.Rproj` file in the logs folder in your repository with RStudio.
-2.  Locate the template file (`2022-MM-DD.md`) using the files pane of RStudio (you can [customize the pane layout](https://support.rstudio.com/hc/en-us/articles/200549016-Customizing-the-RStudio-IDE#pane-layout) using the options dialog for the RStudio IDE).
-3.  Select the template file, make a copy, and rename the file substituting the month and date of the related session for `MM-DD` in the file name.
-4.  Add your own reflection and questions to the new Markdown document. Make sure to keep the headings from the template in place. Use the [RStudio visual editor](https://rstudio.github.io/visual-markdown-editing/) to add formatting and links as needed.
+2.  Locate the template file (`2022-MM-DD_log.md`) using the files pane of RStudio (you can [customize the pane layout](https://support.rstudio.com/hc/en-us/articles/200549016-Customizing-the-RStudio-IDE#pane-layout) using the options dialog for the RStudio IDE).
+3.  Select the template file, make a copy (using the More \> Copy drop-down menu option), and name the new file substituting the month and date of the related session for `MM-DD` in the file name. For example, a log due on September 21, 2022 should be named `2022-09-21_log.md`.
+4.  Add your own reflection and questions to the new Markdown document. *Both* a reflection *and* a question are expected for a complete log entry. Please keep the headings from the template in place. Use the [RStudio visual editor](https://rstudio.github.io/visual-markdown-editing/) to add formatting and links as needed.
 5.  Use the Git tab to commit and push the new log file to your repository:
     -   Click the Git tab
     -   Check the "Staged" check box next to the new file
@@ -31,3 +33,5 @@ Here is a typical process for submitting a log entry using RStudio and GitHub:
     -   Click Push to sync the change with the remote repository on Github.com
 
 You can also commit and push changes using GitHub Desktop. Review the documentation on [Committing and reviewing changes to your project](https://docs.github.com/en/desktop/contributing-and-collaborating-using-github-desktop/making-changes-in-a-branch/committing-and-reviewing-changes-to-your-project) for more information.
+
+*Featured image: @phcsronbaylesusnPETTYOfficerFirst1989*
