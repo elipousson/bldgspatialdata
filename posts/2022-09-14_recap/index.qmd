@@ -14,7 +14,7 @@ We took some a good bit of time at the start of class this past week to go over 
 
 -   **What is the difference between sf, sfc, sfg?** In short, a sf (simple feature) object is a data frame with both geometry and attributes, a sfc (simple feature column) object is a list that is used as the geometry column for an sf object, and a sfg (simple feature geometry) object is a single point, polygon, or other feature (representing the geometry of a single feature when it is part of a complete sf object). The [introductory vignette for the {sf} package](https://r-spatial.github.io/sf/articles/sf1.html) includes a helpful explanation of the difference between sf, sfc, and sfg objects.
 
--   **How do you create inline code within a RMarkdown document? And what is online code useful for?** Use backticks (\`r \# inline code goes here\`) to create inline code within a R Markdown or Quarto document. This approach is handy for integrating variables into the text of a rendered document. Check out [The R Markdown Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/r-code.html) for more inline code and code chunks.
+-   **How do you create inline code within a RMarkdown document? And what is online code useful for?** You can use backticks around text starting with a lower-case "r" to create inline code within a R Markdown or Quarto document. This approach is handy for integrating variables into the text of a rendered document. Check out [The R Markdown Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/r-code.html) for more inline code and code chunks.
 
 ### Topics
 
