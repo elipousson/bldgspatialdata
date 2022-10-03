@@ -224,6 +224,13 @@
     "text": "What to expect for Session 4\nNext week, we’re going to start with QGIS so I can demonstrate the basic features for working with attributes, explain how QGIS expressions work, and demonstrate the print layout tools you’ll need to use for the QGIS assignment.\nWe’ll then switch back to R and show off how to use the sf package for:\n\ngeometry operations for buffering or simplifying features\ngeometric operations like union, intersection, and difference\nand related functions including spatial joins and filters\n\nIn addition to the assigned chapter from Lovelace, Nowosad, and Muenchow (2022), some of these topics are also demonstrated in the {sf} vignette on manipulating simple feature geometries."
   },
   {
+    "objectID": "posts/2022-09-28_recap/index.html",
+    "href": "posts/2022-09-28_recap/index.html",
+    "title": "September 21 and 28: Recap & Next Steps",
+    "section": "",
+    "text": "This is a two-week recap covering Session 4 and 5 along with the revisions to the course we discussed the last couple weeks. Looking forward to seeing you all online soon!"
+  },
+  {
     "objectID": "posts/2022-09-28_recap/index.html#what-did-we-do-for-session-4",
     "href": "posts/2022-09-28_recap/index.html#what-did-we-do-for-session-4",
     "title": "September 21 and 28: Recap & Next Steps",
@@ -245,11 +252,11 @@
     "text": "What to expect for Session 6\nDue to the schedule conflict with Yom Kippur, our next course session is this Monday evening (tomorrow!). We’re diving back into R to review how to use sf for spatial operations (functions dealing with spatial relationships between features) and geometric operations (functions that modify the geometry of features) and, hopefully, start talking about how you can use these functions as part of an exploratory analysis."
   },
   {
-    "objectID": "posts/2022-09-28_recap/index.html#updates-course-schedule",
-    "href": "posts/2022-09-28_recap/index.html#updates-course-schedule",
+    "objectID": "posts/2022-09-28_recap/index.html#updates-to-the-course-schedule",
+    "href": "posts/2022-09-28_recap/index.html#updates-to-the-course-schedule",
     "title": "September 21 and 28: Recap & Next Steps",
-    "section": "Updates course schedule",
-    "text": "Updates course schedule\nRight now, you can compare the schedule from the start of the semester with this updated schedule. Once we finalize these changes, I’ll replace the schedule with the updated version. Here are the highlights of the changes:\n\nI updated the titles and descriptions for the last five weeks to more accurately reflect the materials we have been able to cover so far\nI added two new sessions to the first half of the course: Tidying and summarizing data in R and Summarizing and analyzing data with R (extending this first half by two weeks)\nI added a new session on Editing and creating geometry with R and QGIS to the start of the second half of the course and reworked the descriptions for Getting data from public web services and Working on collaborative data projects\nI temporarily removed the assignment due dates while I rework the remaining assignments to function more effectively as exercises.\n\nWe’ll briefly review these changes during our October 3 session and I’ll share an updated activity schedule and more details on a final project ASAP."
+    "section": "Updates to the course schedule",
+    "text": "Updates to the course schedule\nRight now, you can compare the schedule from the start of the semester with this updated schedule. Once we finalize these changes, I’ll replace the schedule with the updated version. Here are the highlights of the changes:\n\nI updated the titles and descriptions for the last five weeks to more accurately reflect the materials we have been able to cover so far\nI added two new sessions to the first half of the course: Tidying and summarizing data in R and Summarizing and analyzing data with R (extending this first half by two weeks)\nI added a new session on Editing and creating geometry with R and QGIS to the start of the second half of the course and reworked the descriptions for Getting data from public web services and Working on collaborative data projects\nI temporarily removed the assignment due dates while I rework the remaining assignments to function more effectively as exercises.\n\nWe’ll briefly review these changes during our October 3 session and I’ll share an updated activity schedule and more details on a final project ASAP."
   },
   {
     "objectID": "resources/data.html",
@@ -466,7 +473,7 @@
     "href": "schedule-refined.html#project-work-session-nov.-23-scheduled-nov.-21",
     "title": "Schedule (Refined)",
     "section": "13. Project work session – Nov. 23 (scheduled Nov. 21)",
-    "text": "13. Project work session – Nov. 23 (scheduled Nov. 21)\nAssignment due\n\nMake a map using OpenStreetMap data in QGIS or R\n\n\n\n\n\n\n\nThis session is the day before the Thanksgiving holiday and may conflict with travel for class participants. Instead of a session at the scheduled time, I plan to host a remote session at a different date and time (to be determined). This session will focus on sharing updates and support for the final project. The session will not be recorded but notes will be shared with any students who are unable to participate."
+    "text": "13. Project work session – Nov. 23 (scheduled Nov. 21)\n\n\n\n\n\n\nThis session is the day before the Thanksgiving holiday and may conflict with travel for class participants. Instead of a session at the scheduled time, I plan to host a remote session at a different date and time (to be determined). This session will focus on sharing updates and support for the final project. The session will not be recorded but notes will be shared with any students who are unable to participate."
   },
   {
     "objectID": "schedule-refined.html#special-topics-in-spatial-data-nov.-30",
