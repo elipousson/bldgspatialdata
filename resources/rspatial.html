@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Building Spatial Datasets - Using QGIS</title>
+<title>Building Spatial Datasets - Using R and rspatial packages</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -59,18 +59,19 @@ ul.task-list li input[type="checkbox"] {
     "search-submit-button-title": "Submit"
   }
 }</script>
+<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
 
 <link rel="stylesheet" href="../styles.css">
-<meta property="og:title" content="Building Spatial Datasets - Using QGIS">
-<meta property="og:description" content="Plugins are optional for working with spatial data in QGIS but recommended for ease of use and convenience.">
+<meta property="og:title" content="Building Spatial Datasets - Using R and rspatial packages">
 <meta property="og:image" content="https://elipousson.github.io/bldgspatialdata/files/img/ges600-logo.png">
 <meta property="og:site-name" content="Building Spatial Datasets">
 <meta property="og:locale" content="en_US">
 <meta property="og:image:height" content="1254">
 <meta property="og:image:width" content="1180">
-<meta name="twitter:title" content="Building Spatial Datasets - Using QGIS">
-<meta name="twitter:description" content="Plugins are optional for working with spatial data in QGIS but recommended for ease of use and convenience.">
+<meta name="twitter:title" content="Building Spatial Datasets - Using R and rspatial packages">
 <meta name="twitter:image" content="https://elipousson.github.io/bldgspatialdata/files/img/ges600-logo.png">
 <meta name="twitter:creator" content="\@elipousson">
 <meta name="twitter:card" content="summary_large_image">
@@ -120,28 +121,14 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#about-qgis" id="toc-about-qgis" class="nav-link active" data-scroll-target="#about-qgis"><strong>About QGIS 📋</strong></a></li>
-  <li><a href="#introductory-resources" id="toc-introductory-resources" class="nav-link" data-scroll-target="#introductory-resources"><strong>Introductory resources 🐣</strong></a></li>
-  <li><a href="#getting-help-with-qgis" id="toc-getting-help-with-qgis" class="nav-link" data-scroll-target="#getting-help-with-qgis"><strong>Getting help with QGIS 🆘</strong></a></li>
-  <li><a href="#recommended-qgis-plugins" id="toc-recommended-qgis-plugins" class="nav-link" data-scroll-target="#recommended-qgis-plugins"><strong>Recommended QGIS plugins 🔌</strong></a></li>
-  <li><a href="#additional-resources" id="toc-additional-resources" class="nav-link" data-scroll-target="#additional-resources">Additional resources</a>
-  <ul class="collapse">
-  <li><a href="#introductory" id="toc-introductory" class="nav-link" data-scroll-target="#introductory">Introductory</a></li>
-  <li><a href="#advanced" id="toc-advanced" class="nav-link" data-scroll-target="#advanced">Advanced</a></li>
-  </ul></li>
-  </ul>
-</nav>
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Using QGIS</h1>
+<h1 class="title">Using R and rspatial packages</h1>
   <div class="quarto-categories">
     <div class="quarto-category">resource</div>
   </div>
@@ -158,91 +145,23 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<section id="about-qgis" class="level2">
-<h2 class="anchored" data-anchor-id="about-qgis"><strong>About QGIS 📋</strong></h2>
-<ul>
-<li><p>Read the <a href="https://docs.qgis.org/3.22/en/docs/user_manual">Desktop User Guide/Manual</a></p></li>
-<li><p>Follow the tutorials in the <a href="https://docs.qgis.org/3.22/en/docs/training_manual/">QGIS Training manual</a></p></li>
-<li><p>Learn GIS basics in <a href="https://docs.qgis.org/3.22/en/docs/gentle_gis_introduction">A gentle introduction in GIS</a></p></li>
-</ul>
-</section>
-<section id="introductory-resources" class="level2">
-<h2 class="anchored" data-anchor-id="introductory-resources"><strong>Introductory resources 🐣</strong></h2>
-<ul>
-<li>Explore <a href="https://www.qgistutorials.com/en/index.html">QGIS Tutorials and Tips</a> from Ujaval Gandhi</li>
-<li><a href="https://spatialthoughts.com/courses/introduction-to-qgis/">Introduction to QGIS</a> from Spatial Thoughts (Ujaval Gandhi)</li>
-</ul>
-</section>
-<section id="getting-help-with-qgis" class="level2">
-<h2 class="anchored" data-anchor-id="getting-help-with-qgis"><strong>Getting help with QGIS 🆘</strong></h2>
-<ul>
-<li>Ask <a href="https://stackoverflow.com/tags/qgis">qgis Questions on StackOverflow</a></li>
-</ul>
-</section>
-<section id="recommended-qgis-plugins" class="level2">
-<h2 class="anchored" data-anchor-id="recommended-qgis-plugins"><strong>Recommended QGIS plugins 🔌</strong></h2>
-<p>Plugins are optional for working with spatial data in QGIS but recommended for ease of use and convenience. Plugins are written and published by individual volunteers, government agencies, and private GIS consulting firms. The following table lists a selection of recommended plugins you may want to install.</p>
-<table class="table">
-<thead>
-<tr class="header">
-<th><strong>Plugin</strong></th>
-<th><strong>Source</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><a href="https://qms.nextgis.com/">QuickMapServices</a> by <a href="https://nextgis.com/">NextGIS</a></td>
-<td><a href="https://github.com/nextgis/quickmapservices">repo</a></td>
-</tr>
-<tr class="even">
-<td><a href="https://plugins.qgis.org/plugins/qgis_resource_sharing/">QGIS Resource Sharing</a> by Akbar Gumbira, Håvard Tveite, and Julien Moura</td>
-<td><a href="https://github.com/QGIS-Contribution/QGIS-ResourceSharing/">repo</a></td>
-</tr>
-<tr class="odd">
-<td><a href="https://github.com/tomchadwin/qgis2web">qgis2web</a> by <a href="https://tom.chadw.in/">Tom Chadwin</a></td>
-<td><a href="https://github.com/tomchadwin/qgis2web">repo</a></td>
-</tr>
-<tr class="even">
-<td><a href="https://north-road.github.io/qgis-processing-r/">Processing R Provider</a> by <a href="https://twitter.com/northroadgeo">North Road</a> and <a href="https://twitter.com/cahik13">Jan Caha</a></td>
-<td><a href="https://github.com/north-road/qgis-processing-r">repo</a></td>
-</tr>
-</tbody>
-</table>
-<div class="callout-tip callout callout-style-default callout-captioned">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<div class="cell" data-fig-width="6.5">
+<div class="cell-output-display">
+<div>
+<p>
+</p><pre class="mermaid" data-tooltip-selector="#mermaid-tooltip-1">flowchart LR
+  A[Hard edge] --&gt; B(Round edge)
+  B --&gt; C{Decision}
+</pre>
+<div id="mermaid-tooltip-1" class="mermaidTooltip">
+
 </div>
-<div class="callout-caption-container flex-fill">
-Tip
+<p></p>
 </div>
 </div>
-<div class="callout-body-container callout-body">
-<p>Learn more about <a href="https://docs.qgis.org/3.4/en/docs/training_manual/qgis_plugins/fetching_plugins.html">installing QGIS plugins</a> or writing your own <a href="https://www.qgistutorials.com/en/docs/3/building_a_python_plugin.html">QGIS Processing plugin</a> (recommended for beginners) or <a href="https://www.qgistutorials.com/en/docs/3/processing_python_plugin.html">QGIS Python plugin</a> (recommended for advanced users).</p>
 </div>
-</div>
-</section>
-<section id="additional-resources" class="level2">
-<h2 class="anchored" data-anchor-id="additional-resources">Additional resources</h2>
-<p>There are a variety of helpful tutorial videos on YouTube covering both introductory and moree advanced topics.</p>
-<section id="introductory" class="level3">
-<h3 class="anchored" data-anchor-id="introductory">Introductory</h3>
-<ul>
-<li><a href="https://www.youtube.com/playlist?list=PL7HotvlLKHCs9nD1fFUjSOsZrsnctyV2R">QGIS Uncovered</a> by Steven Bernard (a design editor with the Financial Times): These videos are a few years old but they are short and lessons 4, 9, and 10 cover the information you need for the QGIS map making assignment in an accessible format.</li>
-<li><a href="https://youtu.be/-7v5qfJYWxA">An Introductory QGIS Workshop for Beginners</a> from Michele Tobias (UC Davis DataLab): This recorded workshop is over 3 hours long but you may find it helpful to check out the section on mapping vector data (starting at <a href="https://youtu.be/-7v5qfJYWxA?t=5040">1:24:00</a>) and the section on working with the map layout tools (starting at <a href="https://youtu.be/-7v5qfJYWxA?t=9000">2:30:00</a>). There is also a <a href="https://github.com/ucdavisdatalab/Intro-to-Desktop-GIS-with-QGIS">corresponding GitHub repository</a> with more resources.</li>
-</ul>
-</section>
-<section id="advanced" class="level3">
-<h3 class="anchored" data-anchor-id="advanced">Advanced</h3>
-<ul>
-<li><a href="https://youtu.be/h-mpUkwDdOQ">QGIS expressions, variables, data defined settings: putting it all together!</a> (1 hr 21 min) by Nyall Dawson from the GIS consulting firm North Road. The demonstration of how to use expressions to set labels, colors, symbology and more shows off some of the similarities between QGIS and ggplot2 (or tmap) and illustrates why a desktop GIS application is still a preferred tool for cartography for many folks (even if R excels at the data manipulation and analysis tasks).</li>
-<li><a href="https://youtu.be/Tkqj3VCxrqI">A Tour of QGIS Processing Toolbox Algorithms</a> (22 min) by Ujaval Gandhi (Spatial Thoughts) offers live demonstrations of over 15 different tools within QGIS including spatial joins, importing geotagged photos, converting points to a path, and more.</li>
-<li><a href="https://wiki.osgeo.org/wiki/TIB">Session recordings</a> from the FOSS4G and FOSSGIS Conferences include a number of sessions on using QGIS for research, analysis, and visualization.</li>
-</ul>
 
 
-</section>
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

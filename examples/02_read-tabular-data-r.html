@@ -1,13 +1,10 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.1.251">
-
+<meta name="generator" content="quarto-1.1.189">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
 <meta name="description" content="Learn to read tabular data with R, convert to spatial data with the sf package, and clean data with the dplyr and tidy packages.">
-
 <title>Building Spatial Datasets - Read tabular data and convert to spatial data with R</title>
 <style>
 code{white-space: pre-wrap;}
@@ -86,7 +83,6 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
-
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -103,8 +99,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
-<link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
-<script id="quarto-search-options" type="application/json">{
+<link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -122,10 +117,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit"
   }
-}</script>
-
-
-<link rel="stylesheet" href="../styles.css">
+}</script><link rel="stylesheet" href="../styles.css">
 <meta property="og:title" content="Building Spatial Datasets - Read tabular data and convert to spatial data with R">
 <meta property="og:description" content="Learn to read tabular data with R, convert to spatial data with the sf package, and clean data with the dplyr and tidy packages.">
 <meta property="og:image" content="https://elipousson.github.io/bldgspatialdata/files/img/ges600-logo.png">
@@ -141,13 +133,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <meta name="twitter:image-height" content="1254">
 <meta name="twitter:image-width" content="1180">
 </head>
-
 <body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
-      <div class="navbar-container container-fluid">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg navbar-dark "><div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Building Spatial Datasets</span>
@@ -158,7 +147,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item">
+<li class="nav-item">
     <a class="nav-link" href="../index.html">Home</a>
   </li>  
   <li class="nav-item">
@@ -174,31 +163,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <a class="nav-link" href="../materials.html">Materials</a>
   </li>  
 </ul>
-              <div id="quarto-search" class="" title="Search"></div>
+<div id="quarto-search" class="" title="Search"></div>
           </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
-    </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+    </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#read-tabular-data-with-coordinates-and-convert-to-sf" id="toc-read-tabular-data-with-coordinates-and-convert-to-sf" class="nav-link active" data-scroll-target="#read-tabular-data-with-coordinates-and-convert-to-sf">Read tabular data with coordinates and convert to sf</a></li>
+<li><a href="#read-tabular-data-with-coordinates-and-convert-to-sf" id="toc-read-tabular-data-with-coordinates-and-convert-to-sf" class="nav-link active" data-scroll-target="#read-tabular-data-with-coordinates-and-convert-to-sf">Read tabular data with coordinates and convert to sf</a></li>
   <li><a href="#read-and-geocode-tabular-data-with-addresses" id="toc-read-and-geocode-tabular-data-with-addresses" class="nav-link" data-scroll-target="#read-and-geocode-tabular-data-with-addresses">Read and geocode tabular data with addresses</a></li>
   <li><a href="#read-tabular-data-and-join-geometry-based-on-a-named-area-or-location" id="toc-read-tabular-data-and-join-geometry-based-on-a-named-area-or-location" class="nav-link" data-scroll-target="#read-tabular-data-and-join-geometry-based-on-a-named-area-or-location">Read tabular data and join geometry based on a named area or location</a></li>
-  </ul>
-</nav>
+  </ul></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title">Read tabular data and convert to spatial data with R</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
   <div class="quarto-categories">
     <div class="quarto-category">example</div>
@@ -219,22 +200,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </div>
   
 
-</header>
-
-<div class="cell">
+</header><div class="cell">
 
 </div>
 <div class="cell">
 
 </div>
-<section id="read-tabular-data-with-coordinates-and-convert-to-sf" class="level2">
-<h2 class="anchored" data-anchor-id="read-tabular-data-with-coordinates-and-convert-to-sf">Read tabular data with coordinates and convert to sf</h2>
-<p>The <code>readr::read_csv()</code> function from the <a href="https://readr.tidyverse.org/">readr</a> package is the preferred method for importing a comma separated variable (csv) data file. The package also supports less common tabular data files such as tab separated variable (tsv). You could also use the <code>read.csv</code> from the utils package (included with base R).</p>
+<section id="read-tabular-data-with-coordinates-and-convert-to-sf" class="level2"><h2 class="anchored" data-anchor-id="read-tabular-data-with-coordinates-and-convert-to-sf">Read tabular data with coordinates and convert to sf</h2>
+<p>The <code><a href="https://readr.tidyverse.org/reference/read_delim.html">readr::read_csv()</a></code> function from the <a href="https://readr.tidyverse.org/">readr</a> package is the preferred method for importing a comma separated variable (csv) data file. The package also supports less common tabular data files such as tab separated variable (tsv). You could also use the <code>read.csv</code> from the utils package (included with base R).</p>
 <p>For example, you can read a csv file with the names and locations of Baltimore City Public School System programs.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>file <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"files/data"</span>, <span class="st">"bcps_programs_SY2122.csv"</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>bcps_programs_df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="at">file =</span> file)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"files/data"</span>, <span class="st">"bcps_programs_SY2122.csv"</span><span class="op">)</span>
+
+<span class="va">bcps_programs_df</span> <span class="op">&lt;-</span> <span class="fu">read_csv</span><span class="op">(</span>file <span class="op">=</span> <span class="va">file</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 162 Columns: 7
 ── Column specification ────────────────────────────────────────────────────────
@@ -249,7 +227,7 @@ lgl (1): swing_space
 </div>
 <p>By default, <code>read_csv</code> prints the number of rows and columns, the selected delimiter and the automatic specification of column types. In general, you should always examine the data after reading it in to make sure the column types are appropriate or if manual specification is needed.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>bcps_programs_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">bcps_programs_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 162 × 7
    program_name_short program_number type            categ…¹ swing…²   lon   lat
@@ -269,13 +247,13 @@ lgl (1): swing_space
 </div>
 <p>One way to address issues with column specification is to read all columns as character types and convert columns to other types as needed.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>bcps_programs_df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="at">file =</span> file, <span class="at">col_types =</span> <span class="st">"ccccccc"</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>bcps_programs_df <span class="ot">&lt;-</span> bcps_programs_df <span class="sc">%&gt;%</span> </span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">lat =</span> <span class="fu">as.numeric</span>(lat),</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">lon =</span> <span class="fu">as.numeric</span>(lon)</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">bcps_programs_df</span> <span class="op">&lt;-</span> <span class="fu">read_csv</span><span class="op">(</span>file <span class="op">=</span> <span class="va">file</span>, col_types <span class="op">=</span> <span class="st">"ccccccc"</span><span class="op">)</span>
+
+<span class="va">bcps_programs_df</span> <span class="op">&lt;-</span> <span class="va">bcps_programs_df</span> <span class="op">%&gt;%</span> 
+  <span class="fu">mutate</span><span class="op">(</span>
+    lat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">lat</span><span class="op">)</span>,
+    lon <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">lon</span><span class="op">)</span>
+  <span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout-tip callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
@@ -295,52 +273,52 @@ Validating CSV files
 </div>
 <p>You can then use <code>st_as_sf()</code> function from the <a href="https://r-spatial.github.io/sf/">sf</a> package to convert the data frame read into a simple feature object. You must specify the name of the coordinate columns and the expected coordinate reference system. By default, the <code>st_as_sf</code> returns a tibble data frame.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>bcps_programs_sf <span class="ot">&lt;-</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>(</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> bcps_programs_df,</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"lon"</span>, <span class="st">"lat"</span>),</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">crs =</span> <span class="dv">4326</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(bcps_programs_sf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">bcps_programs_sf</span> <span class="op">&lt;-</span>
+  <span class="fu">st_as_sf</span><span class="op">(</span>
+    x <span class="op">=</span> <span class="va">bcps_programs_df</span>,
+    coords <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"lon"</span>, <span class="st">"lat"</span><span class="op">)</span>,
+    crs <span class="op">=</span> <span class="fl">4326</span>
+  <span class="op">)</span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">bcps_programs_sf</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "sf"         "tbl_df"     "tbl"        "data.frame"</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> md_counties[<span class="dv">3</span>,]) <span class="sc">+</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> bcps_programs_sf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">md_counties</span><span class="op">[</span><span class="fl">3</span>,<span class="op">]</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">bcps_programs_sf</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="02_read-tabular-data-r_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>This function can be tricky for novice users. Missing values in coordinate columns results in an error by default (set <code>na.fail = FALSE</code> to change this).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>bcps_programs_df_error <span class="ot">&lt;-</span> bcps_programs_df</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>bcps_programs_df_error[<span class="dv">1</span>, ]<span class="sc">$</span>lon <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">st_as_sf</span>(</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> bcps_programs_df_error,</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"lon"</span>, <span class="st">"lat"</span>),</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">crs =</span> <span class="dv">4326</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">bcps_programs_df_error</span> <span class="op">&lt;-</span> <span class="va">bcps_programs_df</span>
+<span class="va">bcps_programs_df_error</span><span class="op">[</span><span class="fl">1</span>, <span class="op">]</span><span class="op">$</span><span class="va">lon</span> <span class="op">&lt;-</span> <span class="cn">NA</span>
+
+<span class="fu">st_as_sf</span><span class="op">(</span>
+  x <span class="op">=</span> <span class="va">bcps_programs_df_error</span>,
+  coords <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"lon"</span>, <span class="st">"lat"</span><span class="op">)</span>,
+  crs <span class="op">=</span> <span class="fl">4326</span>
+<span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <pre><code>Error in st_as_sf.data.frame(x = bcps_programs_df_error, coords = c("lon", : missing values in coordinates not allowed</code></pre>
 </div>
 </div>
 <p>If you reverse the order of the latitude and longitude columns, the function returns an sf object—but with the points at incorrect or nonexistent locations.</p>
 <div class="cell" data-fig.caption="sf created with lon, lat coordinates compared to sf created with reversed lat, lon values">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>bcps_programs_coord_rev <span class="ot">&lt;-</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>(</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> bcps_programs_df,</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"lat"</span>, <span class="st">"lon"</span>),</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">crs =</span> <span class="dv">4326</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> bcps_programs_sf, <span class="at">color =</span> <span class="st">"green"</span>) <span class="sc">+</span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> bcps_programs_coord_rev, <span class="at">color =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">bcps_programs_coord_rev</span> <span class="op">&lt;-</span>
+  <span class="fu">st_as_sf</span><span class="op">(</span>
+    x <span class="op">=</span> <span class="va">bcps_programs_df</span>,
+    coords <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"lat"</span>, <span class="st">"lon"</span><span class="op">)</span>,
+    crs <span class="op">=</span> <span class="fl">4326</span>
+  <span class="op">)</span>
+
+<span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">bcps_programs_sf</span>, color <span class="op">=</span> <span class="st">"green"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">bcps_programs_coord_rev</span>, color <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="02_read-tabular-data-r_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -363,9 +341,9 @@ Longitude and latitude or latitude and longitude?
 </div>
 <p>Working with other types of tabular data follows a similar work flow.</p>
 <ul>
-<li><p>Date from Excel files (xls or xslx) can be imported using <code>readxl::read_excel</code>. Both readr and readxl work with local file paths or with remote files if you provide a url.</p></li>
-<li><p>Data from Google Sheets can be accessed with <code>googlesheets4::read_sheet</code>. Google Sheets can be particularly useful when collaborating on a data project with people who can’t use a GIS application or programming language.</p></li>
-<li><p>Nested data from a JSON file can be read with <code>jsonlite::read_json</code> and converted to a data frame by setting <code>simplifyVector = TRUE</code>.</p></li>
+<li><p>Date from Excel files (xls or xslx) can be imported using <code><a href="https://readxl.tidyverse.org/reference/read_excel.html">readxl::read_excel</a></code>. Both readr and readxl work with local file paths or with remote files if you provide a url.</p></li>
+<li><p>Data from Google Sheets can be accessed with <code><a href="https://googlesheets4.tidyverse.org/reference/range_read.html">googlesheets4::read_sheet</a></code>. Google Sheets can be particularly useful when collaborating on a data project with people who can’t use a GIS application or programming language.</p></li>
+<li><p>Nested data from a JSON file can be read with <code><a href="https://rdrr.io/pkg/jsonlite/man/read_json.html">jsonlite::read_json</a></code> and converted to a data frame by setting <code>simplifyVector = TRUE</code>.</p></li>
 </ul>
 <div class="callout-warning callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="true" aria-label="Toggle callout">
@@ -385,12 +363,12 @@ Beware auto-formatting in Excel
 </div>
 <p>The sf package also supports reading Excel and CSV files directly but it returns a tibble (not an sf object) when trying to read data where the geometry is contained in numeric coordinate columns.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>bcps_programs_st_read <span class="ot">&lt;-</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_read</span>(</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">dsn =</span> file,</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"lon"</span>, <span class="st">"lat"</span>),</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">crs =</span> <span class="dv">4326</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">bcps_programs_st_read</span> <span class="op">&lt;-</span>
+  <span class="fu">st_read</span><span class="op">(</span>
+    dsn <span class="op">=</span> <span class="va">file</span>,
+    coords <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"lon"</span>, <span class="st">"lat"</span><span class="op">)</span>,
+    crs <span class="op">=</span> <span class="fl">4326</span>
+  <span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Reading layer `bcps_programs_SY2122' from data source 
   `/Users/elipousson/Documents/GitHub/bldgspatialdata/files/data/bcps_programs_SY2122.csv' 
@@ -402,13 +380,13 @@ Beware auto-formatting in Excel
 </div>
 <p>However, <code>st_read</code> does work with a CSV file where the geometry has been encoded as <a href="https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry">well-known text</a> such as the sample “baltimore_city_wkt.csv” file.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>dsn <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"files/data"</span>, <span class="st">"baltimore_city_wkt.csv"</span>)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>baltimore_city <span class="ot">&lt;-</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_read</span>(</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">dsn =</span> dsn,</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">crs =</span> <span class="dv">4326</span></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">dsn</span> <span class="op">&lt;-</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"files/data"</span>, <span class="st">"baltimore_city_wkt.csv"</span><span class="op">)</span>
+
+<span class="va">baltimore_city</span> <span class="op">&lt;-</span>
+  <span class="fu">st_read</span><span class="op">(</span>
+    dsn <span class="op">=</span> <span class="va">dsn</span>,
+    crs <span class="op">=</span> <span class="fl">4326</span>
+  <span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Reading layer `baltimore_city_wkt' from data source 
   `/Users/elipousson/Documents/GitHub/bldgspatialdata/files/data/baltimore_city_wkt.csv' 
@@ -419,57 +397,53 @@ Dimension:     XY
 Bounding box:  xmin: -76.71152 ymin: 39.19721 xmax: -76.52946 ymax: 39.37221
 Geodetic CRS:  WGS 84</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> baltimore_city, <span class="at">fill =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">baltimore_city</span>, fill <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">theme_minimal</span><span class="op">(</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="02_read-tabular-data-r_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-</section>
-<section id="read-and-geocode-tabular-data-with-addresses" class="level2">
-<h2 class="anchored" data-anchor-id="read-and-geocode-tabular-data-with-addresses">Read and geocode tabular data with addresses</h2>
+</section><section id="read-and-geocode-tabular-data-with-addresses" class="level2"><h2 class="anchored" data-anchor-id="read-and-geocode-tabular-data-with-addresses">Read and geocode tabular data with addresses</h2>
 <p>What if you do not have coordinates? Geocoding address data is a common task and there are many ways to do this using R and a variety of other tools. The easiest package in most cases is the <a href="https://jessecambon.github.io/tidygeocoder/">tidygeocoder package</a>. This package supports <a href="https://jessecambon.github.io/tidygeocoder/articles/geocoder_services.html">over a dozen different geocoding services</a> including <a href="https://nominatim.org">Nominatim</a> and the <a href="https://geocoding.geo.census.gov/">US Census Burearu</a> geocoder (which are both free to use without an API key).</p>
 <p>Unfortunately, accurately geocoding address data can be challenging. This toppic is addresed in more detail in the example on cleaning data.</p>
-</section>
-<section id="read-tabular-data-and-join-geometry-based-on-a-named-area-or-location" class="level2">
-<h2 class="anchored" data-anchor-id="read-tabular-data-and-join-geometry-based-on-a-named-area-or-location">Read tabular data and join geometry based on a named area or location</h2>
+</section><section id="read-tabular-data-and-join-geometry-based-on-a-named-area-or-location" class="level2"><h2 class="anchored" data-anchor-id="read-tabular-data-and-join-geometry-based-on-a-named-area-or-location">Read tabular data and join geometry based on a named area or location</h2>
 <p>One last common way to add geometry to tabular data is to join the table to geometry based on a named area (typically an administrative boundary) or a named location.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>file_url <span class="ot">&lt;-</span> <span class="st">"https://opendata.maryland.gov/api/views/ftsr-vapt/rows.csv"</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>md_foreclosure <span class="ot">&lt;-</span> file_url <span class="sc">%&gt;%</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_csv</span>(<span class="at">show_col_types =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">pivot_longer</span>(</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="sc">!</span><span class="fu">contains</span>(<span class="st">"Zip"</span>),</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"date"</span>,</span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"count"</span></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">file_url</span> <span class="op">&lt;-</span> <span class="st">"https://opendata.maryland.gov/api/views/ftsr-vapt/rows.csv"</span>
+
+<span class="va">md_foreclosure</span> <span class="op">&lt;-</span> <span class="va">file_url</span> <span class="op">%&gt;%</span>
+  <span class="fu">read_csv</span><span class="op">(</span>show_col_types <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span>
+    cols <span class="op">=</span> <span class="op">!</span><span class="fu">contains</span><span class="op">(</span><span class="st">"Zip"</span><span class="op">)</span>,
+    names_to <span class="op">=</span> <span class="st">"date"</span>,
+    values_to <span class="op">=</span> <span class="st">"count"</span>
+  <span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>For data organized by zipcode can be matched to geometry for Zip Code Tabulation Areas (or ZCTAs) downloaded from the U.S. Census Bureau API with the <code>tigris::zcta</code> function and saved to a GeoPackage file “md_zctas.gpkg”. The “Zip” column should be equivalent to the “ZCTA5CE20” column from md_zctas.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>md_zctas <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"files/data/md_zctas.gpkg"</span>))</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>md_foreclosure <span class="ot">&lt;-</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    md_foreclosure,</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    md_zctas,</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"Zip"</span> <span class="ot">=</span> <span class="st">"ZCTA5CE20"</span>)</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>md_foreclosure_sf <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(md_foreclosure)</span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>md_foreclosure_202207 <span class="ot">&lt;-</span> <span class="fu">filter</span>(md_foreclosure_sf, date <span class="sc">==</span> <span class="st">"July 2022"</span>)</span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> md_foreclosure_202207, <span class="fu">aes</span>(<span class="at">fill =</span> count), <span class="at">color =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
-<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> md_counties, <span class="at">fill =</span> <span class="cn">NA</span>, <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">size =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
-<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_distiller</span>(<span class="at">palette =</span> <span class="st">"PuRd"</span>) <span class="sc">+</span></span>
-<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
-<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Notice of intent to foreclosure by zipcode in Maryland, July 2022"</span>,</span>
-<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"# of notices"</span>,</span>
-<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Data courtesy Open Maryland"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">md_zctas</span> <span class="op">&lt;-</span> <span class="fu">read_sf</span><span class="op">(</span><span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"files/data/md_zctas.gpkg"</span><span class="op">)</span><span class="op">)</span>
+
+<span class="va">md_foreclosure</span> <span class="op">&lt;-</span>
+  <span class="fu">left_join</span><span class="op">(</span>
+    <span class="va">md_foreclosure</span>,
+    <span class="va">md_zctas</span>,
+    by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Zip"</span> <span class="op">=</span> <span class="st">"ZCTA5CE20"</span><span class="op">)</span>
+  <span class="op">)</span>
+
+<span class="va">md_foreclosure_sf</span> <span class="op">&lt;-</span> <span class="fu">st_as_sf</span><span class="op">(</span><span class="va">md_foreclosure</span><span class="op">)</span>
+
+<span class="va">md_foreclosure_202207</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">md_foreclosure_sf</span>, <span class="va">date</span> <span class="op">==</span> <span class="st">"July 2022"</span><span class="op">)</span>
+
+<span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">md_foreclosure_202207</span>, <span class="fu">aes</span><span class="op">(</span>fill <span class="op">=</span> <span class="va">count</span><span class="op">)</span>, color <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">md_counties</span>, fill <span class="op">=</span> <span class="cn">NA</span>, color <span class="op">=</span> <span class="st">"white"</span>, size <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">scale_fill_distiller</span><span class="op">(</span>palette <span class="op">=</span> <span class="st">"PuRd"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">theme_void</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">labs</span><span class="op">(</span>
+    title <span class="op">=</span> <span class="st">"Notice of intent to foreclosure by zipcode in Maryland, July 2022"</span>,
+    fill <span class="op">=</span> <span class="st">"# of notices"</span>,
+    caption <span class="op">=</span> <span class="st">"Data courtesy Open Maryland"</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="02_read-tabular-data-r_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -478,10 +452,7 @@ Geodetic CRS:  WGS 84</code></pre>
 
 <!-- -->
 
-</section>
-
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -843,12 +814,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
-<footer class="footer">
-  <div class="nav-footer">
-    <div class="nav-footer-right">Made with <i class="fa-brands fa-r-project" aria-hidden="true"></i> and <a href="https://quarto.org/">Quarto</a><br> <a href="https://www.github.com/elipousson/bldgspatialdata">View the source at <i class="fa-brands fa-github" aria-hidden="true"></i> GitHub</a></div>
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-right">Made with <i class="fa-brands fa-r-project" aria-hidden="true"></i> and <a href="https://quarto.org/">Quarto</a><br><a href="https://www.github.com/elipousson/bldgspatialdata">View the source at <i class="fa-brands fa-github" aria-hidden="true"></i> GitHub</a></div>
   </div>
 </footer>
-
 
 
 </body></html>

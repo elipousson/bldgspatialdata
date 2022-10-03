@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.189">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="author" content="Eli Pousson">
+<meta name="dcterms.date" content="2022-10-02">
+<title>Building Spatial Datasets - September 21 and 28: Recap &amp; Next Steps</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet"><script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script><link rel="stylesheet" href="../../styles.css">
+<meta property="og:title" content="Building Spatial Datasets - September 21 and 28: Recap &amp; Next Steps">
+<meta property="og:description" content="We dedicated most of last week’s session to a presentation and discussion with Reina Chano Murray, Geospatial Data Curator and Applications Administrator, Johns Hopkins Sheridan Libraries.">
+<meta property="og:image" content="https://elipousson.github.io/bldgspatialdata/files/img/ges600-logo.png">
+<meta property="og:site-name" content="Building Spatial Datasets">
+<meta property="og:locale" content="en_US">
+<meta property="og:image:height" content="1254">
+<meta property="og:image:width" content="1180">
+<meta name="twitter:title" content="Building Spatial Datasets - September 21 and 28: Recap &amp; Next Steps">
+<meta name="twitter:description" content="We dedicated most of last week’s session to a presentation and discussion with Reina Chano Murray, Geospatial Data Curator and Applications Administrator, Johns Hopkins Sheridan Libraries.">
+<meta name="twitter:image" content="https://elipousson.github.io/bldgspatialdata/files/img/ges600-logo.png">
+<meta name="twitter:creator" content="\@elipousson">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image-height" content="1254">
+<meta name="twitter:image-width" content="1180">
+</head>
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg navbar-dark "><div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Building Spatial Datasets</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+<li class="nav-item">
+    <a class="nav-link" href="../../index.html">Home</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../syllabus.html">Syllabus</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../schedule.html">Schedule</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../assignments/index.html">Assignments</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../materials.html">Materials</a>
+  </li>  
+</ul>
+<div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
+   
+  <ul>
+<li>
+<a href="#what-did-we-do-for-session-4" id="toc-what-did-we-do-for-session-4" class="nav-link active" data-scroll-target="#what-did-we-do-for-session-4">What did we do for Session 4</a>
+  <ul class="collapse">
+<li><a href="#introduction-to-filtering-data-with-qgis" id="toc-introduction-to-filtering-data-with-qgis" class="nav-link" data-scroll-target="#introduction-to-filtering-data-with-qgis">Introduction to filtering data with QGIS</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#what-did-we-do-for-session-5" id="toc-what-did-we-do-for-session-5" class="nav-link" data-scroll-target="#what-did-we-do-for-session-5">What did we do for Session 5</a>
+  <ul class="collapse">
+<li><a href="#questions" id="toc-questions" class="nav-link" data-scroll-target="#questions">Questions</a></li>
+  </ul>
+</li>
+  <li><a href="#what-to-expect-for-session-6" id="toc-what-to-expect-for-session-6" class="nav-link" data-scroll-target="#what-to-expect-for-session-6">What to expect for Session 6</a></li>
+  <li><a href="#updates-course-schedule" id="toc-updates-course-schedule" class="nav-link" data-scroll-target="#updates-course-schedule">Updates course schedule</a></li>
+  </ul></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title">September 21 and 28: Recap &amp; Next Steps</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">recap</div>
+  </div>
+  </div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Eli Pousson </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 2, 2022</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+</header><div class="cell">
+
+</div>
+<section id="what-did-we-do-for-session-4" class="level2"><h2 class="anchored" data-anchor-id="what-did-we-do-for-session-4">What did we do for Session 4</h2>
+<section id="introduction-to-filtering-data-with-qgis" class="level3"><h3 class="anchored" data-anchor-id="introduction-to-filtering-data-with-qgis">Introduction to filtering data with QGIS</h3>
+<p>We spent most of our time on September 21 reviewing how to work with QGIS including:</p>
+<ul>
+<li>How to load data from a GeoPackage file or a CSV file with coordinates (also known as a delimited text tile)</li>
+<li>How to filter data using the point-and-click GUI and using basic QGIS expressions</li>
+<li>How to export filtered data to a new layer and a new file</li>
+</ul>
+<p>I demonstrated some of the most common ways mistakes (mostly inadvertently) so make sure to remember:</p>
+<ul>
+<li>When selecting features in the Map view, you must have the layer of interest selected in the Layer panel</li>
+<li>When building QGIS expressions, character literals must be wrapped in single quotes; double-quotes are reserved for field references</li>
+</ul>
+<p>We primarily focused on how to use the “select by expression” interface but you can find options to use expressions all throughout QGIS including:</p>
+<ul>
+<li>Custom labels (e.g.&nbsp;concatenating multiple fields with the <code>||</code> operator)</li>
+<li>Data-driven layer feature styles</li>
+<li>Field calculator (for changing the value of an existing or new field)</li>
+<li>Using variables in the Layout builder (reference variables using <code>@</code> and eenclose expressions in <code>[%</code> and <code>%]</code> to evaluate)</li>
+</ul>
+<p>For more information, you can review the <a href="https://docs.qgis.org/latest/en/docs/user_manual/expressions/expression.html">documentation on QGIS expressions</a> or explore a <a href="https://docs.qgis.org/latest/en/docs/user_manual/expressions/functions_list.html">list of available functions, operators and variables</a>. Many functions in QGIS expressions are also based on the conventions of SQL (short for <a href="https://en.wikipedia.org/wiki/SQL">Structured Query Language</a>) and <a href="https://en.wikipedia.org/wiki/PostGIS">PostGIS</a> so other relevant resources include the <a href="https://postgis.net/docs/reference.html">PostGIS reference documentation</a>.</p>
+<p>After the QGIS demonstration, we had a constructive discussion about how the course is going so far and came up with a loose plan to extend the first section of the course so we can spend more time during class with hands-on activities. I also agreed to rework the remaining assignments to give everyone more opportunities to practice the skills described in <span class="citation" data-cites="lovelaceGeocomputation2022">Lovelace, Nowosad, and Muenchow (<a href="#ref-lovelaceGeocomputation2022" role="doc-biblioref">2022</a>)</span>.</p>
+<p>We closed the session with me <em>attempting</em> to demonstrate a workflow for summarizing data using my <a href="https://github.com/elipousson/baltimoretaxsale/">Baltimore Tax Sale</a> data as an example. The code for that analysis turned out to be less immediately reproducible than I remembered so we’ll return to this topic with a more straightforward in a future class!</p>
+</section></section><section id="what-did-we-do-for-session-5" class="level2"><h2 class="anchored" data-anchor-id="what-did-we-do-for-session-5">What did we do for Session 5</h2>
+<p>We dedicated most of last week’s session to a presentation and discussion with Reina Chano Murray, Geospatial Data Curator and Applications Administrator, Johns Hopkins Sheridan Libraries. Reina graciously shared her <a href="https://github.com/reinacmurray/documenting-spatial-data-class/blob/main/Presentation/Documenting%20Spatial%20Data.pdf">slides</a> and a collection of <a href="https://github.com/reinacmurray/documenting-spatial-data-class/blob/main/Resources/ResourceList.MD">related resources</a> in a <a href="https://github.com/reinacmurray/documenting-spatial-data-class">GitHub repository</a>. Here Reina’s top tips for documenting your data:</p>
+<ul>
+<li>READMEs are your best friend</li>
+<li>Document your data along the way - saves you time at the end</li>
+<li>Use descriptive file names</li>
+<li>If you’re using geospatial desktop software or web GIS, create your metadata in the platform/software you start in</li>
+</ul>
+<section id="questions" class="level3"><h3 class="anchored" data-anchor-id="questions">Questions</h3>
+<p>We also caught up on a few questions from the last couple weeks of log entries:</p>
+<section id="is-ggplot-typically-used-more-for-exploratory-work-or-is-it-also-a-good-way-to-make-publication-worthy-maps-and-visualizations" class="level4"><h4 class="anchored" data-anchor-id="is-ggplot-typically-used-more-for-exploratory-work-or-is-it-also-a-good-way-to-make-publication-worthy-maps-and-visualizations"><strong>Is ggplot typically used more for exploratory work or is it also a good way to make “publication-worthy” maps and visualizations?</strong></h4>
+<p>It is definitely a good way to make “publication-worthy” maps and plots! There are <em>many</em> <a href="https://exts.ggplot2.tidyverse.org/gallery/">ggplot2 extension packages</a>. Among the 100+ packages are <a href="https://rpkgs.datanovia.com/ggpubr/index.html">{ggpubr}</a> (specifically designed to create publication ready plots) and <a href="https://github.com/hrbrmstr/hrbrthemes">{hrbrthemes}</a> (a popular collection of typographic-centric themes). I also shared <a href="https://gist.github.com/elipousson/86cd847f966d1bf0361ef913d28ca713">a simple example</a> showing how a <a href="https://www.thebaltimorebanner.com/economy/growth-development/for-decades-african-american-communities-have-been-without-enough-local-banking-storefronts-H47RAQ3CNVB2LCTINPUONQBIXY/">recent map from the Baltimore Banner</a> could be effectively replicated by using system fonts and a carefully tweaked theme. Check out this post on <a href="https://yjunechoe.github.io/posts/2021-06-24-setting-up-and-debugging-custom-fonts/">Setting up and debugging custom fonts</a> by June Choe for more details on using system fonts.</p>
+</section><section id="is-an-inner-join-the-same-as-a-right-join" class="level4"><h4 class="anchored" data-anchor-id="is-an-inner-join-the-same-as-a-right-join"><strong>Is an inner join the same as a right join?</strong></h4>
+<p>Nope. <code><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">dplyr::inner_join()</a></code> and <code><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">dplyr::right_join()</a></code> are both examples of what <span class="citation" data-cites="wickhamDataScienceImport2022">Wickham and Grolemund (<a href="#ref-wickhamDataScienceImport2022" role="doc-biblioref">2022</a>)</span> describe as <a href="https://r4ds.had.co.nz/relational-data.html#mutating-joins">mutating joins</a>. These functions typically have two parameters (<code>x</code> on the left and <code>y</code> on the right). A left join keeps all observations in <code>x</code>, a right join keeps all observations in <code>y</code>, and an inner join keeps only those observations found in both <code>x</code> and <code>y</code>.</p>
+</section><section id="how-can-you-merge-two-different-data-sets-when-it-doesnt-make-sense-to-use-dplyrleft_join" class="level4"><h4 class="anchored" data-anchor-id="how-can-you-merge-two-different-data-sets-when-it-doesnt-make-sense-to-use-dplyrleft_join"><strong>How can you “merge” two different data sets when it doesn’t make sense to use <code>dplyr::left_join()</code>?</strong></h4>
+<p>You can combine <code>sf</code> data frames by using <code><a href="https://dplyr.tidyverse.org/reference/bind.html">dplyr::bind_rows()</a></code> to stack one data frame on top of another. You can also use the base R <code><a href="https://rdrr.io/r/base/cbind.html">rbind()</a></code> function but only if the two dataframes have identical columns. <code><a href="https://dplyr.tidyverse.org/reference/bind.html">dplyr::bind_rows()</a></code> is more flexible and just adds new columns for any attribute that appears in the second data frame but not the first.</p>
+</section></section></section><section id="what-to-expect-for-session-6" class="level2"><h2 class="anchored" data-anchor-id="what-to-expect-for-session-6">What to expect for Session 6</h2>
+<p>Due to the schedule conflict with Yom Kippur, our next course session is this Monday evening (tomorrow!). We’re diving back into R to review how to use sf for <a href="https://geocompr.robinlovelace.net/spatial-operations.html#spatial-vec">spatial operations</a> (functions dealing with spatial relationships between features) and <a href="https://geocompr.robinlovelace.net/geometry-operations.html#geo-vec">geometric operations</a> (functions that modify the geometry of features) and, hopefully, start talking about how you can use these functions as part of an exploratory analysis.</p>
+</section><section id="updates-course-schedule" class="level2"><h2 class="anchored" data-anchor-id="updates-course-schedule">Updates course schedule</h2>
+<p>Right now, you can compare <a href="../../schedule.html">the schedule</a> from the start of the semester with <a href="../../schedule-refined.html">this updated schedule</a>. Once we finalize these changes, I’ll replace the schedule with the updated version. Here are the highlights of the changes:</p>
+<ul>
+<li>I updated the titles and descriptions for the last five weeks to more accurately reflect the materials we have been able to cover so far</li>
+<li>I added two new sessions to the first half of the course: Tidying and summarizing data in R and Summarizing and analyzing data with R (extending this first half by two weeks)</li>
+<li>I added a new session on Editing and creating geometry with R and QGIS to the start of the second half of the course and reworked the descriptions for Getting data from public web services and Working on collaborative data projects</li>
+<li>I temporarily removed the assignment due dates while I rework the remaining assignments to function more effectively as exercises.</li>
+</ul>
+<p>We’ll briefly review these changes during our October 3 session and I’ll share an updated activity schedule and more details on a final project ASAP.</p>
+
+
+
+</section><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-lovelaceGeocomputation2022" class="csl-entry" role="doc-biblioentry">
+Lovelace, Robin, Jakub Nowosad, and Jannes Muenchow. 2022. <em>Geocomputation with <span>R</span></em>. 2nd (WIP). <a href="https://geocompr.robinlovelace.net/">https://geocompr.robinlovelace.net/</a>.
+</div>
+<div id="ref-wickhamDataScienceImport2022" class="csl-entry" role="doc-biblioentry">
+Wickham, Hadley, and Garrett Grolemund. 2022. <em>R for <span>Data Science</span>: <span>Import</span>, <span>Tidy</span>, <span>Transform</span>, <span>Visualize</span>, and <span>Model Data</span></em>. 2nd edition (WIP). <span>Sebastopol, CA</span>: <span>O’Reilly Media</span>. <a href="https://r4ds.had.co.nz">https://r4ds.had.co.nz</a>.
+</div>
+</div></section></div></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-right">Made with <i class="fa-brands fa-r-project" aria-hidden="true"></i> and <a href="https://quarto.org/">Quarto</a><br><a href="https://www.github.com/elipousson/bldgspatialdata">View the source at <i class="fa-brands fa-github" aria-hidden="true"></i> GitHub</a></div>
+  </div>
+</footer>
+
+
+</body></html>
