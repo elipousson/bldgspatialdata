@@ -18,7 +18,7 @@ Most people who work with R use an IDE (or [integrated development environment](
 
 Additional documentation:
 
-- [RStudio IDE Cheatsheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/rstudio-ide.pdf)
+-   [RStudio IDE Cheatsheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/rstudio-ide.pdf)
 
 ### Customizing RStudio 🎨
 
@@ -37,7 +37,7 @@ The [RStudio Cheatsheets](https://www.rstudio.com/resources/cheatsheets/) are on
 -   [sf](https://raw.githubusercontent.com/rstudio/cheatsheets/main/sf.pdf)
 -   [dplyr](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-transformation.pdf)
 -   [tidyr](https://raw.githubusercontent.com/rstudio/cheatsheets/main/tidyr.pdf)
-- [ggplot2](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-visualization.pdf)
+-   [ggplot2](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-visualization.pdf)
 
 [Basics of working with R at the command line and RStudio goodies](https://stat545.com/r-basics.html) (from [STAT 545](https://stat545.com/) by Jenny Bryan and the STAT 545 TAs)
 
