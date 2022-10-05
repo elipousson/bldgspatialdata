@@ -1,0 +1,81 @@
+---
+title: "September 21 and 28: Recap & Next Steps"
+date: "2022-10-02"
+categories: [recap]
+---
+
+```{r}
+#| echo: false
+#| output: false
+library(dplyr)
+```
+
+This is a two-week recap covering Session 4 and 5 along with the revisions to the course we discussed the last couple weeks. Looking forward to seeing you all online soon!
+
+## What did we do for Session 4
+
+### Introduction to filtering data with QGIS
+
+We spent most of our time on September 21 reviewing how to work with QGIS including:
+
+-   How to load data from a GeoPackage file or a CSV file with coordinates (also known as a delimited text tile)
+-   How to filter data using the point-and-click GUI and using basic QGIS expressions
+-   How to export filtered data to a new layer and a new file
+
+I demonstrated some of the most common ways mistakes (mostly inadvertently) so make sure to remember:
+
+-   When selecting features in the Map view, you must have the layer of interest selected in the Layer panel
+-   When building QGIS expressions, character literals must be wrapped in single quotes; double-quotes are reserved for field references
+
+We primarily focused on how to use the "select by expression" interface but you can find options to use expressions all throughout QGIS including:
+
+-   Custom labels (e.g. concatenating multiple fields with the `||` operator)
+-   Data-driven layer feature styles
+-   Field calculator (for changing the value of an existing or new field)
+-   Using variables in the Layout builder (reference variables using `@` and eenclose expressions in `[%` and `%]` to evaluate)
+
+For more information, you can review the [documentation on QGIS expressions](https://docs.qgis.org/latest/en/docs/user_manual/expressions/expression.html) or explore a [list of available functions, operators and variables](https://docs.qgis.org/latest/en/docs/user_manual/expressions/functions_list.html). Many functions in QGIS expressions are also based on the conventions of SQL (short for [Structured Query Language](https://en.wikipedia.org/wiki/SQL)) and [PostGIS](https://en.wikipedia.org/wiki/PostGIS) so other relevant resources include the [PostGIS reference documentation](https://postgis.net/docs/reference.html).
+
+After the QGIS demonstration, we had a constructive discussion about how the course is going so far and came up with a loose plan to extend the first section of the course so we can spend more time during class with hands-on activities. I also agreed to rework the remaining assignments to give everyone more opportunities to practice the skills described in @lovelaceGeocomputation2022.
+
+We closed the session with me *attempting* to demonstrate a workflow for summarizing data using my [Baltimore Tax Sale](https://github.com/elipousson/baltimoretaxsale/) data as an example. The code for that analysis turned out to be less immediately reproducible than I remembered so we'll return to this topic with a more straightforward in a future class!
+
+## What did we do for Session 5
+
+We dedicated most of last week's session to a presentation and discussion with Reina Chano Murray, Geospatial Data Curator and Applications Administrator, Johns Hopkins Sheridan Libraries. Reina graciously shared her [slides](https://github.com/reinacmurray/documenting-spatial-data-class/blob/main/Presentation/Documenting%20Spatial%20Data.pdf) and a collection of [related resources](https://github.com/reinacmurray/documenting-spatial-data-class/blob/main/Resources/ResourceList.MD) in a [GitHub repository](https://github.com/reinacmurray/documenting-spatial-data-class). Here Reina's top tips for documenting your data:
+
+-   READMEs are your best friend
+-   Document your data along the way - saves you time at the end
+-   Use descriptive file names
+-   If you're using geospatial desktop software or web GIS, create your metadata in the platform/software you start in
+
+### Questions
+
+We also caught up on a few questions from the last couple weeks of log entries:
+
+#### **Is ggplot typically used more for exploratory work or is it also a good way to make "publication-worthy" maps and visualizations?**
+
+It is definitely a good way to make "publication-worthy" maps and plots! There are *many* [ggplot2 extension packages](https://exts.ggplot2.tidyverse.org/gallery/). Among the 100+ packages are [{ggpubr}](https://rpkgs.datanovia.com/ggpubr/index.html) (specifically designed to create publication ready plots) and [{hrbrthemes}](https://github.com/hrbrmstr/hrbrthemes) (a popular collection of typographic-centric themes). I also shared [a simple example](https://gist.github.com/elipousson/86cd847f966d1bf0361ef913d28ca713) showing how a [recent map from the Baltimore Banner](https://www.thebaltimorebanner.com/economy/growth-development/for-decades-african-american-communities-have-been-without-enough-local-banking-storefronts-H47RAQ3CNVB2LCTINPUONQBIXY/) could be effectively replicated by using system fonts and a carefully tweaked theme. Check out this post on [Setting up and debugging custom fonts](https://yjunechoe.github.io/posts/2021-06-24-setting-up-and-debugging-custom-fonts/) by June Choe for more details on using system fonts.
+
+#### **Is an inner join the same as a right join?**
+
+Nope. `dplyr::inner_join()` and `dplyr::right_join()` are both examples of what @wickhamDataScienceImport2022 describe as [mutating joins](https://r4ds.had.co.nz/relational-data.html#mutating-joins). These functions typically have two parameters (`x` on the left and `y` on the right). A left join keeps all observations in `x`, a right join keeps all observations in `y`, and an inner join keeps only those observations found in both `x` and `y`.
+
+#### **How can you "merge" two different data sets when it doesn't make sense to use `dplyr::left_join()`?**
+
+You can combine `sf` data frames by using `dplyr::bind_rows()` to stack one data frame on top of another. You can also use the base R `rbind()` function but only if the two dataframes have identical columns. `dplyr::bind_rows()` is more flexible and just adds new columns for any attribute that appears in the second data frame but not the first.
+
+## What to expect for Session 6
+
+Due to the schedule conflict with Yom Kippur, our next course session is this Monday evening (tomorrow!). We're diving back into R to review how to use sf for [spatial operations](https://geocompr.robinlovelace.net/spatial-operations.html#spatial-vec) (functions dealing with spatial relationships between features) and [geometric operations](https://geocompr.robinlovelace.net/geometry-operations.html#geo-vec) (functions that modify the geometry of features) and, hopefully, start talking about how you can use these functions as part of an exploratory analysis.
+
+## Updates to the course schedule
+
+Right now, you can compare [the schedule](/schedule.html) from the start of the semester with [this updated schedule](/schedule-refined.html). Once we finalize these changes, I'll replace the schedule with the updated version. Here are the highlights of the changes:
+
+-   I updated the titles and descriptions for the last five weeks to more accurately reflect the materials we have been able to cover so far
+-   I added two new sessions to the first half of the course: Tidying and summarizing data in R and Summarizing and analyzing data with R (extending this first half by two weeks)
+-   I added a new session on Editing and creating geometry with R and QGIS to the start of the second half of the course and reworked the descriptions for Getting data from public web services and Working on collaborative data projects
+-   I temporarily removed the assignment due dates while I rework the remaining assignments to function more effectively as exercises.
+
+We'll briefly review these changes during our October 3 session and I'll share an updated activity schedule and more details on a final project ASAP.
