@@ -13,7 +13,7 @@
     "items": [
       "/examples/01_read-data-r.html",
       "/examples/02_read-tabular-data-r.html",
-      "/examples/04_spatial-operations-r.html"
+      "/examples/06_spatial-operations-r-crashapi.html"
     ]
   },
   {
@@ -31,10 +31,9 @@
       "/resources/data.html",
       "/examples/01_read-data-r.html",
       "/examples/02_read-tabular-data-r.html",
+      "/examples/06_spatial-operations-r-crashapi.html",
       "/resources/qgis.html",
       "/resources/r.html",
-      "/resources/rspatial.html",
-      "/examples/04_spatial-operations-r.html",
       "/slides/03_attribute-data.html",
       "/slides/04_attribute-data-qgis.html"
     ]
@@ -44,8 +43,7 @@
     "items": [
       "/resources/data.html",
       "/resources/qgis.html",
-      "/resources/r.html",
-      "/resources/rspatial.html"
+      "/resources/r.html"
     ]
   }
 ]

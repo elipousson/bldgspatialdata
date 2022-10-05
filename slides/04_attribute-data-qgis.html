@@ -7,8 +7,6 @@
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../site_libs/quarto-contrib/roughnotation-0.5.1/rough-notation.iife.js"></script>
-<script src="../site_libs/quarto-contrib/roughnotation-init-1.0.0/rough.js"></script>
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.1.189">
@@ -410,7 +408,132 @@
 
 <section class="slide level2 center">
 
-<p><span class="rn">Highlight me!</span></p>
+<p>These slides are not formatted and mainly consist of notes in their current form.</p>
+</section>
+<section>
+<section id="using-qgis-to-work-with-attribute-data" class="title-slide slide level1 center">
+<h1>Using QGIS to work with attribute data</h1>
+
+</section>
+<section id="september-14---qgis-notes" class="slide level2 center">
+<h2><strong>September 14 - QGIS notes</strong></h2>
+<p>Where do people encouter expressions?</p>
+<ul>
+<li><p>Field calculator: Change the value of an existing or new field based on an expression</p>
+<ul>
+<li><p>Interface includes:</p>
+<ul>
+<li><p>Expression editor</p></li>
+<li><p>Expression search/reference</p></li>
+<li><p>Help reference pane</p></li>
+<li><p>Preview/validation</p></li>
+</ul></li>
+<li><p>Features</p>
+<ul>
+<li><p>Autocompletion</p></li>
+<li><p>Validation in preview section</p></li>
+<li><p>Check boxes to create</p>
+<ul>
+<li><p>a new field (equivalent to dplyr::mutate())</p></li>
+<li><p>virtual field</p></li>
+</ul></li>
+<li><p>Custom expression language modelled on SQL; most similar PostGIS</p></li>
+<li><p>Functional language; Expression must be a single command of chained functions</p></li>
+<li><p>Different types of values, but it is not strict about it, e.g.&nbsp;‘4’ + 6 (more forgiving than R)</p></li>
+</ul></li>
+<li><p>Watch out!</p>
+<ul>
+<li><p>Trap: character literals must be wrapped in single quotes; double-quotes are reserved for field references</p></li>
+<li><p>Trap: NULL values return NULL, e.g.&nbsp;5 + NULL is NULL</p></li>
+</ul></li>
+<li><p>Tips!</p>
+<ul>
+<li><p><code>||</code> is concatenate</p></li>
+<li><p>Number fields are evaluated as expressions</p></li>
+<li><p><code>@</code> references variables (variable are context dependent, e.g.&nbsp;scale)</p></li>
+<li><p>Context-dependent variables have informative prefixes (e.g.&nbsp;<code>map_...</code> ) and only appear in widgets where they are available. Variable scopes include:</p>
+<ul>
+<li><p>global</p></li>
+<li><p>project (can override global variables)</p></li>
+<li><p>map</p></li>
+<li><p>layout or layout item</p></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<p>Expressions are first built for Field calculator but also appear as:</p>
+<ul>
+<li><p>Expression dialogue for custom labels</p></li>
+<li><p>Select by expression (very common use)</p></li>
+<li><p>Layer feature styling</p></li>
+<li><p>Tips on using expression builder with Layout</p>
+<ul>
+<li>Enclose expressions in <code>[%</code> and <code>%]</code> to evaluate</li>
+</ul></li>
+</ul>
+<p>Things to demonstrate</p>
+<ul>
+<li><p>View &gt; New map view</p></li>
+<li><p>Use symbol_color variable to match label color to symbol color</p></li>
+</ul>
+</section>
+<section id="september-21---qgis-notes" class="slide level2 center">
+<h2><strong>September 21 - QGIS Notes</strong></h2>
+<p><a href="https://www.youtube.com/watch?v=a0cVLzbEOig" class="uri">https://www.youtube.com/watch?v=a0cVLzbEOig</a></p>
+</section>
+<section id="stats-summary-panel" class="slide level2 center">
+<h2><strong>Stats Summary panel</strong></h2>
+<ul>
+<li><p>Starts with layer selection</p></li>
+<li><p>Nice for interactive exploration</p></li>
+<li><p>Option to limit stats to selected features</p></li>
+<li><p>Allows use of expressions in calculating stats</p></li>
+</ul>
+<p>Kind of nice but... don’t use it</p>
+<ul>
+<li><p>Old school GIS technique</p></li>
+<li><p>Ad hoc data analysis and not reproducible</p></li>
+</ul>
+<p>Instead...</p>
+<p><strong>Use processing toolbox</strong></p>
+<ul>
+<li><p>Basic processing algorthims</p>
+<ul>
+<li><p>Buffer</p></li>
+<li><p>Centroid</p></li>
+<li><p>Basic stats for fields</p></li>
+<li><p>etc.</p></li>
+</ul></li>
+<li><p>Advanced/esoteric techniques</p></li>
+</ul>
+<p>For exploratory analysis</p>
+<ul>
+<li><p>Processing</p>
+<ul>
+<li>Basic stats for fields</li>
+<li>Stats by category</li>
+</ul></li>
+<li><p>Notes</p>
+<ul>
+<li><p>Not quite as interactive</p></li>
+<li><p>Generates an HTML report</p></li>
+<li><p>End up with a bunch of files (HTML and spatial data) in folder w/ no way to keep track of it</p></li>
+</ul></li>
+</ul>
+<p><strong>But still... don’t do that either.</strong></p>
+<p>Instead use:</p>
+<ul>
+<li><p>Processing modeler to create a graphical analysis</p>
+<ul>
+<li><p>Allows someone else (including future you) to see analysis process</p></li>
+<li><p>Option to save models inside a project</p></li>
+<li><p>Models will appear within processing toolbox whenever you open the project file</p></li>
+</ul></li>
+<li><p>Data-defined layer styling</p>
+<ul>
+<li>See equivalent to mapview w/ zcol</li>
+</ul></li>
+</ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># test code</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -419,7 +542,7 @@
 <div class="footer footer-default">
 
 </div>
-</section>
+</section></section>
     </div>
   </div>
 
