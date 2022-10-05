@@ -346,8 +346,4 @@ This example uses `arrange()` with a helper function `desc()` to sort by AREA in
 
 ------------------------------------------------------------------------
 
-## Attribute data with QGIS
-
-To be added!
-
-------------------------------------------------------------------------
+# References

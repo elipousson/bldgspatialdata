@@ -1,0 +1,160 @@
+---
+title: "Working with attributes in R (and QGIS)"
+format: revealjs
+execute:
+  echo: true
+  output-location: column
+#  cache: true
+---
+
+These slides are not formatted and mainly consist of notes in their current form.
+
+# Using QGIS to work with attribute data
+
+## **September 14 - QGIS notes**
+
+Where do people encouter expressions?
+
+-   Field calculator: Change the value of an existing or new field based on an expression
+
+    -   Interface includes:
+
+        -   Expression editor
+
+        -   Expression search/reference
+
+        -   Help reference pane
+
+        -   Preview/validation
+
+    -   Features
+
+        -   Autocompletion
+
+        -   Validation in preview section
+
+        -   Check boxes to create
+
+            -   a new field (equivalent to dplyr::mutate())
+
+            -   virtual field
+
+        -   Custom expression language modelled on SQL; most similar PostGIS
+
+        -   Functional language; Expression must be a single command of chained functions
+
+        -   Different types of values, but it is not strict about it, e.g. '4' + 6 (more forgiving than R)
+
+    -   Watch out!
+
+        -   Trap: character literals must be wrapped in single quotes; double-quotes are reserved for field references
+
+        -   Trap: NULL values return NULL, e.g. 5 + NULL is NULL
+
+    -   Tips!
+
+        -   `||` is concatenate
+
+        -   Number fields are evaluated as expressions
+
+        -   `@` references variables (variable are context dependent, e.g. scale)
+
+        -   Context-dependent variables have informative prefixes (e.g. `map_...` ) and only appear in widgets where they are available. Variable scopes include:
+
+            -   global
+
+            -   project (can override global variables)
+
+            -   map
+
+            -   layout or layout item
+
+Expressions are first built for Field calculator but also appear as:
+
+-   Expression dialogue for custom labels
+
+-   Select by expression (very common use)
+
+-   Layer feature styling
+
+-   Tips on using expression builder with Layout
+
+    -   Enclose expressions in `[%` and `%]` to evaluate
+
+Things to demonstrate
+
+-   View \> New map view
+
+-   Use symbol_color variable to match label color to symbol color
+
+## **September 21 - QGIS Notes**
+
+<https://www.youtube.com/watch?v=a0cVLzbEOig>
+
+## **Stats Summary panel**
+
+-   Starts with layer selection
+
+-   Nice for interactive exploration
+
+-   Option to limit stats to selected features
+
+-   Allows use of expressions in calculating stats
+
+Kind of nice but\... don't use it
+
+-   Old school GIS technique
+
+-   Ad hoc data analysis and not reproducible
+
+Instead\...
+
+**Use processing toolbox**
+
+-   Basic processing algorthims
+
+    -   Buffer
+
+    -   Centroid
+
+    -   Basic stats for fields
+
+    -   etc.
+
+-   Advanced/esoteric techniques
+
+For exploratory analysis
+
+-   Processing
+
+    -   Basic stats for fields
+    -   Stats by category
+
+-   Notes
+
+    -   Not quite as interactive
+
+    -   Generates an HTML report
+
+    -   End up with a bunch of files (HTML and spatial data) in folder w/ no way to keep track of it
+
+**But still\... don't do that either.**
+
+Instead use:
+
+-   Processing modeler to create a graphical analysis
+
+    -   Allows someone else (including future you) to see analysis process
+
+    -   Option to save models inside a project
+
+    -   Models will appear within processing toolbox whenever you open the project file
+
+-   Data-defined layer styling
+
+    -   See equivalent to mapview w/ zcol
+
+```{r}
+# test code
+library(dplyr)
+```
