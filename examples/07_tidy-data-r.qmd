@@ -1,0 +1,444 @@
+---
+title: "Tidying data in R"
+editor: visual
+---
+
+What is tidy data?
+
+-   Each value has its own cell.
+-   Each variable has its own column.
+-   Each observation has its own row.
+
+To get data into a tidy format, you'll need to know how to address these common problems (from [Tidy data vignette](https://tidyr.tidyverse.org/articles/tidy-data.html)):
+
+-   Column headers are values, not variable names.
+
+-   Multiple variables are stored in one column.
+
+-   Variables are stored in both rows and columns.
+
+-   Multiple types of observational units are stored in the same table.
+
+-   A single observational unit is stored in multiple tables.
+
+I've also highlighted several tips from the [The Quartz guide to bad data](https://github.com/Quartz/bad-data-guide) whenever they are relevant in this exercise.
+
+```{r}
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(stringr)
+```
+
+```{r}
+#| label: install additional packages
+#| eval: false
+pak::pkg_install("elipousson/mapbaltimore")
+pak::pkg_install("elipousson/esri2sf") # fork of https://github.com/yonghah/esri2sf/
+```
+
+## Pivoting data frames between wide and long formats
+
+We are going to look at data on [total new housing units authorized for construction](https://opendata.maryland.gov/Housing/Maryland-Total-New-Housing-Units-Authorized-For-Co/c7z9-v9mr/data) in Maryland from 2010 to 2021:
+
+```{r}
+#| output: false
+new_units <-
+  readr::read_csv(
+    "https://opendata.maryland.gov/api/views/c7z9-v9mr/rows.csv",
+    show_col_types = FALSE
+  )
+```
+
+Take a look at the column names:
+
+```{r}
+colnames(new_units)
+```
+
+🤔 What variable is being stored in the column names?
+
+Yep. Each column after "year" is a location.
+
+The locations aren't all the same. They include two different scales: one column covering the whole state and the others covering a single county.
+
+Focusing on the counties, we can "pivot" these columns into a long format where each row has new housing units for just a single year and a single county. We do this with `tidyr::pivot_longer()` selecting the columns to pivot using the `tidyselect::contains()` function.
+
+```{r}
+new_units_long <-
+  tidyr::pivot_longer(
+    data = new_units,
+    cols = contains(c("County", "city")),
+    names_to = "county",
+    values_to = "num_units"
+  ) %>%
+  dplyr::select(-c(`Date created`, MARYLAND))
+```
+
+::: {.callout-tip appearance="simple"}
+**Remember to avoid [ambiguous field names](https://github.com/Quartz/bad-data-guide#field-names-are-ambiguous).** I've included the units of the value in the column name---making it clear that each number indicates the number of new housing units for that year and county.
+:::
+
+In this example, the long format is helpful for a few reasons. First, this long format makes it easy to plot complex data with ggplot2:
+
+```{r}
+ggplot(data = new_units_long) +
+  geom_col() +
+  aes(x = Year, y = num_units, fill = county) +
+  facet_wrap(~county) +
+  guides(fill = "none") +
+  theme_minimal()
+```
+
+::: {.callout-tip appearance="simple"}
+**Are these [data too granular](https://github.com/Quartz/bad-data-guide#data-are-too-granular)?** Using counties as a grouping mean the data includes wide variation in population, size, and housing market conditions. We could consider combining counties into regions or metro area or classifying as urban or rural in order to make interpretation easier.
+:::
+
+First, the new location column makes it easy to join spatial data to the data frame with `dplyr::left_join()`:
+
+```{r}
+md_counties <- tigris::counties(state = "MD", cb = TRUE)
+
+new_units_counties <-
+  left_join(
+    x = new_units_long,
+    y = md_counties,
+    by = c("county" = "NAMELSAD")
+  ) %>%
+  # Convert the dataframe back to sf
+  sf::st_as_sf()
+```
+
+Did this join work the way we expected?
+
+If a join didn't find a match for any of the locations, any new columns will have `NA`s for the missing values. `summary()` only shows missing values for numeric values. `skimr::skim()` does show missing variables but there are a few packages that make these checks easier. {naniar} is specifically designed to work with missing data:
+
+```{r}
+#| warning: false
+naniar::gg_miss_var(new_units_counties)
+```
+
+Whoops. More than 20 unmatched rows. Which locations didn't get a match? We can filter to look for `NA` values and then use `distinct()` on the join column.
+
+```{r}
+new_units_counties %>%
+  filter(is.na(GEOID)) %>%
+  distinct(county)
+```
+
+OK. So the only columns that didn't match are those for Baltimore City. Let's take a look at the join column from md_counties to see what we can figure out.
+
+```{r}
+unique(md_counties$NAMELSAD)
+```
+
+🤔 Do you see the problem?
+
+Hint: join columns are case sensitive. "Baltimore City" is not the same as "Baltimore city".
+
+One solution is to record the county variable using `dplyr::mutate()` and `dplyr::case_when()`:
+
+```{r}
+new_units_long <-
+  new_units_long %>%
+  mutate(
+    county = case_when(
+      county == "Baltimore City" ~ "Baltimore city",
+      TRUE ~ county
+    )
+  )
+
+new_units_counties <-
+  left_join(
+    x = new_units_long,
+    y = md_counties,
+    by = c("county" = "NAMELSAD")
+  ) %>%
+  # Convert the dataframe back to sf
+  sf::st_as_sf()
+```
+
+The wide format can also be helpful! For example, if we pivot wider and put the years into columns it makes it easy to compare one year to another with the `mutate()` or `transmute()` function:
+
+```{r}
+new_units_wide <-
+  pivot_wider(
+    # Note: if we didn't drop the geometry we would get an error
+    sf::st_drop_geometry(new_units_counties),
+    id_cols = "county",
+    names_from = "Year",
+    values_from = "num_units"
+  )
+
+new_units_wide <- new_units_wide %>%
+  mutate(
+    diff_num_units_10_15 = .data[["2020"]] - .data[["2015"]],
+    diff_num_units_10_20 = .data[["2020"]] - .data[["2010"]]
+  )
+
+new_units_wide %>% 
+  mutate(
+    county = stringr::str_remove(county, "County$|city$")
+  ) %>% 
+ggplot() +
+  geom_bar(aes(x = county, weight = diff_num_units_10_20)) +
+  coord_flip() +
+  scale_color_gradient2(low = "red", mid = "white", high = "blue") +
+  theme_minimal() +
+  labs(
+    title = "Difference in permitted new housing units, 2010 and 2020",
+    caption = "Data: Open Baltimore/Maryland Department of Housing and Community Development"
+  )
+```
+
+OK. Your turn. The [open data on permitted multi-family units](https://opendata.maryland.gov/Housing/Maryland-New-Multi-Family-Housing-Units-Authorized/pz3y-chyn/data) is also wide---placing the data for each county in adjoining columns.
+
+```{r}
+#| output: false
+new_multifamily_units <-
+  readr::read_csv(
+    "https://opendata.maryland.gov/api/views/pz3y-chyn/rows.csv"
+  )
+```
+
+🤔 Can you convert the data into a long format with `pivot_long()`?
+
+```{r}
+# new_multifamily_units <- pivot_longer()
+```
+
+## Working with long format data
+
+Now that we have both datasets in a long format we can put the two together.
+
+```{r}
+#| echo: false
+source(here::here("examples/R/new_multifamily_units.R"))
+```
+
+How should we do that? One option is to use a join based the year and county name.
+
+```{r}
+md_housing_units_wide <-
+  left_join(
+    new_units_long,
+    new_multifamily_units_long %>%
+      rename(
+        num_multifamily_units = num_units
+      ),
+    by = c("Year", "county")
+  )
+```
+
+Using `left_join()` places the columns side-by-side in a wide format. What new variables that can we create by working with columns in this format?
+
+```{r}
+# md_housing_units_wide <-
+#   md_housing_units_wide %>%
+#   mutate(
+#
+#   )
+```
+
+This works for two datasets but you can also stack even more data frames into a long format. Using the `.id` parameter allows you to use the names assigned to each dataframe as a new column identifying the source of the data:
+
+```{r}
+#| echo: false
+source(here::here("examples/R/new_singlefamily_units.R"))
+```
+
+```{r}
+md_housing_units_long <-
+  bind_rows(
+    "total" = new_units_long,
+    "multifamily" = new_multifamily_units_long,
+    "singlefamily" = new_singlefamily_units_long,
+    .id = "type"
+  )
+```
+
+If we have year, permit type, and number of units in a "tidy" format, this creates new opportunities for both for visualization and for analysis using {tidyverse} packages.
+
+To see how this works for visualization, try filtering the `md_housing_units_long` to a single county and using `geom_col()` to make a bar chart showing both the total and multifamily housing units by year for that county? I filled a few details already---you'll want to set `fill = type` and `position = "dodge"` (note, position is an additional parameter outside the aesthetic mapping)---but you still need to filter the data and provide the required `x` and `y` aesthetics for `geom_col()`.
+
+```{r}
+# md_housing_units_long %>%
+#   filter() %>%
+#   ggplot() +
+#   geom_col(aes(x = , y = , fill = type), position = "dodge")
+```
+
+To see how this works for analysis, consider how you can use `group_by()` and `summarise()` to create summary statistics by county and permit type.
+
+```{r}
+md_housing_units_long %>% 
+  group_by(county, type) %>% 
+  summarise(
+    cum_sum_units = sum(num_units),
+    avg_units = mean(num_units),
+    min_units = min(num_units),
+    max_units = max(num_units)
+  )
+```
+
+### Using factors for categorical data
+
+```{r}
+md_counties_xwalk <-
+  tibble::tribble(
+                      ~county,             ~region,                                               ~msa,
+             "Garrett County",  "Western Maryland",                                                 NA,
+            "Allegany County",  "Western Maryland",                            "Cumberland, MD-WV MSA",
+          "Washington County",  "Western Maryland",                "Hagerstown–Martinsburg, MD–WV MSA",
+           "Frederick County",    "Capital Region", "Washington–Arlington–Alexandria, DC–VA–MD–WV MSA",
+          "Montgomery County",    "Capital Region", "Washington–Arlington–Alexandria, DC–VA–MD–WV MSA",
+     "Prince George's County",    "Capital Region", "Washington–Arlington–Alexandria, DC–VA–MD–WV MSA",
+        "Anne Arundel County",  "Central Maryland",                    "Baltimore–Columbia–Towson MSA",
+             "Baltimore city",  "Central Maryland",                    "Baltimore–Columbia–Towson MSA",
+           "Baltimore County",  "Central Maryland",                    "Baltimore–Columbia–Towson MSA",
+             "Carroll County",  "Central Maryland",                    "Baltimore–Columbia–Towson MSA",
+             "Harford County",  "Central Maryland",                    "Baltimore–Columbia–Towson MSA",
+              "Howard County",  "Central Maryland",                    "Baltimore–Columbia–Towson MSA",
+             "Calvert County", "Southern Maryland", "Washington–Arlington–Alexandria, DC–VA–MD–WV MSA",
+             "Charles County", "Southern Maryland", "Washington–Arlington–Alexandria, DC–VA–MD–WV MSA",
+          "St. Mary's County", "Southern Maryland",                "California-Lexington Park, MD MSA",
+                "Kent County",     "Eastern Shore",                                                 NA,
+        "Queen Anne's County",     "Eastern Shore",                    "Baltimore–Columbia–Towson MSA",
+              "Talbot County",     "Eastern Shore",                                   "Easton, MD μSA",
+            "Caroline County",     "Eastern Shore",                                                 NA,
+          "Dorchester County",     "Eastern Shore",                                    "Cambridge, MD",
+            "Wicomico County",     "Eastern Shore",                             "Salisbury, MD-DE MSA",
+            "Somerset County",     "Eastern Shore",                             "Salisbury, MD-DE MSA",
+           "Worcester County",     "Eastern Shore",                             "Salisbury, MD-DE MSA",
+               "Cecil County",     "Eastern Shore",      "Philadelphia-Camden-Wilmington, PA-NJ-DE-MD"
+    )
+```
+
+```{r}
+forcats::as_factor()
+```
+
+
+## Tidying addresses for geocoding
+
+```{r}
+multifamily_housing <-
+  readr::read_csv(
+    "https://opendata.maryland.gov/api/views/cadm-spqd/rows.csv",
+    name_repair = janitor::make_clean_names
+  )
+
+multifamily_housing <-
+  dplyr::bind_cols(
+    multifamily_housing,
+    project_state = "MD"
+  )
+```
+
+### Using regular expressions
+
+```{r}
+multifamily_housing_geo_osm <-
+  tidygeocoder::geocode(
+    multifamily_housing[1:50, ],
+    street = "project_address",
+    city = "project_city",
+    county = "project_county",
+    state = "project_state",
+    method = "osm",
+    full_results = TRUE
+  )
+```
+
+Did that work? Well, when I check, I can see I am missing latitude and longitude for more than half of our addresses. 😬
+
+```{r}
+#| warning: false
+naniar::gg_miss_var(multifamily_housing_geo_osm, show_pct = TRUE)
+```
+
+```{r}
+filter(multifamily_housing_geo_osm, is.na(long))$project_address
+```
+
+```{r}
+messy_counties <-
+  tibble::tribble(
+                  ~county,
+             "Balt. City",
+              "Baltimore",
+              "Balt. Co.",
+       "BALTIMORE COUNTY",
+               "Bmore MD",
+              "Biltimore",
+               "Baltimor",
+              "Baltimore",
+         "Baltimore city",
+       "Baltimore County",
+       "Baltimore county",
+    "Anne Arundel County",
+     "Ann Arundel County",
+                "Arundel",
+           "Anne Arundel"
+    )
+
+messy_counties %>% 
+  mutate(
+    county = case_when(
+      str_detect(county, "Arundel|Arundle") ~ "Anne Arundel County",
+      str_detect(county, "city|City") ~ "Baltimore city",
+      str_detect(county, "Co.|County") ~ "Baltimore County",
+      TRUE ~  "Baltimore city"
+      )
+  )
+```
+
+
+
+```{r}
+multifamily_housing_geo_census <-
+  tidygeocoder::geocode(
+    multifamily_housing[1:50, ],
+    street = "project_address",
+    city = "project_city",
+    state = "project_state",
+    method = "census",
+    full_results = TRUE
+  )
+```
+
+🤔 How did that go? What approach would you use to check from missing data?
+
+```{r}
+#| echo: false
+#| output: false
+# Reference table for interactive exploration during class
+multifamily_housing_geo_census %>%
+  filter(match_indicator == "No_Match") %>%
+  gt::gt()
+```
+
+## Separating variables with `separate()`
+
+```{r}
+permits <-
+  esri2sf::esri2sf(
+  url = "https://egisdata.baltimorecity.gov/egis/rest/services/Housing/DHCD_Open_Baltimore_Datasets/FeatureServer/3",
+  bbox = mapbaltimore::neighborhoods[63,]
+)
+```
+
+```{r}
+multifamily_housing_sf <-
+  sf::st_as_sf(
+    multifamily_housing_geo,
+    coords = c("long", "lat"),
+    crs = 4326,
+    remove = FALSE,
+    na.fail = FALSE
+  )
+```
+
+```{r}
+
+```
