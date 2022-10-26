@@ -1,0 +1,125 @@
+---
+title: "Creating feature data with R and QGIS"
+format: revealjs
+editor: visual
+---
+
+```{r setup}
+#| echo: false
+#| output: false
+library(sf)
+library(leaflet)
+library(mapview)
+library(mapedit)
+```
+
+## Key questions
+
+-   Why or why not create your own features?
+-   What tools can you use to create features?
+-   How can you structure your geometry and attribute data?
+-   What tools can you use to create features?
+
+## Why create your own features?
+
+-   Data does not exist
+-   Data exists but...
+    -   you can't get it
+    -   you aren't *allowed* to use it
+-   Data exists and you can get it but...
+    -   The format can't be accessed effectively
+    -   The geometry is inaccurate
+    -   The geometry too general
+
+## Why *not* create your own features?
+
+-   May be time-consuming
+-   May be difficult to get level of detail or accuracy required
+-   May lack standards to ensure interoperability
+
+## What tools can you use to create features?
+
+-   Collect non-spatial information (e.g. a set of addresses or a survey that asks respondents to provide spatial information) then add spatial data to it
+-   Collect spatial information using a device/sensor with a built-in GPS or using a smartphone application (e.g. [Strava](https://www.strava.com/mobile) or [StreetComplete](https://github.com/streetcomplete/StreetComplete))
+-   Collect spatial information by drawing features using a web application or desktop GIS
+
+Different situations require different approaches. Privacy, cost, accuracy, ease of use, or training requirements are all relevant factors.
+
+## How can you structure your geometry?
+
+-   Do you need points, lines, polygons, or something else?
+-   Do you need a *consistent* representation of the spatial characteristics of "real world" conditions or phenomena?
+-   What scale or resolution is appropriate for your data?
+-   Should your data be "snapped" (or related) to another existing feature?
+
+Again, your approach depends on what you plan to do with the data in the future. Is your primary goal visualization? Analysis? Data sharing?
+
+## Try it out: Using web application to create features
+
+There are several popular web applications that support the creation of spatial data:
+
+-   [**Google MyMaps**](https://www.google.com/maps/about/mymaps/)**:** Supports import of CSV, TSV, KML/KMZ, GPX, XLSX, Google Sheet, and photos with EXIF location data. Few recent updates.
+
+-   [**geojson.io**](https://geojson.io)**:** Supports GeoJSON import/export along with KML, GPX, CSV, GTFS, TopoJSON, and other formats, raster tile layers. Recently updated by Mapbox.
+
+-   [**Felt**](https://felt.com/)**:** Supports collaborative editing and a wide range of embedded rich media.
+
+How to decide? Look at pricing, data import and export options, collaboration needs.
+
+##  Try it out: Create a set of features with geojson.io
+
+- Open geojson.io
+- Optional: Load a xyz tile layer using a rectified map from [Map Warper](https://mapwarper.net/maps)
+- Using the basemap (or your tile layer) as a reference zoom and pan to an area of interest
+- Select the point, line, polygon, or rectangle tool from the options on the right side of the map pane
+- Add a few features to the map
+- Select a feature from the map and use the pop-up table to enter an attribute name (left side) and value (right side)
+- Switch to the table view on the right to see the attribute data
+- Select the Edit map tool from the options on the right side of the map pane. Try editing a feature (make sure to save your edits).
+- Select Save > GeoJSON from the menu to export data to a GeoJSON file
+
+## How can you structure your attribute data?
+
+-   Are there any existing data standards you can use or adapt?
+-   Is there an existing unique identifier you can use or adapt? Or do you need to assign an arbitrary unique identifier? Is your unique identifier stable or subject to change?
+-   If you are basing your data on an existing source, do you transcribe all attributes in the original source? Or are you only transcribing some of those attributes?
+-   Can you use a "flat" table structure? Or do you need multiple tables or a nested format?
+-   Can you validate your attributes?
+
+## Hands-on: Options for validating data
+
+- **Google Forms** offers built-in validation by limiting inputs, requiring a set length, or requiring input text match a specific pattern
+- **Google Sheets** and **Excel** both provide
+
+## Hands-on: Using Google Sheets (and {googlesheets4})
+
+- Create a Google Sheet (I'll provide it this time)
+- Set up columns for longitude and latitude (or for a partial or full address). Note: Separate street address, city, and state columns can be combined using formulas.
+- Set up additional columns as needed. Make sure to avoid merging column ranges and keep all column names in the first row.
+- Consider creating a separate "data dictionary" sheet where you can use the `TRANSPOSE()` formula to switch column names into rows.
+- Consider using the "Data validation" menu to add validation to any columns where appropriate.
+
+## Hands-on: Using {mapedit}
+
+The mapedit package offers multiple editors:
+
+-   "leaflet.extras" (default)
+-   "leafpm"
+
+------------------------------------------------------------------------
+
+```{r}
+#| eval: false
+features <- mapedit::drawFeatures(editor = "leaflet.extras")
+
+features
+```
+
+------------------------------------------------------------------------
+
+```{r}
+#| eval: false
+features <- mapedit::drawFeatures(editor = "leafpm")
+
+features
+```
