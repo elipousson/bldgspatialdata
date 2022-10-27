@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.1.189">
+<meta name="generator" content="quarto-1.2.242">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>Building Spatial Datasets - Spatial operations with the sf, tigris, and crashapi packages</title>
 <style>
@@ -166,19 +166,24 @@ div.csl-indent {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
 <li class="nav-item">
-    <a class="nav-link" href="../index.html">Home</a>
+    <a class="nav-link" href="../index.html">
+ <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../syllabus.html">Syllabus</a>
+    <a class="nav-link" href="../syllabus.html">
+ <span class="menu-text">Syllabus</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../schedule.html">Schedule</a>
+    <a class="nav-link" href="../schedule.html">
+ <span class="menu-text">Schedule</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../assignments/index.html">Assignments</a>
+    <a class="nav-link" href="../assignments/index.html">
+ <span class="menu-text">Assignments</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../materials.html">Materials</a>
+    <a class="nav-link" href="../materials.html">
+ <span class="menu-text">Materials</span></a>
   </li>  
 </ul>
 <div id="quarto-search" class="" title="Search"></div>
@@ -223,6 +228,7 @@ div.csl-indent {
 <div class="quarto-title-meta">
 
     
+  
     
   </div>
   
@@ -238,52 +244,52 @@ div.csl-indent {
 <section id="loading-packages" class="level3"><h3 class="anchored" data-anchor-id="loading-packages">Loading packages</h3>
 <p>First we need to load a few packages:</p>
 <div class="cell">
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/r-tmap/tmap">tmap</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/r-tmap/tmap">tmap</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="downloading-data" class="level3"><h3 class="anchored" data-anchor-id="downloading-data">Downloading data</h3>
 <p>Then, we can download the counties with <code><a href="https://rdrr.io/pkg/tigris/man/counties.html">tigris::counties()</a></code> and then filter to those counties in the <a href="https://en.wikipedia.org/wiki/Baltimore_metropolitan_area">Baltimore–Columbia–Towson Metropolitan Statistical Area</a>.</p>
 <div class="cell">
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="co"># Set the state abbreviation </span>
-<span class="va">md</span> <span class="op">&lt;-</span> <span class="st">"MD"</span>
-
-<span class="co"># Get the counties with tigris::counties()</span>
-<span class="va">md_counties</span> <span class="op">&lt;-</span> <span class="fu">tigris</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tigris/man/counties.html">counties</a></span><span class="op">(</span>state <span class="op">=</span> <span class="va">md</span>, cb <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-
-<span class="co"># FIPS codes for the counties in the Baltimore MSA</span>
-<span class="va">msa_fips</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"510"</span>, <span class="st">"005"</span>, <span class="st">"013"</span>, <span class="st">"003"</span>, <span class="st">"027"</span>, <span class="st">"035"</span>, <span class="st">"025"</span><span class="op">)</span>
-
-<span class="co"># Filter to the counties in the Baltimore MSA</span>
-<span class="va">msa_counties</span> <span class="op">&lt;-</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span>
-    <span class="va">md_counties</span>,
-    <span class="va">COUNTYFP</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">msa_fips</span>
-  <span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Set the state abbreviation</span></span>
+<span><span class="va">md</span> <span class="op">&lt;-</span> <span class="st">"MD"</span></span>
+<span></span>
+<span><span class="co"># Get the counties with tigris::counties()</span></span>
+<span><span class="va">md_counties</span> <span class="op">&lt;-</span> <span class="fu">tigris</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tigris/man/counties.html">counties</a></span><span class="op">(</span>state <span class="op">=</span> <span class="va">md</span>, cb <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># FIPS codes for the counties in the Baltimore MSA</span></span>
+<span><span class="va">msa_fips</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"510"</span>, <span class="st">"005"</span>, <span class="st">"013"</span>, <span class="st">"003"</span>, <span class="st">"027"</span>, <span class="st">"035"</span>, <span class="st">"025"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Filter to the counties in the Baltimore MSA</span></span>
+<span><span class="va">msa_counties</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span></span>
+<span>    <span class="va">md_counties</span>,</span>
+<span>    <span class="va">COUNTYFP</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">msa_fips</span></span>
+<span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>I also want data on U.S. highways. We won’t use this data right away but we’ll need it later on in this exercise.</p>
 <div class="cell">
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">us_highways</span> <span class="op">&lt;-</span> <span class="fu">tigris</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tigris/man/primary_roads.html">primary_roads</a></span><span class="op">(</span>year <span class="op">=</span> <span class="fl">2020</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">us_highways</span> <span class="op">&lt;-</span> <span class="fu">tigris</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tigris/man/primary_roads.html">primary_roads</a></span><span class="op">(</span>year <span class="op">=</span> <span class="fl">2020</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now, I can use the <a href="https://en.wikipedia.org/wiki/FIPS_county_code">county FIPS code</a> column from <code>msa</code> (named <code>COUNTYFP</code>) to get crash data using the <a href="https://elipousson.github.io/crashapi/">{crashapi}</a> package and the National Highway Traffic Safety Administration (NHTSA) <a href="https://crashviewer.nhtsa.dot.gov/CrashAPI/">Fatality Analysis Reporting System (FARS) API</a>.</p>
 <p>Below, I am using <code><a href="https://purrr.tidyverse.org/reference/map.html">purrr::map_dfr()</a></code> allows us to combine results for each county into a single data frame. When <code>geometry = TRUE</code>, <code><a href="https://elipousson.github.io/crashapi/reference/get_fars.html">crashapi::get_fars_crashes()</a></code> is using <code><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html">sf::st_as_sf()</a></code> to convert a data frame into a sf object based on the longitude and latitude columns.</p>
 <div class="cell">
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">md_crashes</span> <span class="op">&lt;-</span>
-  <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_dfr</a></span><span class="op">(</span>
-    <span class="va">md_counties</span><span class="op">$</span><span class="va">COUNTYFP</span>,
-    <span class="op">~</span> <span class="fu">crashapi</span><span class="fu">::</span><span class="fu"><a href="https://elipousson.github.io/crashapi/reference/get_fars.html">get_fars_crashes</a></span><span class="op">(</span>
-      year <span class="op">=</span> <span class="fl">2020</span>,
-      state <span class="op">=</span> <span class="va">md</span>,
-      county <span class="op">=</span> <span class="va">.x</span>,
-      geometry <span class="op">=</span> <span class="cn">TRUE</span>
-    <span class="op">)</span>
-  <span class="op">)</span>
-
-<span class="va">msa_crashes</span> <span class="op">&lt;-</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span>
-    <span class="va">md_crashes</span>,
-    <span class="va">county</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="va">msa_fips</span><span class="op">)</span>
-  <span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">md_crashes</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_dfr</a></span><span class="op">(</span></span>
+<span>    <span class="va">md_counties</span><span class="op">$</span><span class="va">COUNTYFP</span>,</span>
+<span>    <span class="op">~</span> <span class="fu">crashapi</span><span class="fu">::</span><span class="fu"><a href="https://elipousson.github.io/crashapi/reference/get_fars.html">get_fars_crashes</a></span><span class="op">(</span></span>
+<span>      year <span class="op">=</span> <span class="fl">2020</span>,</span>
+<span>      state <span class="op">=</span> <span class="va">md</span>,</span>
+<span>      county <span class="op">=</span> <span class="va">.x</span>,</span>
+<span>      geometry <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="va">msa_crashes</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span></span>
+<span>    <span class="va">md_crashes</span>,</span>
+<span>    <span class="va">county</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="va">msa_fips</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout-tip callout callout-style-simple">
 <div class="callout-body d-flex">
@@ -298,19 +304,19 @@ div.csl-indent {
 </section><section id="mapping-data" class="level3"><h3 class="anchored" data-anchor-id="mapping-data">Mapping data</h3>
 <p>For this exercise, we are using the {tmap} package to take a look at the data. Visual checks are often essential to exploring and understanding what the spatial and geometric transformation functions are doing to your data. Similar to ggplot2 plots, you can put the results of a map into an object that you can use as a base map.</p>
 <div class="cell">
-<details><summary><strong>Show the code</strong> | Map Baltimore MSA boundaries</summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">md_borders</span> <span class="op">&lt;-</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="va">md_counties</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_polygons.html">tm_borders</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"gray60"</span><span class="op">)</span>
-
-<span class="va">msa_borders</span> <span class="op">&lt;-</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="va">msa_counties</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_polygons.html">tm_borders</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"gray60"</span><span class="op">)</span>
-
-<span class="va">msa_borders</span> <span class="op">+</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="va">msa_crashes</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_symbols.html">tm_dots</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"red"</span>, alpha <span class="op">=</span> <span class="fl">0.4</span><span class="op">)</span>
-<span class="co">## Warning in sf::st_is_longlat(shp2): bounding box has potentially an invalid</span>
-<span class="co">## value range for longlat data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details><summary><strong>Show the code</strong> | Map Baltimore MSA boundaries</summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">md_borders</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="va">md_counties</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_polygons.html">tm_borders</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"gray60"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">msa_borders</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="va">msa_counties</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_polygons.html">tm_borders</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"gray60"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">msa_borders</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="va">msa_crashes</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_symbols.html">tm_dots</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"red"</span>, alpha <span class="op">=</span> <span class="fl">0.4</span><span class="op">)</span></span>
+<span><span class="co">## Warning in sf::st_is_longlat(shp2): bounding box has potentially an invalid</span></span>
+<span><span class="co">## value range for longlat data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <p><img src="06_spatial-operations-r-crashapi_files/figure-html/tmap_crashes-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -318,53 +324,53 @@ div.csl-indent {
 <p>Wait a moment: did you see spot the warning up there? 👆🏼 It said: “Warning in sf::st_is_longlat(shp2): bounding box has potentially an invalid value range for longlat data.”</p>
 <p>Where is that coming from? Let’s take a quick look at the data using the base <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> function:</p>
 <div class="cell">
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">msa_crashes</span><span class="op">)</span>
-<span class="co">##      city             cityname            county           countyname       </span>
-<span class="co">##  Length:229         Length:229         Length:229         Length:229        </span>
-<span class="co">##  Class :character   Class :character   Class :character   Class :character  </span>
-<span class="co">##  Mode  :character   Mode  :character   Mode  :character   Mode  :character  </span>
-<span class="co">##                                                                             </span>
-<span class="co">##                                                                             </span>
-<span class="co">##                                                                             </span>
-<span class="co">##    case_year        fatals         latitude         longitud      </span>
-<span class="co">##  Min.   :2020   Min.   :1.000   Min.   : 38.73   Min.   : -77.17  </span>
-<span class="co">##  1st Qu.:2020   1st Qu.:1.000   1st Qu.: 39.20   1st Qu.: -76.75  </span>
-<span class="co">##  Median :2020   Median :1.000   Median : 39.30   Median : -76.63  </span>
-<span class="co">##  Mean   :2020   Mean   :1.061   Mean   : 39.73   Mean   : -68.20  </span>
-<span class="co">##  3rd Qu.:2020   3rd Qu.:1.000   3rd Qu.: 39.37   3rd Qu.: -76.53  </span>
-<span class="co">##  Max.   :2020   Max.   :3.000   Max.   :100.00   Max.   :1000.00  </span>
-<span class="co">##     state            statename           st_case          totalvehicles  </span>
-<span class="co">##  Length:229         Length:229         Length:229         Min.   :1.000  </span>
-<span class="co">##  Class :character   Class :character   Class :character   1st Qu.:1.000  </span>
-<span class="co">##  Mode  :character   Mode  :character   Mode  :character   Median :1.000  </span>
-<span class="co">##                                                           Mean   :1.629  </span>
-<span class="co">##                                                           3rd Qu.:2.000  </span>
-<span class="co">##                                                           Max.   :8.000  </span>
-<span class="co">##    tway_id            tway_id2            ve_forms             geometry  </span>
-<span class="co">##  Length:229         Length:229         Min.   :1.00   POINT        :229  </span>
-<span class="co">##  Class :character   Class :character   1st Qu.:1.00   epsg:4326    :  0  </span>
-<span class="co">##  Mode  :character   Mode  :character   Median :1.00   +proj=long...:  0  </span>
-<span class="co">##                                        Mean   :1.52                      </span>
-<span class="co">##                                        3rd Qu.:2.00                      </span>
-<span class="co">##                                        Max.   :5.00</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">msa_crashes</span><span class="op">)</span></span>
+<span><span class="co">##      city             cityname            county           countyname       </span></span>
+<span><span class="co">##  Length:229         Length:229         Length:229         Length:229        </span></span>
+<span><span class="co">##  Class :character   Class :character   Class :character   Class :character  </span></span>
+<span><span class="co">##  Mode  :character   Mode  :character   Mode  :character   Mode  :character  </span></span>
+<span><span class="co">##                                                                             </span></span>
+<span><span class="co">##                                                                             </span></span>
+<span><span class="co">##                                                                             </span></span>
+<span><span class="co">##    case_year        fatals         latitude         longitud      </span></span>
+<span><span class="co">##  Min.   :2020   Min.   :1.000   Min.   : 38.73   Min.   : -77.17  </span></span>
+<span><span class="co">##  1st Qu.:2020   1st Qu.:1.000   1st Qu.: 39.20   1st Qu.: -76.75  </span></span>
+<span><span class="co">##  Median :2020   Median :1.000   Median : 39.30   Median : -76.63  </span></span>
+<span><span class="co">##  Mean   :2020   Mean   :1.061   Mean   : 39.73   Mean   : -68.20  </span></span>
+<span><span class="co">##  3rd Qu.:2020   3rd Qu.:1.000   3rd Qu.: 39.37   3rd Qu.: -76.53  </span></span>
+<span><span class="co">##  Max.   :2020   Max.   :3.000   Max.   :100.00   Max.   :1000.00  </span></span>
+<span><span class="co">##     state            statename           st_case          totalvehicles  </span></span>
+<span><span class="co">##  Length:229         Length:229         Length:229         Min.   :1.000  </span></span>
+<span><span class="co">##  Class :character   Class :character   Class :character   1st Qu.:1.000  </span></span>
+<span><span class="co">##  Mode  :character   Mode  :character   Mode  :character   Median :1.000  </span></span>
+<span><span class="co">##                                                           Mean   :1.629  </span></span>
+<span><span class="co">##                                                           3rd Qu.:2.000  </span></span>
+<span><span class="co">##                                                           Max.   :8.000  </span></span>
+<span><span class="co">##    tway_id            tway_id2            ve_forms             geometry  </span></span>
+<span><span class="co">##  Length:229         Length:229         Min.   :1.00   POINT        :229  </span></span>
+<span><span class="co">##  Class :character   Class :character   1st Qu.:1.00   epsg:4326    :  0  </span></span>
+<span><span class="co">##  Mode  :character   Mode  :character   Median :1.00   +proj=long...:  0  </span></span>
+<span><span class="co">##                                        Mean   :1.52                      </span></span>
+<span><span class="co">##                                        3rd Qu.:2.00                      </span></span>
+<span><span class="co">##                                        Max.   :5.00</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>☝️ Hint: look at the range of the latitude and longitude columns.</p>
 <p>Did you spot the issue? I can use filter to track down the problem:</p>
 <div class="cell">
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span>
-  <span class="va">msa_crashes</span>,
-  <span class="va">longitud</span> <span class="op">&gt;</span> <span class="fl">180</span> <span class="op">|</span> <span class="va">latitude</span> <span class="op">&gt;</span> <span class="fl">90</span> <span class="op">|</span> <span class="va">longitud</span> <span class="op">&lt;</span> <span class="op">-</span><span class="fl">180</span> <span class="op">|</span> <span class="va">latitude</span> <span class="op">&lt;</span> <span class="op">-</span><span class="fl">90</span>
-  <span class="op">)</span>
-<span class="co">## Warning in st_is_longlat(x): bounding box has potentially an invalid value range</span>
-<span class="co">## for longlat data</span>
-<span class="co">## # A tibble: 2 × 16</span>
-<span class="co">##   city  cityname  county countyname case_…¹ fatals latit…² longi…³ state state…⁴</span>
-<span class="co">##   &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt;        &lt;int&gt;  &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  </span>
-<span class="co">## 1 50    BALTIMORE 510    BALTIMORE…    2020      1   100.    1000. 24    Maryla…</span>
-<span class="co">## 2 50    BALTIMORE 510    BALTIMORE…    2020      1    77.8    778. 24    Maryla…</span>
-<span class="co">## # … with 6 more variables: st_case &lt;chr&gt;, totalvehicles &lt;int&gt;, tway_id &lt;chr&gt;,</span>
-<span class="co">## #   tway_id2 &lt;chr&gt;, ve_forms &lt;int&gt;, geometry &lt;POINT [°]&gt;, and abbreviated</span>
-<span class="co">## #   variable names ¹​case_year, ²​latitude, ³​longitud, ⁴​statename</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span></span>
+<span>  <span class="va">msa_crashes</span>,</span>
+<span>  <span class="va">longitud</span> <span class="op">&gt;</span> <span class="fl">180</span> <span class="op">|</span> <span class="va">latitude</span> <span class="op">&gt;</span> <span class="fl">90</span> <span class="op">|</span> <span class="va">longitud</span> <span class="op">&lt;</span> <span class="op">-</span><span class="fl">180</span> <span class="op">|</span> <span class="va">latitude</span> <span class="op">&lt;</span> <span class="op">-</span><span class="fl">90</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">## Warning in st_is_longlat(x): bounding box has potentially an invalid value range</span></span>
+<span><span class="co">## for longlat data</span></span>
+<span><span class="co">## # A tibble: 2 × 16</span></span>
+<span><span class="co">##   city  cityname  county countyname case_…¹ fatals latit…² longi…³ state state…⁴</span></span>
+<span><span class="co">##   &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt;        &lt;int&gt;  &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  </span></span>
+<span><span class="co">## 1 50    BALTIMORE 510    BALTIMORE…    2020      1   100.    1000. 24    Maryla…</span></span>
+<span><span class="co">## 2 50    BALTIMORE 510    BALTIMORE…    2020      1    77.8    778. 24    Maryla…</span></span>
+<span><span class="co">## # … with 6 more variables: st_case &lt;chr&gt;, totalvehicles &lt;int&gt;, tway_id &lt;chr&gt;,</span></span>
+<span><span class="co">## #   tway_id2 &lt;chr&gt;, ve_forms &lt;int&gt;, geometry &lt;POINT [°]&gt;, and abbreviated</span></span>
+<span><span class="co">## #   variable names ¹​case_year, ²​latitude, ³​longitud, ⁴​statename</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To fix this issue, we need to crop the data to exclude outlying invalid coordinates. Cropping is one of a few geometry operations supported by the sf package. Let’s dig in.</p>
 </section></section><section id="geometry-operations" class="level2"><h2 class="anchored" data-anchor-id="geometry-operations">Geometry operations</h2>
@@ -381,81 +387,81 @@ div.csl-indent {
 <p>This pattern of an <code>x</code> and <code>y</code> parameter is common across all the geometry operations although, for at least some, the second parameter is optional.</p>
 <p>🤔 What parameters do you need to crop <code>msa_crashes</code>?</p>
 <div class="cell">
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="co"># msa_crashes &lt;- st_crop()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># msa_crashes &lt;- st_crop()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Oops. Did you get an error?</p>
 <p>Here is the catch: both objects need to use the same coordinate reference system for spatial transformation functions to work. To do this we need to know what coordinate reference system <code>msa_crashes</code> is using.</p>
 <p>You can use <code><a href="https://r-spatial.github.io/sf/reference/st_crs.html">st_crs()</a></code> to check:</p>
 <div class="cell">
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crs.html">st_crs</a></span><span class="op">(</span><span class="va">msa_crashes</span><span class="op">)</span>
-<span class="co">## Coordinate Reference System:</span>
-<span class="co">##   User input: EPSG:4326 </span>
-<span class="co">##   wkt:</span>
-<span class="co">## GEOGCRS["WGS 84",</span>
-<span class="co">##     ENSEMBLE["World Geodetic System 1984 ensemble",</span>
-<span class="co">##         MEMBER["World Geodetic System 1984 (Transit)"],</span>
-<span class="co">##         MEMBER["World Geodetic System 1984 (G730)"],</span>
-<span class="co">##         MEMBER["World Geodetic System 1984 (G873)"],</span>
-<span class="co">##         MEMBER["World Geodetic System 1984 (G1150)"],</span>
-<span class="co">##         MEMBER["World Geodetic System 1984 (G1674)"],</span>
-<span class="co">##         MEMBER["World Geodetic System 1984 (G1762)"],</span>
-<span class="co">##         MEMBER["World Geodetic System 1984 (G2139)"],</span>
-<span class="co">##         ELLIPSOID["WGS 84",6378137,298.257223563,</span>
-<span class="co">##             LENGTHUNIT["metre",1]],</span>
-<span class="co">##         ENSEMBLEACCURACY[2.0]],</span>
-<span class="co">##     PRIMEM["Greenwich",0,</span>
-<span class="co">##         ANGLEUNIT["degree",0.0174532925199433]],</span>
-<span class="co">##     CS[ellipsoidal,2],</span>
-<span class="co">##         AXIS["geodetic latitude (Lat)",north,</span>
-<span class="co">##             ORDER[1],</span>
-<span class="co">##             ANGLEUNIT["degree",0.0174532925199433]],</span>
-<span class="co">##         AXIS["geodetic longitude (Lon)",east,</span>
-<span class="co">##             ORDER[2],</span>
-<span class="co">##             ANGLEUNIT["degree",0.0174532925199433]],</span>
-<span class="co">##     USAGE[</span>
-<span class="co">##         SCOPE["Horizontal component of 3D system."],</span>
-<span class="co">##         AREA["World."],</span>
-<span class="co">##         BBOX[-90,-180,90,180]],</span>
-<span class="co">##     ID["EPSG",4326]]</span>
-
-<span class="co"># You can also use st_crs() to get a Spatial Reference identifier (srid) for a coordinate reference system</span>
-<span class="co"># st_crs(msa_crashes)$srid</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crs.html">st_crs</a></span><span class="op">(</span><span class="va">msa_crashes</span><span class="op">)</span></span>
+<span><span class="co">## Coordinate Reference System:</span></span>
+<span><span class="co">##   User input: EPSG:4326 </span></span>
+<span><span class="co">##   wkt:</span></span>
+<span><span class="co">## GEOGCRS["WGS 84",</span></span>
+<span><span class="co">##     ENSEMBLE["World Geodetic System 1984 ensemble",</span></span>
+<span><span class="co">##         MEMBER["World Geodetic System 1984 (Transit)"],</span></span>
+<span><span class="co">##         MEMBER["World Geodetic System 1984 (G730)"],</span></span>
+<span><span class="co">##         MEMBER["World Geodetic System 1984 (G873)"],</span></span>
+<span><span class="co">##         MEMBER["World Geodetic System 1984 (G1150)"],</span></span>
+<span><span class="co">##         MEMBER["World Geodetic System 1984 (G1674)"],</span></span>
+<span><span class="co">##         MEMBER["World Geodetic System 1984 (G1762)"],</span></span>
+<span><span class="co">##         MEMBER["World Geodetic System 1984 (G2139)"],</span></span>
+<span><span class="co">##         ELLIPSOID["WGS 84",6378137,298.257223563,</span></span>
+<span><span class="co">##             LENGTHUNIT["metre",1]],</span></span>
+<span><span class="co">##         ENSEMBLEACCURACY[2.0]],</span></span>
+<span><span class="co">##     PRIMEM["Greenwich",0,</span></span>
+<span><span class="co">##         ANGLEUNIT["degree",0.0174532925199433]],</span></span>
+<span><span class="co">##     CS[ellipsoidal,2],</span></span>
+<span><span class="co">##         AXIS["geodetic latitude (Lat)",north,</span></span>
+<span><span class="co">##             ORDER[1],</span></span>
+<span><span class="co">##             ANGLEUNIT["degree",0.0174532925199433]],</span></span>
+<span><span class="co">##         AXIS["geodetic longitude (Lon)",east,</span></span>
+<span><span class="co">##             ORDER[2],</span></span>
+<span><span class="co">##             ANGLEUNIT["degree",0.0174532925199433]],</span></span>
+<span><span class="co">##     USAGE[</span></span>
+<span><span class="co">##         SCOPE["Horizontal component of 3D system."],</span></span>
+<span><span class="co">##         AREA["World."],</span></span>
+<span><span class="co">##         BBOX[-90,-180,90,180]],</span></span>
+<span><span class="co">##     ID["EPSG",4326]]</span></span>
+<span></span>
+<span><span class="co"># You can also use st_crs() to get a Spatial Reference identifier (srid) for a coordinate reference system</span></span>
+<span><span class="co"># st_crs(msa_crashes)$srid</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Then we need to use the <code><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform()</a></code> function to change to coordinate reference system of <code>msa_counties</code>. The first parameter of <code><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform()</a></code> is always the sf or sfc object to transform but the second parameter can be a number, a character, or the output from the <code><a href="https://r-spatial.github.io/sf/reference/st_crs.html">st_crs()</a></code> function. For example, both of these calls transform <code>msa_counties</code> to the <a href="https://epsg.io/3857">Pseudo-Mercator</a> coordinate reference system used by Google Maps, OpenStreetMap, and other web maps:</p>
 <div class="cell">
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="va">msa_counties</span>, <span class="fl">3857</span><span class="op">)</span>
-
-<span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="va">msa_counties</span>, <span class="st">"EPSG:3857"</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="va">msa_counties</span>, <span class="fl">3857</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="va">msa_counties</span>, <span class="st">"EPSG:3857"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>🤔 Now it is your turn to transform <code>msa_counties</code>. Fill in the missing parameters:</p>
 <div class="cell">
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="co"># msa_counties &lt;- st_transform()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># msa_counties &lt;- st_transform()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Finally, you can crop <code>msa_crashes</code> the way you wanted:</p>
 <div class="cell">
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="co"># Overwrite msa_crashes w/ cropped data</span>
-<span class="va">msa_crashes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crop.html">st_crop</a></span><span class="op">(</span><span class="va">msa_crashes</span>, <span class="va">msa_counties</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Overwrite msa_crashes w/ cropped data</span></span>
+<span><span class="va">msa_crashes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crop.html">st_crop</a></span><span class="op">(</span><span class="va">msa_crashes</span>, <span class="va">msa_counties</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>OK. Let’s map the cropped <code>msa_crashes</code> data:</p>
 <div class="cell">
-<details><summary><strong>Show the code</strong> | Map crashes in the Baltimore metro area</summary><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">msa_borders</span> <span class="op">+</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="va">msa_crashes</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_symbols.html">tm_dots</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span>
-<span class="co">## Warning in sf::st_is_longlat(shp2): bounding box has potentially an invalid</span>
-<span class="co">## value range for longlat data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details><summary><strong>Show the code</strong> | Map crashes in the Baltimore metro area</summary><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">msa_borders</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="va">msa_crashes</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_symbols.html">tm_dots</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span>
+<span><span class="co">## Warning in sf::st_is_longlat(shp2): bounding box has potentially an invalid</span></span>
+<span><span class="co">## value range for longlat data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <p><img src="06_spatial-operations-r-crashapi_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Take a moment and compare this map with a map of <code>md_crashes</code> (which also needs to be cropped). Remember, tmap uses the bounding box of the first sf object passed to <code><a href="https://rdrr.io/pkg/tmap/man/tm_shape.html">tm_shape()</a></code> to set the plot area.</p>
 <div class="cell">
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">md_counties</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="va">md_counties</span>, <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crs.html">st_crs</a></span><span class="op">(</span><span class="va">md_crashes</span><span class="op">)</span><span class="op">)</span>
-<span class="co"># Crop md_crashes also</span>
-<span class="va">md_crashes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crop.html">st_crop</a></span><span class="op">(</span><span class="va">md_crashes</span>, <span class="va">md_counties</span><span class="op">)</span>
-
-<span class="va">msa_borders</span> <span class="op">+</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="va">md_crashes</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_symbols.html">tm_dots</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">md_counties</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="va">md_counties</span>, <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crs.html">st_crs</a></span><span class="op">(</span><span class="va">md_crashes</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co"># Crop md_crashes also</span></span>
+<span><span class="va">md_crashes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crop.html">st_crop</a></span><span class="op">(</span><span class="va">md_crashes</span>, <span class="va">md_counties</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">msa_borders</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="va">md_crashes</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_symbols.html">tm_dots</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="06_spatial-operations-r-crashapi_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -466,49 +472,49 @@ div.csl-indent {
 <p>Let’s try out <code><a href="https://r-spatial.github.io/sf/reference/geos_binary_ops.html">st_intersection()</a></code>. Like <code><a href="https://r-spatial.github.io/sf/reference/st_crop.html">st_crop()</a></code>, this function takes two parameters but works a more like a cookie cutter—trimming the features of the first parameter to the boundary of the second parameter.</p>
 <p>For example, I can trim <code>md_crashes</code> to the boundary of Baltimore City.</p>
 <div class="cell">
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">md_counties</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="va">md_counties</span>, <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crs.html">st_crs</a></span><span class="op">(</span><span class="va">md_crashes</span><span class="op">)</span><span class="op">)</span>
-<span class="va">msa_counties</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="va">msa_counties</span>, <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crs.html">st_crs</a></span><span class="op">(</span><span class="va">md_crashes</span><span class="op">)</span><span class="op">)</span>
-
-<span class="va">baltimore_city</span> <span class="op">&lt;-</span> <span class="va">msa_counties</span><span class="op">[</span><span class="fl">7</span>,<span class="op">]</span>
-
-<span class="va">baltimore_crashes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_binary_ops.html">st_intersection</a></span><span class="op">(</span><span class="va">md_crashes</span>, <span class="va">baltimore_city</span><span class="op">)</span>
-<span class="co">## Warning: attribute variables are assumed to be spatially constant throughout all</span>
-<span class="co">## geometries</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">md_counties</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="va">md_counties</span>, <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crs.html">st_crs</a></span><span class="op">(</span><span class="va">md_crashes</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">msa_counties</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="va">msa_counties</span>, <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crs.html">st_crs</a></span><span class="op">(</span><span class="va">md_crashes</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">baltimore_city</span> <span class="op">&lt;-</span> <span class="va">msa_counties</span><span class="op">[</span><span class="fl">7</span>, <span class="op">]</span></span>
+<span></span>
+<span><span class="va">baltimore_crashes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_binary_ops.html">st_intersection</a></span><span class="op">(</span><span class="va">md_crashes</span>, <span class="va">baltimore_city</span><span class="op">)</span></span>
+<span><span class="co">## Warning: attribute variables are assumed to be spatially constant throughout all</span></span>
+<span><span class="co">## geometries</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The function did a little more than just exclude the crashes outside Baltimore City. The names and attributes for any intersecting features from the second parameter have been joined to the features from the first parameter. You can actually get the same result using the <code><a href="https://r-spatial.github.io/sf/reference/st_join.html">st_join()</a></code> function when <code>left = FALSE</code>:</p>
 <div class="cell">
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">baltimore_crashes_join</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_join.html">st_join</a></span><span class="op">(</span><span class="va">md_crashes</span>, <span class="va">baltimore_city</span>, left <span class="op">=</span> <span class="cn">FALSE</span>, join <span class="op">=</span> <span class="va">st_intersects</span><span class="op">)</span>
-
-<span class="co"># all.equal tests if two objects are (nearly) equal</span>
-<span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span><span class="op">(</span><span class="va">baltimore_crashes</span>, <span class="va">baltimore_crashes_join</span><span class="op">)</span>
-<span class="co">## [1] TRUE</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">baltimore_crashes_join</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_join.html">st_join</a></span><span class="op">(</span><span class="va">md_crashes</span>, <span class="va">baltimore_city</span>, left <span class="op">=</span> <span class="cn">FALSE</span>, join <span class="op">=</span> <span class="va">st_intersects</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># all.equal tests if two objects are (nearly) equal</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span><span class="op">(</span><span class="va">baltimore_crashes</span>, <span class="va">baltimore_crashes_join</span><span class="op">)</span></span>
+<span><span class="co">## [1] TRUE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><code><a href="https://r-spatial.github.io/sf/reference/geos_binary_ops.html">st_difference()</a></code> works more like an eraser—selectively removing a specific area.</p>
 <div class="cell">
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">crashes_outside_baltimore</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_binary_ops.html">st_difference</a></span><span class="op">(</span><span class="va">md_crashes</span>, <span class="va">baltimore_city</span><span class="op">)</span>
-<span class="co">## Warning: attribute variables are assumed to be spatially constant throughout all</span>
-<span class="co">## geometries</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">crashes_outside_baltimore</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_binary_ops.html">st_difference</a></span><span class="op">(</span><span class="va">md_crashes</span>, <span class="va">baltimore_city</span><span class="op">)</span></span>
+<span><span class="co">## Warning: attribute variables are assumed to be spatially constant throughout all</span></span>
+<span><span class="co">## geometries</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>I can map the data to take a look at the results:</p>
 <div class="cell">
-<details><summary><strong>Show the code</strong> | Map crashes in and outside of Baltimore city</summary><div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">msa_borders</span> <span class="op">+</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="va">baltimore_crashes</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_symbols.html">tm_dots</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"orange"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="va">crashes_outside_baltimore</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_symbols.html">tm_dots</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details><summary><strong>Show the code</strong> | Map crashes in and outside of Baltimore city</summary><div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">msa_borders</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="va">baltimore_crashes</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_symbols.html">tm_dots</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"orange"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="va">crashes_outside_baltimore</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_symbols.html">tm_dots</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <p><img src="06_spatial-operations-r-crashapi_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>🤔 Now, your turn. Can you use <code><a href="https://r-spatial.github.io/sf/reference/geos_binary_ops.html">st_intersection()</a></code> to trim the crash data to Anne Arundel County?</p>
 <div class="cell">
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="co"># anne_arundel_crashes &lt;- </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># anne_arundel_crashes &lt;-</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>🤔 Can you map the Anne Arundel County crashes over top of a crash map for the full state?</p>
 <div class="cell">
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="co"># md_borders +</span>
-<span class="co">#   tm_shape(anne_arundel_crashes) +</span>
-<span class="co">#   tm_dots()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># md_borders +</span></span>
+<span><span class="co">#   tm_shape(anne_arundel_crashes) +</span></span>
+<span><span class="co">#   tm_dots()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>🤔 Bonus question: can you figure out how many fatalities occurred in Anne Arundel County? Remember, the number of fatalities may not be the same as fatal crashes. Try using the <code><a href="https://rdrr.io/r/base/nrow.html">nrow()</a></code> and <code><a href="https://rdrr.io/r/base/sum.html">sum()</a></code> functions to determine these numbers.</p>
 <div class="cell">
@@ -519,28 +525,28 @@ div.csl-indent {
 <p>OK. Let’s try something different. Remember those highways? The data covers the entire U.S. but we just need the highways for Maryland.</p>
 <p>This time, I’ll use the <code><a href="https://r-spatial.github.io/sf/reference/st_join.html">st_filter()</a></code> function with the default <code><a href="https://r-spatial.github.io/sf/reference/geos_binary_pred.html">st_intersects()</a></code> predicate (we will come back to predicate functions at the end):</p>
 <div class="cell">
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">us_highways</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="va">us_highways</span>, <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crs.html">st_crs</a></span><span class="op">(</span><span class="va">md_crashes</span><span class="op">)</span><span class="op">)</span>
-
-<span class="va">md_highways</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_join.html">st_filter</a></span><span class="op">(</span><span class="va">us_highways</span>, <span class="va">md_counties</span>, .predicate <span class="op">=</span> <span class="va">st_intersects</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">us_highways</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="va">us_highways</span>, <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crs.html">st_crs</a></span><span class="op">(</span><span class="va">md_crashes</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">md_highways</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_join.html">st_filter</a></span><span class="op">(</span><span class="va">us_highways</span>, <span class="va">md_counties</span>, .predicate <span class="op">=</span> <span class="va">st_intersects</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>As usual, a map is helpful to make sure this worked the way I expected:</p>
 <div class="cell">
-<details><summary><strong>Show the code</strong> | Map Maryland Highways</summary><div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">md_borders</span> <span class="op">+</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="va">md_highways</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_lines.html">tm_lines</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"darkgreen"</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details><summary><strong>Show the code</strong> | Map Maryland Highways</summary><div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">md_borders</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="va">md_highways</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_lines.html">tm_lines</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"darkgreen"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <p><img src="06_spatial-operations-r-crashapi_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Now that we have highways, could we use <code><a href="https://r-spatial.github.io/sf/reference/st_join.html">st_filter()</a></code> to get highway crashes? Give it a try:</p>
 <div class="cell">
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_join.html">st_filter</a></span><span class="op">(</span><span class="va">md_crashes</span>, <span class="va">md_highways</span><span class="op">)</span>
-<span class="co">## # A tibble: 0 × 16</span>
-<span class="co">## # … with 16 variables: city &lt;chr&gt;, cityname &lt;chr&gt;, county &lt;chr&gt;,</span>
-<span class="co">## #   countyname &lt;chr&gt;, case_year &lt;int&gt;, fatals &lt;int&gt;, latitude &lt;dbl&gt;,</span>
-<span class="co">## #   longitud &lt;dbl&gt;, state &lt;chr&gt;, statename &lt;chr&gt;, st_case &lt;chr&gt;,</span>
-<span class="co">## #   totalvehicles &lt;int&gt;, tway_id &lt;chr&gt;, tway_id2 &lt;chr&gt;, ve_forms &lt;int&gt;,</span>
-<span class="co">## #   geometry &lt;GEOMETRY [°]&gt;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_join.html">st_filter</a></span><span class="op">(</span><span class="va">md_crashes</span>, <span class="va">md_highways</span><span class="op">)</span></span>
+<span><span class="co">## # A tibble: 0 × 16</span></span>
+<span><span class="co">## # … with 16 variables: city &lt;chr&gt;, cityname &lt;chr&gt;, county &lt;chr&gt;,</span></span>
+<span><span class="co">## #   countyname &lt;chr&gt;, case_year &lt;int&gt;, fatals &lt;int&gt;, latitude &lt;dbl&gt;,</span></span>
+<span><span class="co">## #   longitud &lt;dbl&gt;, state &lt;chr&gt;, statename &lt;chr&gt;, st_case &lt;chr&gt;,</span></span>
+<span><span class="co">## #   totalvehicles &lt;int&gt;, tway_id &lt;chr&gt;, tway_id2 &lt;chr&gt;, ve_forms &lt;int&gt;,</span></span>
+<span><span class="co">## #   geometry &lt;GEOMETRY [°]&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Well, that didn’t work. The highways are a LINESTRING feature so it isn’t the most effective spatial filter. Using <code><a href="https://r-spatial.github.io/sf/reference/geos_unary.html">st_buffer()</a></code> we can add a little space around each highway and try again.</p>
 <p>How does <code><a href="https://r-spatial.github.io/sf/reference/geos_unary.html">st_buffer()</a></code> work? Using the <code>dist</code> (short dor distance) parameter you can add space around a point, linestring, or polygon.</p>
@@ -556,83 +562,83 @@ div.csl-indent {
 </div>
 <p>For this exercise, let’s convert our data projected CRS so we can use the version of <code><a href="https://r-spatial.github.io/sf/reference/geos_unary.html">st_buffer()</a></code> that works with GEOS.</p>
 <div class="cell">
-<details><summary><strong>Show the code</strong> | Transform data to a projected CRS</summary><div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">md_crashes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="va">md_crashes</span>, <span class="fl">3857</span><span class="op">)</span>
-<span class="va">md_counties</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="va">md_counties</span>, <span class="fl">3857</span><span class="op">)</span>
-<span class="va">msa_crashes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="va">msa_crashes</span>, <span class="fl">3857</span><span class="op">)</span>
-<span class="va">msa_counties</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="va">msa_counties</span>, <span class="fl">3857</span><span class="op">)</span>
-<span class="va">md_highways</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="va">md_highways</span>, <span class="fl">3857</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details><summary><strong>Show the code</strong> | Transform data to a projected CRS</summary><div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">md_crashes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="va">md_crashes</span>, <span class="fl">3857</span><span class="op">)</span></span>
+<span><span class="va">md_counties</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="va">md_counties</span>, <span class="fl">3857</span><span class="op">)</span></span>
+<span><span class="va">msa_crashes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="va">msa_crashes</span>, <span class="fl">3857</span><span class="op">)</span></span>
+<span><span class="va">msa_counties</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="va">msa_counties</span>, <span class="fl">3857</span><span class="op">)</span></span>
+<span><span class="va">md_highways</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="va">md_highways</span>, <span class="fl">3857</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>Now, I can add a buffer:</p>
 <div class="cell">
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">md_highways_quartermi</span> <span class="op">&lt;-</span>
-  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_unary.html">st_buffer</a></span><span class="op">(</span>
-    <span class="va">md_highways</span>,
-    dist <span class="op">=</span> <span class="fl">402.336</span> <span class="co"># quarter-mile in m</span>
-  <span class="op">)</span>
-
-<span class="va">md_highways_halfmi</span> <span class="op">&lt;-</span>
-  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_unary.html">st_buffer</a></span><span class="op">(</span>
-    <span class="va">md_highways</span>,
-    dist <span class="op">=</span> <span class="fu">units</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/units/man/units.html">set_units</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="st">"mi"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
-      <span class="fu">units</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/units/man/units.html">set_units</a></span><span class="op">(</span><span class="st">"m"</span><span class="op">)</span>
-  <span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">md_highways_quartermi</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_unary.html">st_buffer</a></span><span class="op">(</span></span>
+<span>    <span class="va">md_highways</span>,</span>
+<span>    dist <span class="op">=</span> <span class="fl">402.336</span> <span class="co"># quarter-mile in m</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="va">md_highways_halfmi</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_unary.html">st_buffer</a></span><span class="op">(</span></span>
+<span>    <span class="va">md_highways</span>,</span>
+<span>    dist <span class="op">=</span> <span class="fu">units</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/units/man/units.html">set_units</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="st">"mi"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>      <span class="fu">units</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/units/man/units.html">set_units</a></span><span class="op">(</span><span class="st">"m"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>I’ll map the data to show that it works (using Baltimore County to set the map bounding box so it easier to see the difference between the two buffers).</p>
 <div class="cell">
-<details><summary><strong>Show the code</strong> | Map bufferred Maryland highways</summary><div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="va">msa_counties</span>, bbox <span class="op">=</span> <span class="va">msa_counties</span><span class="op">[</span><span class="fl">7</span>,<span class="op">]</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_polygons.html">tm_borders</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"gray60"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="va">md_highways_quartermi</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_polygons.html">tm_borders</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="va">md_highways_halfmi</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_polygons.html">tm_borders</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"purple"</span><span class="op">)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details><summary><strong>Show the code</strong> | Map bufferred Maryland highways</summary><div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="va">msa_counties</span>, bbox <span class="op">=</span> <span class="va">msa_counties</span><span class="op">[</span><span class="fl">7</span>, <span class="op">]</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_polygons.html">tm_borders</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"gray60"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="va">md_highways_quartermi</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_polygons.html">tm_borders</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="va">md_highways_halfmi</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_polygons.html">tm_borders</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"purple"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
 <p><img src="06_spatial-operations-r-crashapi_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>🤔 A half mile buffer seems too large. Can you add a 250 meter buffer to the <code>md_highways</code>?</p>
 <div class="cell">
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="co"># md_highways_250m &lt;- st_buffer()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># md_highways_250m &lt;- st_buffer()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Then, go back and filter crash data using <code>md_highways_250m</code>. How many fatal crashes took place within 250 meters of a highway in Maryland? How many fatalities?</p>
 <div class="cell">
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="co"># st_filter()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># st_filter()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>You should find <strong>96 crashes</strong> and <strong>99 fatalities</strong>.</p>
 </section><section id="confirming-geometric-relationships" class="level2"><h2 class="anchored" data-anchor-id="confirming-geometric-relationships">Confirming geometric relationships</h2>
 <p>There is also a set of related functions called “predicates” or geometric confirmation functions that take pairs of simple feature geometry sets and return an index list or logical matrix based on the spatial relationship between the features. For example, take a look at <code><a href="https://r-spatial.github.io/sf/reference/geos_binary_pred.html">st_intersects()</a></code>:</p>
 <div class="cell">
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_binary_pred.html">st_intersects</a></span><span class="op">(</span><span class="va">msa_counties</span>, <span class="va">md_counties</span>, sparse <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="co">##       [,1]  [,2]  [,3]  [,4]  [,5]  [,6]  [,7]  [,8]  [,9] [,10] [,11] [,12]</span>
-<span class="co">## [1,]  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE</span>
-<span class="co">## [2,] FALSE FALSE FALSE  TRUE FALSE FALSE  TRUE  TRUE FALSE FALSE FALSE FALSE</span>
-<span class="co">## [3,] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE</span>
-<span class="co">## [4,] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span>
-<span class="co">## [5,] FALSE FALSE FALSE  TRUE FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE</span>
-<span class="co">## [6,] FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE  TRUE FALSE FALSE</span>
-<span class="co">## [7,] FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE</span>
-<span class="co">##      [,13] [,14] [,15] [,16] [,17] [,18] [,19] [,20] [,21] [,22] [,23] [,24]</span>
-<span class="co">## [1,] FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE</span>
-<span class="co">## [2,] FALSE FALSE FALSE FALSE FALSE  TRUE FALSE  TRUE FALSE FALSE FALSE  TRUE</span>
-<span class="co">## [3,] FALSE  TRUE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE</span>
-<span class="co">## [4,] FALSE FALSE  TRUE FALSE  TRUE  TRUE FALSE  TRUE FALSE FALSE FALSE FALSE</span>
-<span class="co">## [5,] FALSE FALSE  TRUE FALSE  TRUE  TRUE FALSE  TRUE FALSE FALSE FALSE FALSE</span>
-<span class="co">## [6,] FALSE FALSE  TRUE FALSE FALSE  TRUE FALSE  TRUE FALSE FALSE FALSE  TRUE</span>
-<span class="co">## [7,] FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_binary_pred.html">st_intersects</a></span><span class="op">(</span><span class="va">msa_counties</span>, <span class="va">md_counties</span>, sparse <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="co">##       [,1]  [,2]  [,3]  [,4]  [,5]  [,6]  [,7]  [,8]  [,9] [,10] [,11] [,12]</span></span>
+<span><span class="co">## [1,]  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE</span></span>
+<span><span class="co">## [2,] FALSE FALSE FALSE  TRUE FALSE FALSE  TRUE  TRUE FALSE FALSE FALSE FALSE</span></span>
+<span><span class="co">## [3,] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE</span></span>
+<span><span class="co">## [4,] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span><span class="co">## [5,] FALSE FALSE FALSE  TRUE FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE</span></span>
+<span><span class="co">## [6,] FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE  TRUE FALSE FALSE</span></span>
+<span><span class="co">## [7,] FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span><span class="co">##      [,13] [,14] [,15] [,16] [,17] [,18] [,19] [,20] [,21] [,22] [,23] [,24]</span></span>
+<span><span class="co">## [1,] FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span><span class="co">## [2,] FALSE FALSE FALSE FALSE FALSE  TRUE FALSE  TRUE FALSE FALSE FALSE  TRUE</span></span>
+<span><span class="co">## [3,] FALSE  TRUE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE</span></span>
+<span><span class="co">## [4,] FALSE FALSE  TRUE FALSE  TRUE  TRUE FALSE  TRUE FALSE FALSE FALSE FALSE</span></span>
+<span><span class="co">## [5,] FALSE FALSE  TRUE FALSE  TRUE  TRUE FALSE  TRUE FALSE FALSE FALSE FALSE</span></span>
+<span><span class="co">## [6,] FALSE FALSE  TRUE FALSE FALSE  TRUE FALSE  TRUE FALSE FALSE FALSE  TRUE</span></span>
+<span><span class="co">## [7,] FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>What is this matrix? The function is comparing each element of x (<code>msa_counties</code>) to each element of <code>y</code> (<code>md_counties</code>). We can simplify the function by using <code><a href="https://r-spatial.github.io/sf/reference/geos_combine.html">st_union()</a></code> on the second argument:</p>
 <div class="cell">
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span class="va">md_counties_union</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_combine.html">st_union</a></span><span class="op">(</span><span class="va">md_counties</span><span class="op">)</span>
-
-<span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_binary_pred.html">st_intersects</a></span><span class="op">(</span><span class="va">msa_counties</span>, <span class="va">md_counties_union</span>, sparse <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="co">##      [,1]</span>
-<span class="co">## [1,] TRUE</span>
-<span class="co">## [2,] TRUE</span>
-<span class="co">## [3,] TRUE</span>
-<span class="co">## [4,] TRUE</span>
-<span class="co">## [5,] TRUE</span>
-<span class="co">## [6,] TRUE</span>
-<span class="co">## [7,] TRUE</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">md_counties_union</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_combine.html">st_union</a></span><span class="op">(</span><span class="va">md_counties</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_binary_pred.html">st_intersects</a></span><span class="op">(</span><span class="va">msa_counties</span>, <span class="va">md_counties_union</span>, sparse <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="co">##      [,1]</span></span>
+<span><span class="co">## [1,] TRUE</span></span>
+<span><span class="co">## [2,] TRUE</span></span>
+<span><span class="co">## [3,] TRUE</span></span>
+<span><span class="co">## [4,] TRUE</span></span>
+<span><span class="co">## [5,] TRUE</span></span>
+<span><span class="co">## [6,] TRUE</span></span>
+<span><span class="co">## [7,] TRUE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
@@ -684,7 +690,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
     button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
     setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
       button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
@@ -771,24 +794,42 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
   var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
   for (var i=0; i<bibliorefs.length; i++) {
     const ref = bibliorefs[i];
-    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-    tippyHover(ref, function() {
-      var popup = window.document.createElement('div');
-      cites.forEach(function(cite) {
-        var citeDiv = window.document.createElement('div');
-        citeDiv.classList.add('hanging-indent');
-        citeDiv.classList.add('csl-entry');
-        var biblioDiv = window.document.getElementById('ref-' + cite);
-        if (biblioDiv) {
-          citeDiv.innerHTML = biblioDiv.innerHTML;
-        }
-        popup.appendChild(citeDiv);
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
       });
-      return popup.innerHTML;
-    });
+    }
   }
 });
 </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
@@ -832,7 +873,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb31-40"><a href="#cb31-40" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb31-41"><a href="#cb31-41" aria-hidden="true" tabindex="-1"></a><span class="in">```{r counties}</span></span>
 <span id="cb31-42"><a href="#cb31-42" aria-hidden="true" tabindex="-1"></a><span class="co">#| output: false</span></span>
-<span id="cb31-43"><a href="#cb31-43" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the state abbreviation </span></span>
+<span id="cb31-43"><a href="#cb31-43" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the state abbreviation</span></span>
 <span id="cb31-44"><a href="#cb31-44" aria-hidden="true" tabindex="-1"></a>md <span class="ot">&lt;-</span> <span class="st">"MD"</span></span>
 <span id="cb31-45"><a href="#cb31-45" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb31-46"><a href="#cb31-46" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the counties with tigris::counties()</span></span>
@@ -919,7 +960,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb31-133"><a href="#cb31-133" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(</span>
 <span id="cb31-134"><a href="#cb31-134" aria-hidden="true" tabindex="-1"></a>  msa_crashes,</span>
 <span id="cb31-135"><a href="#cb31-135" aria-hidden="true" tabindex="-1"></a>  longitud <span class="sc">&gt;</span> <span class="dv">180</span> <span class="sc">|</span> latitude <span class="sc">&gt;</span> <span class="dv">90</span> <span class="sc">|</span> longitud <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">180</span> <span class="sc">|</span> latitude <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">90</span></span>
-<span id="cb31-136"><a href="#cb31-136" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb31-136"><a href="#cb31-136" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb31-137"><a href="#cb31-137" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb31-138"><a href="#cb31-138" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb31-139"><a href="#cb31-139" aria-hidden="true" tabindex="-1"></a>To fix this issue, we need to crop the data to exclude outlying invalid coordinates. Cropping is one of a few geometry operations supported by the sf package. Let's dig in.</span>
@@ -1014,7 +1055,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb31-244"><a href="#cb31-244" aria-hidden="true" tabindex="-1"></a>md_counties <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(md_counties, <span class="fu">st_crs</span>(md_crashes))</span>
 <span id="cb31-245"><a href="#cb31-245" aria-hidden="true" tabindex="-1"></a>msa_counties <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(msa_counties, <span class="fu">st_crs</span>(md_crashes))</span>
 <span id="cb31-246"><a href="#cb31-246" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-247"><a href="#cb31-247" aria-hidden="true" tabindex="-1"></a>baltimore_city <span class="ot">&lt;-</span> msa_counties[<span class="dv">7</span>,]</span>
+<span id="cb31-247"><a href="#cb31-247" aria-hidden="true" tabindex="-1"></a>baltimore_city <span class="ot">&lt;-</span> msa_counties[<span class="dv">7</span>, ]</span>
 <span id="cb31-248"><a href="#cb31-248" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb31-249"><a href="#cb31-249" aria-hidden="true" tabindex="-1"></a>baltimore_crashes <span class="ot">&lt;-</span> <span class="fu">st_intersection</span>(md_crashes, baltimore_city)</span>
 <span id="cb31-250"><a href="#cb31-250" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
@@ -1049,7 +1090,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb31-285"><a href="#cb31-285" aria-hidden="true" tabindex="-1"></a>🤔 Now, your turn. Can you use <span class="in">`st_intersection()`</span> to trim the crash data to Anne Arundel County?</span>
 <span id="cb31-286"><a href="#cb31-286" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb31-289"><a href="#cb31-289" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb31-290"><a href="#cb31-290" aria-hidden="true" tabindex="-1"></a><span class="co"># anne_arundel_crashes &lt;- </span></span>
+<span id="cb31-290"><a href="#cb31-290" aria-hidden="true" tabindex="-1"></a><span class="co"># anne_arundel_crashes &lt;-</span></span>
 <span id="cb31-291"><a href="#cb31-291" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb31-292"><a href="#cb31-292" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb31-293"><a href="#cb31-293" aria-hidden="true" tabindex="-1"></a>🤔 Can you map the Anne Arundel County crashes over top of a crash map for the full state?</span>
@@ -1130,7 +1171,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb31-382"><a href="#cb31-382" aria-hidden="true" tabindex="-1"></a>md_highways_halfmi <span class="ot">&lt;-</span></span>
 <span id="cb31-383"><a href="#cb31-383" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_buffer</span>(</span>
 <span id="cb31-384"><a href="#cb31-384" aria-hidden="true" tabindex="-1"></a>    md_highways,</span>
-<span id="cb31-385"><a href="#cb31-385" aria-hidden="true" tabindex="-1"></a>    <span class="at">dist =</span> units<span class="sc">::</span><span class="fu">set_units</span>(<span class="fl">0.5</span>, <span class="st">"mi"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb31-385"><a href="#cb31-385" aria-hidden="true" tabindex="-1"></a>    <span class="at">dist =</span> units<span class="sc">::</span><span class="fu">set_units</span>(<span class="fl">0.5</span>, <span class="st">"mi"</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb31-386"><a href="#cb31-386" aria-hidden="true" tabindex="-1"></a>      units<span class="sc">::</span><span class="fu">set_units</span>(<span class="st">"m"</span>)</span>
 <span id="cb31-387"><a href="#cb31-387" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb31-388"><a href="#cb31-388" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
@@ -1141,7 +1182,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb31-395"><a href="#cb31-395" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
 <span id="cb31-396"><a href="#cb31-396" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-summary: "**Show the code** | Map bufferred Maryland highways"</span></span>
 <span id="cb31-397"><a href="#cb31-397" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-398"><a href="#cb31-398" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(msa_counties, <span class="at">bbox =</span> msa_counties[<span class="dv">7</span>,]) <span class="sc">+</span></span>
+<span id="cb31-398"><a href="#cb31-398" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(msa_counties, <span class="at">bbox =</span> msa_counties[<span class="dv">7</span>, ]) <span class="sc">+</span></span>
 <span id="cb31-399"><a href="#cb31-399" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_borders</span>(<span class="at">col =</span> <span class="st">"gray60"</span>) <span class="sc">+</span></span>
 <span id="cb31-400"><a href="#cb31-400" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_shape</span>(md_highways_quartermi) <span class="sc">+</span></span>
 <span id="cb31-401"><a href="#cb31-401" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_borders</span>(<span class="at">col =</span> <span class="st">"blue"</span>) <span class="sc">+</span></span>

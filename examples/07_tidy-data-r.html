@@ -1,0 +1,1604 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.242">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Building Spatial Datasets - Tidying data in R</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet"><script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script><link rel="stylesheet" href="../styles.css">
+<meta property="og:title" content="Building Spatial Datasets - Tidying data in R">
+<meta property="og:description" content="Let’s start by with the question: what is tidy data?">
+<meta property="og:image" content="https://elipousson.github.io/bldgspatialdata/files/img/ges600-logo.png">
+<meta property="og:site-name" content="Building Spatial Datasets">
+<meta property="og:locale" content="en_US">
+<meta property="og:image:height" content="1254">
+<meta property="og:image:width" content="1180">
+<meta name="twitter:title" content="Building Spatial Datasets - Tidying data in R">
+<meta name="twitter:description" content="Let’s start by with the question: what is tidy data?">
+<meta name="twitter:image" content="https://elipousson.github.io/bldgspatialdata/files/img/ges600-logo.png">
+<meta name="twitter:creator" content="\@elipousson">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image-height" content="1254">
+<meta name="twitter:image-width" content="1180">
+</head>
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg navbar-dark "><div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Building Spatial Datasets</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+<li class="nav-item">
+    <a class="nav-link" href="../index.html">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../syllabus.html">
+ <span class="menu-text">Syllabus</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../schedule.html">
+ <span class="menu-text">Schedule</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../assignments/index.html">
+ <span class="menu-text">Assignments</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../materials.html">
+ <span class="menu-text">Materials</span></a>
+  </li>  
+</ul>
+<div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
+   
+  <ul>
+<li><a href="#pivoting-data-frames-between-wide-and-long-formats" id="toc-pivoting-data-frames-between-wide-and-long-formats" class="nav-link active" data-scroll-target="#pivoting-data-frames-between-wide-and-long-formats">Pivoting data frames between wide and long formats</a></li>
+  <li>
+<a href="#working-with-long-format-data" id="toc-working-with-long-format-data" class="nav-link" data-scroll-target="#working-with-long-format-data">Working with long format data</a>
+  <ul class="collapse">
+<li><a href="#using-factors-for-categorical-data" id="toc-using-factors-for-categorical-data" class="nav-link" data-scroll-target="#using-factors-for-categorical-data">Using factors for categorical data</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#tidying-addresses-for-geocoding" id="toc-tidying-addresses-for-geocoding" class="nav-link" data-scroll-target="#tidying-addresses-for-geocoding">Tidying addresses for geocoding</a>
+  <ul class="collapse">
+<li><a href="#using-regular-expressions" id="toc-using-regular-expressions" class="nav-link" data-scroll-target="#using-regular-expressions">Using regular expressions</a></li>
+  </ul>
+</li>
+  <li><a href="#separating-variables-with-separate" id="toc-separating-variables-with-separate" class="nav-link" data-scroll-target="#separating-variables-with-separate">Separating variables with <code>separate()</code></a></li>
+  </ul></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">Tidying data in R</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+  <div class="quarto-categories">
+    <div class="quarto-category">example</div>
+  </div>
+  </div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header><p>Let’s start by with the question: what is tidy data?</p>
+<ul>
+<li>Each value has its own cell.</li>
+<li>Each variable has its own column.</li>
+<li>Each observation has its own row.</li>
+</ul>
+<p>To get data into a tidy format, you’ll need to know how to address these common problems (from <a href="https://tidyr.tidyverse.org/articles/tidy-data.html">Tidy data vignette</a>):</p>
+<ul>
+<li>Column headers are values, not variable names.</li>
+<li>Multiple variables are stored in one column.</li>
+<li>Variables are stored in both rows and columns.</li>
+<li>Multiple types of observational units are stored in the same table.</li>
+<li>A single observational unit is stored in multiple tables.</li>
+</ul>
+<p>I’ve also highlighted several tips from the <a href="https://github.com/Quartz/bad-data-guide">The Quartz guide to bad data</a> whenever they are relevant in this exercise.</p>
+<div class="cell">
+
+</div>
+<p>Note: this particular example requires the <a href="https://github.com/elipousson/esri2sf/">{esri2sf} package</a> (I recommend using my fork which incorporated the <a href="https://httr2.r-lib.org/">{httr2} package</a>).</p>
+<div class="cell">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="http://pak.r-lib.org/reference/pkg_install.html">pkg_install</a></span><span class="op">(</span><span class="st">"elipousson/esri2sf"</span><span class="op">)</span> <span class="co"># fork of https://github.com/yonghah/esri2sf/</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="pivoting-data-frames-between-wide-and-long-formats" class="level2"><h2 class="anchored" data-anchor-id="pivoting-data-frames-between-wide-and-long-formats">Pivoting data frames between wide and long formats</h2>
+<p>We are going to look at data on <a href="https://opendata.maryland.gov/Housing/Maryland-Total-New-Housing-Units-Authorized-For-Co/c7z9-v9mr/data">total new housing units authorized for construction</a> in Maryland from 2010 to 2021:</p>
+<div class="cell">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">new_units</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span></span>
+<span>    <span class="st">"https://opendata.maryland.gov/api/views/c7z9-v9mr/rows.csv"</span>,</span>
+<span>    show_col_types <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Take a look at the column names:</p>
+<div class="cell">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">new_units</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "Date created"           "Year"                   "MARYLAND"              
+ [4] "Allegany County"        "Anne Arundel County"    "Baltimore City"        
+ [7] "Baltimore County"       "Calvert County"         "Caroline County"       
+[10] "Carroll County"         "Cecil County"           "Charles County"        
+[13] "Dorchester County"      "Frederick County"       "Garrett County"        
+[16] "Harford County"         "Howard County"          "Kent County"           
+[19] "Montgomery County"      "Prince George's County" "Queen Anne's County"   
+[22] "Somerset County"        "St. Mary's County"      "Talbot County"         
+[25] "Washington County"      "Wicomico County"        "Worcester County"      </code></pre>
+</div>
+</div>
+<p>🤔 What variable is being stored in the column names?</p>
+<p>Yep. Each column after “year” is a location.</p>
+<p>The locations aren’t all the same. They include two different scales: one column covering the whole state and the others covering a single county.</p>
+<p>Focusing on the counties, we can “pivot” these columns into a long format where each row has new housing units for just a single year and a single county. We do this with <code><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">tidyr::pivot_longer()</a></code> selecting the columns to pivot using the <code><a href="https://tidyselect.r-lib.org/reference/starts_with.html">tidyselect::contains()</a></code> function.</p>
+<div class="cell">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">new_units_long</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span></span>
+<span>    data <span class="op">=</span> <span class="va">new_units</span>,</span>
+<span>    cols <span class="op">=</span> <span class="fu">contains</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"County"</span>, <span class="st">"city"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    names_to <span class="op">=</span> <span class="st">"county"</span>,</span>
+<span>    values_to <span class="op">=</span> <span class="st">"num_units"</span></span>
+<span>  <span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">`Date created`</span>, <span class="va">MARYLAND</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout-tip callout callout-style-simple">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>Remember to avoid <a href="https://github.com/Quartz/bad-data-guide#field-names-are-ambiguous">ambiguous field names</a>.</strong> I’ve included the units of the value in the column name—making it clear that each number indicates the number of new housing units for that year and county.</p>
+</div>
+</div>
+</div>
+<p>In this example, the long format is helpful for a few reasons. First, this long format makes it easy to plot complex data with ggplot2:</p>
+<div class="cell">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">new_units_long</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_col</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">Year</span>, y <span class="op">=</span> <span class="va">num_units</span>, fill <span class="op">=</span> <span class="va">county</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">facet_wrap</span><span class="op">(</span><span class="op">~</span> <span class="va">county</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">guides</span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme_minimal</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="07_tidy-data-r_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="callout-tip callout callout-style-simple">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>Are these <a href="https://github.com/Quartz/bad-data-guide#data-are-too-granular">data too granular</a>?</strong> Using counties as a grouping mean the data includes wide variation in population, size, and housing market conditions. We could consider combining counties into regions or metro area or classifying as urban or rural in order to make interpretation easier.</p>
+</div>
+</div>
+</div>
+<p>First, the new location column makes it easy to join spatial data to the data frame with <code><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">dplyr::left_join()</a></code>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">md_counties</span> <span class="op">&lt;-</span> <span class="fu">tigris</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tigris/man/counties.html">counties</a></span><span class="op">(</span>state <span class="op">=</span> <span class="st">"MD"</span>, cb <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Retrieving data for the year 2020</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+  |                                                                            
+  |                                                                      |   0%
+  |                                                                            
+  |                                                                      |   1%
+  |                                                                            
+  |=                                                                     |   1%
+  |                                                                            
+  |=                                                                     |   2%
+  |                                                                            
+  |==                                                                    |   2%
+  |                                                                            
+  |==                                                                    |   3%
+  |                                                                            
+  |==                                                                    |   4%
+  |                                                                            
+  |===                                                                   |   4%
+  |                                                                            
+  |===                                                                   |   5%
+  |                                                                            
+  |====                                                                  |   5%
+  |                                                                            
+  |====                                                                  |   6%
+  |                                                                            
+  |=====                                                                 |   7%
+  |                                                                            
+  |======                                                                |   8%
+  |                                                                            
+  |======                                                                |   9%
+  |                                                                            
+  |=======                                                               |  10%
+  |                                                                            
+  |=======                                                               |  11%
+  |                                                                            
+  |========                                                              |  11%
+  |                                                                            
+  |========                                                              |  12%
+  |                                                                            
+  |=========                                                             |  12%
+  |                                                                            
+  |=========                                                             |  13%
+  |                                                                            
+  |==========                                                            |  14%
+  |                                                                            
+  |==========                                                            |  15%
+  |                                                                            
+  |===========                                                           |  16%
+  |                                                                            
+  |============                                                          |  17%
+  |                                                                            
+  |============                                                          |  18%
+  |                                                                            
+  |==============                                                        |  20%
+  |                                                                            
+  |==============                                                        |  21%
+  |                                                                            
+  |===============                                                       |  21%
+  |                                                                            
+  |===============                                                       |  22%
+  |                                                                            
+  |================                                                      |  23%
+  |                                                                            
+  |=================                                                     |  24%
+  |                                                                            
+  |=================                                                     |  25%
+  |                                                                            
+  |==================                                                    |  25%
+  |                                                                            
+  |==================                                                    |  26%
+  |                                                                            
+  |===================                                                   |  27%
+  |                                                                            
+  |===================                                                   |  28%
+  |                                                                            
+  |====================                                                  |  28%
+  |                                                                            
+  |====================                                                  |  29%
+  |                                                                            
+  |=====================                                                 |  29%
+  |                                                                            
+  |=====================                                                 |  30%
+  |                                                                            
+  |======================                                                |  31%
+  |                                                                            
+  |======================                                                |  32%
+  |                                                                            
+  |=======================                                               |  32%
+  |                                                                            
+  |=======================                                               |  34%
+  |                                                                            
+  |========================                                              |  34%
+  |                                                                            
+  |=========================                                             |  35%
+  |                                                                            
+  |==========================                                            |  37%
+  |                                                                            
+  |==========================                                            |  38%
+  |                                                                            
+  |===========================                                           |  38%
+  |                                                                            
+  |============================                                          |  39%
+  |                                                                            
+  |============================                                          |  40%
+  |                                                                            
+  |===============================                                       |  44%
+  |                                                                            
+  |===============================                                       |  45%
+  |                                                                            
+  |================================                                      |  45%
+  |                                                                            
+  |================================                                      |  46%
+  |                                                                            
+  |=================================                                     |  46%
+  |                                                                            
+  |=================================                                     |  47%
+  |                                                                            
+  |=================================                                     |  48%
+  |                                                                            
+  |==================================                                    |  48%
+  |                                                                            
+  |==================================                                    |  49%
+  |                                                                            
+  |===================================                                   |  49%
+  |                                                                            
+  |===================================                                   |  50%
+  |                                                                            
+  |====================================                                  |  52%
+  |                                                                            
+  |=====================================                                 |  53%
+  |                                                                            
+  |=====================================                                 |  54%
+  |                                                                            
+  |======================================                                |  54%
+  |                                                                            
+  |======================================                                |  55%
+  |                                                                            
+  |=======================================                               |  55%
+  |                                                                            
+  |=======================================                               |  56%
+  |                                                                            
+  |========================================                              |  57%
+  |                                                                            
+  |=========================================                             |  59%
+  |                                                                            
+  |==========================================                            |  60%
+  |                                                                            
+  |==========================================                            |  61%
+  |                                                                            
+  |===========================================                           |  61%
+  |                                                                            
+  |===========================================                           |  62%
+  |                                                                            
+  |============================================                          |  62%
+  |                                                                            
+  |============================================                          |  63%
+  |                                                                            
+  |=============================================                         |  64%
+  |                                                                            
+  |=============================================                         |  65%
+  |                                                                            
+  |==============================================                        |  65%
+  |                                                                            
+  |==============================================                        |  66%
+  |                                                                            
+  |===============================================                       |  68%
+  |                                                                            
+  |================================================                      |  68%
+  |                                                                            
+  |================================================                      |  69%
+  |                                                                            
+  |=================================================                     |  70%
+  |                                                                            
+  |==================================================                    |  71%
+  |                                                                            
+  |===================================================                   |  73%
+  |                                                                            
+  |====================================================                  |  74%
+  |                                                                            
+  |====================================================                  |  75%
+  |                                                                            
+  |=====================================================                 |  75%
+  |                                                                            
+  |=====================================================                 |  76%
+  |                                                                            
+  |======================================================                |  77%
+  |                                                                            
+  |=======================================================               |  78%
+  |                                                                            
+  |=======================================================               |  79%
+  |                                                                            
+  |========================================================              |  79%
+  |                                                                            
+  |========================================================              |  80%
+  |                                                                            
+  |========================================================              |  81%
+  |                                                                            
+  |=========================================================             |  82%
+  |                                                                            
+  |==========================================================            |  82%
+  |                                                                            
+  |==========================================================            |  83%
+  |                                                                            
+  |===========================================================           |  84%
+  |                                                                            
+  |===========================================================           |  85%
+  |                                                                            
+  |============================================================          |  85%
+  |                                                                            
+  |============================================================          |  86%
+  |                                                                            
+  |=============================================================         |  87%
+  |                                                                            
+  |=============================================================         |  88%
+  |                                                                            
+  |==============================================================        |  88%
+  |                                                                            
+  |==============================================================        |  89%
+  |                                                                            
+  |===============================================================       |  90%
+  |                                                                            
+  |===================================================================   |  96%
+  |                                                                            
+  |====================================================================  |  97%
+  |                                                                            
+  |====================================================================  |  98%
+  |                                                                            
+  |===================================================================== |  99%
+  |                                                                            
+  |======================================================================| 100%</code></pre>
+</div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">new_units_counties</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu">left_join</span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">new_units_long</span>,</span>
+<span>    y <span class="op">=</span> <span class="va">md_counties</span>,</span>
+<span>    by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"county"</span> <span class="op">=</span> <span class="st">"NAMELSAD"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="co"># Convert the dataframe back to sf</span></span>
+<span>  <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html">st_as_sf</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Did this join work the way we expected?</p>
+<p>If a join didn’t find a match for any of the locations, any new columns will have <code>NA</code>s for the missing values. <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> only shows missing values for numeric values. <code><a href="https://docs.ropensci.org/skimr/reference/skim.html">skimr::skim()</a></code> does show missing variables but there are a few packages that make these checks easier. {naniar} is specifically designed to work with missing data:</p>
+<div class="cell">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">naniar</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/naniar/man/gg_miss_var.html">gg_miss_var</a></span><span class="op">(</span><span class="va">new_units_counties</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="07_tidy-data-r_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Whoops. More than 10 unmatched rows. Which locations didn’t get a match? We can filter to look for <code>NA</code> values and then use <code>distinct()</code> on the join column.</p>
+<div class="cell">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">new_units_counties</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">GEOID</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">distinct</span><span class="op">(</span><span class="va">county</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  county        
+  &lt;chr&gt;         
+1 Baltimore City</code></pre>
+</div>
+</div>
+<p>OK. So the only columns that didn’t match are those for Baltimore City. Let’s take a look at the join column from md_counties to see what we can figure out.</p>
+<div class="cell">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">new_units_long</span><span class="op">$</span><span class="va">county</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "Allegany County"        "Anne Arundel County"    "Baltimore County"      
+ [4] "Calvert County"         "Caroline County"        "Carroll County"        
+ [7] "Cecil County"           "Charles County"         "Dorchester County"     
+[10] "Frederick County"       "Garrett County"         "Harford County"        
+[13] "Howard County"          "Kent County"            "Montgomery County"     
+[16] "Prince George's County" "Queen Anne's County"    "Somerset County"       
+[19] "St. Mary's County"      "Talbot County"          "Washington County"     
+[22] "Wicomico County"        "Worcester County"       "Baltimore City"        </code></pre>
+</div>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">md_counties</span><span class="op">$</span><span class="va">NAMELSAD</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "Queen Anne's County"    "Wicomico County"        "Garrett County"        
+ [4] "Prince George's County" "Caroline County"        "St. Mary's County"     
+ [7] "Anne Arundel County"    "Calvert County"         "Worcester County"      
+[10] "Harford County"         "Montgomery County"      "Talbot County"         
+[13] "Dorchester County"      "Cecil County"           "Carroll County"        
+[16] "Washington County"      "Frederick County"       "Howard County"         
+[19] "Kent County"            "Baltimore County"       "Allegany County"       
+[22] "Somerset County"        "Charles County"         "Baltimore city"        </code></pre>
+</div>
+</div>
+<p>🤔 Do you see the problem?</p>
+<p>Hint: join columns are case sensitive. “Baltimore City” is not the same as “Baltimore city”.</p>
+<p>One solution is to record the county variable using <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">dplyr::mutate()</a></code> and <code><a href="https://dplyr.tidyverse.org/reference/case_when.html">dplyr::case_when()</a></code>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">new_units_long</span> <span class="op">&lt;-</span></span>
+<span>  <span class="va">new_units_long</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">mutate</span><span class="op">(</span></span>
+<span>    county <span class="op">=</span> <span class="fu">case_when</span><span class="op">(</span></span>
+<span>      <span class="va">county</span> <span class="op">==</span> <span class="st">"Baltimore City"</span> <span class="op">~</span> <span class="st">"Baltimore city"</span>,</span>
+<span>      <span class="cn">TRUE</span> <span class="op">~</span> <span class="va">county</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="va">new_units_counties</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu">left_join</span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">new_units_long</span>,</span>
+<span>    y <span class="op">=</span> <span class="va">md_counties</span>,</span>
+<span>    by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"county"</span> <span class="op">=</span> <span class="st">"NAMELSAD"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="co"># Convert the dataframe back to sf</span></span>
+<span>  <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html">st_as_sf</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The wide format can also be helpful! For example, if we pivot wider and put the years into columns it makes it easy to compare one year to another with the <code>mutate()</code> or <code>transmute()</code> function:</p>
+<div class="cell">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">new_units_wide</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu">pivot_wider</span><span class="op">(</span></span>
+<span>    <span class="co"># Note: if we didn't drop the geometry we would get an error</span></span>
+<span>    <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html">st_drop_geometry</a></span><span class="op">(</span><span class="va">new_units_counties</span><span class="op">)</span>,</span>
+<span>    id_cols <span class="op">=</span> <span class="st">"county"</span>,</span>
+<span>    names_from <span class="op">=</span> <span class="st">"Year"</span>,</span>
+<span>    values_from <span class="op">=</span> <span class="st">"num_units"</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="va">new_units_wide</span> <span class="op">&lt;-</span> <span class="va">new_units_wide</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="fu">mutate</span><span class="op">(</span></span>
+<span>    diff_num_units_10_15 <span class="op">=</span> <span class="va">.data</span><span class="op">[[</span><span class="st">"2020"</span><span class="op">]</span><span class="op">]</span> <span class="op">-</span> <span class="va">.data</span><span class="op">[[</span><span class="st">"2015"</span><span class="op">]</span><span class="op">]</span>,</span>
+<span>    diff_num_units_10_20 <span class="op">=</span> <span class="va">.data</span><span class="op">[[</span><span class="st">"2020"</span><span class="op">]</span><span class="op">]</span> <span class="op">-</span> <span class="va">.data</span><span class="op">[[</span><span class="st">"2010"</span><span class="op">]</span><span class="op">]</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="va">new_units_wide</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">mutate</span><span class="op">(</span></span>
+<span>    county <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_remove.html">str_remove</a></span><span class="op">(</span><span class="va">county</span>, <span class="st">"County$"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_bar</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">county</span>, weight <span class="op">=</span> <span class="va">diff_num_units_10_20</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">coord_flip</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_color_gradient2</span><span class="op">(</span>low <span class="op">=</span> <span class="st">"red"</span>, mid <span class="op">=</span> <span class="st">"white"</span>, high <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme_minimal</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">labs</span><span class="op">(</span></span>
+<span>    title <span class="op">=</span> <span class="st">"Difference in permitted new housing units, 2010 and 2020"</span>,</span>
+<span>    caption <span class="op">=</span> <span class="st">"Data: Open Baltimore/Maryland Department of Housing and Community Development"</span></span>
+<span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="07_tidy-data-r_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>OK. Your turn. The <a href="https://opendata.maryland.gov/Housing/Maryland-New-Multi-Family-Housing-Units-Authorized/pz3y-chyn/data">open data on permitted multi-family units</a> is also wide—placing the data for each county in adjoining columns.</p>
+<div class="cell">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">new_multifamily_units</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span></span>
+<span>    <span class="st">"https://opendata.maryland.gov/api/views/pz3y-chyn/rows.csv"</span>,</span>
+<span>    show_col_types <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>🤔 Can you convert the data into a long format with <code>pivot_longer()</code>?</p>
+<div class="cell">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">new_multifamily_units</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu">pivot_longer</span><span class="op">(</span></span>
+<span>    <span class="va">new_multifamily_units</span>,</span>
+<span>    cols <span class="op">=</span> <span class="fu">contains</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"County"</span>, <span class="st">"City"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    names_to <span class="op">=</span> <span class="st">"county"</span>,</span>
+<span>    values_to <span class="op">=</span> <span class="st">"num_units"</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="va">new_multifamily_units</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 288 × 5
+   `Date created`       Year MARYLAND county              num_units
+   &lt;dttm&gt;              &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;                   &lt;dbl&gt;
+ 1 2022-10-19 00:00:00  2010     3442 Allegany County            66
+ 2 2022-10-19 00:00:00  2010     3442 Anne Arundel County       847
+ 3 2022-10-19 00:00:00  2010     3442 Baltimore County          635
+ 4 2022-10-19 00:00:00  2010     3442 Calvert County              2
+ 5 2022-10-19 00:00:00  2010     3442 Caroline County             0
+ 6 2022-10-19 00:00:00  2010     3442 Carroll County              0
+ 7 2022-10-19 00:00:00  2010     3442 Cecil County               68
+ 8 2022-10-19 00:00:00  2010     3442 Charles County              0
+ 9 2022-10-19 00:00:00  2010     3442 Dorchester County          96
+10 2022-10-19 00:00:00  2010     3442 Frederick County           95
+# … with 278 more rows</code></pre>
+</div>
+</div>
+</section><section id="working-with-long-format-data" class="level2"><h2 class="anchored" data-anchor-id="working-with-long-format-data">Working with long format data</h2>
+<p>Now that we have both datasets in a long format we can put the two together.</p>
+<div class="cell">
+
+</div>
+<p>How should we do that? One option is to use a join based the year and county name.</p>
+<div class="cell">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">md_housing_units_wide</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu">left_join</span><span class="op">(</span></span>
+<span>    <span class="va">new_units_long</span>,</span>
+<span>    <span class="va">new_multifamily_units_long</span> <span class="op">%&gt;%</span></span>
+<span>      <span class="fu">rename</span><span class="op">(</span></span>
+<span>        num_multifamily_units <span class="op">=</span> <span class="va">num_units</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>    by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Year"</span>, <span class="st">"county"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Using <code>left_join()</code> places the columns side-by-side in a wide format. What new variables that can we create by working with columns in this format?</p>
+<div class="cell">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># md_housing_units_wide &lt;-</span></span>
+<span><span class="co">#   md_housing_units_wide %&gt;%</span></span>
+<span><span class="co">#   mutate(</span></span>
+<span><span class="co">#</span></span>
+<span><span class="co">#   )</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This works for two datasets but you can also stack even more data frames into a long format. Using the <code>.id</code> parameter allows you to use the names assigned to each dataframe as a new column identifying the source of the data:</p>
+<div class="cell">
+
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">md_housing_units_long</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu">bind_rows</span><span class="op">(</span></span>
+<span>    <span class="st">"total"</span> <span class="op">=</span> <span class="va">new_units_long</span>,</span>
+<span>    <span class="st">"multifamily"</span> <span class="op">=</span> <span class="va">new_multifamily_units_long</span>,</span>
+<span>    <span class="st">"singlefamily"</span> <span class="op">=</span> <span class="va">new_singlefamily_units_long</span>,</span>
+<span>    .id <span class="op">=</span> <span class="st">"type"</span></span>
+<span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If we have year, permit type, and number of units in a “tidy” format, this creates new opportunities for both for visualization and for analysis using {tidyverse} packages.</p>
+<p>To see how this works for visualization, try filtering the <code>md_housing_units_long</code> to a single county and using <code>geom_col()</code> to make a bar chart showing both the total and multifamily housing units by year for that county? I filled a few details already—you’ll want to set <code>fill = type</code> and <code>position = "dodge"</code> (note, position is an additional parameter outside the aesthetic mapping)—but you still need to filter the data and provide the required <code>x</code> and <code>y</code> aesthetics for <code>geom_col()</code>.</p>
+<div class="cell">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># md_housing_units_long %&gt;%</span></span>
+<span><span class="co">#   filter() %&gt;%</span></span>
+<span><span class="co">#   ggplot() +</span></span>
+<span><span class="co">#   geom_col(aes(x = , y = , fill = type), position = "dodge")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>To see how this works for analysis, consider how you can use <code>group_by()</code> and <code>summarise()</code> to create summary statistics by county and permit type.</p>
+<div class="cell">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">new_multifamily_units</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">county</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">summarise</span><span class="op">(</span></span>
+<span>    cum_sum_units <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">num_units</span><span class="op">)</span>,</span>
+<span>    avg_units <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">num_units</span><span class="op">)</span>,</span>
+<span>    min_units <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">num_units</span><span class="op">)</span>,</span>
+<span>    max_units <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">num_units</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in `group_by()`:
+! Must group by variables found in `.data`.
+✖ Column `county` is not found.</code></pre>
+</div>
+</div>
+<section id="using-factors-for-categorical-data" class="level3"><h3 class="anchored" data-anchor-id="using-factors-for-categorical-data">Using factors for categorical data</h3>
+<div class="cell">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">md_counties_xwalk</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span><span class="op">(</span></span>
+<span>                      <span class="op">~</span><span class="va">county</span>,             <span class="op">~</span><span class="va">region</span>,                                               <span class="op">~</span><span class="va">msa</span>,</span>
+<span>             <span class="st">"Garrett County"</span>,  <span class="st">"Western Maryland"</span>,                                                 <span class="cn">NA</span>,</span>
+<span>            <span class="st">"Allegany County"</span>,  <span class="st">"Western Maryland"</span>,                            <span class="st">"Cumberland, MD-WV MSA"</span>,</span>
+<span>          <span class="st">"Washington County"</span>,  <span class="st">"Western Maryland"</span>,                <span class="st">"Hagerstown–Martinsburg, MD–WV MSA"</span>,</span>
+<span>           <span class="st">"Frederick County"</span>,    <span class="st">"Capital Region"</span>, <span class="st">"Washington–Arlington–Alexandria, DC–VA–MD–WV MSA"</span>,</span>
+<span>          <span class="st">"Montgomery County"</span>,    <span class="st">"Capital Region"</span>, <span class="st">"Washington–Arlington–Alexandria, DC–VA–MD–WV MSA"</span>,</span>
+<span>     <span class="st">"Prince George's County"</span>,    <span class="st">"Capital Region"</span>, <span class="st">"Washington–Arlington–Alexandria, DC–VA–MD–WV MSA"</span>,</span>
+<span>        <span class="st">"Anne Arundel County"</span>,  <span class="st">"Central Maryland"</span>,                    <span class="st">"Baltimore–Columbia–Towson MSA"</span>,</span>
+<span>             <span class="st">"Baltimore city"</span>,  <span class="st">"Central Maryland"</span>,                    <span class="st">"Baltimore–Columbia–Towson MSA"</span>,</span>
+<span>           <span class="st">"Baltimore County"</span>,  <span class="st">"Central Maryland"</span>,                    <span class="st">"Baltimore–Columbia–Towson MSA"</span>,</span>
+<span>             <span class="st">"Carroll County"</span>,  <span class="st">"Central Maryland"</span>,                    <span class="st">"Baltimore–Columbia–Towson MSA"</span>,</span>
+<span>             <span class="st">"Harford County"</span>,  <span class="st">"Central Maryland"</span>,                    <span class="st">"Baltimore–Columbia–Towson MSA"</span>,</span>
+<span>              <span class="st">"Howard County"</span>,  <span class="st">"Central Maryland"</span>,                    <span class="st">"Baltimore–Columbia–Towson MSA"</span>,</span>
+<span>             <span class="st">"Calvert County"</span>, <span class="st">"Southern Maryland"</span>, <span class="st">"Washington–Arlington–Alexandria, DC–VA–MD–WV MSA"</span>,</span>
+<span>             <span class="st">"Charles County"</span>, <span class="st">"Southern Maryland"</span>, <span class="st">"Washington–Arlington–Alexandria, DC–VA–MD–WV MSA"</span>,</span>
+<span>          <span class="st">"St. Mary's County"</span>, <span class="st">"Southern Maryland"</span>,                <span class="st">"California-Lexington Park, MD MSA"</span>,</span>
+<span>                <span class="st">"Kent County"</span>,     <span class="st">"Eastern Shore"</span>,                                                 <span class="cn">NA</span>,</span>
+<span>        <span class="st">"Queen Anne's County"</span>,     <span class="st">"Eastern Shore"</span>,                    <span class="st">"Baltimore–Columbia–Towson MSA"</span>,</span>
+<span>              <span class="st">"Talbot County"</span>,     <span class="st">"Eastern Shore"</span>,                                   <span class="st">"Easton, MD μSA"</span>,</span>
+<span>            <span class="st">"Caroline County"</span>,     <span class="st">"Eastern Shore"</span>,                                                 <span class="cn">NA</span>,</span>
+<span>          <span class="st">"Dorchester County"</span>,     <span class="st">"Eastern Shore"</span>,                                    <span class="st">"Cambridge, MD"</span>,</span>
+<span>            <span class="st">"Wicomico County"</span>,     <span class="st">"Eastern Shore"</span>,                             <span class="st">"Salisbury, MD-DE MSA"</span>,</span>
+<span>            <span class="st">"Somerset County"</span>,     <span class="st">"Eastern Shore"</span>,                             <span class="st">"Salisbury, MD-DE MSA"</span>,</span>
+<span>           <span class="st">"Worcester County"</span>,     <span class="st">"Eastern Shore"</span>,                             <span class="st">"Salisbury, MD-DE MSA"</span>,</span>
+<span>               <span class="st">"Cecil County"</span>,     <span class="st">"Eastern Shore"</span>,      <span class="st">"Philadelphia-Camden-Wilmington, PA-NJ-DE-MD"</span></span>
+<span>    <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">forcats</span><span class="fu">::</span><span class="fu"><a href="https://forcats.tidyverse.org/reference/as_factor.html">as_factor</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in UseMethod("as_factor"): no applicable method for 'as_factor' applied to an object of class "NULL"</code></pre>
+</div>
+</div>
+</section></section><section id="tidying-addresses-for-geocoding" class="level2"><h2 class="anchored" data-anchor-id="tidying-addresses-for-geocoding">Tidying addresses for geocoding</h2>
+<div class="cell">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">multifamily_housing</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span></span>
+<span>    <span class="st">"https://opendata.maryland.gov/api/views/cadm-spqd/rows.csv"</span>,</span>
+<span>    name_repair <span class="op">=</span> <span class="fu">janitor</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/janitor/man/make_clean_names.html">make_clean_names</a></span>,</span>
+<span>    show_col_types <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="va">multifamily_housing</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_cols</a></span><span class="op">(</span></span>
+<span>    <span class="va">multifamily_housing</span>,</span>
+<span>    project_state <span class="op">=</span> <span class="st">"MD"</span></span>
+<span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="using-regular-expressions" class="level3"><h3 class="anchored" data-anchor-id="using-regular-expressions">Using regular expressions</h3>
+<div class="cell">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">multifamily_housing_geo_osm</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu">tidygeocoder</span><span class="fu">::</span><span class="fu"><a href="https://jessecambon.github.io/tidygeocoder/reference/geocode.html">geocode</a></span><span class="op">(</span></span>
+<span>    <span class="va">multifamily_housing</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">50</span>, <span class="op">]</span>,</span>
+<span>    street <span class="op">=</span> <span class="st">"project_address"</span>,</span>
+<span>    city <span class="op">=</span> <span class="st">"project_city"</span>,</span>
+<span>    county <span class="op">=</span> <span class="st">"project_county"</span>,</span>
+<span>    state <span class="op">=</span> <span class="st">"project_state"</span>,</span>
+<span>    method <span class="op">=</span> <span class="st">"osm"</span>,</span>
+<span>    full_results <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Passing 50 addresses to the Nominatim single address geocoder</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Query completed in: 50.3 seconds</code></pre>
+</div>
+</div>
+<p>Did that work? Well, when I check, I can see I am missing latitude and longitude for more than half of our addresses. 😬</p>
+<div class="cell">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">naniar</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/naniar/man/gg_miss_var.html">gg_miss_var</a></span><span class="op">(</span><span class="va">multifamily_housing_geo_osm</span>, show_pct <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="07_tidy-data-r_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">multifamily_housing_geo_osm</span>, <span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">long</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">project_address</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "6652 Shelly Avenue"                                        
+ [2] "8219 and 8221 Oakwood Road"                                
+ [3] "8900 Manchester Road 8902 8904 9000 Manchester Rd"         
+ [4] "341 E. 20th Street"                                        
+ [5] "6349 Boston Street"                                        
+ [6] "7667 N Maple Avenue"                                       
+ [7] "1507 Ray Road"                                             
+ [8] "111 Mitchell Street"                                       
+ [9] "4300 Maple Shade Drive 4400-4412 Grape Vine Way; and 4401-"
+[10] "838 W. Fairmount Avenue"                                   
+[11] "18 W. Read Street"                                         
+[12] "45790  Military Lane"                                      
+[13] "1125 N. Patterson Park Avenue"                             
+[14] "301 W. Madison Street"                                     
+[15] "1500 W.  Fayette Street"                                   
+[16] "3202 Reed Street"                                          
+[17] "7513 Maple Avenue"                                         
+[18] "402 E. Second Street"                                      
+[19] "400 N. Athol Road"                                         
+[20] "1029 E. Baltimore Street"                                  
+[21] "93-108 Mt. Vernon Street"                                  
+[22] "30500 Riggin Street"                                       
+[23] "5511 Halpine Place"                                        
+[24] "4300 Cardwell Avenue"                                      
+[25] "1303 Greenmount Avenue"                                    
+[26] "4300 Frederick Avenue"                                     </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>messy_counties <span class="ot">&lt;-</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  tibble<span class="sc">::</span><span class="fu">tribble</span>(</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>                  <span class="sc">~</span>county,</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>             <span class="st">"Balt. City"</span>,</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>              <span class="st">"Baltimore"</span>,</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>              <span class="st">"Balt. Co."</span>,</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>       <span class="st">"BALTIMORE COUNTY"</span>,</span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>               <span class="st">"Bmore MD"</span>,</span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>              <span class="st">"Biltimore"</span>,</span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>               <span class="st">"Baltimor"</span>,</span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>              <span class="st">"Baltimore"</span>,</span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>         <span class="st">"Baltimore city"</span>,</span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>       <span class="st">"Baltimore County"</span>,</span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a>       <span class="st">"Baltimore county"</span>,</span>
+<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Anne Arundel County"</span>,</span>
+<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a>     <span class="st">"Ann Arundel County"</span>,</span>
+<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a>                <span class="st">"Arundel"</span>,</span>
+<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a>           <span class="st">"Anne Arundel"</span></span>
+<span id="cb39-19"><a href="#cb39-19" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb39-20"><a href="#cb39-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-21"><a href="#cb39-21" aria-hidden="true" tabindex="-1"></a>messy_counties <span class="sc">%&gt;%</span> </span>
+<span id="cb39-22"><a href="#cb39-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb39-23"><a href="#cb39-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">address =</span> <span class="fu">str_replace</span>(address, <span class="st">"Shelley Road"</span>, <span class="st">"Shelley Avenue"</span>)</span>
+<span id="cb39-24"><a href="#cb39-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">county =</span> <span class="fu">case_when</span>(</span>
+<span id="cb39-25"><a href="#cb39-25" aria-hidden="true" tabindex="-1"></a>      <span class="fu">str_detect</span>(county, <span class="st">"Arundel|Arundle"</span>) <span class="sc">~</span> <span class="st">"Anne Arundel County"</span>,</span>
+<span id="cb39-26"><a href="#cb39-26" aria-hidden="true" tabindex="-1"></a>      <span class="fu">str_detect</span>(county, <span class="st">"city|City"</span>) <span class="sc">~</span> <span class="st">"Baltimore city"</span>,</span>
+<span id="cb39-27"><a href="#cb39-27" aria-hidden="true" tabindex="-1"></a>      <span class="fu">str_detect</span>(county, <span class="st">"Co.|County"</span>) <span class="sc">~</span> <span class="st">"Baltimore County"</span>,</span>
+<span id="cb39-28"><a href="#cb39-28" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span>  <span class="st">"Baltimore city"</span></span>
+<span id="cb39-29"><a href="#cb39-29" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb39-30"><a href="#cb39-30" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error: &lt;text&gt;:24:5: unexpected symbol
+23:     address = str_replace(address, "Shelley Road", "Shelley Avenue")
+24:     county
+        ^</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">multifamily_housing_geo_census</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu">tidygeocoder</span><span class="fu">::</span><span class="fu"><a href="https://jessecambon.github.io/tidygeocoder/reference/geocode.html">geocode</a></span><span class="op">(</span></span>
+<span>    <span class="va">multifamily_housing</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">50</span>, <span class="op">]</span>,</span>
+<span>    street <span class="op">=</span> <span class="st">"project_address"</span>,</span>
+<span>    city <span class="op">=</span> <span class="st">"project_city"</span>,</span>
+<span>    state <span class="op">=</span> <span class="st">"project_state"</span>,</span>
+<span>    method <span class="op">=</span> <span class="st">"census"</span>,</span>
+<span>    full_results <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Passing 50 addresses to the US Census batch geocoder</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Query completed in: 1.6 seconds</code></pre>
+</div>
+</div>
+<p>🤔 How did that go? What approach would you use to check from missing data?</p>
+<div class="cell">
+
+</div>
+</section></section><section id="separating-variables-with-separate" class="level2"><h2 class="anchored" data-anchor-id="separating-variables-with-separate">Separating variables with <code>separate()</code>
+</h2>
+<div class="cell">
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">neighborhoods</span> <span class="op">&lt;-</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">read_sf</a></span><span class="op">(</span></span>
+<span>  dsn <span class="op">=</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">"files/data/neighborhoods.geojson"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">permits</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu">esri2sf</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/esri2sf/man/esri2sf.html">esri2sf</a></span><span class="op">(</span></span>
+<span>  url <span class="op">=</span> <span class="st">"https://egisdata.baltimorecity.gov/egis/rest/services/Housing/DHCD_Open_Baltimore_Datasets/FeatureServer/3"</span>,</span>
+<span>  bbox <span class="op">=</span> <span class="va">neighborhoods</span><span class="op">[</span><span class="fl">63</span>,<span class="op">]</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>✔ Downloading "Building Permits" from
+  &lt;]8;;https://egisdata.baltimorecity.gov/egis/rest/services/Housing/DHCD_Open_Baltimore_Datasets/FeatureServer/3https://egisdata.baltimorecity.gov/egis/rest/services/Housing/DHCD_Open_Baltimore_Datasets/FeatureServer/3]8;;&gt;
+Layer type: "Feature Layer"
+
+Geometry type: "esriGeometryPoint"
+
+Service CRS: "EPSG:2248"
+
+Output CRS: "EPSG:4326"</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">multifamily_housing_sf</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html">st_as_sf</a></span><span class="op">(</span></span>
+<span>    <span class="va">multifamily_housing_geo</span>,</span>
+<span>    coords <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"long"</span>, <span class="st">"lat"</span><span class="op">)</span>,</span>
+<span>    crs <span class="op">=</span> <span class="fl">4326</span>,</span>
+<span>    remove <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>    na.fail <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in sf::st_as_sf(multifamily_housing_geo, coords = c("long", "lat"), : object 'multifamily_housing_geo' not found</code></pre>
+</div>
+</div>
+
+
+<!-- -->
+
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb48" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Tidying data in R"</span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>Let's start by with the question: what is tidy data?</span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Each value has its own cell.</span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Each variable has its own column.</span>
+<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Each observation has its own row.</span>
+<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a>To get data into a tidy format, you'll need to know how to address these common problems (from <span class="co">[</span><span class="ot">Tidy data vignette</span><span class="co">](https://tidyr.tidyverse.org/articles/tidy-data.html)</span>):</span>
+<span id="cb48-12"><a href="#cb48-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-13"><a href="#cb48-13" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Column headers are values, not variable names.</span>
+<span id="cb48-14"><a href="#cb48-14" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Multiple variables are stored in one column.</span>
+<span id="cb48-15"><a href="#cb48-15" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Variables are stored in both rows and columns.</span>
+<span id="cb48-16"><a href="#cb48-16" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Multiple types of observational units are stored in the same table.</span>
+<span id="cb48-17"><a href="#cb48-17" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>A single observational unit is stored in multiple tables.</span>
+<span id="cb48-18"><a href="#cb48-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-19"><a href="#cb48-19" aria-hidden="true" tabindex="-1"></a>I've also highlighted several tips from the <span class="co">[</span><span class="ot">The Quartz guide to bad data</span><span class="co">](https://github.com/Quartz/bad-data-guide)</span> whenever they are relevant in this exercise.</span>
+<span id="cb48-20"><a href="#cb48-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-23"><a href="#cb48-23" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb48-24"><a href="#cb48-24" aria-hidden="true" tabindex="-1"></a><span class="co">#| output: false</span></span>
+<span id="cb48-25"><a href="#cb48-25" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb48-26"><a href="#cb48-26" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb48-27"><a href="#cb48-27" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb48-28"><a href="#cb48-28" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb48-29"><a href="#cb48-29" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb48-30"><a href="#cb48-30" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb48-31"><a href="#cb48-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-32"><a href="#cb48-32" aria-hidden="true" tabindex="-1"></a>Note: this particular example requires the <span class="co">[</span><span class="ot">{esri2sf} package</span><span class="co">](https://github.com/elipousson/esri2sf/)</span> (I recommend using my fork which incorporated the <span class="co">[</span><span class="ot">{httr2} package</span><span class="co">](https://httr2.r-lib.org/)</span>).</span>
+<span id="cb48-33"><a href="#cb48-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-36"><a href="#cb48-36" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb48-37"><a href="#cb48-37" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: install additional packages</span></span>
+<span id="cb48-38"><a href="#cb48-38" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb48-39"><a href="#cb48-39" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pkg_install</span>(<span class="st">"elipousson/esri2sf"</span>) <span class="co"># fork of https://github.com/yonghah/esri2sf/</span></span>
+<span id="cb48-40"><a href="#cb48-40" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb48-41"><a href="#cb48-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-42"><a href="#cb48-42" aria-hidden="true" tabindex="-1"></a><span class="fu">## Pivoting data frames between wide and long formats</span></span>
+<span id="cb48-43"><a href="#cb48-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-44"><a href="#cb48-44" aria-hidden="true" tabindex="-1"></a>We are going to look at data on <span class="co">[</span><span class="ot">total new housing units authorized for construction</span><span class="co">](https://opendata.maryland.gov/Housing/Maryland-Total-New-Housing-Units-Authorized-For-Co/c7z9-v9mr/data)</span> in Maryland from 2010 to 2021:</span>
+<span id="cb48-45"><a href="#cb48-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-48"><a href="#cb48-48" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb48-49"><a href="#cb48-49" aria-hidden="true" tabindex="-1"></a><span class="co">#| output: false</span></span>
+<span id="cb48-50"><a href="#cb48-50" aria-hidden="true" tabindex="-1"></a>new_units <span class="ot">&lt;-</span></span>
+<span id="cb48-51"><a href="#cb48-51" aria-hidden="true" tabindex="-1"></a>  readr<span class="sc">::</span><span class="fu">read_csv</span>(</span>
+<span id="cb48-52"><a href="#cb48-52" aria-hidden="true" tabindex="-1"></a>    <span class="st">"https://opendata.maryland.gov/api/views/c7z9-v9mr/rows.csv"</span>,</span>
+<span id="cb48-53"><a href="#cb48-53" aria-hidden="true" tabindex="-1"></a>    <span class="at">show_col_types =</span> <span class="cn">FALSE</span></span>
+<span id="cb48-54"><a href="#cb48-54" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb48-55"><a href="#cb48-55" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb48-56"><a href="#cb48-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-57"><a href="#cb48-57" aria-hidden="true" tabindex="-1"></a>Take a look at the column names:</span>
+<span id="cb48-58"><a href="#cb48-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-61"><a href="#cb48-61" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb48-62"><a href="#cb48-62" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(new_units)</span>
+<span id="cb48-63"><a href="#cb48-63" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb48-64"><a href="#cb48-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-65"><a href="#cb48-65" aria-hidden="true" tabindex="-1"></a>🤔 What variable is being stored in the column names?</span>
+<span id="cb48-66"><a href="#cb48-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-67"><a href="#cb48-67" aria-hidden="true" tabindex="-1"></a>Yep. Each column after "year" is a location.</span>
+<span id="cb48-68"><a href="#cb48-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-69"><a href="#cb48-69" aria-hidden="true" tabindex="-1"></a>The locations aren't all the same. They include two different scales: one column covering the whole state and the others covering a single county.</span>
+<span id="cb48-70"><a href="#cb48-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-71"><a href="#cb48-71" aria-hidden="true" tabindex="-1"></a>Focusing on the counties, we can "pivot" these columns into a long format where each row has new housing units for just a single year and a single county. We do this with <span class="in">`tidyr::pivot_longer()`</span> selecting the columns to pivot using the <span class="in">`tidyselect::contains()`</span> function.</span>
+<span id="cb48-72"><a href="#cb48-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-75"><a href="#cb48-75" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb48-76"><a href="#cb48-76" aria-hidden="true" tabindex="-1"></a>new_units_long <span class="ot">&lt;-</span></span>
+<span id="cb48-77"><a href="#cb48-77" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">pivot_longer</span>(</span>
+<span id="cb48-78"><a href="#cb48-78" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> new_units,</span>
+<span id="cb48-79"><a href="#cb48-79" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">contains</span>(<span class="fu">c</span>(<span class="st">"County"</span>, <span class="st">"city"</span>)),</span>
+<span id="cb48-80"><a href="#cb48-80" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"county"</span>,</span>
+<span id="cb48-81"><a href="#cb48-81" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"num_units"</span></span>
+<span id="cb48-82"><a href="#cb48-82" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb48-83"><a href="#cb48-83" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(<span class="st">`</span><span class="at">Date created</span><span class="st">`</span>, MARYLAND))</span>
+<span id="cb48-84"><a href="#cb48-84" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb48-85"><a href="#cb48-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-86"><a href="#cb48-86" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip appearance="simple"}</span>
+<span id="cb48-87"><a href="#cb48-87" aria-hidden="true" tabindex="-1"></a>**Remember to avoid [ambiguous field names](https://github.com/Quartz/bad-data-guide#field-names-are-ambiguous).** I've included the units of the value in the column name---making it clear that each number indicates the number of new housing units for that year and county.</span>
+<span id="cb48-88"><a href="#cb48-88" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb48-89"><a href="#cb48-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-90"><a href="#cb48-90" aria-hidden="true" tabindex="-1"></a>In this example, the long format is helpful for a few reasons. First, this long format makes it easy to plot complex data with ggplot2:</span>
+<span id="cb48-91"><a href="#cb48-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-94"><a href="#cb48-94" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb48-95"><a href="#cb48-95" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> new_units_long) <span class="sc">+</span></span>
+<span id="cb48-96"><a href="#cb48-96" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb48-97"><a href="#cb48-97" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> Year, <span class="at">y =</span> num_units, <span class="at">fill =</span> county) <span class="sc">+</span></span>
+<span id="cb48-98"><a href="#cb48-98" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> county) <span class="sc">+</span></span>
+<span id="cb48-99"><a href="#cb48-99" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
+<span id="cb48-100"><a href="#cb48-100" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb48-101"><a href="#cb48-101" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb48-102"><a href="#cb48-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-103"><a href="#cb48-103" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip appearance="simple"}</span>
+<span id="cb48-104"><a href="#cb48-104" aria-hidden="true" tabindex="-1"></a>**Are these [data too granular](https://github.com/Quartz/bad-data-guide#data-are-too-granular)?** Using counties as a grouping mean the data includes wide variation in population, size, and housing market conditions. We could consider combining counties into regions or metro area or classifying as urban or rural in order to make interpretation easier.</span>
+<span id="cb48-105"><a href="#cb48-105" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb48-106"><a href="#cb48-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-107"><a href="#cb48-107" aria-hidden="true" tabindex="-1"></a>First, the new location column makes it easy to join spatial data to the data frame with <span class="in">`dplyr::left_join()`</span>:</span>
+<span id="cb48-108"><a href="#cb48-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-111"><a href="#cb48-111" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb48-112"><a href="#cb48-112" aria-hidden="true" tabindex="-1"></a>md_counties <span class="ot">&lt;-</span> tigris<span class="sc">::</span><span class="fu">counties</span>(<span class="at">state =</span> <span class="st">"MD"</span>, <span class="at">cb =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb48-113"><a href="#cb48-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-114"><a href="#cb48-114" aria-hidden="true" tabindex="-1"></a>new_units_counties <span class="ot">&lt;-</span></span>
+<span id="cb48-115"><a href="#cb48-115" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(</span>
+<span id="cb48-116"><a href="#cb48-116" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> new_units_long,</span>
+<span id="cb48-117"><a href="#cb48-117" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> md_counties,</span>
+<span id="cb48-118"><a href="#cb48-118" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"county"</span> <span class="ot">=</span> <span class="st">"NAMELSAD"</span>)</span>
+<span id="cb48-119"><a href="#cb48-119" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb48-120"><a href="#cb48-120" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Convert the dataframe back to sf</span></span>
+<span id="cb48-121"><a href="#cb48-121" aria-hidden="true" tabindex="-1"></a>  sf<span class="sc">::</span><span class="fu">st_as_sf</span>()</span>
+<span id="cb48-122"><a href="#cb48-122" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb48-123"><a href="#cb48-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-124"><a href="#cb48-124" aria-hidden="true" tabindex="-1"></a>Did this join work the way we expected?</span>
+<span id="cb48-125"><a href="#cb48-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-126"><a href="#cb48-126" aria-hidden="true" tabindex="-1"></a>If a join didn't find a match for any of the locations, any new columns will have <span class="in">`NA`</span>s for the missing values. <span class="in">`summary()`</span> only shows missing values for numeric values. <span class="in">`skimr::skim()`</span> does show missing variables but there are a few packages that make these checks easier. {naniar} is specifically designed to work with missing data:</span>
+<span id="cb48-127"><a href="#cb48-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-130"><a href="#cb48-130" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb48-131"><a href="#cb48-131" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
+<span id="cb48-132"><a href="#cb48-132" aria-hidden="true" tabindex="-1"></a>naniar<span class="sc">::</span><span class="fu">gg_miss_var</span>(new_units_counties)</span>
+<span id="cb48-133"><a href="#cb48-133" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb48-134"><a href="#cb48-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-135"><a href="#cb48-135" aria-hidden="true" tabindex="-1"></a>Whoops. More than 10 unmatched rows. Which locations didn't get a match? We can filter to look for <span class="in">`NA`</span> values and then use <span class="in">`distinct()`</span> on the join column.</span>
+<span id="cb48-136"><a href="#cb48-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-139"><a href="#cb48-139" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb48-140"><a href="#cb48-140" aria-hidden="true" tabindex="-1"></a>new_units_counties <span class="sc">%&gt;%</span></span>
+<span id="cb48-141"><a href="#cb48-141" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">is.na</span>(GEOID)) <span class="sc">%&gt;%</span></span>
+<span id="cb48-142"><a href="#cb48-142" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(county)</span>
+<span id="cb48-143"><a href="#cb48-143" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb48-144"><a href="#cb48-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-145"><a href="#cb48-145" aria-hidden="true" tabindex="-1"></a>OK. So the only columns that didn't match are those for Baltimore City. Let's take a look at the join column from md_counties to see what we can figure out.</span>
+<span id="cb48-146"><a href="#cb48-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-149"><a href="#cb48-149" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb48-150"><a href="#cb48-150" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(new_units_long<span class="sc">$</span>county)</span>
+<span id="cb48-151"><a href="#cb48-151" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(md_counties<span class="sc">$</span>NAMELSAD)</span>
+<span id="cb48-152"><a href="#cb48-152" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb48-153"><a href="#cb48-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-154"><a href="#cb48-154" aria-hidden="true" tabindex="-1"></a>🤔 Do you see the problem?</span>
+<span id="cb48-155"><a href="#cb48-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-156"><a href="#cb48-156" aria-hidden="true" tabindex="-1"></a>Hint: join columns are case sensitive. "Baltimore City" is not the same as "Baltimore city".</span>
+<span id="cb48-157"><a href="#cb48-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-158"><a href="#cb48-158" aria-hidden="true" tabindex="-1"></a>One solution is to record the county variable using <span class="in">`dplyr::mutate()`</span> and <span class="in">`dplyr::case_when()`</span>:</span>
+<span id="cb48-159"><a href="#cb48-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-162"><a href="#cb48-162" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb48-163"><a href="#cb48-163" aria-hidden="true" tabindex="-1"></a>new_units_long <span class="ot">&lt;-</span></span>
+<span id="cb48-164"><a href="#cb48-164" aria-hidden="true" tabindex="-1"></a>  new_units_long <span class="sc">%&gt;%</span></span>
+<span id="cb48-165"><a href="#cb48-165" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb48-166"><a href="#cb48-166" aria-hidden="true" tabindex="-1"></a>    <span class="at">county =</span> <span class="fu">case_when</span>(</span>
+<span id="cb48-167"><a href="#cb48-167" aria-hidden="true" tabindex="-1"></a>      county <span class="sc">==</span> <span class="st">"Baltimore City"</span> <span class="sc">~</span> <span class="st">"Baltimore city"</span>,</span>
+<span id="cb48-168"><a href="#cb48-168" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> county</span>
+<span id="cb48-169"><a href="#cb48-169" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb48-170"><a href="#cb48-170" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb48-171"><a href="#cb48-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-172"><a href="#cb48-172" aria-hidden="true" tabindex="-1"></a>new_units_counties <span class="ot">&lt;-</span></span>
+<span id="cb48-173"><a href="#cb48-173" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(</span>
+<span id="cb48-174"><a href="#cb48-174" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> new_units_long,</span>
+<span id="cb48-175"><a href="#cb48-175" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> md_counties,</span>
+<span id="cb48-176"><a href="#cb48-176" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"county"</span> <span class="ot">=</span> <span class="st">"NAMELSAD"</span>)</span>
+<span id="cb48-177"><a href="#cb48-177" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb48-178"><a href="#cb48-178" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Convert the dataframe back to sf</span></span>
+<span id="cb48-179"><a href="#cb48-179" aria-hidden="true" tabindex="-1"></a>  sf<span class="sc">::</span><span class="fu">st_as_sf</span>()</span>
+<span id="cb48-180"><a href="#cb48-180" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb48-181"><a href="#cb48-181" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-182"><a href="#cb48-182" aria-hidden="true" tabindex="-1"></a>The wide format can also be helpful! For example, if we pivot wider and put the years into columns it makes it easy to compare one year to another with the <span class="in">`mutate()`</span> or <span class="in">`transmute()`</span> function:</span>
+<span id="cb48-183"><a href="#cb48-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-186"><a href="#cb48-186" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb48-187"><a href="#cb48-187" aria-hidden="true" tabindex="-1"></a>new_units_wide <span class="ot">&lt;-</span></span>
+<span id="cb48-188"><a href="#cb48-188" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb48-189"><a href="#cb48-189" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Note: if we didn't drop the geometry we would get an error</span></span>
+<span id="cb48-190"><a href="#cb48-190" aria-hidden="true" tabindex="-1"></a>    sf<span class="sc">::</span><span class="fu">st_drop_geometry</span>(new_units_counties),</span>
+<span id="cb48-191"><a href="#cb48-191" aria-hidden="true" tabindex="-1"></a>    <span class="at">id_cols =</span> <span class="st">"county"</span>,</span>
+<span id="cb48-192"><a href="#cb48-192" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_from =</span> <span class="st">"Year"</span>,</span>
+<span id="cb48-193"><a href="#cb48-193" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_from =</span> <span class="st">"num_units"</span></span>
+<span id="cb48-194"><a href="#cb48-194" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb48-195"><a href="#cb48-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-196"><a href="#cb48-196" aria-hidden="true" tabindex="-1"></a>new_units_wide <span class="ot">&lt;-</span> new_units_wide <span class="sc">%&gt;%</span></span>
+<span id="cb48-197"><a href="#cb48-197" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb48-198"><a href="#cb48-198" aria-hidden="true" tabindex="-1"></a>    <span class="at">diff_num_units_10_15 =</span> .data[[<span class="st">"2020"</span>]] <span class="sc">-</span> .data[[<span class="st">"2015"</span>]],</span>
+<span id="cb48-199"><a href="#cb48-199" aria-hidden="true" tabindex="-1"></a>    <span class="at">diff_num_units_10_20 =</span> .data[[<span class="st">"2020"</span>]] <span class="sc">-</span> .data[[<span class="st">"2010"</span>]]</span>
+<span id="cb48-200"><a href="#cb48-200" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb48-201"><a href="#cb48-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-202"><a href="#cb48-202" aria-hidden="true" tabindex="-1"></a>new_units_wide <span class="sc">%&gt;%</span> </span>
+<span id="cb48-203"><a href="#cb48-203" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb48-204"><a href="#cb48-204" aria-hidden="true" tabindex="-1"></a>    <span class="at">county =</span> stringr<span class="sc">::</span><span class="fu">str_remove</span>(county, <span class="st">"County$"</span>)</span>
+<span id="cb48-205"><a href="#cb48-205" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb48-206"><a href="#cb48-206" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb48-207"><a href="#cb48-207" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> county, <span class="at">weight =</span> diff_num_units_10_20)) <span class="sc">+</span></span>
+<span id="cb48-208"><a href="#cb48-208" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb48-209"><a href="#cb48-209" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_gradient2</span>(<span class="at">low =</span> <span class="st">"red"</span>, <span class="at">mid =</span> <span class="st">"white"</span>, <span class="at">high =</span> <span class="st">"blue"</span>) <span class="sc">+</span></span>
+<span id="cb48-210"><a href="#cb48-210" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb48-211"><a href="#cb48-211" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb48-212"><a href="#cb48-212" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Difference in permitted new housing units, 2010 and 2020"</span>,</span>
+<span id="cb48-213"><a href="#cb48-213" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">"Data: Open Baltimore/Maryland Department of Housing and Community Development"</span></span>
+<span id="cb48-214"><a href="#cb48-214" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb48-215"><a href="#cb48-215" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb48-216"><a href="#cb48-216" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-217"><a href="#cb48-217" aria-hidden="true" tabindex="-1"></a>OK. Your turn. The <span class="co">[</span><span class="ot">open data on permitted multi-family units</span><span class="co">](https://opendata.maryland.gov/Housing/Maryland-New-Multi-Family-Housing-Units-Authorized/pz3y-chyn/data)</span> is also wide---placing the data for each county in adjoining columns.</span>
+<span id="cb48-218"><a href="#cb48-218" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-221"><a href="#cb48-221" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb48-222"><a href="#cb48-222" aria-hidden="true" tabindex="-1"></a><span class="co">#| output: false</span></span>
+<span id="cb48-223"><a href="#cb48-223" aria-hidden="true" tabindex="-1"></a>new_multifamily_units <span class="ot">&lt;-</span></span>
+<span id="cb48-224"><a href="#cb48-224" aria-hidden="true" tabindex="-1"></a>  readr<span class="sc">::</span><span class="fu">read_csv</span>(</span>
+<span id="cb48-225"><a href="#cb48-225" aria-hidden="true" tabindex="-1"></a>    <span class="st">"https://opendata.maryland.gov/api/views/pz3y-chyn/rows.csv"</span>,</span>
+<span id="cb48-226"><a href="#cb48-226" aria-hidden="true" tabindex="-1"></a>    <span class="at">show_col_types =</span> <span class="cn">FALSE</span></span>
+<span id="cb48-227"><a href="#cb48-227" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb48-228"><a href="#cb48-228" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb48-229"><a href="#cb48-229" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-230"><a href="#cb48-230" aria-hidden="true" tabindex="-1"></a>🤔 Can you convert the data into a long format with <span class="in">`pivot_longer()`</span>?</span>
+<span id="cb48-231"><a href="#cb48-231" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-234"><a href="#cb48-234" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb48-235"><a href="#cb48-235" aria-hidden="true" tabindex="-1"></a>new_multifamily_units <span class="ot">&lt;-</span></span>
+<span id="cb48-236"><a href="#cb48-236" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb48-237"><a href="#cb48-237" aria-hidden="true" tabindex="-1"></a>    new_multifamily_units,</span>
+<span id="cb48-238"><a href="#cb48-238" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">contains</span>(<span class="fu">c</span>(<span class="st">"County"</span>, <span class="st">"City"</span>)),</span>
+<span id="cb48-239"><a href="#cb48-239" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"county"</span>,</span>
+<span id="cb48-240"><a href="#cb48-240" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"num_units"</span></span>
+<span id="cb48-241"><a href="#cb48-241" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb48-242"><a href="#cb48-242" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-243"><a href="#cb48-243" aria-hidden="true" tabindex="-1"></a>new_multifamily_units</span>
+<span id="cb48-244"><a href="#cb48-244" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb48-245"><a href="#cb48-245" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-246"><a href="#cb48-246" aria-hidden="true" tabindex="-1"></a><span class="fu">## Working with long format data</span></span>
+<span id="cb48-247"><a href="#cb48-247" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-248"><a href="#cb48-248" aria-hidden="true" tabindex="-1"></a>Now that we have both datasets in a long format we can put the two together.</span>
+<span id="cb48-249"><a href="#cb48-249" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-252"><a href="#cb48-252" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb48-253"><a href="#cb48-253" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb48-254"><a href="#cb48-254" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"examples/R/new_multifamily_units.R"</span>))</span>
+<span id="cb48-255"><a href="#cb48-255" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb48-256"><a href="#cb48-256" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-257"><a href="#cb48-257" aria-hidden="true" tabindex="-1"></a>How should we do that? One option is to use a join based the year and county name.</span>
+<span id="cb48-258"><a href="#cb48-258" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-261"><a href="#cb48-261" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb48-262"><a href="#cb48-262" aria-hidden="true" tabindex="-1"></a>md_housing_units_wide <span class="ot">&lt;-</span></span>
+<span id="cb48-263"><a href="#cb48-263" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(</span>
+<span id="cb48-264"><a href="#cb48-264" aria-hidden="true" tabindex="-1"></a>    new_units_long,</span>
+<span id="cb48-265"><a href="#cb48-265" aria-hidden="true" tabindex="-1"></a>    new_multifamily_units_long <span class="sc">%&gt;%</span></span>
+<span id="cb48-266"><a href="#cb48-266" aria-hidden="true" tabindex="-1"></a>      <span class="fu">rename</span>(</span>
+<span id="cb48-267"><a href="#cb48-267" aria-hidden="true" tabindex="-1"></a>        <span class="at">num_multifamily_units =</span> num_units</span>
+<span id="cb48-268"><a href="#cb48-268" aria-hidden="true" tabindex="-1"></a>      ),</span>
+<span id="cb48-269"><a href="#cb48-269" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"Year"</span>, <span class="st">"county"</span>)</span>
+<span id="cb48-270"><a href="#cb48-270" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb48-271"><a href="#cb48-271" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb48-272"><a href="#cb48-272" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-273"><a href="#cb48-273" aria-hidden="true" tabindex="-1"></a>Using <span class="in">`left_join()`</span> places the columns side-by-side in a wide format. What new variables that can we create by working with columns in this format?</span>
+<span id="cb48-274"><a href="#cb48-274" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-277"><a href="#cb48-277" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb48-278"><a href="#cb48-278" aria-hidden="true" tabindex="-1"></a><span class="co"># md_housing_units_wide &lt;-</span></span>
+<span id="cb48-279"><a href="#cb48-279" aria-hidden="true" tabindex="-1"></a><span class="co">#   md_housing_units_wide %&gt;%</span></span>
+<span id="cb48-280"><a href="#cb48-280" aria-hidden="true" tabindex="-1"></a><span class="co">#   mutate(</span></span>
+<span id="cb48-281"><a href="#cb48-281" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb48-282"><a href="#cb48-282" aria-hidden="true" tabindex="-1"></a><span class="co">#   )</span></span>
+<span id="cb48-283"><a href="#cb48-283" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb48-284"><a href="#cb48-284" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-285"><a href="#cb48-285" aria-hidden="true" tabindex="-1"></a>This works for two datasets but you can also stack even more data frames into a long format. Using the <span class="in">`.id`</span> parameter allows you to use the names assigned to each dataframe as a new column identifying the source of the data:</span>
+<span id="cb48-286"><a href="#cb48-286" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-289"><a href="#cb48-289" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb48-290"><a href="#cb48-290" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb48-291"><a href="#cb48-291" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"examples/R/new_singlefamily_units.R"</span>))</span>
+<span id="cb48-292"><a href="#cb48-292" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb48-293"><a href="#cb48-293" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-296"><a href="#cb48-296" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb48-297"><a href="#cb48-297" aria-hidden="true" tabindex="-1"></a>md_housing_units_long <span class="ot">&lt;-</span></span>
+<span id="cb48-298"><a href="#cb48-298" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>(</span>
+<span id="cb48-299"><a href="#cb48-299" aria-hidden="true" tabindex="-1"></a>    <span class="st">"total"</span> <span class="ot">=</span> new_units_long,</span>
+<span id="cb48-300"><a href="#cb48-300" aria-hidden="true" tabindex="-1"></a>    <span class="st">"multifamily"</span> <span class="ot">=</span> new_multifamily_units_long,</span>
+<span id="cb48-301"><a href="#cb48-301" aria-hidden="true" tabindex="-1"></a>    <span class="st">"singlefamily"</span> <span class="ot">=</span> new_singlefamily_units_long,</span>
+<span id="cb48-302"><a href="#cb48-302" aria-hidden="true" tabindex="-1"></a>    <span class="at">.id =</span> <span class="st">"type"</span></span>
+<span id="cb48-303"><a href="#cb48-303" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb48-304"><a href="#cb48-304" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb48-305"><a href="#cb48-305" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-306"><a href="#cb48-306" aria-hidden="true" tabindex="-1"></a>If we have year, permit type, and number of units in a "tidy" format, this creates new opportunities for both for visualization and for analysis using {tidyverse} packages.</span>
+<span id="cb48-307"><a href="#cb48-307" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-308"><a href="#cb48-308" aria-hidden="true" tabindex="-1"></a>To see how this works for visualization, try filtering the <span class="in">`md_housing_units_long`</span> to a single county and using <span class="in">`geom_col()`</span> to make a bar chart showing both the total and multifamily housing units by year for that county? I filled a few details already---you'll want to set <span class="in">`fill = type`</span> and <span class="in">`position = "dodge"`</span> (note, position is an additional parameter outside the aesthetic mapping)---but you still need to filter the data and provide the required <span class="in">`x`</span> and <span class="in">`y`</span> aesthetics for <span class="in">`geom_col()`</span>.</span>
+<span id="cb48-309"><a href="#cb48-309" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-312"><a href="#cb48-312" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb48-313"><a href="#cb48-313" aria-hidden="true" tabindex="-1"></a><span class="co"># md_housing_units_long %&gt;%</span></span>
+<span id="cb48-314"><a href="#cb48-314" aria-hidden="true" tabindex="-1"></a><span class="co">#   filter() %&gt;%</span></span>
+<span id="cb48-315"><a href="#cb48-315" aria-hidden="true" tabindex="-1"></a><span class="co">#   ggplot() +</span></span>
+<span id="cb48-316"><a href="#cb48-316" aria-hidden="true" tabindex="-1"></a><span class="co">#   geom_col(aes(x = , y = , fill = type), position = "dodge")</span></span>
+<span id="cb48-317"><a href="#cb48-317" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb48-318"><a href="#cb48-318" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-319"><a href="#cb48-319" aria-hidden="true" tabindex="-1"></a>To see how this works for analysis, consider how you can use <span class="in">`group_by()`</span> and <span class="in">`summarise()`</span> to create summary statistics by county and permit type.</span>
+<span id="cb48-320"><a href="#cb48-320" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-323"><a href="#cb48-323" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb48-324"><a href="#cb48-324" aria-hidden="true" tabindex="-1"></a>new_multifamily_units <span class="sc">%&gt;%</span> </span>
+<span id="cb48-325"><a href="#cb48-325" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(county) <span class="sc">%&gt;%</span> </span>
+<span id="cb48-326"><a href="#cb48-326" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb48-327"><a href="#cb48-327" aria-hidden="true" tabindex="-1"></a>    <span class="at">cum_sum_units =</span> <span class="fu">sum</span>(num_units),</span>
+<span id="cb48-328"><a href="#cb48-328" aria-hidden="true" tabindex="-1"></a>    <span class="at">avg_units =</span> <span class="fu">mean</span>(num_units),</span>
+<span id="cb48-329"><a href="#cb48-329" aria-hidden="true" tabindex="-1"></a>    <span class="at">min_units =</span> <span class="fu">min</span>(num_units),</span>
+<span id="cb48-330"><a href="#cb48-330" aria-hidden="true" tabindex="-1"></a>    <span class="at">max_units =</span> <span class="fu">max</span>(num_units)</span>
+<span id="cb48-331"><a href="#cb48-331" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb48-332"><a href="#cb48-332" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb48-333"><a href="#cb48-333" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-334"><a href="#cb48-334" aria-hidden="true" tabindex="-1"></a><span class="fu">### Using factors for categorical data</span></span>
+<span id="cb48-335"><a href="#cb48-335" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-338"><a href="#cb48-338" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb48-339"><a href="#cb48-339" aria-hidden="true" tabindex="-1"></a>md_counties_xwalk <span class="ot">&lt;-</span></span>
+<span id="cb48-340"><a href="#cb48-340" aria-hidden="true" tabindex="-1"></a>  tibble<span class="sc">::</span><span class="fu">tribble</span>(</span>
+<span id="cb48-341"><a href="#cb48-341" aria-hidden="true" tabindex="-1"></a>                      <span class="sc">~</span>county,             <span class="sc">~</span>region,                                               <span class="sc">~</span>msa,</span>
+<span id="cb48-342"><a href="#cb48-342" aria-hidden="true" tabindex="-1"></a>             <span class="st">"Garrett County"</span>,  <span class="st">"Western Maryland"</span>,                                                 <span class="cn">NA</span>,</span>
+<span id="cb48-343"><a href="#cb48-343" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Allegany County"</span>,  <span class="st">"Western Maryland"</span>,                            <span class="st">"Cumberland, MD-WV MSA"</span>,</span>
+<span id="cb48-344"><a href="#cb48-344" aria-hidden="true" tabindex="-1"></a>          <span class="st">"Washington County"</span>,  <span class="st">"Western Maryland"</span>,                <span class="st">"Hagerstown–Martinsburg, MD–WV MSA"</span>,</span>
+<span id="cb48-345"><a href="#cb48-345" aria-hidden="true" tabindex="-1"></a>           <span class="st">"Frederick County"</span>,    <span class="st">"Capital Region"</span>, <span class="st">"Washington–Arlington–Alexandria, DC–VA–MD–WV MSA"</span>,</span>
+<span id="cb48-346"><a href="#cb48-346" aria-hidden="true" tabindex="-1"></a>          <span class="st">"Montgomery County"</span>,    <span class="st">"Capital Region"</span>, <span class="st">"Washington–Arlington–Alexandria, DC–VA–MD–WV MSA"</span>,</span>
+<span id="cb48-347"><a href="#cb48-347" aria-hidden="true" tabindex="-1"></a>     <span class="st">"Prince George's County"</span>,    <span class="st">"Capital Region"</span>, <span class="st">"Washington–Arlington–Alexandria, DC–VA–MD–WV MSA"</span>,</span>
+<span id="cb48-348"><a href="#cb48-348" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Anne Arundel County"</span>,  <span class="st">"Central Maryland"</span>,                    <span class="st">"Baltimore–Columbia–Towson MSA"</span>,</span>
+<span id="cb48-349"><a href="#cb48-349" aria-hidden="true" tabindex="-1"></a>             <span class="st">"Baltimore city"</span>,  <span class="st">"Central Maryland"</span>,                    <span class="st">"Baltimore–Columbia–Towson MSA"</span>,</span>
+<span id="cb48-350"><a href="#cb48-350" aria-hidden="true" tabindex="-1"></a>           <span class="st">"Baltimore County"</span>,  <span class="st">"Central Maryland"</span>,                    <span class="st">"Baltimore–Columbia–Towson MSA"</span>,</span>
+<span id="cb48-351"><a href="#cb48-351" aria-hidden="true" tabindex="-1"></a>             <span class="st">"Carroll County"</span>,  <span class="st">"Central Maryland"</span>,                    <span class="st">"Baltimore–Columbia–Towson MSA"</span>,</span>
+<span id="cb48-352"><a href="#cb48-352" aria-hidden="true" tabindex="-1"></a>             <span class="st">"Harford County"</span>,  <span class="st">"Central Maryland"</span>,                    <span class="st">"Baltimore–Columbia–Towson MSA"</span>,</span>
+<span id="cb48-353"><a href="#cb48-353" aria-hidden="true" tabindex="-1"></a>              <span class="st">"Howard County"</span>,  <span class="st">"Central Maryland"</span>,                    <span class="st">"Baltimore–Columbia–Towson MSA"</span>,</span>
+<span id="cb48-354"><a href="#cb48-354" aria-hidden="true" tabindex="-1"></a>             <span class="st">"Calvert County"</span>, <span class="st">"Southern Maryland"</span>, <span class="st">"Washington–Arlington–Alexandria, DC–VA–MD–WV MSA"</span>,</span>
+<span id="cb48-355"><a href="#cb48-355" aria-hidden="true" tabindex="-1"></a>             <span class="st">"Charles County"</span>, <span class="st">"Southern Maryland"</span>, <span class="st">"Washington–Arlington–Alexandria, DC–VA–MD–WV MSA"</span>,</span>
+<span id="cb48-356"><a href="#cb48-356" aria-hidden="true" tabindex="-1"></a>          <span class="st">"St. Mary's County"</span>, <span class="st">"Southern Maryland"</span>,                <span class="st">"California-Lexington Park, MD MSA"</span>,</span>
+<span id="cb48-357"><a href="#cb48-357" aria-hidden="true" tabindex="-1"></a>                <span class="st">"Kent County"</span>,     <span class="st">"Eastern Shore"</span>,                                                 <span class="cn">NA</span>,</span>
+<span id="cb48-358"><a href="#cb48-358" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Queen Anne's County"</span>,     <span class="st">"Eastern Shore"</span>,                    <span class="st">"Baltimore–Columbia–Towson MSA"</span>,</span>
+<span id="cb48-359"><a href="#cb48-359" aria-hidden="true" tabindex="-1"></a>              <span class="st">"Talbot County"</span>,     <span class="st">"Eastern Shore"</span>,                                   <span class="st">"Easton, MD μSA"</span>,</span>
+<span id="cb48-360"><a href="#cb48-360" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Caroline County"</span>,     <span class="st">"Eastern Shore"</span>,                                                 <span class="cn">NA</span>,</span>
+<span id="cb48-361"><a href="#cb48-361" aria-hidden="true" tabindex="-1"></a>          <span class="st">"Dorchester County"</span>,     <span class="st">"Eastern Shore"</span>,                                    <span class="st">"Cambridge, MD"</span>,</span>
+<span id="cb48-362"><a href="#cb48-362" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Wicomico County"</span>,     <span class="st">"Eastern Shore"</span>,                             <span class="st">"Salisbury, MD-DE MSA"</span>,</span>
+<span id="cb48-363"><a href="#cb48-363" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Somerset County"</span>,     <span class="st">"Eastern Shore"</span>,                             <span class="st">"Salisbury, MD-DE MSA"</span>,</span>
+<span id="cb48-364"><a href="#cb48-364" aria-hidden="true" tabindex="-1"></a>           <span class="st">"Worcester County"</span>,     <span class="st">"Eastern Shore"</span>,                             <span class="st">"Salisbury, MD-DE MSA"</span>,</span>
+<span id="cb48-365"><a href="#cb48-365" aria-hidden="true" tabindex="-1"></a>               <span class="st">"Cecil County"</span>,     <span class="st">"Eastern Shore"</span>,      <span class="st">"Philadelphia-Camden-Wilmington, PA-NJ-DE-MD"</span></span>
+<span id="cb48-366"><a href="#cb48-366" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb48-367"><a href="#cb48-367" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb48-368"><a href="#cb48-368" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-371"><a href="#cb48-371" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb48-372"><a href="#cb48-372" aria-hidden="true" tabindex="-1"></a>forcats<span class="sc">::</span><span class="fu">as_factor</span>()</span>
+<span id="cb48-373"><a href="#cb48-373" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb48-374"><a href="#cb48-374" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-375"><a href="#cb48-375" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tidying addresses for geocoding</span></span>
+<span id="cb48-376"><a href="#cb48-376" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-379"><a href="#cb48-379" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb48-380"><a href="#cb48-380" aria-hidden="true" tabindex="-1"></a>multifamily_housing <span class="ot">&lt;-</span></span>
+<span id="cb48-381"><a href="#cb48-381" aria-hidden="true" tabindex="-1"></a>  readr<span class="sc">::</span><span class="fu">read_csv</span>(</span>
+<span id="cb48-382"><a href="#cb48-382" aria-hidden="true" tabindex="-1"></a>    <span class="st">"https://opendata.maryland.gov/api/views/cadm-spqd/rows.csv"</span>,</span>
+<span id="cb48-383"><a href="#cb48-383" aria-hidden="true" tabindex="-1"></a>    <span class="at">name_repair =</span> janitor<span class="sc">::</span>make_clean_names,</span>
+<span id="cb48-384"><a href="#cb48-384" aria-hidden="true" tabindex="-1"></a>    <span class="at">show_col_types =</span> <span class="cn">FALSE</span></span>
+<span id="cb48-385"><a href="#cb48-385" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb48-386"><a href="#cb48-386" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-387"><a href="#cb48-387" aria-hidden="true" tabindex="-1"></a>multifamily_housing <span class="ot">&lt;-</span></span>
+<span id="cb48-388"><a href="#cb48-388" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">bind_cols</span>(</span>
+<span id="cb48-389"><a href="#cb48-389" aria-hidden="true" tabindex="-1"></a>    multifamily_housing,</span>
+<span id="cb48-390"><a href="#cb48-390" aria-hidden="true" tabindex="-1"></a>    <span class="at">project_state =</span> <span class="st">"MD"</span></span>
+<span id="cb48-391"><a href="#cb48-391" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb48-392"><a href="#cb48-392" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb48-393"><a href="#cb48-393" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-394"><a href="#cb48-394" aria-hidden="true" tabindex="-1"></a><span class="fu">### Using regular expressions</span></span>
+<span id="cb48-395"><a href="#cb48-395" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-398"><a href="#cb48-398" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb48-399"><a href="#cb48-399" aria-hidden="true" tabindex="-1"></a>multifamily_housing_geo_osm <span class="ot">&lt;-</span></span>
+<span id="cb48-400"><a href="#cb48-400" aria-hidden="true" tabindex="-1"></a>  tidygeocoder<span class="sc">::</span><span class="fu">geocode</span>(</span>
+<span id="cb48-401"><a href="#cb48-401" aria-hidden="true" tabindex="-1"></a>    multifamily_housing[<span class="dv">1</span><span class="sc">:</span><span class="dv">50</span>, ],</span>
+<span id="cb48-402"><a href="#cb48-402" aria-hidden="true" tabindex="-1"></a>    <span class="at">street =</span> <span class="st">"project_address"</span>,</span>
+<span id="cb48-403"><a href="#cb48-403" aria-hidden="true" tabindex="-1"></a>    <span class="at">city =</span> <span class="st">"project_city"</span>,</span>
+<span id="cb48-404"><a href="#cb48-404" aria-hidden="true" tabindex="-1"></a>    <span class="at">county =</span> <span class="st">"project_county"</span>,</span>
+<span id="cb48-405"><a href="#cb48-405" aria-hidden="true" tabindex="-1"></a>    <span class="at">state =</span> <span class="st">"project_state"</span>,</span>
+<span id="cb48-406"><a href="#cb48-406" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">"osm"</span>,</span>
+<span id="cb48-407"><a href="#cb48-407" aria-hidden="true" tabindex="-1"></a>    <span class="at">full_results =</span> <span class="cn">TRUE</span></span>
+<span id="cb48-408"><a href="#cb48-408" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb48-409"><a href="#cb48-409" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb48-410"><a href="#cb48-410" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-411"><a href="#cb48-411" aria-hidden="true" tabindex="-1"></a>Did that work? Well, when I check, I can see I am missing latitude and longitude for more than half of our addresses. 😬</span>
+<span id="cb48-412"><a href="#cb48-412" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-415"><a href="#cb48-415" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb48-416"><a href="#cb48-416" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
+<span id="cb48-417"><a href="#cb48-417" aria-hidden="true" tabindex="-1"></a>naniar<span class="sc">::</span><span class="fu">gg_miss_var</span>(multifamily_housing_geo_osm, <span class="at">show_pct =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb48-418"><a href="#cb48-418" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb48-419"><a href="#cb48-419" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-422"><a href="#cb48-422" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb48-423"><a href="#cb48-423" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(multifamily_housing_geo_osm, <span class="fu">is.na</span>(long))<span class="sc">$</span>project_address</span>
+<span id="cb48-424"><a href="#cb48-424" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb48-425"><a href="#cb48-425" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-428"><a href="#cb48-428" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb48-429"><a href="#cb48-429" aria-hidden="true" tabindex="-1"></a>messy_counties <span class="ot">&lt;-</span></span>
+<span id="cb48-430"><a href="#cb48-430" aria-hidden="true" tabindex="-1"></a>  tibble<span class="sc">::</span><span class="fu">tribble</span>(</span>
+<span id="cb48-431"><a href="#cb48-431" aria-hidden="true" tabindex="-1"></a>                  <span class="sc">~</span>county,</span>
+<span id="cb48-432"><a href="#cb48-432" aria-hidden="true" tabindex="-1"></a>             <span class="st">"Balt. City"</span>,</span>
+<span id="cb48-433"><a href="#cb48-433" aria-hidden="true" tabindex="-1"></a>              <span class="st">"Baltimore"</span>,</span>
+<span id="cb48-434"><a href="#cb48-434" aria-hidden="true" tabindex="-1"></a>              <span class="st">"Balt. Co."</span>,</span>
+<span id="cb48-435"><a href="#cb48-435" aria-hidden="true" tabindex="-1"></a>       <span class="st">"BALTIMORE COUNTY"</span>,</span>
+<span id="cb48-436"><a href="#cb48-436" aria-hidden="true" tabindex="-1"></a>               <span class="st">"Bmore MD"</span>,</span>
+<span id="cb48-437"><a href="#cb48-437" aria-hidden="true" tabindex="-1"></a>              <span class="st">"Biltimore"</span>,</span>
+<span id="cb48-438"><a href="#cb48-438" aria-hidden="true" tabindex="-1"></a>               <span class="st">"Baltimor"</span>,</span>
+<span id="cb48-439"><a href="#cb48-439" aria-hidden="true" tabindex="-1"></a>              <span class="st">"Baltimore"</span>,</span>
+<span id="cb48-440"><a href="#cb48-440" aria-hidden="true" tabindex="-1"></a>         <span class="st">"Baltimore city"</span>,</span>
+<span id="cb48-441"><a href="#cb48-441" aria-hidden="true" tabindex="-1"></a>       <span class="st">"Baltimore County"</span>,</span>
+<span id="cb48-442"><a href="#cb48-442" aria-hidden="true" tabindex="-1"></a>       <span class="st">"Baltimore county"</span>,</span>
+<span id="cb48-443"><a href="#cb48-443" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Anne Arundel County"</span>,</span>
+<span id="cb48-444"><a href="#cb48-444" aria-hidden="true" tabindex="-1"></a>     <span class="st">"Ann Arundel County"</span>,</span>
+<span id="cb48-445"><a href="#cb48-445" aria-hidden="true" tabindex="-1"></a>                <span class="st">"Arundel"</span>,</span>
+<span id="cb48-446"><a href="#cb48-446" aria-hidden="true" tabindex="-1"></a>           <span class="st">"Anne Arundel"</span></span>
+<span id="cb48-447"><a href="#cb48-447" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb48-448"><a href="#cb48-448" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-449"><a href="#cb48-449" aria-hidden="true" tabindex="-1"></a>messy_counties <span class="sc">%&gt;%</span> </span>
+<span id="cb48-450"><a href="#cb48-450" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb48-451"><a href="#cb48-451" aria-hidden="true" tabindex="-1"></a>    <span class="at">address =</span> <span class="fu">str_replace</span>(address, <span class="st">"Shelley Road"</span>, <span class="st">"Shelley Avenue"</span>)</span>
+<span id="cb48-452"><a href="#cb48-452" aria-hidden="true" tabindex="-1"></a>    <span class="at">county =</span> <span class="fu">case_when</span>(</span>
+<span id="cb48-453"><a href="#cb48-453" aria-hidden="true" tabindex="-1"></a>      <span class="fu">str_detect</span>(county, <span class="st">"Arundel|Arundle"</span>) <span class="sc">~</span> <span class="st">"Anne Arundel County"</span>,</span>
+<span id="cb48-454"><a href="#cb48-454" aria-hidden="true" tabindex="-1"></a>      <span class="fu">str_detect</span>(county, <span class="st">"city|City"</span>) <span class="sc">~</span> <span class="st">"Baltimore city"</span>,</span>
+<span id="cb48-455"><a href="#cb48-455" aria-hidden="true" tabindex="-1"></a>      <span class="fu">str_detect</span>(county, <span class="st">"Co.|County"</span>) <span class="sc">~</span> <span class="st">"Baltimore County"</span>,</span>
+<span id="cb48-456"><a href="#cb48-456" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span>  <span class="st">"Baltimore city"</span></span>
+<span id="cb48-457"><a href="#cb48-457" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb48-458"><a href="#cb48-458" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb48-459"><a href="#cb48-459" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb48-460"><a href="#cb48-460" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-463"><a href="#cb48-463" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb48-464"><a href="#cb48-464" aria-hidden="true" tabindex="-1"></a>multifamily_housing_geo_census <span class="ot">&lt;-</span></span>
+<span id="cb48-465"><a href="#cb48-465" aria-hidden="true" tabindex="-1"></a>  tidygeocoder<span class="sc">::</span><span class="fu">geocode</span>(</span>
+<span id="cb48-466"><a href="#cb48-466" aria-hidden="true" tabindex="-1"></a>    multifamily_housing[<span class="dv">1</span><span class="sc">:</span><span class="dv">50</span>, ],</span>
+<span id="cb48-467"><a href="#cb48-467" aria-hidden="true" tabindex="-1"></a>    <span class="at">street =</span> <span class="st">"project_address"</span>,</span>
+<span id="cb48-468"><a href="#cb48-468" aria-hidden="true" tabindex="-1"></a>    <span class="at">city =</span> <span class="st">"project_city"</span>,</span>
+<span id="cb48-469"><a href="#cb48-469" aria-hidden="true" tabindex="-1"></a>    <span class="at">state =</span> <span class="st">"project_state"</span>,</span>
+<span id="cb48-470"><a href="#cb48-470" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">"census"</span>,</span>
+<span id="cb48-471"><a href="#cb48-471" aria-hidden="true" tabindex="-1"></a>    <span class="at">full_results =</span> <span class="cn">TRUE</span></span>
+<span id="cb48-472"><a href="#cb48-472" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb48-473"><a href="#cb48-473" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb48-474"><a href="#cb48-474" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-475"><a href="#cb48-475" aria-hidden="true" tabindex="-1"></a>🤔 How did that go? What approach would you use to check from missing data?</span>
+<span id="cb48-476"><a href="#cb48-476" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-479"><a href="#cb48-479" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb48-480"><a href="#cb48-480" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb48-481"><a href="#cb48-481" aria-hidden="true" tabindex="-1"></a><span class="co">#| output: false</span></span>
+<span id="cb48-482"><a href="#cb48-482" aria-hidden="true" tabindex="-1"></a><span class="co"># Reference table for interactive exploration during class</span></span>
+<span id="cb48-483"><a href="#cb48-483" aria-hidden="true" tabindex="-1"></a>multifamily_housing_geo_census <span class="sc">%&gt;%</span></span>
+<span id="cb48-484"><a href="#cb48-484" aria-hidden="true" tabindex="-1"></a>  <span class="co">#filter(match_indicator == "No_Match") %&gt;%</span></span>
+<span id="cb48-485"><a href="#cb48-485" aria-hidden="true" tabindex="-1"></a>  gt<span class="sc">::</span><span class="fu">gt</span>()</span>
+<span id="cb48-486"><a href="#cb48-486" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb48-487"><a href="#cb48-487" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-488"><a href="#cb48-488" aria-hidden="true" tabindex="-1"></a><span class="fu">## Separating variables with `separate()`</span></span>
+<span id="cb48-489"><a href="#cb48-489" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-492"><a href="#cb48-492" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb48-493"><a href="#cb48-493" aria-hidden="true" tabindex="-1"></a>neighborhoods <span class="ot">&lt;-</span> sf<span class="sc">::</span><span class="fu">read_sf</span>(</span>
+<span id="cb48-494"><a href="#cb48-494" aria-hidden="true" tabindex="-1"></a>  <span class="at">dsn =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"files/data/neighborhoods.geojson"</span>)</span>
+<span id="cb48-495"><a href="#cb48-495" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb48-496"><a href="#cb48-496" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-497"><a href="#cb48-497" aria-hidden="true" tabindex="-1"></a>permits <span class="ot">&lt;-</span></span>
+<span id="cb48-498"><a href="#cb48-498" aria-hidden="true" tabindex="-1"></a>  esri2sf<span class="sc">::</span><span class="fu">esri2sf</span>(</span>
+<span id="cb48-499"><a href="#cb48-499" aria-hidden="true" tabindex="-1"></a>  <span class="at">url =</span> <span class="st">"https://egisdata.baltimorecity.gov/egis/rest/services/Housing/DHCD_Open_Baltimore_Datasets/FeatureServer/3"</span>,</span>
+<span id="cb48-500"><a href="#cb48-500" aria-hidden="true" tabindex="-1"></a>  <span class="at">bbox =</span> neighborhoods[<span class="dv">63</span>,]</span>
+<span id="cb48-501"><a href="#cb48-501" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb48-502"><a href="#cb48-502" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb48-503"><a href="#cb48-503" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-506"><a href="#cb48-506" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb48-507"><a href="#cb48-507" aria-hidden="true" tabindex="-1"></a>multifamily_housing_sf <span class="ot">&lt;-</span></span>
+<span id="cb48-508"><a href="#cb48-508" aria-hidden="true" tabindex="-1"></a>  sf<span class="sc">::</span><span class="fu">st_as_sf</span>(</span>
+<span id="cb48-509"><a href="#cb48-509" aria-hidden="true" tabindex="-1"></a>    multifamily_housing_geo,</span>
+<span id="cb48-510"><a href="#cb48-510" aria-hidden="true" tabindex="-1"></a>    <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"long"</span>, <span class="st">"lat"</span>),</span>
+<span id="cb48-511"><a href="#cb48-511" aria-hidden="true" tabindex="-1"></a>    <span class="at">crs =</span> <span class="dv">4326</span>,</span>
+<span id="cb48-512"><a href="#cb48-512" aria-hidden="true" tabindex="-1"></a>    <span class="at">remove =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb48-513"><a href="#cb48-513" aria-hidden="true" tabindex="-1"></a>    <span class="at">na.fail =</span> <span class="cn">FALSE</span></span>
+<span id="cb48-514"><a href="#cb48-514" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb48-515"><a href="#cb48-515" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-right">Made with <i class="fa-brands fa-r-project" aria-hidden="true"></i> and <a href="https://quarto.org/">Quarto</a><br><a href="https://www.github.com/elipousson/bldgspatialdata">View the source at <i class="fa-brands fa-github" aria-hidden="true"></i> GitHub</a></div>
+  </div>
+</footer>
+
+
+</body></html>
