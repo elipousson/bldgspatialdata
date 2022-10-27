@@ -1,5 +1,5 @@
 ---
-title: "Schedule"
+title: "Schedule (Refined)"
 editor: visual
 toc: true
 csl: files/csl/chicago-syllabus.csl
@@ -8,8 +8,14 @@ footnotes-hover: false
 link-citations: false
 ---
 
+```{r}
+#| echo: false
+#| output: false
+library(tidyverse)
+```
+
 ::: {.callout-note appearance="simple"}
-This schedule was updated on September 14, 2022.
+This schedule was updated on October 3, 2022.
 :::
 
 ## How is this schedule organized
@@ -64,31 +70,28 @@ To set up GitHub account and learn how to connect your account to RStudio, pleas
 -   @thorp2016
 -   @wright1997
 
-## 2. Accessing and visualizing spatial data -- Sept. 7
+## 2. Getting started using spatial data with R -- Sept. 7
 
 ### Topics
 
 -   Using best practices for file naming and organization
--   Using R and QGIS to support project management
--   Reading and writing common spatial data file formats in R and QGIS
+-   Using RStudio to support project management
+-   Reading and writing common spatial data file formats in R
 -   Converting tabular data into spatial data
 
 ### Readings
 
 -   Ch. 2 [A Place for Plant Data](https://direct.mit.edu/books/oa-monograph/4323/chapter/181049/A-PLACE-FOR-PLANT-DATA) in @loukissas2019
--   Ch. 2 [Geographic data in R](https://geocompr.robinlovelace.net/spatial-class.html) in @lovelaceGeocomputation2022
--   Ch. 2 Data Creation and Editing in @cutts2018 (available via UMBC Library)
 -   @dignazio2021
--   @moreno2018 (continue with [Part 2: Layers](https://r-spatial.org/r/2018/10/25/ggplot2-sf-2.html) and [Part 3: Layouts](https://r-spatial.org/r/2018/10/25/ggplot2-sf-3.html))
+-   Ch. 2 [Geographic data in R](https://geocompr.robinlovelace.net/spatial-class.html) in @lovelaceGeocomputation2022
+-   @bryan2015
 
 ### Additional references
 
--   Ch. 9 [Making maps with R](https://geocompr.robinlovelace.net/adv-map.html) in @lovelaceGeocomputation2022
 -   @macwright2015
 -   @nowosad2021
--   @wickhamGgplot2ElegantGraphics2022
 
-## 3. Exploring and transforming attributes -- Sept. 14
+## 3. Exploring and visualizing attribute data with R -- Sept. 14
 
 ### Assignments due
 
@@ -98,10 +101,9 @@ To set up GitHub account and learn how to connect your account to RStudio, pleas
 ### Topics
 
 -   Subsetting or filtering based on attributes
--   Summarizing or aggregating attribute data
--   Joining tables by attributes
 -   Creating new attributes based on existing attributes
--   Basics of visualizing attribute data with maps and plots
+-   Joining tables by attributes with {dplyr}
+-   Basics of visualizing attribute data with {ggplot2}
 
 ### Readings
 
@@ -112,24 +114,32 @@ To set up GitHub account and learn how to connect your account to RStudio, pleas
 ### Additional references
 
 -   Ch. 6 [Efficient data carpentry](https://csgillespie.github.io/efficientR/data-carpentry.html) in @gillespieEfficientProgramming2021
+-   Ch. 9 [Making maps with R](https://geocompr.robinlovelace.net/adv-map.html) in @lovelaceGeocomputation2022
+-   @moreno2018 (continue with [Part 2: Layers](https://r-spatial.org/r/2018/10/25/ggplot2-sf-2.html) and [Part 3: Layouts](https://r-spatial.org/r/2018/10/25/ggplot2-sf-3.html))
+-   @wickhamGgplot2ElegantGraphics2022
 
-## 4. Exploring and modifying geometry -- Sept. 21
+## 4. Exploring and visualizing attribute data with QGIS -- Sept. 21
 
 ### Topics
 
--   Using geometry operations in exploratory data analysis
--   Using spatial joins to combine data sets
--   Using aggregate and other summary QGIS Expression functions
+-   Using QGIS to support project management
+-   Reading and writing common spatial data file formats with QGIS
+-   Using the Style Manager and Print Layout features in QGIS
 
-### Readings
+### Additional references
 
--   Ch. 4 [Spatial data operations](https://geocompr.robinlovelace.net/spatial-operations.html) and Ch. 5 [Geometry operations](https://geocompr.robinlovelace.net/geometric-operations.html) in @lovelaceGeocomputation2022
--   Ch. 7 [Exploratory Data Analysis](https://r4ds.had.co.nz/exploratory-data-analysis.html) in @wickhamDataScienceImport2022
+-   [An Introductory QGIS Workshop for Beginners](https://youtu.be/-7v5qfJYWxA) from Michele Tobias (UC Davis DataLab)
+-   @tobiasIntroductoryQGISWorkshop2020 ([workshop repository on GitHub](https://github.com/ucdavisdatalab/Intro-to-Desktop-GIS-with-QGIS))
+-   [QGIS Uncovered](https://www.youtube.com/playlist?list=PL7HotvlLKHCs9nD1fFUjSOsZrsnctyV2R) by Steven Bernard (a design editor with the Financial Times)
+-   @dawsonQGISExpressionsVariables2020
+-   Ch. 2 Data Creation and Editing in @cutts2018 (available via UMBC Library)
 
-## 5. Documenting data and workflows -- Sept. 28
+## 5. Documenting spatial data -- Sept. 28
 
 ::: {.callout-note appearance="simple"}
 This session features a guest speaker, **Reina Chano Murray**, Geospatial Data Curator and Applications Administrator, Johns Hopkins Sheridan Libraries, sharing her perspective on documentation and archiving spatial data.
+
+Thanks to Reina for sharing her [slides](https://github.com/reinacmurray/documenting-spatial-data-class/blob/main/Presentation/Documenting%20Spatial%20Data.pdf) and [related resources](https://github.com/reinacmurray/documenting-spatial-data-class/blob/main/Resources/ResourceList.MD) in a [GitHub repository](https://github.com/reinacmurray/documenting-spatial-data-class) for this session.
 :::
 
 ### Assignments due
@@ -139,129 +149,112 @@ This session features a guest speaker, **Reina Chano Murray**, Geospatial Data C
 
 ### Topics
 
--   Understanding open licensing
+-   Introduction to metadata and spatial metadata
+-   Writing metadata, READMEs, and other documentation
 -   Documentation for data and data analysis workflows
 -   Planning for reproducible spatial data analysis
--   Explore process for creating data packages for R
 
 ### Readings
 
 -   Ch. 7 [Show Your Work](https://data-feminism.mitpress.mit.edu/pub/0vgzaln4/release/3) in @dignazioDataFeminism2020
--   @bryan2015
--   @battista2019
+-   @wilson2017
 
 ### Additional references
 
+-   @battista2019
 -   @kukutai2021
 -   @mazotte2021
--   @wilson2017
 
-## 6. Tidying and validating data -- Oct. 5
+## 6. Geometric and spatial data operations with R -- Oct. 5
 
 ::: {.callout-important appearance="simple"}
-This session is the same day as the Jewish holiday of Yom Kippur. Class will take place remotely at a different date and time (to be determined). I plan to make the full recording for this session available to students who are unable to attend the remote session.
+This session is the same day as the Jewish holiday of Yom Kippur. Class will take place remotely on October 2. A full recording for this session will be made available to students who are unable to attend the remote session.
 :::
-
-### Assignment due
-
--   Compare spatial and geometry operations in QGIS and R
--   Document a spatial data set
 
 ### Topics
 
--   Explore differences between wide and long data formats
--   Tidying address data and categorical data
--   Explore options for geocoding in QGIS and R
--   Checking for errors or issues in location data
--   Review [OpenRefine](https://openrefine.org/) as an alternate tool for tidying data
--   Discuss critiques of data "cleaning"
+-   Using geometry operations for buffering or simplifying features
+-   Using geometric operations like union, intersection, and difference
+-   Using related functions including spatial joins and filters
+-   Using spatial and geometric operations in exploratory data analysis
 
 ### Readings
 
--   Ch. 12 [Tidy data](https://r4ds.had.co.nz/tidy-data.html) in @wickhamDataScienceImport2022
--   @thequar2022
--   @riederer2020
+-   Ch. 4 [Spatial data operations](https://geocompr.robinlovelace.net/spatial-operations.html) in @lovelaceGeocomputation2022
+-   Ch. 5 [Geometry operations](https://geocompr.robinlovelace.net/geometric-operations.html) in @lovelaceGeocomputation2022
 
-### Additional references
-
--   @xu2019
--   @rawson2016
-
-# Part 2. Building and sharing spatial data
-
-## 7. Getting data from maps, documents, and other media -- Oct. 12
-
-### Assignment due
-
--   Tidy tabular address data and geocode with R
+## 7. Tidying data in R -- Oct. 12
 
 ### Topics
 
--   Georeferencing with QGIS, [Mapwarper](https://mapwarper.net/), or Allmaps
--   Digitizing features with QGIS, mapedit, or other tools
--   Extracting tables from PDF documents with [Tabulizer](https://www.tabulizer.com/)
--   Extracting locations from EXIF metadata with [ExifTool](https://exiftool.org/)
+-   Using [{stringr}](https://stringr.tidyverse.org/) functions to tidy messy address data
+-   Recoding categorical attribute data with [{forcats}](https://forcats.tidyverse.org/index.html)
+-   Converting between wide and long data formats with `dplyr::pivot_longer()` and `dplyr::pivot_wider()`
+-   Working with date-time attributes using {lubridate}
 
 ### Readings
 
 -   Ch. 5 [Market, Place, Interface](https://direct.mit.edu/books/oa-monograph/4323/chapter/181052/MARKET-PLACE-INTERFACE) in @loukissas2019
--   @hadro2017
--   @knutzen2013
+-   Ch. 12 [Tidy data](https://r4ds.had.co.nz/tidy-data.html) in @wickhamDataScienceImport2022
+-   @thequar2022
 
 ### Additional references
 
--   @medeiros2022
+-   @riederer2020
+-   @xu2019
+-   @rawson2016
 
-## 8. Getting data from open data portals -- Oct. 19
-
-### Assignment due
-
--   Georeference a historic map with QGIS
+## 8. Summarizing and analyzing data with R -- Oct. 19
 
 ### Topics
 
--   Getting data from open data portals (ArcGIS and Socrata)
--   Understanding importance of administrative data
+-   Visualizing distribution of values of attribute data
+-   Visualizing spatial distribution of features
+-   Creating crosstabs with `janitor::tabyl()` (see [vignette on tabyls](https://sfirke.github.io/janitor/articles/tabyls.html))
+-   Summarizing or aggregating attribute data with `dplyr::summarize()`
+-   Creating summary tables with [{gtsummary}](https://www.danieldsjoberg.com/gtsummary/index.html)
 
 ### Readings
 
--   Ch. 6 [Models of Local Practice](https://direct.mit.edu/books/oa-monograph/4323/chapter/181053/MODELS-OF-LOCAL-PRACTICE) in @loukissas2019
+-   Ch. 7 [Exploratory Data Analysis](https://r4ds.had.co.nz/exploratory-data-analysis.html) in @wickhamDataScienceImport2022
+-   Ch. 6 [Models of Local Practice](https://direct.mit.edu/books/oa-monograph/4323/chapter/181053/MODELS-OF-LOCAL-PRACTICE) and Ch. 7 [Local Ends](https://direct.mit.edu/books/oa-monograph/4323/chapter/181054/LOCAL-ENDS) in @loukissas2019
+
+### Additional references
+
+-   @beechamExploratoryDataAnalysis2022
+-   Ch. 11 [Scripts, algorithms and functions](https://geocompr.robinlovelace.net/algorithms.html) in @lovelaceGeocomputation2022
+-   @beechamFrameworkInsertingVisually
+
+# Part 2. Creating and sharing spatial data
+
+## 9. Editing and creating geometry with R and QGIS -- Oct. 26
+
+### Topics
+
+-   Creating and editing point features using CSV or Google Sheets
+-   Creating and editing features using [geojson.io](https://geojson.io/) or other web-based tools
+-   Creating and editing features using the [{mapedit}](https://github.com/r-spatial/mapedit) package in R
+-   Creating and editing [vector data in QGIS](https://docs.qgis.org/3.22/en/docs/user_manual/working_with_vector/editing_geometry_attributes.html)
+
+## 10. Getting data from public web services -- Nov. 2
+
+### Topics
+
+-   Downloading data from ArcGIS Feature Services
+-   Downloading data from Socrata open data portals
+-   Working with data dictionaries
+-   Interpreting administrative data and other public sources
+
+### Readings
+
 -   Ch. 8 [Geographic data I/O](https://geocompr.robinlovelace.net/read-write.html) in @lovelaceGeocomputation2022
 -   @bouk2022
 
-## 9. Getting data from people -- Oct. 26
-
-### Assignment due
-
--   Complete an exploratory analysis of a public dataset
-
-### Readings
-
--   Ch. 7 [Local Ends](https://direct.mit.edu/books/oa-monograph/4323/chapter/181054/LOCAL-ENDS) in @loukissas2019
--   @voTellingStoriesSocial2021
--   @shelton2017
-
-## 10. Getting data from other sources -- Nov. 2
-
-### Topics
-
--   Options for field collection (e.g. QField) and form-based data collection
-
--   Working with raster and DEM data
-
-### Readings
-
--   To be determined
-
-## 11. Collaborating with local and online communities -- Nov. 9
+## 11. Working on collaborative data projects -- Nov. 9
 
 ::: {.callout-note appearance="simple"}
-This session (tentatively) features a guest speaker, Elliott Plack, Technical Project Manager, Whitney Bailey Cox & Magnani, LLC, sharing an introduction to OpenStreetMap, his experience as an OSM admin, and perspective on spatial data as a member of the Maryland Council on Open Data.
+This session features a guest speaker, Elliott Plack, Technical Project Manager, Whitney Bailey Cox & Magnani, LLC, sharing an introduction to OpenStreetMap, his experience as an OSM admin, and perspective on spatial data as a member of the Maryland Council on Open Data.
 :::
-
-### Assignment due
-
--   Submit a draft project proposal
 
 ### Readings
 
@@ -272,20 +265,14 @@ This session (tentatively) features a guest speaker, Elliott Plack, Technical Pr
 
 ## 12. Contributing to OpenStreetMap -- Nov. 16
 
-::: {.callout-note appearance="simple"}
-This session (tentatively) features a workshop on editing OpenStreetMap led by Elliott Plack.
-:::
+This session (tentatively) features a workshop on editing OpenStreetMap led by Elliott Plack and a short exercise on accessing OSM data with R using the [{osmdata} package](https://docs.ropensci.org/osmdata/).
 
 ### Readings
 
 -   @boeing2020
 -   @mooney2017
 
-## 13. Project work session -- Nov. 23
-
-### Assignment due
-
--   Make a map using OpenStreetMap data in QGIS or R
+## 13. Project work session -- Nov. 23 (scheduled Nov. 21)
 
 ::: {.callout-important appearance="simple"}
 This session is the day before the Thanksgiving holiday and may conflict with travel for class participants. Instead of a session at the scheduled time, I plan to host a remote session at a different date and time (to be determined). This session will focus on sharing updates and support for the final project. The session will not be recorded but notes will be shared with any students who are unable to participate.
@@ -294,7 +281,7 @@ This session is the day before the Thanksgiving holiday and may conflict with tr
 ## 14. Special topics in spatial data -- Nov. 30
 
 ::: {.callout-note appearance="simple"}
-There are a wide range of special topics that we could cover in this course but we don't have time to cover them all. This session is a place-holder to dig deeper into a special topic based on the interests of students in the course. Possible topics could include working with spatial network data using [sfnetworks](https://luukvdmeer.github.io/sfnetworks/), working with time series data using the QGIS [temporal controller](https://www.qgistutorials.com/en/docs/3/animating_time_series.html) feature, visualizing elevation data using the [rayshader](https://www.rayshader.com/) package, or something more. We will finalize the topic for this session by the end of the first section of the course in early October.
+There are a wide range of special topics that we could cover in this course but we don't have time to cover them all. This session is a place-holder to dig deeper into a special topic based on the interests of students in the course. Possible topics could include working with spatial network data using [sfnetworks](https://luukvdmeer.github.io/sfnetworks/), working with time series data using the QGIS [temporal controller](https://www.qgistutorials.com/en/docs/3/animating_time_series.html) feature, visualizing elevation data using the [rayshader](https://www.rayshader.com/) package, or something more.
 :::
 
 ## 15. Final project review -- Dec. 7
