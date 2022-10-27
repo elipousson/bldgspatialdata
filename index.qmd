@@ -18,7 +18,6 @@ format:
     template-partials:
       - html/title-block.html
 course-logo: /files/img/ges600-logo.png
-page-layout: full
 title-block-banner: true
 ---
 
