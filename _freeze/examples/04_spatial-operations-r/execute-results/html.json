@@ -1,0 +1,16 @@
+{
+  "hash": "d868d5931c9bcb349e94c8593bde270a",
+  "result": {
+    "markdown": "---\ntitle: \"Using spatial data operations with R\"\n---\n\n::: {.cell}\n\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(spData)\n```\n\n::: {.cell-output .cell-output-stderr}\n```\nTo access larger datasets in this package, install the spDataLarge\npackage with: `install.packages('spDataLarge',\nrepos='https://nowosad.github.io/drat/', type='source')`\n```\n:::\n\n```{.r .cell-code}\ndata(\"us_states\")\n\nsf::write_sf(us_states, \"us_states.gpkg\")\n```\n\n::: {.cell-output .cell-output-stderr}\n```\nWarning in CPL_write_ogr(obj, dsn, layer, driver,\nas.character(dataset_options), : GDAL Error 1: A file system object called\n'us_states.gpkg' already exists.\n```\n:::\n\n::: {.cell-output .cell-output-stdout}\n```\nCreating dataset us_states.gpkg failed.\n```\n:::\n\n::: {.cell-output .cell-output-error}\n```\nError in CPL_write_ogr(obj, dsn, layer, driver, as.character(dataset_options), : Creation failed.\n```\n:::\n:::\n\n\n## Spatial data operations\n\n### Filtering or subsetting\n\n\n::: {.cell}\n\n```{.r .cell-code}\n# object[,]\n# st_filter()\n```\n:::\n\n\n### Contains, intersects, and other topological relations\n\n### Spatial joins\n\n\n::: {.cell}\n\n```{.r .cell-code}\n# st_join()\n```\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\n# st_join(largest = TRUE)\n```\n:::\n\n\n## Geometry operations\n\n### Simplify geometry\n",
+    "supporting": [
+      "04_spatial-operations-r_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
