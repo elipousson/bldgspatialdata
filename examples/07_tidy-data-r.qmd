@@ -1,6 +1,5 @@
 ---
 title: "Tidying data in R"
-editor: visual
 ---
 
 Let's start by with the question: what is tidy data?
@@ -83,8 +82,8 @@ In this example, the long format is helpful for a few reasons. First, this long 
 ```{r}
 ggplot(data = new_units_long) +
   geom_col() +
-  aes(x = Year, y = num_units, fill = region) +
-  facet_wrap(~region) +
+  aes(x = Year, y = num_units, fill = county) +
+  facet_wrap(~ county) +
   guides(fill = "none") +
   theme_minimal()
 ```
@@ -92,15 +91,6 @@ ggplot(data = new_units_long) +
 ::: {.callout-tip appearance="simple"}
 **Are these [data too granular](https://github.com/Quartz/bad-data-guide#data-are-too-granular)?** Using counties as a grouping mean the data includes wide variation in population, size, and housing market conditions. We could consider combining counties into regions or metro area or classifying as urban or rural in order to make interpretation easier.
 :::
-
-```{r}
-new_units_long <-
-left_join(
-  new_units_long,
-  md_counties_xwalk,
-  by = "county"
-)
-```
 
 First, the new location column makes it easy to join spatial data to the data frame with `dplyr::left_join()`:
 
