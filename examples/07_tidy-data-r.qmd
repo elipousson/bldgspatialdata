@@ -3,7 +3,7 @@ title: "Tidying data in R"
 editor: visual
 ---
 
-What is tidy data?
+Let's start by with the question: what is tidy data?
 
 -   Each value has its own cell.
 -   Each variable has its own column.
@@ -12,28 +12,27 @@ What is tidy data?
 To get data into a tidy format, you'll need to know how to address these common problems (from [Tidy data vignette](https://tidyr.tidyverse.org/articles/tidy-data.html)):
 
 -   Column headers are values, not variable names.
-
 -   Multiple variables are stored in one column.
-
 -   Variables are stored in both rows and columns.
-
 -   Multiple types of observational units are stored in the same table.
-
 -   A single observational unit is stored in multiple tables.
 
 I've also highlighted several tips from the [The Quartz guide to bad data](https://github.com/Quartz/bad-data-guide) whenever they are relevant in this exercise.
 
 ```{r}
+#| output: false
+#| echo: false
 library(dplyr)
 library(tidyr)
 library(ggplot2)
 library(stringr)
 ```
 
+Note: this particular example requires the [{esri2sf} package](https://github.com/elipousson/esri2sf/) (I recommend using my fork which incorporated the [{httr2} package](https://httr2.r-lib.org/)).
+
 ```{r}
 #| label: install additional packages
 #| eval: false
-pak::pkg_install("elipousson/mapbaltimore")
 pak::pkg_install("elipousson/esri2sf") # fork of https://github.com/yonghah/esri2sf/
 ```
 
@@ -84,8 +83,8 @@ In this example, the long format is helpful for a few reasons. First, this long 
 ```{r}
 ggplot(data = new_units_long) +
   geom_col() +
-  aes(x = Year, y = num_units, fill = county) +
-  facet_wrap(~county) +
+  aes(x = Year, y = num_units, fill = region) +
+  facet_wrap(~region) +
   guides(fill = "none") +
   theme_minimal()
 ```
@@ -93,6 +92,15 @@ ggplot(data = new_units_long) +
 ::: {.callout-tip appearance="simple"}
 **Are these [data too granular](https://github.com/Quartz/bad-data-guide#data-are-too-granular)?** Using counties as a grouping mean the data includes wide variation in population, size, and housing market conditions. We could consider combining counties into regions or metro area or classifying as urban or rural in order to make interpretation easier.
 :::
+
+```{r}
+new_units_long <-
+left_join(
+  new_units_long,
+  md_counties_xwalk,
+  by = "county"
+)
+```
 
 First, the new location column makes it easy to join spatial data to the data frame with `dplyr::left_join()`:
 
@@ -118,7 +126,7 @@ If a join didn't find a match for any of the locations, any new columns will hav
 naniar::gg_miss_var(new_units_counties)
 ```
 
-Whoops. More than 20 unmatched rows. Which locations didn't get a match? We can filter to look for `NA` values and then use `distinct()` on the join column.
+Whoops. More than 10 unmatched rows. Which locations didn't get a match? We can filter to look for `NA` values and then use `distinct()` on the join column.
 
 ```{r}
 new_units_counties %>%
@@ -129,6 +137,7 @@ new_units_counties %>%
 OK. So the only columns that didn't match are those for Baltimore City. Let's take a look at the join column from md_counties to see what we can figure out.
 
 ```{r}
+unique(new_units_long$county)
 unique(md_counties$NAMELSAD)
 ```
 
@@ -178,7 +187,7 @@ new_units_wide <- new_units_wide %>%
 
 new_units_wide %>% 
   mutate(
-    county = stringr::str_remove(county, "County$|city$")
+    county = stringr::str_remove(county, "County$")
   ) %>% 
 ggplot() +
   geom_bar(aes(x = county, weight = diff_num_units_10_20)) +
@@ -197,14 +206,23 @@ OK. Your turn. The [open data on permitted multi-family units](https://opendata.
 #| output: false
 new_multifamily_units <-
   readr::read_csv(
-    "https://opendata.maryland.gov/api/views/pz3y-chyn/rows.csv"
+    "https://opendata.maryland.gov/api/views/pz3y-chyn/rows.csv",
+    show_col_types = FALSE
   )
 ```
 
-🤔 Can you convert the data into a long format with `pivot_long()`?
+🤔 Can you convert the data into a long format with `pivot_longer()`?
 
 ```{r}
-# new_multifamily_units <- pivot_longer()
+new_multifamily_units <-
+  pivot_longer(
+    new_multifamily_units,
+    cols = contains(c("County", "City")),
+    names_to = "county",
+    values_to = "num_units"
+  )
+
+new_multifamily_units
 ```
 
 ## Working with long format data
@@ -271,8 +289,8 @@ To see how this works for visualization, try filtering the `md_housing_units_lon
 To see how this works for analysis, consider how you can use `group_by()` and `summarise()` to create summary statistics by county and permit type.
 
 ```{r}
-md_housing_units_long %>% 
-  group_by(county, type) %>% 
+new_multifamily_units %>% 
+  group_by(county) %>% 
   summarise(
     cum_sum_units = sum(num_units),
     avg_units = mean(num_units),
@@ -318,14 +336,14 @@ md_counties_xwalk <-
 forcats::as_factor()
 ```
 
-
 ## Tidying addresses for geocoding
 
 ```{r}
 multifamily_housing <-
   readr::read_csv(
     "https://opendata.maryland.gov/api/views/cadm-spqd/rows.csv",
-    name_repair = janitor::make_clean_names
+    name_repair = janitor::make_clean_names,
+    show_col_types = FALSE
   )
 
 multifamily_housing <-
@@ -384,6 +402,7 @@ messy_counties <-
 
 messy_counties %>% 
   mutate(
+    address = str_replace(address, "Shelley Road", "Shelley Avenue")
     county = case_when(
       str_detect(county, "Arundel|Arundle") ~ "Anne Arundel County",
       str_detect(county, "city|City") ~ "Baltimore city",
@@ -392,8 +411,6 @@ messy_counties %>%
       )
   )
 ```
-
-
 
 ```{r}
 multifamily_housing_geo_census <-
@@ -414,17 +431,21 @@ multifamily_housing_geo_census <-
 #| output: false
 # Reference table for interactive exploration during class
 multifamily_housing_geo_census %>%
-  filter(match_indicator == "No_Match") %>%
+  #filter(match_indicator == "No_Match") %>%
   gt::gt()
 ```
 
 ## Separating variables with `separate()`
 
 ```{r}
+neighborhoods <- sf::read_sf(
+  dsn = here::here("files/data/neighborhoods.geojson")
+)
+
 permits <-
   esri2sf::esri2sf(
   url = "https://egisdata.baltimorecity.gov/egis/rest/services/Housing/DHCD_Open_Baltimore_Datasets/FeatureServer/3",
-  bbox = mapbaltimore::neighborhoods[63,]
+  bbox = neighborhoods[63,]
 )
 ```
 
@@ -437,8 +458,4 @@ multifamily_housing_sf <-
     remove = FALSE,
     na.fail = FALSE
   )
-```
-
-```{r}
-
 ```
