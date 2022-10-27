@@ -34,5 +34,3 @@ list_drivers <-
 data_file <- function(x) {
   here::here("files/data", x)
 }
-
-

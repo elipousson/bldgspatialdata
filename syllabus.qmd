@@ -122,22 +122,21 @@ exceptional circumstances.
 
 ```{r assignments}
 knitr::kable(
-tibble::tribble(
-                                              ~Assignment, ~Session, ~Due.date,
-                           "Complete GitHub Fundamentals",       3L,     "9/14",
-                                      "Find spatial data",       3L,     "9/14",
-             "Read spatial data and make a map with QGIS",       5L,    "9/28",
-    "Read spatial data and make a map with R and ggplot2",       5L,    "9/28",
-  "Compare spatial and geometry operations in QGIS and R",       6L,    "10/5",
-                             "Document a public data set",       6L,    "10/5",
-           "Tidy tabular address data and geocode with R",       7L,   "10/12",
-                  "Georeference a historic map with QGIS",       8L,   "10/19",
-   "Complete an exploratory analysis of a public dataset",       9L,   "10/26",
-       "Make a map using OpenStreetMap data in QGIS or R",      13L,   "11/16"
-  )
-,
-col.names = c("Assignment", "Session due", "Due date"),
-align = "lcc"
+  tibble::tribble(
+    ~Assignment, ~Session, ~Due.date,
+    "Complete GitHub Fundamentals", 3L, "9/14",
+    "Find spatial data", 3L, "9/14",
+    "Read spatial data and make a map with QGIS", 5L, "9/28",
+    "Read spatial data and make a map with R and ggplot2", 5L, "9/28",
+    "Compare spatial and geometry operations in QGIS and R", 6L, "10/5",
+    "Document a public data set", 6L, "10/5",
+    "Tidy tabular address data and geocode with R", 7L, "10/12",
+    "Georeference a historic map with QGIS", 8L, "10/19",
+    "Complete an exploratory analysis of a public dataset", 9L, "10/26",
+    "Make a map using OpenStreetMap data in QGIS or R", 13L, "11/16"
+  ),
+  col.names = c("Assignment", "Session due", "Due date"),
+  align = "lcc"
 )
 ```
 
@@ -180,17 +179,15 @@ provided later in the semester.
 ```{r}
 knitr::kable(
   tibble::tribble(
-              ~Activity, ~Points, ~Bonus.available,
-           "Weekly log",     10L,               4L,
-          "Assignments",     20L,              10L,
-     "Project proposal",      8L,               0,
-        "Final project",     12L,               4,
-     )
-,
+    ~Activity, ~Points, ~Bonus.available,
+    "Weekly log", 10L, 4L,
+    "Assignments", 20L, 10L,
+    "Project proposal", 8L, 0,
+    "Final project", 12L, 4,
+  ),
   col.names = c("Activity", "Points", "Bonus points"),
-align = "rcc"
+  align = "rcc"
 )
-
 ```
 
 # **Statements & Policies**

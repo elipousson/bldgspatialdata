@@ -133,7 +133,7 @@ us_states[us_states$NAME == "Maryland", ]
 The geometry column is "sticky" even when you transform the data:
 
 ```{r}
-glimpse(us_states[,1])
+glimpse(us_states[, 1])
 ```
 
 ------------------------------------------------------------------------
@@ -227,7 +227,7 @@ select(us_states, starts_with("total_pop"))
 us_states$AREA <- units::set_units(us_states$AREA, "mi^2")
 
 # scale 2010 population into thousands
-us_states$total_pop_10_scaled = us_states$total_pop_10 / 1000
+us_states$total_pop_10_scaled <- us_states$total_pop_10 / 1000
 ```
 
 ------------------------------------------------------------------------
@@ -256,8 +256,8 @@ Example to be added!
 Pipes (`%>%` or `|>`) help make data transformation scripts easier to read and understand:
 
 ```{r}
-us_states %>% 
-  filter(REGION == "Midwest") %>% 
+us_states %>%
+  filter(REGION == "Midwest") %>%
   mutate(
     total_pop_change_10_15 = total_pop_change_10_15 / 1000
   )
@@ -283,11 +283,11 @@ The use of pipes is especially helpful with data visualizations where it reduces
 
 ```{r}
 #| output-location: slide
-us_states %>% 
-  filter(REGION == "Midwest") %>% 
+us_states %>%
+  filter(REGION == "Midwest") %>%
   mutate(
     total_pop_change_10_15 = total_pop_change_10_15 / 1000
-  ) %>% 
+  ) %>%
   ggplot() +
   geom_sf(aes(fill = total_pop_change_10_15)) +
   scale_fill_distiller(type = "div") +
@@ -310,13 +310,13 @@ ggplot(data = us_states %>% filter(REGION == "Midwest")) +
 
 ```{r}
 #| output-location: slide
-us_states %>% 
-  arrange(desc(AREA)) %>% 
-  rename(Region = REGION) %>% 
-  slice_head(n = 10) %>% 
+us_states %>%
+  arrange(desc(AREA)) %>%
+  rename(Region = REGION) %>%
+  slice_head(n = 10) %>%
   mutate(
     rank = row_number()
-  ) %>% 
+  ) %>%
   ggplot() +
   geom_sf(aes(fill = Region)) +
   geom_sf_label(aes(label = rank)) +

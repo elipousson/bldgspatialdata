@@ -51,7 +51,7 @@ One way to address issues with column specification is to read all columns as ch
 #| eval: false
 bcps_programs_df <- read_csv(file = file, col_types = "ccccccc")
 
-bcps_programs_df <- bcps_programs_df %>% 
+bcps_programs_df <- bcps_programs_df %>%
   mutate(
     lat = as.numeric(lat),
     lon = as.numeric(lon)
@@ -79,7 +79,7 @@ class(bcps_programs_sf)
 
 ```{r}
 ggplot() +
-  geom_sf(data = md_counties[3,]) +
+  geom_sf(data = md_counties[3, ]) +
   geom_sf(data = bcps_programs_sf)
 ```
 
@@ -206,5 +206,6 @@ ggplot() +
   labs(
     title = "Notice of intent to foreclosure by zipcode in Maryland, July 2022",
     fill = "# of notices",
-    caption = "Data courtesy Open Maryland")
+    caption = "Data courtesy Open Maryland"
+  )
 ```

@@ -191,10 +191,12 @@ You can convert a numeric vector back into a bounding box object with `sf::st_bb
 
 ```{r}
 st_bbox(
-  c("xmin" = -179.14350,
+  c(
+    "xmin" = -179.14350,
     "ymin" = -14.53289,
     "xmax" = 179.78094,
-    "ymax" = 71.41250)
+    "ymax" = 71.41250
+  )
 )
 ```
 

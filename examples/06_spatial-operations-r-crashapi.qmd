@@ -38,7 +38,7 @@ Then, we can download the counties with `tigris::counties()` and then filter to 
 
 ```{r counties}
 #| output: false
-# Set the state abbreviation 
+# Set the state abbreviation
 md <- "MD"
 
 # Get the counties with tigris::counties()
@@ -125,7 +125,7 @@ Did you spot the issue? I can use filter to track down the problem:
 filter(
   msa_crashes,
   longitud > 180 | latitude > 90 | longitud < -180 | latitude < -90
-  )
+)
 ```
 
 To fix this issue, we need to crop the data to exclude outlying invalid coordinates. Cropping is one of a few geometry operations supported by the sf package. Let's dig in.
@@ -220,7 +220,7 @@ For example, I can trim `md_crashes` to the boundary of Baltimore City.
 md_counties <- st_transform(md_counties, st_crs(md_crashes))
 msa_counties <- st_transform(msa_counties, st_crs(md_crashes))
 
-baltimore_city <- msa_counties[7,]
+baltimore_city <- msa_counties[7, ]
 
 baltimore_crashes <- st_intersection(md_crashes, baltimore_city)
 ```
@@ -255,7 +255,7 @@ msa_borders +
 🤔 Now, your turn. Can you use `st_intersection()` to trim the crash data to Anne Arundel County?
 
 ```{r}
-# anne_arundel_crashes <- 
+# anne_arundel_crashes <-
 ```
 
 🤔 Can you map the Anne Arundel County crashes over top of a crash map for the full state?
@@ -269,7 +269,6 @@ msa_borders +
 🤔 Bonus question: can you figure out how many fatalities occurred in Anne Arundel County? Remember, the number of fatalities may not be the same as fatal crashes. Try using the `nrow()` and `sum()` functions to determine these numbers.
 
 ```{r}
-
 ```
 
 If you the intersection worked as expected, you should find **50 crashes** and **50 fatalities**.
@@ -337,7 +336,7 @@ md_highways_quartermi <-
 md_highways_halfmi <-
   st_buffer(
     md_highways,
-    dist = units::set_units(0.5, "mi") %>% 
+    dist = units::set_units(0.5, "mi") %>%
       units::set_units("m")
   )
 ```
@@ -348,7 +347,7 @@ I'll map the data to show that it works (using Baltimore County to set the map b
 #| code-fold: true
 #| code-summary: "**Show the code** | Map bufferred Maryland highways"
 
-tm_shape(msa_counties, bbox = msa_counties[7,]) +
+tm_shape(msa_counties, bbox = msa_counties[7, ]) +
   tm_borders(col = "gray60") +
   tm_shape(md_highways_quartermi) +
   tm_borders(col = "blue") +
