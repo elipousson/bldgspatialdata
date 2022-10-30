@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.242">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Building Spatial Datasets - Final Project</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+<meta property="og:title" content="Building Spatial Datasets - Final Project">
+<meta property="og:description" content="The final project is an opportunity for you to practice the spatial data skills we’ve been working on in this course while also exploring your interests and the potential for spatial data to support…">
+<meta property="og:image" content="https://elipousson.github.io/bldgspatialdata/files/img/ges600-logo.png">
+<meta property="og:site-name" content="Building Spatial Datasets">
+<meta property="og:locale" content="en_US">
+<meta property="og:image:height" content="1254">
+<meta property="og:image:width" content="1180">
+<meta name="twitter:title" content="Building Spatial Datasets - Final Project">
+<meta name="twitter:description" content="The final project is an opportunity for you to practice the spatial data skills we’ve been working on in this course while also exploring your interests and the potential for spatial data to support…">
+<meta name="twitter:image" content="https://elipousson.github.io/bldgspatialdata/files/img/ges600-logo.png">
+<meta name="twitter:creator" content="\@elipousson">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image-height" content="1254">
+<meta name="twitter:image-width" content="1180">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Building Spatial Datasets</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../syllabus.html">
+ <span class="menu-text">Syllabus</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../schedule.html">
+ <span class="menu-text">Schedule</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../assignments/index.html">
+ <span class="menu-text">Assignments</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../materials.html">
+ <span class="menu-text">Materials</span></a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a>
+  <ul class="collapse">
+  <li><a href="#defining-your-goals" id="toc-defining-your-goals" class="nav-link" data-scroll-target="#defining-your-goals">Defining your goals</a></li>
+  <li><a href="#getting-your-spatial-data" id="toc-getting-your-spatial-data" class="nav-link" data-scroll-target="#getting-your-spatial-data">Getting your spatial data</a></li>
+  <li><a href="#selecting-your-project-format" id="toc-selecting-your-project-format" class="nav-link" data-scroll-target="#selecting-your-project-format">Selecting your project format</a></li>
+  </ul></li>
+  <li><a href="#project-proposal" id="toc-project-proposal" class="nav-link" data-scroll-target="#project-proposal">Project proposal</a></li>
+  <li><a href="#project-presentation" id="toc-project-presentation" class="nav-link" data-scroll-target="#project-presentation">Project presentation</a></li>
+  <li><a href="#final-project-repository" id="toc-final-project-repository" class="nav-link" data-scroll-target="#final-project-repository">Final project repository</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Final Project</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">assignment</div>
+  </div>
+  </div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>The final project is an opportunity for you to practice the spatial data skills we’ve been working on in this course while also exploring your interests and the potential for spatial data to support civic goals.</p>
+<p>This project has three parts:</p>
+<ol type="1">
+<li>A project proposal (due <strong>November 9</strong>)</li>
+<li>An in-class presentation about your project (due <strong>December 7</strong>)</li>
+<li>A project repository including code, data, output files, and a README (due <strong>December 16</strong>)</li>
+</ol>
+<section id="defining-your-goals" class="level3">
+<h3 class="anchored" data-anchor-id="defining-your-goals">Defining your goals</h3>
+<p>In framing your project, look for opportunities to apply one or more of the six models of local practice described in <span class="citation" data-cites="loukissas2019">Loukissas (<a href="#ref-loukissas2019" role="doc-biblioref">2019</a>)</span>:</p>
+<ul>
+<li><p>Look at the data setting, not just the data set</p></li>
+<li><p>Make place part of data presentation</p></li>
+<li><p>Take a comparative approach to data analysis</p></li>
+<li><p>Create counterdata to challenge normative algorithms</p></li>
+<li><p>Create interfaces that cause friction</p></li>
+<li><p>Use data to build relationships</p></li>
+</ul>
+<p>Is your project designed around what Loukissas calls the common “ambitions” for working data—orientation, access, analysis, andoroptimization? Or, are you trying to promote critical reflection on the local conditions of data using strategies such as place making, restraint, reflexivity, or contestation?</p>
+<p>Your goals may change between your initial proposal and the completion of your project but your final presentation should include both an explanation of your goals and how your goals do or do not engage with critical approaches to spatial data.</p>
+</section>
+<section id="getting-your-spatial-data" class="level3">
+<h3 class="anchored" data-anchor-id="getting-your-spatial-data">Getting your spatial data</h3>
+<p>Your project should either:</p>
+<ul>
+<li><p>Use one or more existing spatial datasets</p></li>
+<li><p>Create a spatial dataset based on existing material (e.g.&nbsp;a written report or a georeferenced map)</p></li>
+<li><p>Collect a new dataset with a spatial component</p></li>
+</ul>
+<p>If you are creating or collecting data, your scope for other aspects of the project may need to be more limited in order to allow adequate time to design your data collection tools.</p>
+<p>In all cases, your selection</p>
+</section>
+<section id="selecting-your-project-format" class="level3">
+<h3 class="anchored" data-anchor-id="selecting-your-project-format">Selecting your project format</h3>
+<p>You are welcome to explore a wide range of possible formats for your final project:</p>
+<ul>
+<li><p>An interactive web map that enables users to explore how local conditions may vary over time or place</p></li>
+<li><p>A short exploratory data analysis using tables, plots, and maps to illustrate what a data set can (or can’t) tell us about a place</p></li>
+<li><p>An R package for publishing and documenting a spatial data set (and how the data was created)</p></li>
+<li><p>A PDF fact sheet using spatial data to summarize the local impact of a national challenge and what local organizations are working to address the issue</p></li>
+<li><p>Or something else entirely.</p></li>
+</ul>
+<p>Think about the public you may want to engage with your project.</p>
+</section>
+</section>
+<section id="project-proposal" class="level2">
+<h2 class="anchored" data-anchor-id="project-proposal">Project proposal</h2>
+<p>Your project proposal needs to answer <strong>three main questions</strong>:</p>
+<ul>
+<li><p><strong>What are your goals for the project?</strong> Your goals could include answering a research question, making the case for a public policy change, or building an interface to help people better understand an issue in their community. Your goals could also include developing your own ability to analyze a specific type of data or exploring an academic interest. Reflect on who might benefit from your proposed project and how your project can avoid causing people harm.</p></li>
+<li><p><strong>What data can you use to support your goal?</strong> Your data could include any public spatial data or data that has a spatial attribute. You can even create data from scratch or collect your own data. Reflect on the “setting” for the data, whose local knowledge it represents, and what communities participate in collecting or maintaining the data.</p></li>
+<li><p><strong>What is your approach to using data to support your goal?</strong> Your approach could include mapping, exploratory analysis, documentation, visualization, or a combination of multiple tools and methods. You don’t need to reinvent the wheel. You can adapt an existing approach or propose a few options you hope to try. Reflect on any expected challenges and if your proposed approach is feasible in the time you have available during the semester.</p></li>
+</ul>
+<div class="callout-important callout callout-style-simple">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>I will schedule short one-on-one meetings in advance of the due date for the final project proposal to help you in refining your ideas, identifying possible data sources, and any existing R packages or frameworks you can adapt or use for your project.</p>
+</div>
+</div>
+</div>
+<p>There are few more requirements to keep in mind:</p>
+<ul>
+<li>Answer each question with a brief but considered response. If it helps to have a total word count to work towards, try to answer all three questions in something between 500 and 1000 words.</li>
+<li>Format your proposal as an <a href="https://rmarkdown.rstudio.com/index.html">RMarkdown</a> or <a href="https://quarto.org/">Quarto</a> document. Your document should include links to any published data or related resources and reproducible code for any preliminary data analysis you completed to support your proposal.</li>
+<li>Cite your sources! While an extensive literature review is unnecessary, reviewing how other researching and practitioners have used the same or similar spatial data may give you ideas for your own project. <a href="https://rstudio.github.io/visual-markdown-editing/citations">Citing sources in RStudio</a> is a little different than Microsoft Word so I strongly recommend using the <a href="https://zotero.org/">Zotero citation manager</a> in combination with the <a href="https://retorque.re/zotero-better-bibtex/">Better Bibtex extension</a>. If a single R package is a big part of your proposed approach, make sure to also include a citation for the package. Read <a href="https://ropensci.org/blog/2021/11/16/how-to-cite-r-and-r-packages/">How to Cite R and R Packages</a> by Steffi LaZerte for more background on how and why you should cite R packages.</li>
+</ul>
+<div class="callout-important callout callout-style-simple">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>You are strongly encouraged to use R as part of your project but it isn’t required. If you prefer to use QGIS or another tool as the main part of your approach, you are still expected to use Markdown or RMarkdown to share your proposal and your proposal should make the case for your preferred approach.</p>
+</div>
+</div>
+</div>
+<p>If you have <strong>already identified a data source</strong> for your project, make sure:</p>
+<ul>
+<li>you know the <strong>data and goals are related</strong> (e.g.&nbsp;you have a question that can be answered using the data),</li>
+<li>you have <strong>permission to use the data</strong> (e.g.&nbsp;the data is published under an open license),</li>
+<li>you know the <strong>data is in an accessible format</strong> (e.g.&nbsp;CSV, ArcGIS Feature Server, GeoPackage file),</li>
+<li>and you know there are <strong>no major data quality issues</strong> (e.g.&nbsp;location accuracy, completeness) that you can’t address.</li>
+</ul>
+<p>If you are <strong>creating data</strong> by based on existing unstructured sources (e.g.&nbsp;digitizing features from a georeferenced historic map) or <strong>collecting data</strong> based on phenomena or features in your community (e.g.&nbsp;using a smartphone app to document noise levels), make sure:</p>
+<ul>
+<li>you have a clear reason for creating or collecting data instead of using an existing source,</li>
+<li>you identify what resources you need to complete your project including the time to collect the data,</li>
+<li>and you know your proposal is <em>not</em> subject to review by the UMBC Institutional Review board (review <a href="https://research.umbc.edu/what-is-not-human-research/">What is NOT Human Subjects Research?</a> for more information).</li>
+</ul>
+</section>
+<section id="project-presentation" class="level2">
+<h2 class="anchored" data-anchor-id="project-presentation">Project presentation</h2>
+<p>Your in-class presentation should be around ten minutes and address these key questions:</p>
+<ul>
+<li><p>What were your initial goals for the project? How did they change or develop as you worked on your project?</p></li>
+<li><p>What data sources did you use? How, why, and where were they created?</p></li>
+<li><p>What packages, templates, or other resources did you use in creating your final project?</p></li>
+<li><p>What challenges did you encounter in making use of these resources and this data?</p></li>
+<li><p>What do you think your project does well?</p></li>
+</ul>
+<div class="callout-tip callout callout-style-simple no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Consider <a href="https://quarto.org/docs/presentations/">using Quarto</a> to create an HTML presentation using <a href="https://quarto.org/docs/presentations/revealjs/">reveal.js</a>. Taking this approach could allow you to easily incorprorate data visualizations or other materials from your project into your presentation.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="final-project-repository" class="level2">
+<h2 class="anchored" data-anchor-id="final-project-repository">Final project repository</h2>
+<p>Your final project should be submitted as a GitHub repository. A private repository can be provided to you as part of the course organization or you can set up your own repository on your personal GitHub account.</p>
+<p>The repository must include:</p>
+<ul>
+<li><p><strong>project data</strong>: including the source files or, if files exceed the 50MB maximum size allowed on GitHub, a script used for importing and processing the data before visualization or analysis</p></li>
+<li><p><strong>project code</strong>: including any R scripts, RMarkdown, or Quarto files used to read, tidy, transform, analyze, visualize or map the selected data.</p></li>
+<li><p><strong>output files</strong>: including any processed data files or rendered PDF or HTML documents.</p></li>
+<li><p><strong>README</strong>: a public-facing summary of the project explaining your process for processing the data and any relevant information another person may need to work with the data or your code.</p></li>
+<li><p><strong>additional materials</strong>: including any data collection materials (e.g.&nbsp;survey forms), reference data used by the project code, or other related materials.</p></li>
+</ul>
+
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-loukissas2019" class="csl-entry" role="doc-biblioentry">
+Loukissas, Yanni Alexander. 2019. <em>All Data Are Local: Thinking Critically in a Data-Driven Society</em>. <a href="https://doi.org/10.7551/mitpress/11543.001.0001">https://doi.org/10.7551/mitpress/11543.001.0001</a>.
+</div>
+</div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-right">Made with <i class="fa-brands fa-r-project" aria-hidden="true"></i> and <a href="https://quarto.org/">Quarto</a><br> <a href="https://www.github.com/elipousson/bldgspatialdata">View the source at <i class="fa-brands fa-github" aria-hidden="true"></i> GitHub</a></div>
+  </div>
+</footer>
+
+
+
+</body></html>

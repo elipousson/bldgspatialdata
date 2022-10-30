@@ -2,106 +2,110 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://elipousson.github.io/bldgspatialdata/about.html</loc>
-    <lastmod>2022-10-27T04:03:54.301Z</lastmod>
+    <lastmod>2022-10-30T18:03:23.415Z</lastmod>
   </url>
   <url>
     <loc>https://elipousson.github.io/bldgspatialdata/assignments/00_weekly_logs.html</loc>
-    <lastmod>2022-10-27T04:03:54.716Z</lastmod>
+    <lastmod>2022-10-30T18:03:23.833Z</lastmod>
   </url>
   <url>
     <loc>https://elipousson.github.io/bldgspatialdata/assignments/01_find-data.html</loc>
-    <lastmod>2022-10-27T04:03:55.157Z</lastmod>
+    <lastmod>2022-10-30T18:03:24.239Z</lastmod>
   </url>
   <url>
     <loc>https://elipousson.github.io/bldgspatialdata/assignments/02_make-map-r.html</loc>
-    <lastmod>2022-10-27T04:03:57.135Z</lastmod>
+    <lastmod>2022-10-30T18:03:26.253Z</lastmod>
   </url>
   <url>
     <loc>https://elipousson.github.io/bldgspatialdata/assignments/03_make-map-qgis.html</loc>
-    <lastmod>2022-10-27T04:03:57.551Z</lastmod>
+    <lastmod>2022-10-30T18:03:26.750Z</lastmod>
+  </url>
+  <url>
+    <loc>https://elipousson.github.io/bldgspatialdata/assignments/04_final-project.html</loc>
+    <lastmod>2022-10-30T18:03:27.203Z</lastmod>
   </url>
   <url>
     <loc>https://elipousson.github.io/bldgspatialdata/assignments/index.html</loc>
-    <lastmod>2022-10-27T04:03:57.980Z</lastmod>
+    <lastmod>2022-10-30T18:03:27.579Z</lastmod>
   </url>
   <url>
     <loc>https://elipousson.github.io/bldgspatialdata/examples/01_read-data-r.html</loc>
-    <lastmod>2022-10-27T04:04:04.932Z</lastmod>
+    <lastmod>2022-10-30T18:03:35.808Z</lastmod>
   </url>
   <url>
     <loc>https://elipousson.github.io/bldgspatialdata/examples/02_read-tabular-data-r.html</loc>
-    <lastmod>2022-10-27T04:04:14.009Z</lastmod>
+    <lastmod>2022-10-30T18:03:39.248Z</lastmod>
   </url>
   <url>
     <loc>https://elipousson.github.io/bldgspatialdata/examples/06_spatial-operations-r-crashapi.html</loc>
-    <lastmod>2022-10-27T04:04:21.597Z</lastmod>
+    <lastmod>2022-10-30T18:03:46.391Z</lastmod>
   </url>
   <url>
     <loc>https://elipousson.github.io/bldgspatialdata/examples/07_tidy-data-r.html</loc>
-    <lastmod>2022-10-27T04:04:27.892Z</lastmod>
+    <lastmod>2022-10-30T18:03:55.435Z</lastmod>
   </url>
   <url>
     <loc>https://elipousson.github.io/bldgspatialdata/examples/index.html</loc>
-    <lastmod>2022-10-27T04:04:28.284Z</lastmod>
+    <lastmod>2022-10-30T18:03:55.857Z</lastmod>
   </url>
   <url>
     <loc>https://elipousson.github.io/bldgspatialdata/index.html</loc>
-    <lastmod>2022-10-27T04:04:28.695Z</lastmod>
+    <lastmod>2022-10-30T18:03:56.266Z</lastmod>
   </url>
   <url>
     <loc>https://elipousson.github.io/bldgspatialdata/materials.html</loc>
-    <lastmod>2022-10-27T04:04:29.214Z</lastmod>
+    <lastmod>2022-10-30T18:03:56.793Z</lastmod>
   </url>
   <url>
     <loc>https://elipousson.github.io/bldgspatialdata/posts/2022-08-31_recap/index.html</loc>
-    <lastmod>2022-10-27T04:04:29.609Z</lastmod>
+    <lastmod>2022-10-30T18:03:57.213Z</lastmod>
   </url>
   <url>
     <loc>https://elipousson.github.io/bldgspatialdata/posts/2022-09-07_recap/index.html</loc>
-    <lastmod>2022-10-27T04:04:30.121Z</lastmod>
+    <lastmod>2022-10-30T18:03:57.776Z</lastmod>
   </url>
   <url>
     <loc>https://elipousson.github.io/bldgspatialdata/posts/2022-09-14_recap/index.html</loc>
-    <lastmod>2022-10-27T04:04:30.526Z</lastmod>
+    <lastmod>2022-10-30T18:03:58.220Z</lastmod>
   </url>
   <url>
     <loc>https://elipousson.github.io/bldgspatialdata/posts/2022-09-28_recap/index.html</loc>
-    <lastmod>2022-10-27T04:04:31.730Z</lastmod>
+    <lastmod>2022-10-30T18:03:59.599Z</lastmod>
   </url>
   <url>
     <loc>https://elipousson.github.io/bldgspatialdata/resources/data.html</loc>
-    <lastmod>2022-10-27T04:04:32.113Z</lastmod>
+    <lastmod>2022-10-30T18:03:59.970Z</lastmod>
   </url>
   <url>
     <loc>https://elipousson.github.io/bldgspatialdata/resources/index.html</loc>
-    <lastmod>2022-10-27T04:04:32.481Z</lastmod>
+    <lastmod>2022-10-30T18:04:00.348Z</lastmod>
   </url>
   <url>
     <loc>https://elipousson.github.io/bldgspatialdata/resources/qgis.html</loc>
-    <lastmod>2022-10-27T04:04:32.880Z</lastmod>
+    <lastmod>2022-10-30T18:04:00.739Z</lastmod>
   </url>
   <url>
     <loc>https://elipousson.github.io/bldgspatialdata/resources/r.html</loc>
-    <lastmod>2022-10-27T04:04:33.273Z</lastmod>
+    <lastmod>2022-10-30T18:04:01.119Z</lastmod>
   </url>
   <url>
     <loc>https://elipousson.github.io/bldgspatialdata/schedule.html</loc>
-    <lastmod>2022-10-27T04:04:34.977Z</lastmod>
+    <lastmod>2022-10-30T18:04:03.050Z</lastmod>
   </url>
   <url>
     <loc>https://elipousson.github.io/bldgspatialdata/slides/03_attribute-data.html</loc>
-    <lastmod>2022-10-27T04:04:36.129Z</lastmod>
+    <lastmod>2022-10-30T18:04:03.867Z</lastmod>
   </url>
   <url>
     <loc>https://elipousson.github.io/bldgspatialdata/slides/04_attribute-data-qgis.html</loc>
-    <lastmod>2022-10-27T04:04:36.697Z</lastmod>
+    <lastmod>2022-10-30T18:04:04.405Z</lastmod>
   </url>
   <url>
     <loc>https://elipousson.github.io/bldgspatialdata/slides/09_creating-features.html</loc>
-    <lastmod>2022-10-27T04:04:37.117Z</lastmod>
+    <lastmod>2022-10-30T18:04:04.793Z</lastmod>
   </url>
   <url>
     <loc>https://elipousson.github.io/bldgspatialdata/syllabus.html</loc>
-    <lastmod>2022-10-27T04:04:38.047Z</lastmod>
+    <lastmod>2022-10-30T18:04:05.644Z</lastmod>
   </url>
 </urlset>
