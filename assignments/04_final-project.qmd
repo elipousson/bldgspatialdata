@@ -1,0 +1,134 @@
+---
+title: Final Project
+---
+
+## Overview
+
+The final project is an opportunity for you to practice the spatial data skills we've been working on in this course while also exploring your interests and the potential for spatial data to support civic goals.
+
+This project has three parts:
+
+1.  A project proposal (due **November 9**)
+2.  An in-class presentation about your project (due **December 7**)
+3.  A project repository including code, data, output files, and a README (due **December 16**)
+
+### Defining your goals
+
+In framing your project, look for opportunities to apply one or more of the six models of local practice described in @loukissas2019:
+
+-   Look at the data setting, not just the data set
+
+-   Make place part of data presentation
+
+-   Take a comparative approach to data analysis
+
+-   Create counterdata to challenge normative algorithms
+
+-   Create interfaces that cause friction
+
+-   Use data to build relationships
+
+Is your project designed around what Loukissas calls the common "ambitions" for working data---orientation, access, analysis, andoroptimization? Or, are you trying to promote critical reflection on the local conditions of data using strategies such as place making, restraint, reflexivity, or contestation?
+
+Your goals may change between your initial proposal and the completion of your project but your final presentation should include both an explanation of your goals and how your goals do or do not engage with critical approaches to spatial data.
+
+### Getting your spatial data
+
+Your project should either:
+
+-   Use one or more existing spatial datasets
+
+-   Create a spatial dataset based on existing material (e.g. a written report or a georeferenced map)
+
+-   Collect a new dataset with a spatial component
+
+If you are creating or collecting data, your scope for other aspects of the project may need to be more limited in order to allow adequate time to design your data collection tools.
+
+In all cases, your selection
+
+### Selecting your project format
+
+You are welcome to explore a wide range of possible formats for your final project:
+
+-   An interactive web map that enables users to explore how local conditions may vary over time or place
+
+-   A short exploratory data analysis using tables, plots, and maps to illustrate what a data set can (or can't) tell us about a place
+
+-   An R package for publishing and documenting a spatial data set (and how the data was created)
+
+-   A PDF fact sheet using spatial data to summarize the local impact of a national challenge and what local organizations are working to address the issue
+
+-   Or something else entirely.
+
+Think about the public you may want to engage with your project.
+
+## Project proposal
+
+Your project proposal needs to answer **three main questions**:
+
+-   **What are your goals for the project?** Your goals could include answering a research question, making the case for a public policy change, or building an interface to help people better understand an issue in their community. Your goals could also include developing your own ability to analyze a specific type of data or exploring an academic interest. Reflect on who might benefit from your proposed project and how your project can avoid causing people harm.
+
+-   **What data can you use to support your goal?** Your data could include any public spatial data or data that has a spatial attribute. You can even create data from scratch or collect your own data. Reflect on the "setting" for the data, whose local knowledge it represents, and what communities participate in collecting or maintaining the data.
+
+-   **What is your approach to using data to support your goal?** Your approach could include mapping, exploratory analysis, documentation, visualization, or a combination of multiple tools and methods. You don't need to reinvent the wheel. You can adapt an existing approach or propose a few options you hope to try. Reflect on any expected challenges and if your proposed approach is feasible in the time you have available during the semester.
+
+::: {.callout-important appearance="simple"}
+I will schedule short one-on-one meetings in advance of the due date for the final project proposal to help you in refining your ideas, identifying possible data sources, and any existing R packages or frameworks you can adapt or use for your project.
+:::
+
+There are few more requirements to keep in mind:
+
+-   Answer each question with a brief but considered response. If it helps to have a total word count to work towards, try to answer all three questions in something between 500 and 1000 words.
+-   Format your proposal as an [RMarkdown](https://rmarkdown.rstudio.com/index.html) or [Quarto](https://quarto.org/) document. Your document should include links to any published data or related resources and reproducible code for any preliminary data analysis you completed to support your proposal.
+-   Cite your sources! While an extensive literature review is unnecessary, reviewing how other researching and practitioners have used the same or similar spatial data may give you ideas for your own project. [Citing sources in RStudio](https://rstudio.github.io/visual-markdown-editing/citations) is a little different than Microsoft Word so I strongly recommend using the [Zotero citation manager](https://zotero.org/) in combination with the [Better Bibtex extension](https://retorque.re/zotero-better-bibtex/). If a single R package is a big part of your proposed approach, make sure to also include a citation for the package. Read [How to Cite R and R Packages](https://ropensci.org/blog/2021/11/16/how-to-cite-r-and-r-packages/) by Steffi LaZerte for more background on how and why you should cite R packages.
+
+::: {.callout-important appearance="simple"}
+You are strongly encouraged to use R as part of your project but it isn't required. If you prefer to use QGIS or another tool as the main part of your approach, you are still expected to use Markdown or RMarkdown to share your proposal and your proposal should make the case for your preferred approach.
+:::
+
+If you have **already identified a data source** for your project, make sure:
+
+-   you know the **data and goals are related** (e.g. you have a question that can be answered using the data),
+-   you have **permission to use the data** (e.g. the data is published under an open license),
+-   you know the **data is in an accessible format** (e.g. CSV, ArcGIS Feature Server, GeoPackage file),
+-   and you know there are **no major data quality issues** (e.g. location accuracy, completeness) that you can't address.
+
+If you are **creating data** by based on existing unstructured sources (e.g. digitizing features from a georeferenced historic map) or **collecting data** based on phenomena or features in your community (e.g. using a smartphone app to document noise levels), make sure:
+
+-   you have a clear reason for creating or collecting data instead of using an existing source,
+-   you identify what resources you need to complete your project including the time to collect the data,
+-   and you know your proposal is *not* subject to review by the UMBC Institutional Review board (review [What is NOT Human Subjects Research?](https://research.umbc.edu/what-is-not-human-research/) for more information).
+
+## Project presentation
+
+Your in-class presentation should be around ten minutes and address these key questions:
+
+-   What were your initial goals for the project? How did they change or develop as you worked on your project?
+
+-   What data sources did you use? How, why, and where were they created?
+
+-   What packages, templates, or other resources did you use in creating your final project?
+
+-   What challenges did you encounter in making use of these resources and this data?
+
+-   What do you think your project does well?
+
+::: {.callout-tip appearance="minimal"}
+Consider [using Quarto](https://quarto.org/docs/presentations/) to create an HTML presentation using [reveal.js](https://quarto.org/docs/presentations/revealjs/). Taking this approach could allow you to easily incorprorate data visualizations or other materials from your project into your presentation.
+:::
+
+## Final project repository
+
+Your final project should be submitted as a GitHub repository. A private repository can be provided to you as part of the course organization or you can set up your own repository on your personal GitHub account.
+
+The repository must include:
+
+-   **project data**: including the source files or, if files exceed the 50MB maximum size allowed on GitHub, a script used for importing and processing the data before visualization or analysis
+
+-   **project code**: including any R scripts, RMarkdown, or Quarto files used to read, tidy, transform, analyze, visualize or map the selected data.
+
+-   **output files**: including any processed data files or rendered PDF or HTML documents.
+
+-   **README**: a public-facing summary of the project explaining your process for processing the data and any relevant information another person may need to work with the data or your code.
+
+-   **additional materials**: including any data collection materials (e.g. survey forms), reference data used by the project code, or other related materials.
