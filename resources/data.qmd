@@ -2,11 +2,13 @@
 title: "Data sources"
 ---
 
-Spatial data is available in a wide range of formats:
+Spatial data is available in a wide range of formats at the local, national, and international levels. Data is often published through larger data portals where you can find links to access data through a web service or options to download part of all of the data.
 
 ## **Local data sources for Baltimore and Maryland 🦀**
 
 -   [Baltimore City Open Data Hub](https://data.baltimorecity.gov/)
+
+-   [Baltimore County GIS Open Data Portal](https://opendata-bc-gis.hub.arcgis.com/)
 
 -   [BMC Regional GIS Data Center - Baltimore Metropolitan Council](https://gisdata.baltometro.org/)
 
@@ -28,6 +30,8 @@ Spatial data is available in a wide range of formats:
 
 -   [BTS Data Inventory](https://data.bts.gov/) (Bureau of Transportation Statistics), U.S. Department of Transportation
 
+-   [EDGE Geodata](https://data-nces.opendata.arcgis.com/) (Education Demographic and Geographic Estimates), U.S. Department of Education, National Center for Education Statistics
+
 -   [U.S. Geological Survey Science Data Catalog](https://data.usgs.gov/datacatalog/)
 
 -   [GeoPlatform.gov](https://www.geoplatform.gov/)
@@ -40,11 +44,11 @@ Spatial data is available in a wide range of formats:
 
 ## **Global data sources 🌏**
 
--   [Natural Earth](https://www.naturalearthdata.com/) (see [rnaturalearth](https://docs.ropensci.org/rnaturalearth/) 📦to access Natural Earth data) 
+-   [Natural Earth](https://www.naturalearthdata.com/)
 
 -   [OpenStreetMap](https://www.openstreetmap.org/) (see the [OSM Wiki](https://wiki.openstreetmap.org/wiki/Main_Page) for more on how data is organized on OSM)
 
--   [ArcGIS Living Atlas of the World](https://livingatlas.arcgis.com/en/home/) (see [esri2sf](https://github.com/yonghah/esri2sf) 📦to access ArcGIS FeatureServer data)
+-   [ArcGIS Living Atlas of the World](https://livingatlas.arcgis.com/en/home/)
 
 -   [NASA Open Data Portal](https://data.nasa.gov/)
 
@@ -54,4 +58,26 @@ Spatial data is available in a wide range of formats:
 
 -   [Humanitarian Data Exchange](https://data.humdata.org/)
 
--   [Data Portals](https://datacatalog.urban.org/) (Open Knowledge Foundation) (see [RSocrata](https://github.com/Chicago/RSocrata) for Socrata or [ckanr](https://docs.ropensci.org/ckanr/) for CKAN data portals)
+-   [Data Portals](https://datacatalog.urban.org/) (Open Knowledge Foundation)
+
+## R packages for data access
+
+General data access packages include:
+
+-   [{esri2sf}](https://github.com/yonghah/esri2sf) 📦 to access ArcGIS FeatureServer data
+-   [{RSocrata}](https://github.com/Chicago/RSocrata) to access Socrata data portals
+-   [{ckanr}](https://docs.ropensci.org/ckanr/) to access CKAN data portals
+
+There are many different data access R packages for interacting with APIs and web services. A few broadly useful recommendations include:
+
+-   [{rnaturalearth}](https://docs.ropensci.org/rnaturalearth/): Get Natural Earth data.
+-   [{tigris}](https://github.com/walkerke/tigris): Download and use Census TIGER/Line shapefiles.
+-   [{tidycensus}](https://github.com/walkerke/tidycensus): Get US Census boundary and attribute data.
+-   [{geodata}](https://github.com/rspatial/geodata/): Get climate, elevation, soil, crop, species occurrence, and administrative boundary data.
+-   [{dataRetrieval}](https://rconnect.usgs.gov/dataRetrieval/): Get USGS or EPA water quality sample data, streamflow data, and metadata directly from web services.
+-   [{osmdata}](https://github.com/ropensci/osmdata): Get OpenStreetMap data.
+
+I also maintain a few R packages for open data access in Baltimore and Maryland that students working on local projects may find helpful:
+
+-   [{mapbaltimore}](https://elipousson.github.io/mapbaltimore/)
+-   [{mapmaryland}](https://elipousson.github.io/mapmaryland)
