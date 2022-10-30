@@ -24,11 +24,9 @@ Each session includes information on:
 
 -   **Assignments due:** Assignments are due by *11:59 PM* on the day they're listed unless otherwise noted.
 
--   **Topics:** A listing of the topics, questions, or skills that we expect to focus on during each course session. As of August 2022, these topics are *tentative* and may *change* during the first few weeks of the course.
+-   **Topics:** A listing of the topics, questions, or skills that we expect to focus on during each course session.
 
--   **Examples:** Annotated R code and other supplementary information you can use as a reference for the session topics. These examples may include external links to package vignettes for R packages we are using during the session.
-
--   **Readings:** Readings for this class include both material on *how* to work with spatial data in R and QGIS and material on broader considerations around working with data and how spatial data is collected, organized, and shared. Most selected readings are freely available online but, for some, you may need to use the [UMBC Library](https://library.umbc.edu/) Books and Media Search or AOK Article Search to locate.
+-   **Readings:** Readings for this class include both material on *how* to work with spatial data in R and QGIS and material on broader considerations around working with data and how spatial data is collected, organized, and shared. Most readings are free and online but a few may require you to use the [UMBC Library](https://library.umbc.edu/) Books and Media Search or AOK Article Search to locate.
 
 -   **Additional references:** Optional material (including readings and videos) that you are encouraged to use as a reference but you are not required to review before class.
 
@@ -90,6 +88,7 @@ To set up GitHub account and learn how to connect your account to RStudio, pleas
 
 -   @macwright2015
 -   @nowosad2021
+-   [Introduction to R for Geospatial Data](https://datacarpentry.org/r-intro-geospatial/) (Data Carpentry)
 
 ## 3. Exploring and visualizing attribute data with R -- Sept. 14
 
@@ -102,8 +101,8 @@ To set up GitHub account and learn how to connect your account to RStudio, pleas
 
 -   Subsetting or filtering based on attributes
 -   Creating new attributes based on existing attributes
--   Joining tables by attributes with {dplyr}
--   Basics of visualizing attribute data with {ggplot2}
+-   Joining tables by attributes with [{dplyr}](https://dplyr.tidyverse.org/)
+-   Basics of visualizing attribute data with [{ggplot2}](https://ggplot2.tidyverse.org/)
 
 ### Readings
 
@@ -190,7 +189,7 @@ This session is the same day as the Jewish holiday of Yom Kippur. Class will tak
 -   Using [{stringr}](https://stringr.tidyverse.org/) functions to tidy messy address data
 -   Recoding categorical attribute data with [{forcats}](https://forcats.tidyverse.org/index.html)
 -   Converting between wide and long data formats with `dplyr::pivot_longer()` and `dplyr::pivot_wider()`
--   Working with date-time attributes using {lubridate}
+-   Working with date-time attributes using [{lubridate}](https://lubridate.tidyverse.org/)
 
 ### Readings
 
@@ -200,6 +199,7 @@ This session is the same day as the Jewish holiday of Yom Kippur. Class will tak
 
 ### Additional references
 
+-   [Manipulating, analyzing and exporting data with tidyverse](https://preview.carpentries.org/R-ecology-lesson/03-dplyr.html) from [Data Analysis and Visualisation in R for Ecologists](https://preview.carpentries.org/R-ecology-lesson/index.html) (Data Carpentry)
 -   @riederer2020
 -   @xu2019
 -   @rawson2016
@@ -227,7 +227,7 @@ This session is the same day as the Jewish holiday of Yom Kippur. Class will tak
 
 # Part 2. Creating and sharing spatial data
 
-## 9. Editing and creating geometry with R and QGIS -- Oct. 26
+## 9. Editing and creating spatial data with web-based tools, spreadsheets, QGIS, or R -- Oct. 26
 
 ### Topics
 
@@ -236,13 +236,17 @@ This session is the same day as the Jewish holiday of Yom Kippur. Class will tak
 -   Creating and editing features using the [{mapedit}](https://github.com/r-spatial/mapedit) package in R
 -   Creating and editing [vector data in QGIS](https://docs.qgis.org/3.22/en/docs/user_manual/working_with_vector/editing_geometry_attributes.html)
 
+### Additional references
+
+-   [Data Organization in Spreadsheets for Social Scientists](https://datacarpentry.org/spreadsheets-socialsci/index.html) (Data Carpentry)
+
 ## 10. Getting data from public web services -- Nov. 2
 
 ### Topics
 
--   Downloading data from ArcGIS Feature Services
--   Downloading data from Socrata open data portals
--   Working with data dictionaries
+-   Downloading data from ArcGIS Feature Services with [{esri2sf}](https://github.com/yonghah/esri2sf) (I recommend installing [my fork](https://github.com/elipousson/esri2sf/))
+-   Downloading data from Socrata open data portals with [{RSocrata}](https://github.com/Chicago/RSocrata)
+-   Working with data dictionaries and the [{labelled}](https://larmarange.github.io/labelled/) package
 -   Interpreting administrative data and other public sources
 
 ### Readings
@@ -263,9 +267,13 @@ This session features a guest speaker, Elliott Plack, Technical Project Manager,
 -   @kitchin2015
 -   @bentleyWebMediumData2021
 
+### Assignments due
+
+-   Final project proposal
+
 ## 12. Contributing to OpenStreetMap -- Nov. 16
 
-This session (tentatively) features a workshop on editing OpenStreetMap led by Elliott Plack and a short exercise on accessing OSM data with R using the [{osmdata} package](https://docs.ropensci.org/osmdata/).
+This session (tentatively) features a workshop on editing OpenStreetMap led by Elliott Plack and a short exercise on accessing OSM data with R using the [{osmdata}](https://docs.ropensci.org/osmdata/) package.
 
 ### Readings
 
@@ -281,7 +289,7 @@ This session is the day before the Thanksgiving holiday and may conflict with tr
 ## 14. Special topics in spatial data -- Nov. 30
 
 ::: {.callout-note appearance="simple"}
-There are a wide range of special topics that we could cover in this course but we don't have time to cover them all. This session is a place-holder to dig deeper into a special topic based on the interests of students in the course. Possible topics could include working with spatial network data using [sfnetworks](https://luukvdmeer.github.io/sfnetworks/), working with time series data using the QGIS [temporal controller](https://www.qgistutorials.com/en/docs/3/animating_time_series.html) feature, visualizing elevation data using the [rayshader](https://www.rayshader.com/) package, or something more.
+There are a wide range of special topics that we could cover in this course but we don't have time to cover them all. This session is a place-holder to dig deeper into a special topic based on the interests of students in the course. Possible topics could include working with spatial network data using [sfnetworks](https://luukvdmeer.github.io/sfnetworks/), working with time series data using the QGIS [temporal controller](https://www.qgistutorials.com/en/docs/3/animating_time_series.html) feature, visualizing elevation data using the [rayshader](https://www.rayshader.com/) package, or something else.
 :::
 
 ## 15. Final project review -- Dec. 7
@@ -289,3 +297,9 @@ There are a wide range of special topics that we could cover in this course but 
 ::: {.callout-note appearance="simple"}
 This session will be dedicated to students sharing individual and collaborative work completed for the final project. Additional details on the final project will be shared with students prior to the end of the first section of the course in early October.
 :::
+
+### Assignments due
+
+-   Final project presentation
+
+-   Final project materials (due Dec. 16)
