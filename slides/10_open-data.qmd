@@ -1,0 +1,181 @@
+---
+title: "Accessing open data with R"
+format:
+  revealjs:
+    slide-level: 3
+revealjs-plugins:
+  - attribution
+editor: visual
+---
+
+```{r setup}
+#| echo: false
+#| output: false
+library(dplyr)
+```
+
+## Accessing open data with R
+
+We are going to explore the Maryland Open Data Portal and Maryland iMap including:
+
+-   Exploring [Maryland's Open Data Portal](https://opendata.maryland.gov/) and using an export URL to access data
+    -   Using the [{httr2}](https://httr2.r-lib.org/) package to access an API
+
+    -   Working with the [{RSocrata}](https://github.com/Chicago/RSocrata) to access the API
+-   Exploring web services using the [Maryland iMap](https://data.imap.maryland.gov/) portal
+    -   Using the [{esri2sf}](https://github.com/elipousson/esri2sf) package to access ArcGIS Feature Services
+-   Using the [{labelled}](https://larmarange.github.io/labelled/) and [{dplyr}](https://dplyr.tidyverse.org/) packages when working with labels and dictionaries
+
+### Accessing Maryland's Open Data Portal
+
+[![](images/Screen%20Shot%202022-11-02%20at%204.27.11%20PM.png)](https://opendata.maryland.gov/)
+
+### Downloading data from Maryland's Open Data Portal
+
+```{r}
+data <-
+  readr::read_csv(
+  file = "https://opendata.maryland.gov/api/views/8ypa-c9d9/rows.csv"
+)
+
+glimpse(data)
+```
+
+### Using the Socrata API and the `{httr2}` package
+
+[![](images/Screen%20Shot%202022-11-02%20at%204.09.59%20PM.png)](https://dev.socrata.com/)
+
+### Create a request with httr2::request()
+
+The basic steps to working with an API is to first create a request:
+
+```{r}
+req <- httr2::request("https://opendata.maryland.gov")
+req <- httr2::req_url_path_append(req, "data.json")
+```
+
+### Extracting the body from the response httr2::resp_body_json()
+
+Now, we need to perform the request and extract the body of the response:
+
+```{r}
+resp <- httr2::req_perform(req)
+resp <- httr2::resp_body_json(resp, simplifyVector = TRUE)
+```
+
+### Explore and subset the response object
+
+Lastly, you need to get the data you need from the response:
+
+```{r}
+names(resp)
+str(resp)
+glimpse(resp$dataset)
+```
+
+------------------------------------------------------------------------
+
+Using a package like httr2 is essential if you are working with an API directly but there are often packages developed around a specific API or portal provider.
+
+### Using the RSocrata package
+
+For example, RSocrata was developed by the City of Chicago for working with Socrata data portals:
+
+```{r}
+datasets <-
+  RSocrata::ls.socrata("https://opendata.maryland.gov")
+
+dataset_freshness <-
+  RSocrata::read.socrata(
+    url = "https://opendata.maryland.gov/Administrative/Dataset-Freshness-Report-for-opendata-maryland-gov/8ypa-c9d9"
+    )
+
+glimpse(dataset_freshness)
+```
+
+## Interlude: Working with "powerful numbers"
+
+![](images/APrimerOnPowerfulNumbers_032022_cover.png){fig-align="center"}
+
+@bouk2022 offer us a primer on thinking about "powerful numbers" and how the work in the world.
+
+::: attribution
+[Data & Society](https://datasociety.net/wp-content/uploads/2022/03/APrimerOnPowerfulNumbers_032022.pdf)
+:::
+
+::: notes
+-   Modern Societies Are Built to Trust in Official Numbers. They Even Let Official Numbers Make Key Decisions.
+-   Official Numbers Are Made, Not Found.
+-   When Things Are Going Well, We Forget That Official Numbers Had to Be Made.
+-   Institutions Make Public Data and They Make Data Public.
+-   Official Numbers Are Political.
+-   Consensus on Official Numbers Requires Work. (It isn't certain that the givens will be taken.)
+:::
+
+------------------------------------------------------------------------
+
+### Aside: Exploring the "avalanche of printed numbers"
+
+![](images/paste-8BC14DAC.png)
+
+::: attribution
+[University of Maryland College Park/Internet Archive](https://archive.org/details/ordinancesres60balt/)
+:::
+
+### Aside: Using the "avalanche of printed numbers"
+
+![](images/paste-0AFC8AE7.png)
+
+::: attribution
+[University of Maryland College Park/Internet Archive](https://archive.org/details/ordinancesres60balt/page/n373/)
+:::
+
+### Aside: Extracting tables from images and PDFs
+
+-   [{tesseract}](https://docs.ropensci.org/tesseract/) is an R package with bindings for the [Tesseract-OCR](https://opensource.google/projects/tesseract) (optical character recognition) engine.
+-   [Tabula](https://tabula.technology/) is a tool with an interactive user interface for liberating data tables locked inside (text-based) PDF files.
+-   [{tabulizer}](https://docs.ropensci.org/tabulizer/) is an R package for interacting with the Tabula javascript library.
+
+------------------------------------------------------------------------
+
+![](images/paste-74F4E0B9.png){fig-align="center"}
+
+::: attribution
+[Pew Research Center](https://www.pewresearch.org/fact-tank/2022/06/08/key-facts-about-the-quality-of-the-2020-census/ft_22-06-08_census_3/)
+:::
+
+------------------------------------------------------------------------
+
+![](images/Screen%20Shot%202022-11-02%20at%203.10.17%20PM.png)
+
+::: attribution
+[Baltimore City Fiscal 2023 Executive Summary Board of Estimates Recommendations](https://bbmr.baltimorecity.gov/sites/default/files/fy23_executive_summary_web.pdf)
+:::
+
+------------------------------------------------------------------------
+
+![](images/Screen%20Shot%202022-11-02%20at%203.32.52%20PM.png)
+
+::: attribution
+[Baltimore Brew](https://www.baltimorebrew.com/2022/09/20/council-committee-kills-tif-study-bill-angering-sponsor-and-colleagues/)
+:::
+
+------------------------------------------------------------------------
+
+## Exploring Maryland iMap
+
+## Working with real property data from the Maryland Department of Assessments and Taxation
+
+Resources:
+
+-   [Glossary of Terms](https://sdat.dat.maryland.gov/RealProperty/Pages_HTML/rp_def.aspx) for the Real Property Data Search, Maryland Department of Assessments and Taxation
+-   [Maryland Real Property Assessments: Fields Reference](https://opendata.maryland.gov/Business-and-Economy/Maryland-Real-Property-Assessments-Fields-Referenc/w8th-47fz)
+
+------------------------------------------------------------------------
+
+## Interludes
+
+Here is a recap of the interlude sections:
+
+-   Using Tabula and the {tabulizer} R package
+-   Using [{officer}](https://davidgohel.github.io/officer/) to access Word documents

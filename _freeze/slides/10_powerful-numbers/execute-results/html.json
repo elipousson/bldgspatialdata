@@ -1,0 +1,18 @@
+{
+  "hash": "617dc1c2ab80cf9aacc00b2bb48d2230",
+  "result": {
+    "markdown": "---\ntitle: \"Creating feature data with R and QGIS\"\nformat:\n  revealjs:\n    slide-level: 3\nrevealjs-plugins:\n  - attribution\neditor: visual\n---\n\n::: {.cell}\n\n:::\n\n\n## Key questions\n\n-   Why or why not create your own features?\n-   What tools can you use to create features?\n-   How can you structure your geometry and attribute data?\n-   What tools can you use to create features?\n\n### An \"avalanche of printed numbers\"\n\n![](images/paste-BA3E4693.png)\n\n::: attribution\n[University of Maryland College Park/Internet Archive](https://archive.org/details/mayorsmessage18991balt/)\n:::\n\n## Census did not go well\n\n![](images/paste-74F4E0B9.png)\n\n## Service request closed\n\n![](images/Screen%20Shot%202022-11-02%20at%203.10.17%20PM.png)\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {
+      "include-after-body": [
+        "\n<script>\n  // htmlwidgets need to know to resize themselves when slides are shown/hidden.\n  // Fire the \"slideenter\" event (handled by htmlwidgets.js) when the current\n  // slide changes (different for each slide format).\n  (function () {\n    // dispatch for htmlwidgets\n    function fireSlideEnter() {\n      const event = window.document.createEvent(\"Event\");\n      event.initEvent(\"slideenter\", true, true);\n      window.document.dispatchEvent(event);\n    }\n\n    function fireSlideChanged(previousSlide, currentSlide) {\n      fireSlideEnter();\n\n      // dispatch for shiny\n      if (window.jQuery) {\n        if (previousSlide) {\n          window.jQuery(previousSlide).trigger(\"hidden\");\n        }\n        if (currentSlide) {\n          window.jQuery(currentSlide).trigger(\"shown\");\n        }\n      }\n    }\n\n    // hookup for slidy\n    if (window.w3c_slidy) {\n      window.w3c_slidy.add_observer(function (slide_num) {\n        // slide_num starts at position 1\n        fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);\n      });\n    }\n\n  })();\n</script>\n\n"
+      ]
+    },
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
