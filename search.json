@@ -263,7 +263,7 @@
     "href": "materials.html",
     "title": "Materials",
     "section": "",
-    "text": "Creating feature data with R and QGIS\n\n\n\nslides\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nData sources\n\n\n\nresource\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nRead and filter spatial data with R\n\n\n\nexample\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nRead tabular data and convert to spatial data with R\n\n\n\nexample\n\n\n\nLearn to read tabular data with R, convert to spatial data with the sf package, and clean data with the dplyr and tidy packages.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSpatial operations with the sf, tigris, and crashapi packages\n\n\n\nexample\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTidying data in R\n\n\n\nexample\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nUsing QGIS\n\n\n\nresource\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nUsing R and RStudio Desktop\n\n\n\nresource\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWorking with attributes in R (and QGIS)\n\n\n\nslides\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWorking with attributes in R (and QGIS)\n\n\n\nslides\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "Accessing open data with R\n\n\n\nslides\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n \n\n\n\nCreating feature data with R and QGIS\n\n\n\nslides\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n \n\n\n\nData sources\n\n\n\nresource\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHow to do common tasks for the class with RStudio\n\n\n\nresource\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n \n\n\n\nRead and filter spatial data with R\n\n\n\nexample\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n \n\n\n\nRead tabular data and convert to spatial data with R\n\n\n\nexample\n\n\n\nLearn to read tabular data with R, convert to spatial data with the sf package, and clean data with the dplyr and tidy packages.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n \n\n\n\nSpatial operations with the sf, tigris, and crashapi packages\n\n\n\nexample\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n \n\n\n\nTidying data in R\n\n\n\nexample\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n \n\n\n\nUsing QGIS\n\n\n\nresource\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n \n\n\n\nUsing R and RStudio Desktop\n\n\n\nresource\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n \n\n\n\nWorking with attributes in R (and QGIS)\n\n\n\nslides\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n \n\n\n\nWorking with attributes in R (and QGIS)\n\n\n\nslides\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/2022-08-31_recap/index.html",
@@ -378,11 +378,18 @@
     "text": "R packages for data access\nGeneral data access packages include:\n\n{esri2sf} 📦 to access ArcGIS FeatureServer data\n{RSocrata} to access Socrata data portals\n{ckanr} to access CKAN data portals\n\nThere are many different data access R packages for interacting with APIs and web services. A few broadly useful recommendations include:\n\n{rnaturalearth}: Get Natural Earth data.\n{tigris}: Download and use Census TIGER/Line shapefiles.\n{tidycensus}: Get US Census boundary and attribute data.\n{geodata}: Get climate, elevation, soil, crop, species occurrence, and administrative boundary data.\n{dataRetrieval}: Get USGS or EPA water quality sample data, streamflow data, and metadata directly from web services.\n{osmdata}: Get OpenStreetMap data.\n\nI also maintain a few R packages for open data access in Baltimore and Maryland that students working on local projects may find helpful:\n\n{mapbaltimore}\n{mapmaryland}"
   },
   {
+    "objectID": "resources/how-to-rstudio.html",
+    "href": "resources/how-to-rstudio.html",
+    "title": "How to do common tasks for the class with RStudio",
+    "section": "",
+    "text": "Go to File > New Project…\n\n\nFile menu options\n\n\nUsing the “New Project Wizard” select “New Directory” and then “Quarto Project” (or another type if I have recommended a different initial setup).\n\n\nNew Project Wizard in RStudio\n\n\nFill in the directory name with a short descriptive project name, e.g. “explorebaltimorebirds”.\n\n\n\n\n\n\nMake sure to avoid using any spaces in your project name. Your project name is also going to be the name used for your project repository.\n\n\n\n\n\nCreate Quarto Project in New Project Wizard\n\n\nYour new project should open in the RStudio IDE.\n\nInstall the usethis package then restart R. If you already have the use this package installed you can skip this step.\n\ninstall.packages(\"usethis\")\n\nLoad the usethis package.\n\nlibrary(usethis)\n\nUse the git_sitrep() function to check that you have GitHub set up correctly.\n\ngit_sitrep()\n\n\n\n\n\n\n\nIf you see any error messages, review the instructions from Happy Git and GitHub for the useR on getting started with Git or connecting your GitHub account to RStudio.\n\n\n\nMake your first commit to set up the project using the use_git() function.\n\nuse_git(message = \"Create new project\")\n\nIf this works, the results in your console should look something like this:\n\nConfirm in your console that is OK to commit the files.\nAdd your local Git repository to the class GitHub organization by filling in the organization parameter for use_github().\n\nuse_github(organisation = \"bldgspatialdata22\")\n\nIf this works, the results in your console should look something like this:\n\n\n\n\n\n\n\nIf you have multiple GitHub accounts, make sure you use the same GitHub account that belongs to the course organization. Make sure you accepted the invitation to join the course organization. If you are not able to set up a new project, message Eli on Discord to double-check your permissions and send a new invitation to join the course repository if needed.\n\n\n\nYou can now add your project proposal and other files to the repository. Make sure to commit any changes to the repository using the Git pane within RStudio or using the GitHub Desktop application.\n\nAdd a README to your project. Use the use_readme_rmd() function to create creating a README with RMarkdown.\n\nuse_readme_rmd()\n\n\n\n\n\n\n\nUpdating your README\n\n\n\nCreating a README with RMarkdown allows you to include executable code chunks in your README. You should render your README as a Markdown file using the devtools::build_readme() function any time you make changes.\n\n\nSelect a license and add it to your project using any of the license functions from usethis.\n\nuse_mit_license(\"Your Name Here\")\n\nuse_cc0_license()\n\nuse_gpl3_license()\n\nuse_ccby_license()\n\n\n\n\n\n\n\nSelecting a license\n\n\n\nThe MIT license is common license for many R packages and other open-source projects. Open data is often published using a Creative Commons Zero (CC0) or “No Rights Reserved” license. The GNU General Public License (GPL3), Creative Commons Attribution (CC-BY) license (or Creative Commons Attribution-ShareAlike (CC-BY-SA) are other options you could consider.\n\n\n\n\n\n\n\n\nUsing licensed works by others\n\n\n\nIf you are using or adapting code or data from other projects, make sure you credit those projects on your README and clarify the the project repository includes material available under a different license than the license you selected for your own work. In some cases you may be required to use a specific license, such as GPL or CC-BY-SA, if you are making substantial use of an existing work published under that license.\nSee the Licensing chapter from R Packages by Hadley Wickham, the choosealicense.com website from GitHub, or this guide on Considerations for licensors from Creative Commons more detailed guidance on this topic."
+  },
+  {
     "objectID": "resources/index.html",
     "href": "resources/index.html",
     "title": "Resources",
     "section": "",
-    "text": "Data sources\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nUsing QGIS\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nUsing R and RStudio Desktop\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "Data sources\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHow to do common tasks for the class with RStudio\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n \n\n\n\nUsing QGIS\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n \n\n\n\nUsing R and RStudio Desktop\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "resources/qgis.html",
@@ -761,6 +768,41 @@
     "title": "Creating feature data with R and QGIS",
     "section": "Hands-on: Using {mapedit}",
     "text": "Hands-on: Using {mapedit}\nThe mapedit package offers multiple editors:\n\n“leaflet.extras” (default)\n“leafpm”"
+  },
+  {
+    "objectID": "slides/10_open-data.html#accessing-open-data-with-r",
+    "href": "slides/10_open-data.html#accessing-open-data-with-r",
+    "title": "Accessing open data with R",
+    "section": "Accessing open data with R",
+    "text": "Accessing open data with R\nWe are going to explore the Maryland Open Data Portal and Maryland iMap including:\n\nExploring Maryland’s Open Data Portal and using an export URL to access data\n\nUsing the {httr2} package to access an API\nWorking with the {RSocrata} to access the API\n\nExploring web services using the Maryland iMap portal\n\nUsing the {esri2sf} package to access ArcGIS Feature Services\n\nUsing the {labelled} and {dplyr} packages when working with labels and dictionaries"
+  },
+  {
+    "objectID": "slides/10_open-data.html#interlude-working-with-powerful-numbers",
+    "href": "slides/10_open-data.html#interlude-working-with-powerful-numbers",
+    "title": "Accessing open data with R",
+    "section": "Interlude: Working with “powerful numbers”",
+    "text": "Interlude: Working with “powerful numbers”\n\nBouk, Ackermann, and boyd (2022) offer us a primer on thinking about “powerful numbers” and how the work in the world.\n\nData & Society\n\n\n\nModern Societies Are Built to Trust in Official Numbers. They Even Let Official Numbers Make Key Decisions.\nOfficial Numbers Are Made, Not Found.\nWhen Things Are Going Well, We Forget That Official Numbers Had to Be Made.\nInstitutions Make Public Data and They Make Data Public.\nOfficial Numbers Are Political.\nConsensus on Official Numbers Requires Work. (It isn’t certain that the givens will be taken.)"
+  },
+  {
+    "objectID": "slides/10_open-data.html#exploring-maryland-imap",
+    "href": "slides/10_open-data.html#exploring-maryland-imap",
+    "title": "Accessing open data with R",
+    "section": "Exploring Maryland iMap",
+    "text": "Exploring Maryland iMap"
+  },
+  {
+    "objectID": "slides/10_open-data.html#working-with-real-property-data-from-the-maryland-department-of-assessments-and-taxation",
+    "href": "slides/10_open-data.html#working-with-real-property-data-from-the-maryland-department-of-assessments-and-taxation",
+    "title": "Accessing open data with R",
+    "section": "Working with real property data from the Maryland Department of Assessments and Taxation",
+    "text": "Working with real property data from the Maryland Department of Assessments and Taxation\nResources:\n\nGlossary of Terms for the Real Property Data Search, Maryland Department of Assessments and Taxation\nMaryland Real Property Assessments: Fields Reference"
+  },
+  {
+    "objectID": "slides/10_open-data.html#interludes",
+    "href": "slides/10_open-data.html#interludes",
+    "title": "Accessing open data with R",
+    "section": "Interludes",
+    "text": "Interludes\nHere is a recap of the interlude sections:\n\nUsing Tabula and the {tabulizer} R package\nUsing {officer} to access Word documents\n\n\n\n\n\n\n\nBouk, Dan, Kevin Ackermann, and danah boyd. 2022. “A Primer on Powerful Numbers: Selected Readings in the Social Study of Public Data and Official Numbers.” https://datasociety.net/library/a-primer-on-powerful-numbers-selected-readings-in-the-social-study-of-public-data-and-official-numbers/."
   },
   {
     "objectID": "syllabus.html",
