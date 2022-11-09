@@ -1,0 +1,120 @@
+---
+title: "How to do common tasks for the class with RStudio"
+execute: 
+  eval: false
+---
+
+## Setting up a new project and adding it to the course GitHub organization
+
+### Create a new project
+
+Go to File \> New Project...
+
+![File menu options](images/Screen%20Shot%202022-11-09%20at%201.04.40%20PM.png){fig-align="right" width="300"}
+
+Using the "New Project Wizard" select "New Directory" and then "Quarto Project" (or another type if I have recommended a different initial setup).
+
+![New Project Wizard in RStudio](images/Screen%20Shot%202022-11-09%20at%201.04.47%20PM.png)
+
+Fill in the directory name with a short descriptive project name, e.g. "explorebaltimorebirds".
+
+::: {.callout-tip appearance="minimal"}
+Make sure to avoid using any spaces in your project name. Your project name is also going to be the name used for your project repository.
+:::
+
+![Create Quarto Project in New Project Wizard](images/Screen%20Shot%202022-11-09%20at%201.05.18%20PM.png)
+
+Your new project should open in the RStudio IDE.
+
+### Connect your new project to GitHub
+
+Install the [usethis package](https://usethis.r-lib.org/) then restart R. If you already have the use this package installed you can skip this step.
+
+```{r}
+install.packages("usethis")
+```
+
+Load the usethis package.
+
+```{r}
+#| eval: true
+library(usethis)
+```
+
+Use the `git_sitrep()` function to check that you have GitHub set up correctly.
+
+```{r}
+git_sitrep()
+```
+
+::: {.callout-tip appearance="minimal"}
+If you see any error messages, review the instructions from [Happy Git and GitHub for the useR](https://happygitwithr.com/index.html) on [getting started with Git](https://happygitwithr.com/index.html) or [connecting your GitHub account to RStudio](https://happygitwithr.com/connect-intro.html).
+:::
+
+Make your first commit to set up the project using the `use_git()` function.
+
+```{r}
+use_git(message = "Create new project")
+```
+
+If this works, the results in your console should look something like this:
+
+![](images/Screen%20Shot%202022-11-09%20at%201.09.40%20PM.png)
+
+Confirm in your console that is OK to commit the files.
+
+Add your local Git repository to the class GitHub organization by filling in the organization parameter for `use_github()`.
+
+```{r}
+use_github(organisation = "bldgspatialdata22")
+```
+
+If this works, the results in your console should look something like this:
+
+![](images/Screen%20Shot%202022-11-09%20at%201.10.09%20PM.png)
+
+::: {.callout-tip appearance="minimal"}
+If you have multiple GitHub accounts, make sure you use the *same* GitHub account that belongs to the course organization. Make sure you accepted the invitation to join the course organization. If you are not able to set up a new project, message Eli on Discord to double-check your permissions and send a new invitation to join the course repository if needed.
+:::
+
+You can now add your project proposal and other files to the repository. Make sure to commit any changes to the repository using the Git pane within RStudio or using the GitHub Desktop application.
+
+### Add a README and a license to your project
+
+Add a README to your project. Use the `use_readme_rmd()` function to create creating a README with RMarkdown.
+
+```{r}
+use_readme_rmd()
+```
+
+::: {.callout-tip appearance="minimal"}
+#### Updating your README
+
+Creating a README with RMarkdown allows you to include executable code chunks in your README. You should render your README as a Markdown file using the `devtools::build_readme()` function any time you make changes.
+:::
+
+Select a license and add it to your project using any of the license functions from usethis.
+
+```{r}
+use_mit_license("Your Name Here")
+
+use_cc0_license()
+
+use_gpl3_license()
+
+use_ccby_license()
+```
+
+::: {.callout-tip appearance="minimal"}
+#### Selecting a license
+
+The [MIT license](https://mit-license.org/) is common license for many R packages and other open-source projects. Open data is often published using a [Creative Commons Zero](https://creativecommons.org/share-your-work/public-domain/cc0/) (CC0) or "No Rights Reserved" license. The [GNU General Public License](https://www.gnu.org/licenses/gpl-3.0.en.html) (GPL3), [Creative Commons Attribution](https://creativecommons.org/licenses/by/4.0/) (CC-BY) license (or [Creative Commons Attribution-ShareAlike](https://creativecommons.org/licenses/by-sa/4.0/) (CC-BY-SA) are other options you could consider.
+:::
+
+::: {.callout-caution appearance="minimal"}
+#### Using licensed works by others
+
+If you are using or adapting code or data from other projects, make sure you credit those projects on your README and clarify the the project repository includes material available under a different license than the license you selected for your own work. In some cases you may be required to use a specific license, such as GPL or CC-BY-SA, if you are making substantial use of an existing work published under that license.
+
+See the [Licensing](https://r-pkgs.org/license.html) chapter from [R Packages](https://r-pkgs.org/) by Hadley Wickham, the [choosealicense.com](https://choosealicense.com/) website from GitHub, or this [guide on Considerations for licensors](https://wiki.creativecommons.org/wiki/Considerations_for_licensors_and_licensees#Considerations_for_licensors) from Creative Commons more detailed guidance on this topic.
+:::
