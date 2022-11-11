@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.2.267">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Building Spatial Datasets - How to do common tasks for the class with RStudio</title>
+<title>Building Spatial Datasets - How to use RStudio during this course</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -136,13 +136,15 @@ div.csl-indent {
     "search-submit-button-title": "Submit"
   }
 }</script><link rel="stylesheet" href="../styles.css">
-<meta property="og:title" content="Building Spatial Datasets - How to do common tasks for the class with RStudio">
+<meta property="og:title" content="Building Spatial Datasets - How to use RStudio during this course">
+<meta property="og:description" content="In this class, students will use the RStudio IDE to write and excecute R code, manage projects, and interact with GitHub.">
 <meta property="og:image" content="https://elipousson.github.io/bldgspatialdata/files/img/ges600-logo.png">
 <meta property="og:site-name" content="Building Spatial Datasets">
 <meta property="og:locale" content="en_US">
 <meta property="og:image:height" content="1254">
 <meta property="og:image:width" content="1180">
-<meta name="twitter:title" content="Building Spatial Datasets - How to do common tasks for the class with RStudio">
+<meta name="twitter:title" content="Building Spatial Datasets - How to use RStudio during this course">
+<meta name="twitter:description" content="In this class, students will use the RStudio IDE to write and excecute R code, manage projects, and interact with GitHub.">
 <meta name="twitter:image" content="https://elipousson.github.io/bldgspatialdata/files/img/ges600-logo.png">
 <meta name="twitter:creator" content="\@elipousson">
 <meta name="twitter:card" content="summary_large_image">
@@ -200,14 +202,28 @@ div.csl-indent {
 <li><a href="#create-a-new-project" id="toc-create-a-new-project" class="nav-link" data-scroll-target="#create-a-new-project">Create a new project</a></li>
   <li><a href="#connect-your-new-project-to-github" id="toc-connect-your-new-project-to-github" class="nav-link" data-scroll-target="#connect-your-new-project-to-github">Connect your new project to GitHub</a></li>
   <li><a href="#add-a-readme-and-a-license-to-your-project" id="toc-add-a-readme-and-a-license-to-your-project" class="nav-link" data-scroll-target="#add-a-readme-and-a-license-to-your-project">Add a README and a license to your project</a></li>
-  <li><a href="#add-and-organize-files-in-your-project" id="toc-add-and-organize-files-in-your-project" class="nav-link" data-scroll-target="#add-and-organize-files-in-your-project">Add and organize files in your project</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#adding-and-organizing-files-within-a-project" id="toc-adding-and-organizing-files-within-a-project" class="nav-link" data-scroll-target="#adding-and-organizing-files-within-a-project">Adding and organizing files within a project</a>
+  <ul class="collapse">
+<li><a href="#adding-new-files-to-your-project" id="toc-adding-new-files-to-your-project" class="nav-link" data-scroll-target="#adding-new-files-to-your-project">Adding new files to your project</a></li>
+  <li><a href="#organizing-files-for-data-analysis-projects" id="toc-organizing-files-for-data-analysis-projects" class="nav-link" data-scroll-target="#organizing-files-for-data-analysis-projects">Organizing files for data analysis projects</a></li>
+  <li><a href="#organizing-files-for-quarto-websites-or-blogs" id="toc-organizing-files-for-quarto-websites-or-blogs" class="nav-link" data-scroll-target="#organizing-files-for-quarto-websites-or-blogs">Organizing files for Quarto websites or blogs</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#formatting-your-r-code-and-rmarkdown-and-quarto-documents" id="toc-formatting-your-r-code-and-rmarkdown-and-quarto-documents" class="nav-link" data-scroll-target="#formatting-your-r-code-and-rmarkdown-and-quarto-documents">Formatting your R code and RMarkdown and Quarto documents</a>
+  <ul class="collapse">
+<li><a href="#tips-for-formatting-r-scripts" id="toc-tips-for-formatting-r-scripts" class="nav-link" data-scroll-target="#tips-for-formatting-r-scripts">Tips for formatting R scripts</a></li>
+  <li><a href="#tips-for-formatting-rmarkdown-and-quarto-documents" id="toc-tips-for-formatting-rmarkdown-and-quarto-documents" class="nav-link" data-scroll-target="#tips-for-formatting-rmarkdown-and-quarto-documents">Tips for formatting RMarkdown and Quarto documents</a></li>
   </ul>
 </li>
   </ul></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title">How to do common tasks for the class with RStudio</h1>
+<h1 class="title">How to use RStudio during this course</h1>
   <div class="quarto-categories">
     <div class="quarto-category">resource</div>
   </div>
@@ -223,18 +239,27 @@ div.csl-indent {
   </div>
   
 
-</header><section id="setting-up-a-new-project-and-adding-it-to-the-course-github-organization" class="level2"><h2 class="anchored" data-anchor-id="setting-up-a-new-project-and-adding-it-to-the-course-github-organization">Setting up a new project and adding it to the course GitHub organization</h2>
+</header><p>In this class, students will use the <a href="https://posit.co/products/open-source/rstudio/">RStudio IDE</a> to write and excecute R code, manage projects, and interact with GitHub. This guide provides instructions on how to use RStudio to complete some common tasks.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="https://posit.co/wp-content/uploads/2022/10/rstudio-ide-1.pdf"><img src="images/Screen Shot 2022-11-11 at 3.14.12 PM.png" class="img-fluid figure-img"></a></p>
+<p></p><figcaption class="figure-caption">RStudio IDE Cheatsheet</figcaption><p></p>
+</figure>
+</div>
+<section id="setting-up-a-new-project-and-adding-it-to-the-course-github-organization" class="level2"><h2 class="anchored" data-anchor-id="setting-up-a-new-project-and-adding-it-to-the-course-github-organization">Setting up a new project and adding it to the course GitHub organization</h2>
 <section id="create-a-new-project" class="level3"><h3 class="anchored" data-anchor-id="create-a-new-project">Create a new project</h3>
 <p>Go to File &gt; New Project… and select New Project.</p>
-<p>Using the “New Project Wizard” select “New Directory” and then “Quarto Project” (or another type if I have recommended a different initial setup).</p>
-<div class="callout-important callout callout-style-simple no-icon">
-<div class="callout-body d-flex">
+<p>Using the “New Project Wizard” select “New Directory” and then select a project type. For the final project, I recommend students select “Quarto Project” unless we have discussed a different approach.</p>
+<div class="callout-important callout callout-style-simple callout-captioned">
+<div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
+<i class="callout-icon"></i>
 </div>
-<div class="callout-body-container">
+<div class="callout-caption-container flex-fill">
+Installing Quarto
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>If “Quarto Project” is not an available option, you likely have not installed Quarto. You should quit RStudio, <a href="https://quarto.org/docs/get-started/">download and install Quarto</a>, then re-open RStudio and start again.</p>
-</div>
 </div>
 </div>
 <div class="quarto-figure quarto-figure-center">
@@ -243,10 +268,10 @@ div.csl-indent {
 </figure>
 </div>
 <p>Fill in the directory name with a short descriptive project name, e.g.&nbsp;“explorebaltimorebirds”.</p>
-<div class="callout-tip callout callout-style-simple no-icon">
+<div class="callout-tip callout callout-style-simple">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
+<i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
 <p>Make sure to avoid using any spaces in your project name. Your project name is also going to be the name used for your project repository.</p>
@@ -260,6 +285,7 @@ div.csl-indent {
 </div>
 <p>Your new project should open in the RStudio IDE.</p>
 </section><section id="connect-your-new-project-to-github" class="level3"><h3 class="anchored" data-anchor-id="connect-your-new-project-to-github">Connect your new project to GitHub</h3>
+<p>The following functions can be run directly in the Console pane—you don’t need to save them in an R script or document.</p>
 <p>Install the <a href="https://usethis.r-lib.org/">usethis package</a> then restart R. If you already have the use this package installed you can skip this step.</p>
 <div class="cell">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"usethis"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -272,10 +298,10 @@ div.csl-indent {
 <div class="cell">
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://usethis.r-lib.org/reference/git_sitrep.html">git_sitrep</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="callout-tip callout callout-style-simple no-icon">
+<div class="callout-tip callout callout-style-simple">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
+<i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
 <p>If you see any error messages, review the instructions from <a href="https://happygitwithr.com/index.html">Happy Git and GitHub for the useR</a> on <a href="https://happygitwithr.com/index.html">getting started with Git</a> or <a href="https://happygitwithr.com/connect-intro.html">connecting your GitHub account to RStudio</a>.</p>
@@ -295,38 +321,42 @@ div.csl-indent {
 </div>
 <p>If this works, the results in your console should look something like this:</p>
 <p><img src="images/Screen Shot 2022-11-09 at 1.10.09 PM.png" class="img-fluid"></p>
-<div class="callout-tip callout callout-style-simple no-icon">
+<p>The repository is public by default. If you want to create a private repository which would not be visible to the public or to other students, set <code>private = TRUE</code>.</p>
+<div class="cell">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_github.html">use_github</a></span><span class="op">(</span>organisation <span class="op">=</span> <span class="st">"bldgspatialdata22"</span>, private <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout-tip callout callout-style-simple">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
+<i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
 <p>If you have multiple GitHub accounts, make sure you use the <em>same</em> GitHub account that belongs to the course organization. Make sure you accepted the invitation to join the course organization. If you are not able to set up a new project, message Eli on Discord to double-check your permissions and send a new invitation to join the course repository if needed.</p>
 </div>
 </div>
 </div>
-<p>You can now add your project proposal and other files to the repository. Make sure to commit any changes to the repository using the Git pane within RStudio or using the GitHub Desktop application.</p>
+<p>You can now add your project proposal and other files to the repository. Make sure to commit any changes to the repository using the Git pane within RStudio or using GitHub Desktop or another desktop application that works with GitHub.</p>
 </section><section id="add-a-readme-and-a-license-to-your-project" class="level3"><h3 class="anchored" data-anchor-id="add-a-readme-and-a-license-to-your-project">Add a README and a license to your project</h3>
 <p>Add a README to your project. Use the <code><a href="https://usethis.r-lib.org/reference/use_readme_rmd.html">use_readme_rmd()</a></code> function to create creating a README with RMarkdown.</p>
 <div class="cell">
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_readme_rmd.html">use_readme_rmd</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_readme_rmd.html">use_readme_rmd</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="callout-tip callout callout-style-simple no-icon callout-captioned">
+<div class="callout-tip callout callout-style-simple callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
+<i class="callout-icon"></i>
 </div>
 <div class="callout-caption-container flex-fill">
 Updating your README
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Creating a README with RMarkdown allows you to include executable code chunks in your README. You should render your README as a Markdown file using the <code><a href="https://devtools.r-lib.org/reference/build_rmd.html">devtools::build_readme()</a></code> function any time you make changes.</p>
+<p>Creating a README with RMarkdown allows you to include executable code chunks in your README. You should render your README as a GitHub format Markdown file with <code>knitr::knit("README.Rmd")</code> (or <code><a href="https://devtools.r-lib.org/reference/build_rmd.html">devtools::build_readme()</a></code> if your project is an R package) any time you make changes.</p>
 </div>
 </div>
 <p>Select a license and add it to your project using any of the license functions from usethis.</p>
 <div class="cell">
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://usethis.r-lib.org/reference/licenses.html">use_mit_license</a></span><span class="op">(</span><span class="st">"Your Name Here"</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://usethis.r-lib.org/reference/licenses.html">use_mit_license</a></span><span class="op">(</span><span class="st">"Your Name Here"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://usethis.r-lib.org/reference/licenses.html">use_cc0_license</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
@@ -334,10 +364,10 @@ Updating your README
 <span></span>
 <span><span class="fu"><a href="https://usethis.r-lib.org/reference/licenses.html">use_ccby_license</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="callout-tip callout callout-style-simple no-icon callout-captioned">
+<div class="callout-tip callout callout-style-simple callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
+<i class="callout-icon"></i>
 </div>
 <div class="callout-caption-container flex-fill">
 Selecting a license
@@ -347,10 +377,10 @@ Selecting a license
 <p>The <a href="https://mit-license.org/">MIT license</a> is common license for many R packages and other open-source projects. Open data is often published using a <a href="https://creativecommons.org/share-your-work/public-domain/cc0/">Creative Commons Zero</a> (CC0) or “No Rights Reserved” license. The <a href="https://www.gnu.org/licenses/gpl-3.0.en.html">GNU General Public License</a> (GPL3), <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution</a> (CC-BY) license (or <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike</a> (CC-BY-SA) are other options you could consider.</p>
 </div>
 </div>
-<div class="callout-important callout callout-style-simple no-icon callout-captioned">
+<div class="callout-important callout callout-style-simple callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
+<i class="callout-icon"></i>
 </div>
 <div class="callout-caption-container flex-fill">
 Using licensed works by others
@@ -361,10 +391,11 @@ Using licensed works by others
 <p>See the <a href="https://r-pkgs.org/license.html">Licensing</a> chapter from <a href="https://r-pkgs.org/">R Packages</a> by Hadley Wickham, the <a href="https://choosealicense.com/">choosealicense.com</a> website from GitHub, or this <a href="https://wiki.creativecommons.org/wiki/Considerations_for_licensors_and_licensees#Considerations_for_licensors">guide on Considerations for licensors</a> from Creative Commons more detailed guidance on this topic.</p>
 </div>
 </div>
-</section><section id="add-and-organize-files-in-your-project" class="level3"><h3 class="anchored" data-anchor-id="add-and-organize-files-in-your-project">Add and organize files in your project</h3>
+</section></section><section id="adding-and-organizing-files-within-a-project" class="level2"><h2 class="anchored" data-anchor-id="adding-and-organizing-files-within-a-project">Adding and organizing files within a project</h2>
+<section id="adding-new-files-to-your-project" class="level3"><h3 class="anchored" data-anchor-id="adding-new-files-to-your-project">Adding new files to your project</h3>
 <p>Using the <strong>File &gt; New File &gt; ..</strong>. menu option you can create a files including Quarto documents and presentations, RMarkdown documents, R scripts, plain Markdown files, and many others.</p>
-<p>Once you create the file you will want to save the file within your project folder or subfolders. There are different ways of organizing an RStudio project depending on whether you are creating a website, a blog, an R package, or something different.</p>
-<section id="organizing-files-for-data-analysis-projects" class="level4"><h4 class="anchored" data-anchor-id="organizing-files-for-data-analysis-projects">Organizing files for data analysis projects</h4>
+<p>Once you create the file you will want to save the file within your project folder or subfolders. There are different ways of organizing an RStudio project depending on whether you are creating a website, a blog, an R package, or something different. Continue on to the next “how to” for more information on organizing files within a project.</p>
+</section><section id="organizing-files-for-data-analysis-projects" class="level3"><h3 class="anchored" data-anchor-id="organizing-files-for-data-analysis-projects">Organizing files for data analysis projects</h3>
 <p>There are some common conventions that people who use R have adopted to make file organization more predictable and easy to understand. Some of these conventions are based on the requirements for creating R packages which is one approach that is used for sharing data or interactive applications.</p>
 <p>Common folders that are also used in R packages include:</p>
 <ul>
@@ -380,19 +411,19 @@ Using licensed works by others
 </ul>
 <p>The <code><a href="https://usethis.r-lib.org/reference/use_r.html">use_r()</a></code> function is a convenient way to create an R folder and a script.</p>
 <div class="cell">
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_r.html">use_r</a></span><span class="op">(</span><span class="st">"your-script-name"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_r.html">use_r</a></span><span class="op">(</span><span class="st">"your-script-name"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="callout-tip callout callout-style-simple no-icon">
+<div class="callout-tip callout callout-style-simple">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
+<i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
 <p>Review the Ch. 4 <a href="https://csgillespie.github.io/efficientR/workflow.html">Efficient workflow</a> in <span class="citation" data-cites="gillespieEfficientProgramming2021">Gillespie and Lovelace (<a href="#ref-gillespieEfficientProgramming2021" role="doc-biblioref">2021</a>)</span> for a more general overview of project planning with R.</p>
 </div>
 </div>
 </div>
-</section><section id="organizing-files-for-quarto-websites-or-blogs" class="level4"><h4 class="anchored" data-anchor-id="organizing-files-for-quarto-websites-or-blogs">Organizing files for Quarto websites or blogs</h4>
+</section><section id="organizing-files-for-quarto-websites-or-blogs" class="level3"><h3 class="anchored" data-anchor-id="organizing-files-for-quarto-websites-or-blogs">Organizing files for Quarto websites or blogs</h3>
 <div class="callout-important callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -406,10 +437,38 @@ Important
 <p>This section of the guide is coming soon! Check out <a href="https://quarto.org/docs/websites/">the Quarto guide to creating a website</a> for more information and look out for updates.</p>
 </div>
 </div>
+</section></section><section id="formatting-your-r-code-and-rmarkdown-and-quarto-documents" class="level2"><h2 class="anchored" data-anchor-id="formatting-your-r-code-and-rmarkdown-and-quarto-documents">Formatting your R code and RMarkdown and Quarto documents</h2>
+<div class="callout-tip callout callout-style-simple callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Use the tidyverse style guide
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><a href="https://style.tidyverse.org/">The tidyverse style guide</a> is a helpful resource for learning more about code style. The guide recommends the <a href="https://styler.r-lib.org/">styler package</a> and the <a href="https://github.com/jimhester/lintr">lintr</a> package for performing automated checks on code style.</p>
+</div>
+</div>
+<section id="tips-for-formatting-r-scripts" class="level3"><h3 class="anchored" data-anchor-id="tips-for-formatting-r-scripts">Tips for formatting R scripts</h3>
+<ul>
+<li>Consolidate <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> calls at the top of your script or in a chunk labelled “setup” that you keep at the top of your document.</li>
+<li>Avoid including <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages()</a></code> or any other functions like <code><a href="https://usethis.r-lib.org/reference/use_git.html">usethis::use_git()</a></code> in your code or code chunks. These functions are designed to be run just once for your document, script, or project—not re-run every time the script is run or the document is knit or rendered.</li>
+<li>Never include API keys or other “secrets” in your code. Many packages that rely on an API key to access data have functions (e.g.&nbsp;<code><a href="https://walker-data.com/tidycensus/reference/census_api_key.html">tidycensus::census_api_key()</a></code> or <code><a href="https://rdrr.io/pkg/mapboxapi/man/mb_access_token.html">mapboxapi::mb_access_token()</a></code>) that let you save the key or token locally and retrieve the key from a profile file that is never part of your repository.</li>
+<li>If you have the <a href="https://styler.r-lib.org/">styler package</a> installed, you can use the Addins drop-down in RStudio to run the Style active file command (or run <code>styler:::style_active_file()</code> in the Console pane) and format your code anytime you finish a work session.</li>
+<li>When writing a comment in an R script or code chunk, keep a space between the comment character and the comment, e.g.&nbsp;<code># Correctly formatted comment</code> vs.&nbsp;<code>#Incorrectly formatted comment</code>.</li>
+<li>Code with shorter lines is easier to read and understand. When you have a function with a large number of parameters, consider putting each parameter on a separate line.</li>
+</ul></section><section id="tips-for-formatting-rmarkdown-and-quarto-documents" class="level3"><h3 class="anchored" data-anchor-id="tips-for-formatting-rmarkdown-and-quarto-documents">Tips for formatting RMarkdown and Quarto documents</h3>
+<ul>
+<li>When you include code (like a function name or list of parameters) in the text of your document wrap the code in back ticks <code>``</code> (in the Source view) or select Format &gt; Code (in the Visual view) to apply appropriate formatting.</li>
+<li>When using comments within a code chunk or cell, focus on explaining the <em>why</em> of your code—not what results you get. Any summary or interpretation of your results should appear in the text before or after your code chunks not within the chunk itself. You can also use a table or plot function to show the output on execution.</li>
+<li>Always include a space between a heading tag and the heading text, , e.g.&nbsp;<code>## Correct Heading Formatting</code> vs.&nbsp;<code>##Incorrect Heading Formatting</code>.</li>
+</ul>
 
 
 
-</section></section></section><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+</section></section><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
 <div id="ref-gillespieEfficientProgramming2021" class="csl-entry" role="doc-biblioentry">
 Gillespie, Colin, and Robin Lovelace. 2021. <em>Efficient <span>R Programming</span></em>. <span>O’Reilly Media</span>. <a href="https://csgillespie.github.io/efficientR/">https://csgillespie.github.io/efficientR/</a>.
 </div>
