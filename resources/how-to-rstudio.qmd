@@ -1,8 +1,12 @@
 ---
-title: "How to do common tasks for the class with RStudio"
+title: "How to use RStudio during this course"
 execute: 
   eval: false
 ---
+
+In this class, students will use the [RStudio IDE](https://posit.co/products/open-source/rstudio/) to write and excecute R code, manage projects, and interact with GitHub. This guide provides instructions on how to use RStudio to complete some common tasks.
+
+[![RStudio IDE Cheatsheet](images/Screen%20Shot%202022-11-11%20at%203.14.12%20PM.png)](https://posit.co/wp-content/uploads/2022/10/rstudio-ide-1.pdf)
 
 ## Setting up a new project and adding it to the course GitHub organization
 
@@ -10,9 +14,11 @@ execute:
 
 Go to File \> New Project... and select New Project.
 
-Using the "New Project Wizard" select "New Directory" and then "Quarto Project" (or another type if I have recommended a different initial setup).
+Using the "New Project Wizard" select "New Directory" and then select a project type. For the final project, I recommend students select "Quarto Project" unless we have discussed a different approach.
 
 ::: {.callout-important appearance="minimal"}
+#### Installing Quarto
+
 If "Quarto Project" is not an available option, you likely have not installed Quarto. You should quit RStudio, [download and install Quarto](https://quarto.org/docs/get-started/), then re-open RStudio and start again.
 :::
 
@@ -29,6 +35,8 @@ Make sure to avoid using any spaces in your project name. Your project name is a
 Your new project should open in the RStudio IDE.
 
 ### Connect your new project to GitHub
+
+The following functions can be run directly in the Console pane---you don't need to save them in an R script or document.
 
 Install the [usethis package](https://usethis.r-lib.org/) then restart R. If you already have the use this package installed you can skip this step.
 
@@ -75,11 +83,17 @@ If this works, the results in your console should look something like this:
 
 ![](images/Screen%20Shot%202022-11-09%20at%201.10.09%20PM.png)
 
+The repository is public by default. If you want to create a private repository which would not be visible to the public or to other students, set `private = TRUE`.
+
+```{r}
+use_github(organisation = "bldgspatialdata22", private = TRUE)
+```
+
 ::: {.callout-tip appearance="minimal"}
 If you have multiple GitHub accounts, make sure you use the *same* GitHub account that belongs to the course organization. Make sure you accepted the invitation to join the course organization. If you are not able to set up a new project, message Eli on Discord to double-check your permissions and send a new invitation to join the course repository if needed.
 :::
 
-You can now add your project proposal and other files to the repository. Make sure to commit any changes to the repository using the Git pane within RStudio or using the GitHub Desktop application.
+You can now add your project proposal and other files to the repository. Make sure to commit any changes to the repository using the Git pane within RStudio or using GitHub Desktop or another desktop application that works with GitHub.
 
 ### Add a README and a license to your project
 
@@ -92,7 +106,7 @@ use_readme_rmd()
 ::: {.callout-tip appearance="minimal"}
 #### Updating your README
 
-Creating a README with RMarkdown allows you to include executable code chunks in your README. You should render your README as a Markdown file using the `devtools::build_readme()` function any time you make changes.
+Creating a README with RMarkdown allows you to include executable code chunks in your README. You should render your README as a Markdown file with `knitr::knit("README.Rmd")` (or `devtools::build_readme()` if your project is an R package) any time you make changes.
 :::
 
 Select a license and add it to your project using any of the license functions from usethis.
@@ -121,13 +135,15 @@ If you are using or adapting code or data from other projects, make sure you cre
 See the [Licensing](https://r-pkgs.org/license.html) chapter from [R Packages](https://r-pkgs.org/) by Hadley Wickham, the [choosealicense.com](https://choosealicense.com/) website from GitHub, or this [guide on Considerations for licensors](https://wiki.creativecommons.org/wiki/Considerations_for_licensors_and_licensees#Considerations_for_licensors) from Creative Commons more detailed guidance on this topic.
 :::
 
-### Add and organize files in your project
+## Adding and organizing files within a project
+
+### Adding new files to your project
 
 Using the **File \> New File \> ..**. menu option you can create a files including Quarto documents and presentations, RMarkdown documents, R scripts, plain Markdown files, and many others.
 
-Once you create the file you will want to save the file within your project folder or subfolders. There are different ways of organizing an RStudio project depending on whether you are creating a website, a blog, an R package, or something different.
+Once you create the file you will want to save the file within your project folder or subfolders. There are different ways of organizing an RStudio project depending on whether you are creating a website, a blog, an R package, or something different. Continue on to the next "how to" for more information on organizing files within a project.
 
-#### Organizing files for data analysis projects
+### Organizing files for data analysis projects
 
 There are some common conventions that people who use R have adopted to make file organization more predictable and easy to understand. Some of these conventions are based on the requirements for creating R packages which is one approach that is used for sharing data or interactive applications.
 
@@ -150,8 +166,25 @@ use_r("your-script-name")
 Review the Ch. 4 [Efficient workflow](https://csgillespie.github.io/efficientR/workflow.html) in @gillespieEfficientProgramming2021 for a more general overview of project planning with R.
 :::
 
-#### Organizing files for Quarto websites or blogs 
+### Organizing files for Quarto websites or blogs
 
 ::: callout-important
 This section of the guide is coming soon! Check out [the Quarto guide to creating a website](https://quarto.org/docs/websites/) for more information and look out for updates.
 :::
+
+## Formatting your R code and RMarkdown and Quarto documents
+
+### Tips for formatting R scripts
+
+-   Consolidate `library()` calls at the top of your script or in a chunk labelled "setup" that you keep at the top of your document.
+-   Avoid including `install.packages()` or any other functions like `usethis::use_git()` in your code or code chunks. These functions are designed to be run just once for your document, script, or project---not re-run every time the script is run or the document is knit or rendered.
+-   Never include API keys or other "secrets" in your code. Many packages that rely on an API key to access data have functions (e.g. `tidycensus::census_api_key()` or `mapboxapi::mb_access_token()`) that let you save the key or token locally and retrieve the key from a profile file that is never part of your repository.
+-   Install the styler package and then use the Addins drop-down in RStudio to run the Style active file command (or run `styler:::style_active_file()` in the Console pane).
+-   When writing a comment in an R script or code chunk, keep a space between the comment character and the comment, e.g. `# Correctly formatted comment` vs. `#Incorrectly formatted comment`.
+-   Code with shorter lines is easier to read and understand. When writing a function call with a large number of parameters, put each parameter on a separate line.
+
+### Tips for formatting RMarkdown and Quarto documents
+
+-   When you include code (like a function name or list of parameters) in the text of your document wrap the code in back ticks ``` `` ``` (in the Source view) or select Format \> Code (in the Visual view) to apply appropriate formatting.
+-   When using comments within a code chunk or cell, focus on explaining the *why* of your code---not what results you get. Any summary or interpretation of your results should appear in the text before or after your code chunks not within the chunk itself. You can also use a table or plot function to show the output on execution.
+-   Always have a space between a heading tag, e.g. `##` and the heading text.
