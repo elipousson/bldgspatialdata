@@ -44,8 +44,6 @@ Your project should either:
 
 If you are creating or collecting data, your scope for other aspects of the project may need to be more limited in order to allow adequate time to design your data collection tools.
 
-In all cases, your selection
-
 ### Selecting your project format
 
 You are welcome to explore a wide range of possible formats for your final project:
