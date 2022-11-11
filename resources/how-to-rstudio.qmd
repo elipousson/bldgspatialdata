@@ -16,7 +16,7 @@ Go to File \> New Project... and select New Project.
 
 Using the "New Project Wizard" select "New Directory" and then select a project type. For the final project, I recommend students select "Quarto Project" unless we have discussed a different approach.
 
-::: {.callout-important appearance="minimal"}
+::: {.callout-important appearance="simple"}
 #### Installing Quarto
 
 If "Quarto Project" is not an available option, you likely have not installed Quarto. You should quit RStudio, [download and install Quarto](https://quarto.org/docs/get-started/), then re-open RStudio and start again.
@@ -26,7 +26,7 @@ If "Quarto Project" is not an available option, you likely have not installed Qu
 
 Fill in the directory name with a short descriptive project name, e.g. "explorebaltimorebirds".
 
-::: {.callout-tip appearance="minimal"}
+::: {.callout-tip appearance="simple"}
 Make sure to avoid using any spaces in your project name. Your project name is also going to be the name used for your project repository.
 :::
 
@@ -57,7 +57,7 @@ Use the `git_sitrep()` function to check that you have GitHub set up correctly.
 git_sitrep()
 ```
 
-::: {.callout-tip appearance="minimal"}
+::: {.callout-tip appearance="simple"}
 If you see any error messages, review the instructions from [Happy Git and GitHub for the useR](https://happygitwithr.com/index.html) on [getting started with Git](https://happygitwithr.com/index.html) or [connecting your GitHub account to RStudio](https://happygitwithr.com/connect-intro.html).
 :::
 
@@ -89,7 +89,7 @@ The repository is public by default. If you want to create a private repository 
 use_github(organisation = "bldgspatialdata22", private = TRUE)
 ```
 
-::: {.callout-tip appearance="minimal"}
+::: {.callout-tip appearance="simple"}
 If you have multiple GitHub accounts, make sure you use the *same* GitHub account that belongs to the course organization. Make sure you accepted the invitation to join the course organization. If you are not able to set up a new project, message Eli on Discord to double-check your permissions and send a new invitation to join the course repository if needed.
 :::
 
@@ -103,10 +103,10 @@ Add a README to your project. Use the `use_readme_rmd()` function to create crea
 use_readme_rmd()
 ```
 
-::: {.callout-tip appearance="minimal"}
+::: {.callout-tip appearance="simple"}
 #### Updating your README
 
-Creating a README with RMarkdown allows you to include executable code chunks in your README. You should render your README as a Markdown file with `knitr::knit("README.Rmd")` (or `devtools::build_readme()` if your project is an R package) any time you make changes.
+Creating a README with RMarkdown allows you to include executable code chunks in your README. You should render your README as a GitHub format Markdown file with `knitr::knit("README.Rmd")` (or `devtools::build_readme()` if your project is an R package) any time you make changes.
 :::
 
 Select a license and add it to your project using any of the license functions from usethis.
@@ -121,13 +121,13 @@ use_gpl3_license()
 use_ccby_license()
 ```
 
-::: {.callout-tip appearance="minimal"}
+::: {.callout-tip appearance="simple"}
 #### Selecting a license
 
 The [MIT license](https://mit-license.org/) is common license for many R packages and other open-source projects. Open data is often published using a [Creative Commons Zero](https://creativecommons.org/share-your-work/public-domain/cc0/) (CC0) or "No Rights Reserved" license. The [GNU General Public License](https://www.gnu.org/licenses/gpl-3.0.en.html) (GPL3), [Creative Commons Attribution](https://creativecommons.org/licenses/by/4.0/) (CC-BY) license (or [Creative Commons Attribution-ShareAlike](https://creativecommons.org/licenses/by-sa/4.0/) (CC-BY-SA) are other options you could consider.
 :::
 
-::: {.callout-important appearance="minimal"}
+::: {.callout-important appearance="simple"}
 #### Using licensed works by others
 
 If you are using or adapting code or data from other projects, make sure you credit those projects on your README and clarify the the project repository includes material available under a different license than the license you selected for your own work. In some cases you may be required to use a specific license, such as GPL or CC-BY-SA, if you are making substantial use of an existing work published under that license.
@@ -162,7 +162,7 @@ The `use_r()` function is a convenient way to create an R folder and a script.
 use_r("your-script-name")
 ```
 
-::: {.callout-tip appearance="minimal"}
+::: {.callout-tip appearance="simple"}
 Review the Ch. 4 [Efficient workflow](https://csgillespie.github.io/efficientR/workflow.html) in @gillespieEfficientProgramming2021 for a more general overview of project planning with R.
 :::
 
@@ -174,17 +174,23 @@ This section of the guide is coming soon! Check out [the Quarto guide to creatin
 
 ## Formatting your R code and RMarkdown and Quarto documents
 
+::: {.callout-tip appearance="simple"}
+#### Use the tidyverse style guide
+
+[The tidyverse style guide](https://style.tidyverse.org/) is a helpful resource for learning more about code style. The guide recommends the [styler package](https://styler.r-lib.org/) and the [lintr](https://github.com/jimhester/lintr) package for performing automated checks on code style.
+:::
+
 ### Tips for formatting R scripts
 
 -   Consolidate `library()` calls at the top of your script or in a chunk labelled "setup" that you keep at the top of your document.
 -   Avoid including `install.packages()` or any other functions like `usethis::use_git()` in your code or code chunks. These functions are designed to be run just once for your document, script, or project---not re-run every time the script is run or the document is knit or rendered.
 -   Never include API keys or other "secrets" in your code. Many packages that rely on an API key to access data have functions (e.g. `tidycensus::census_api_key()` or `mapboxapi::mb_access_token()`) that let you save the key or token locally and retrieve the key from a profile file that is never part of your repository.
--   Install the styler package and then use the Addins drop-down in RStudio to run the Style active file command (or run `styler:::style_active_file()` in the Console pane).
+-   If you have the [styler package](https://styler.r-lib.org/) installed, you can use the Addins drop-down in RStudio to run the Style active file command (or run `styler:::style_active_file()` in the Console pane) and format your code anytime you finish a work session.
 -   When writing a comment in an R script or code chunk, keep a space between the comment character and the comment, e.g. `# Correctly formatted comment` vs. `#Incorrectly formatted comment`.
--   Code with shorter lines is easier to read and understand. When writing a function call with a large number of parameters, put each parameter on a separate line.
+-   Code with shorter lines is easier to read and understand. When you have a function with a large number of parameters, consider putting each parameter on a separate line.
 
 ### Tips for formatting RMarkdown and Quarto documents
 
 -   When you include code (like a function name or list of parameters) in the text of your document wrap the code in back ticks ``` `` ``` (in the Source view) or select Format \> Code (in the Visual view) to apply appropriate formatting.
 -   When using comments within a code chunk or cell, focus on explaining the *why* of your code---not what results you get. Any summary or interpretation of your results should appear in the text before or after your code chunks not within the chunk itself. You can also use a table or plot function to show the output on execution.
--   Always have a space between a heading tag, e.g. `##` and the heading text.
+-   Always include a space between a heading tag and the heading text, , e.g. `## Correct Heading Formatting` vs. `##Incorrect Heading Formatting`.
